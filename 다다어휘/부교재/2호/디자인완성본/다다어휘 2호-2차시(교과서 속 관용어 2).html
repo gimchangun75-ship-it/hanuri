@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>다다어휘 2호 2차시 교과서 속 관용어 2</title>
+  <style>
+  @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap");
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  @page { size: A4 portrait; margin: 0; }
+  body {
+    font-family: "Noto Sans KR", sans-serif;
+    background: #f0f2f5;
+    color: #222;
+    margin: 0;
+    padding: 0;
+    letter-spacing: -0.3px;
+  }
+  .page {
+    width: 210mm;
+    height: 297mm;
+    max-height: 297mm;
+    margin: 0 auto;
+    padding: 10mm 14mm 8mm 14mm;
+    background: #fff;
+    box-sizing: border-box;
+    overflow: hidden;
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+  }
+  @media print {
+    body { background: none; margin: 0; padding: 0; }
+    .page { margin: 0; box-shadow: none; border-radius: 0; page-break-after: always; width: 210mm; height: 297mm; max-height: 297mm; overflow: hidden; }
+  }
+  .top-banner {
+    background: #F3D8E1;
+    border-radius: 6px;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .banner-left .unit { font-size: 12px; color: #8A4060; font-weight: 500; }
+  .banner-left .title { font-size: 16px; color: #4A152D; font-weight: 700; margin-top: 1px; }
+  .banner-right .name-box { font-size: 13px; color: #4A152D; font-weight: 500; border-bottom: 1.5px solid #A8285C; padding-bottom: 1px; min-width: 140px; text-align: center; }
+  .badge-row { display: flex; align-items: center; gap: 8px; margin: 6px 0 8px 0; }
+  .badge { background: #A8285C; color: #fff; font-weight: 700; font-size: 13px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; border-radius: 4px; flex-shrink: 0; }
+  .badge-inst { font-size: 13px; font-weight: 700; color: #333; }
+  
+  .q-box { border: 1.5px solid #F3D8E1; border-radius: 6px; padding: 7px 12px; margin-bottom: 7px; background: #fff; }
+  .q-row { display: flex; justify-content: space-between; align-items: center; }
+  .q-text { font-size: 12.5px; line-height: 1.4; color: #222; }
+  .ox-pill { background: #FCF4F7; border: 1.5px solid #F3D8E1; padding: 3px 12px; border-radius: 20px; font-weight: 700; color: #A8285C; font-size: 12px; white-space: nowrap; }
+  .write-box { margin-top: 4px; padding: 4px 8px; background: #fafafa; border-radius: 4px; font-size: 12px; color: #555; text-align: right; border-bottom: 1px dashed #A8285C; }
+  
+  .two-col { display: flex; gap: 14px; margin-top: 6px; }
+  .col { flex: 1; }
+  .match-box { margin-top: 4px; }
+  .match-row { display: flex; align-items: center; justify-content: space-between; font-size: 12px; line-height: 1.35; margin-bottom: 4px; }
+  .match-left { flex: 1; text-align: left; }
+  .match-dots { flex: 0 0 50px; text-align: center; color: #A8285C; font-weight: 700; letter-spacing: 8px; padding-left: 8px; font-size: 11px; }
+  .match-right { flex: 1; text-align: left; }
+  .choice-q { border: 1.5px solid #F3D8E1; border-radius: 6px; padding: 8px 10px; margin-bottom: 8px; background: #fff; }
+  .q-num { font-weight: 700; color: #A8285C; margin-right: 4px; }
+  .q-title { font-size: 12px; font-weight: 700; line-height: 1.35; color: #222; margin-bottom: 4px; }
+  .q-scenario { background: #FCF4F7; padding: 4px 8px; border-radius: 4px; font-size: 11.5px; color: #444; line-height: 1.35; margin-bottom: 4px; }
+  .choices { font-size: 11.5px; line-height: 1.45; color: #444; padding-left: 2px; }
+  
+  .ans-table { width: 100%; border-collapse: collapse; margin-top: 6px; margin-bottom: 8px; }
+  .ans-table th { background: #FCF4F7; color: #A8285C; padding: 4px; border: 1px solid #F3D8E1; font-size: 11.5px; }
+  .ans-table td { padding: 4px 6px; border: 1px solid #F3D8E1; font-size: 11.5px; text-align: center; font-weight: 500; }
+
+  .summary-box { background: #FFF0F5; border: 1.5px solid #E8B4C8; border-radius: 6px; padding: 7px 10px; margin-top: 6px; }
+  .summary-title { font-size: 12px; font-weight: 700; color: #A8285C; margin-bottom: 4px; }
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 10px; }
+  .summary-item { font-size: 10.5px; line-height: 1.3; }
+  .summary-term { font-weight: 700; color: #4A152D; margin-bottom: 1px; }
+  .summary-desc { color: #555; }
+</style>
+</head>
+<body>
+
+  <div class="page">
+    <div class="top-banner">
+      <div class="banner-left"><div class="unit">Unit 02 | 다다어휘 2호</div><div class="title">● 교과서 속 관용어 ②</div></div>
+      <div class="banner-right"><div class="name-box">이름 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>
+    </div>
+    <div class="badge-row"><div class="badge">A</div><div class="badge-inst">문장을 읽고, 《문어잼 3권 ③ 교과서 속 관용어》와 내용이 같으면 ○, 다르면 ×에 표시하세요. (1~5)</div></div>
+    <div class="q-box"><div class="q-row"><div class="q-text"><b>1.</b> ‘물 쓰듯 하다’는 돈이나 물건을 아끼지 않고 함부로 많이 쓴다는 뜻이다.</div><div class="ox-pill">( ○  /  × )</div></div></div>
+    <div class="q-box"><div class="q-row"><div class="q-text"><b>2.</b> ‘입을 모으다’는 여러 사람이 같은 의견을 말한다는 뜻이다.</div><div class="ox-pill">( ○  /  × )</div></div></div>
+    <div class="q-box"><div class="q-row"><div class="q-text"><b>3.</b> ‘귀를 기울이다’는 다른 사람의 말을 주의 깊게 듣는다는 뜻이다.</div><div class="ox-pill">( ○  /  × )</div></div></div>
+    <div class="q-box"><div class="q-row"><div class="q-text"><b>4.</b> ‘눈앞이 캄캄하다’는 너무 기쁘고 즐거워서 어쩔 줄 모른다는 뜻이다.</div><div class="ox-pill">( ○  /  × )</div></div></div>
+    <div class="q-box"><div class="q-row"><div class="q-text"><b>5.</b> ‘손에 땀을 쥐다’는 긴장되거나 조마조마하다는 뜻이다.</div><div class="ox-pill">( ○  /  × )</div></div></div>
+    
+    <div class="badge-row" style="margin-top:16px;"><div class="badge">B</div><div class="badge-inst">문장을 읽고, 알맞은 관용어를 써 보세요. (6~10)</div></div>
+    <div class="q-box"><div class="q-text"><b>6.</b> “누가 내 이야기를 하나? 오늘따라 왜 이렇게 ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )?”</div><div class="write-box">답 : ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )</div></div>
+    <div class="q-box"><div class="q-text"><b>7.</b> “지호야, 방 정리 깔끔하게 하라고 몇 번을 말했니? 아무리 말해도 안 듣고 그대로니 정말 ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ).”</div><div class="write-box">답 : ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )</div></div>
+    <div class="q-box"><div class="q-text"><b>8.</b> 어려운 문제를 풀려고 오랫동안 ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) 마침내 정답을 찾다.</div><div class="write-box">답 : ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )</div></div>
+    <div class="q-box"><div class="q-text"><b>9.</b> 작은 오해 때문에 오랜 친구 사이가 ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ) 먼저 사과했어.</div><div class="write-box">답 : ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )</div></div>
+    <div class="q-box"><div class="q-text"><b>10.</b> 매일 지각하던 지훈이가 1등으로 등교하다니, ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )일이야!</div><div class="write-box">답 : ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )</div></div>
+  </div>
+  <div class="page">
+    <div class="top-banner">
+      <div class="banner-left"><div class="unit">Unit 02 | 다다어휘 2호</div><div class="title">● 교과서 속 관용어 ②</div></div>
+      <div class="banner-right"><div class="name-box">이름 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>
+    </div>
+    <div class="badge-row"><div class="badge">C</div><div class="badge-inst">문제를 읽고 알맞은 답을 골라 보세요. (11~17)</div></div>
+    <div class="two-col" style="margin-top:15px;">
+      <div class="col">
+        <div class="choice-q"><div class="q-title"><span class="q-num">11.</span>축제 준비 때 민수가 "내가 도와줄게!" 하고 제일 먼저 적극적으로 나섰습니다. 이때 민수의 행동은?</div><div class="choices">① 눈치를 보다 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ② 발 벗고 나서다<br>③ 배가 아프다 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ④ 입만 아프다</div></div>
+        <div class="choice-q"><div class="q-title"><span class="q-num">12.</span>준호는 축구 시합에서 이길 거라 자신만만하게 자랑했지만 경기에서 크게 졌다. 친구들은 준호가 ________ 고 말했다.</div><div class="choices">① 귀가 가려졌다고 &nbsp;&nbsp; ② 코가 납작해졌다고<br>③ 눈치를 봤다고 &nbsp;&nbsp;&nbsp;&nbsp; ④ 물 쓰듯 했다고</div></div>
+        <div class="choice-q"><div class="q-title"><span class="q-num">13.</span>선생님의 표정을 살피며 조심스럽게 행동했을 때 쓰는 알맞은 표현은 무엇인가요?</div><div class="choices">① 눈치를 보다 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ② 입을 모으다<br>③ 발 벗고 나서다 &nbsp;&nbsp;&nbsp;&nbsp; ④ 귀를 기울이다</div></div>
+        <div class="choice-q"><div class="q-title"><span class="q-num">14.</span>친구가 선물을 받았다는 소식에 부럽고 질투가 난 지수는 괜히 ( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ).</div><div class="choices">① 배가 아프다 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ② 귀를 기울이다<br>③ 머리를 굴리다 &nbsp;&nbsp;&nbsp;&nbsp; ④ 발 벗고 나서다</div></div>
+      </div>
+      <div class="col">
+        <div class="choice-q"><div class="q-title"><span class="q-num">15.</span>시험 하루 앞두고 아직 공부를 거의 안 한 철수. “이제야 공부하려니 ________.”</div><div class="choices">① 귀가 가렵다 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ② 발등에 불이 떨어졌다<br>③ 코가 높다 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ④ 입을 모았다</div></div>
+        <div class="choice-q"><div class="q-title"><span class="q-num">16.</span>다음 중 관용어의 뜻이 잘못 연결된 것은 무엇인가요?</div><div class="choices">① 코 묻은 돈 – 어린아이가 가진 적은 돈<br>② 발이 넓다 – 신발 치수가 커서 발 크기가 아주 큰 사람<br>③ 코가 높다 – 잘난 체하거나 도도하다<br>④ 하루에도 열두 번 – 상황이 자주 바뀔 때</div></div>
+        <div class="choice-q"><div class="q-title"><span class="q-num">17.</span>다음 중 '코가 꿰이다'의 올바른 뜻은 무엇인가요?</div><div class="choices">① 코 감기에 걸려 콧물이 계속 나온다<br>② 남에게 약점이 잡혀서 마음대로 행동하지 못한다<br>③ 음식을 급하게 먹어서 코로 넘어가다<br>④ 냄새를 아주 잘 맡아 무슨 일인지 금방 알아채다</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="page">
+    <div class="top-banner">
+      <div class="banner-left"><div class="unit">Unit 02 | 다다어휘 2호</div><div class="title">● 교과서 속 관용어 ②</div></div>
+      <div class="banner-right"></div>
+    </div>
+    <div class="badge-row"><div class="badge">★</div><div class="badge-inst">《문어잼 3권 ③ 교과서 속 관용어 2차시》 정답 확인표</div></div>
+    <table class="ans-table">
+      <tr><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+      <tr><td>○</td><td>○</td><td>○</td><td>×</td><td>○</td></tr>
+      <tr><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>
+      <tr><td>귀가 가렵다</td><td>입만 아프다</td><td>머리를 굴리다</td><td>금이 가다</td><td>해가 서쪽에서 뜨다</td></tr>
+      <tr><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th></tr>
+      <tr><td>②</td><td>②</td><td>①</td><td>①</td><td>②</td></tr>
+      <tr><th>16</th><th>17</th><th>-</th><th>-</th><th>-</th></tr>
+      <tr><td>②</td><td>②</td><td>-</td><td>-</td><td>-</td></tr>
+    </table>
+
+    <div class="summary-box">
+      <div class="summary-title">📖 2차시 교과서 핵심 관용어 총정리 사전</div>
+      <div class="summary-grid">
+        <div class="summary-item"><div class="summary-term">발 벗고 나서다</div><div class="summary-desc">어떤 일에 아주 적극적으로 앞장서다.</div></div>
+        <div class="summary-item"><div class="summary-term">코가 납작해지다</div><div class="summary-desc">몹시 무안을 당하거나 기가 팍 꺾이다.</div></div>
+        <div class="summary-item"><div class="summary-term">발등에 불이 떨어지다</div><div class="summary-desc">일이 몹시 절박하게 닥치다.</div></div>
+        <div class="summary-item"><div class="summary-term">코가 꿰이다</div><div class="summary-desc">약점을 잡혀 남의 지시를 거절하지 못하다.</div></div>
+        <div class="summary-item"><div class="summary-term">물 쓰듯 하다</div><div class="summary-desc">돈이나 물건을 아끼지 않고 마구 헤프게 쓰다.</div></div>
+        <div class="summary-item"><div class="summary-term">입을 모으다</div><div class="summary-desc">여러 사람이 같은 의견으로 한목소리를 내다.</div></div>
+        <div class="summary-item"><div class="summary-term">귀를 기울이다</div><div class="summary-desc">남의 이야기나 충고를 주의 깊게 귀담아듣다.</div></div>
+        <div class="summary-item"><div class="summary-term">발이 넓다</div><div class="summary-desc">사귀어 아는 사람이 많아 활동하는 범위가 넓다.</div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

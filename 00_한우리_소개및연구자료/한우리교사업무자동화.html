@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>독서논술 지도교사 업무 지능형 자동화 및 HITL 프레임워크 연구</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js (v4.4.4 고정) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                        accent: {
+                            indigo: '#6366f1',
+                            violet: '#8b5cf6',
+                            rose: '#f43f5e',
+                            amber: '#f59e0b',
+                            slate: '#0f172a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- Sticky Navigation Bar -->
+    <nav class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md text-white border-b border-slate-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <span class="text-2xl">🤖</span>
+                    <span class="font-bold text-lg tracking-tight text-teal-400">EduAuto Research</span>
+                </div>
+                <div class="hidden md:flex space-x-6 text-sm font-medium">
+                    <a href="#overview" class="hover:text-teal-400 transition-colors">직무 현황</a>
+                    <a href="#matrix" class="hover:text-teal-400 transition-colors">자동화 분할 기준</a>
+                    <a href="#tech-stack" class="hover:text-teal-400 transition-colors">핵심 기술 스택</a>
+                    <a href="#hitl-architecture" class="hover:text-teal-400 transition-colors">HITL 제어 구조</a>
+                    <a href="#governance" class="hover:text-teal-400 transition-colors">거버넌스 & 약관</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Header Banner & Title -->
+        <header class="bg-gradient-to-r from-slate-900 via-teal-900 to-indigo-950 text-white rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden">
+            <div class="relative z-10 max-w-3xl space-y-4">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold border border-teal-500/30">
+                    <span>학술 심층 연구 리포트</span>
+                    <span>•</span>
+                    <span>한우리에듀넷 특화 모델</span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                    독서논술 지도교사 업무의<br>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-indigo-300">지능형 자동화 & HITL 협업 프레임워크</span>
+                </h1>
+                <p class="text-slate-300 text-base sm:text-lg leading-relaxed pt-2">
+                    반복적 비수업 행정과 비정형 원고지 수기 첨삭의 부하를 지능적으로 절감하고, 인간 교사의 교육적 통찰과 공감 역량을 극대화하는 인간-인공지능 공존 아키텍처 연구
+                </p>
+            </div>
+        </header>
+
+        <!-- KPI Dashboard Section -->
+        <section id="overview" class="scroll-mt-20 space-y-6">
+            <div class="border-l-4 border-brand-600 pl-4">
+                <h2 class="text-2xl font-bold text-slate-900">1. 지도교사 직무 실태 & 핵심 KPI</h2>
+                <p class="text-slate-600 mt-1">현행 한우리에듀넷 환경에서 교사가 직면한 노동 시간 배분과 인지적 부하 지표 분석</p>
+            </div>
+
+            <div class="bg-teal-50/60 border border-teal-100 rounded-2xl p-5 text-slate-700 text-sm sm:text-base leading-relaxed">
+                지도교사의 업무는 순수 대면 수업보다 사전 교안 맞춤화, 수기 원고지 첨삭, 정기 교재 발주, 학부모 상담 등 비수업 행정에 <strong>약 75%의 노동 시간</strong>이 분산되어 있습니다. 특히 매월 갱신되는 10~15권의 필독서 분석과 아동 손글씨 판독은 교사의 정서적 소진(Burnout)을 가중시키는 주된 요인입니다.
+            </div>
+
+            <!-- KPI Cards Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div class="glass-card rounded-2xl p-6 shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-500 text-xs font-semibold tracking-wider">비수업 업무 비중</span>
+                        <span class="text-2xl">⏱️</span>
+                    </div>
+                    <div class="mt-4 flex items-baseline space-x-2">
+                        <span class="text-4xl font-black text-rose-600">75%</span>
+                        <span class="text-xs text-slate-500">전체 노동 시간 중</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-2">대면 수업(25%) 대비 3배에 달하는 부수 업무 부하</p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-500 text-xs font-semibold tracking-wider">원고지 첨삭 소요시간</span>
+                        <span class="text-2xl">📝</span>
+                    </div>
+                    <div class="mt-4 flex items-baseline space-x-2">
+                        <span class="text-4xl font-black text-amber-500">18분</span>
+                        <span class="text-xs text-slate-500">학생 1인당/회</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-2">비정형 손글씨 판독 및 반복 교정 부호 표기</p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-500 text-xs font-semibold tracking-wider">월간 신규 필독서</span>
+                        <span class="text-2xl">📚</span>
+                    </div>
+                    <div class="mt-4 flex items-baseline space-x-2">
+                        <span class="text-4xl font-black text-indigo-600">12~15권</span>
+                        <span class="text-xs text-slate-500">매월 분석 대상</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-2">학년별/수준별 맞춤 발문 구성 부담</p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow">
+                    <div class="flex items-center justify-between">
+                        <span class="text-slate-500 text-xs font-semibold tracking-wider">자동화 절감 예상시간</span>
+                        <span class="text-2xl">⚡</span>
+                    </div>
+                    <div class="mt-4 flex items-baseline space-x-2">
+                        <span class="text-4xl font-black text-teal-600">81.5%</span>
+                        <span class="text-xs text-slate-500">행정업무시간 절감</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mt-2">대면수업 제외 4대 행정업무 기준 (주 650분 → 120분)</p>
+                </div>
+            </div>
+
+            <!-- Charts Container Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
+                <!-- Chart 1: Labor Time Breakdown -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-slate-800 text-lg">지도교사 실질 노동시간 구성비</h3>
+                            <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md font-medium">현행 실태</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">
+                            이 차트는 교사의 전체 근무 시간 중 순수 대면 수업과 각종 행정·첨삭 작업 간의 비중을 보여줍니다. 비수업 영역이 과도한 비중을 차지함을 나타냅니다.
+                        </p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="timeBreakdownChart" role="img" aria-label="교사 직무별 시간 배분 비율 도넛 차트"></canvas>
+                    </div>
+                </div>
+
+                <!-- Chart 2: Task Workload & Cognitive Fatigue -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-slate-800 text-lg">단위 직무별 인지적 피로도 & 소요시간</h3>
+                            <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md font-medium">병목 지점</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">
+                            단위 업무별 소요 시간과 교사가 체감하는 인지적 피로도를 비교한 그래프입니다. 원고지 첨삭과 월말 평가서 작성이 최대 병목 구간입니다.
+                        </p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="workloadChart" role="img" aria-label="단위 직무별 인지적 피로도 및 소요시간 이중축 차트"></canvas>
+                    </div>
+                    <p class="text-[11px] text-slate-500 mt-2 text-center">
+                        ※ 이 차트는 이중 축(Dual-Axis)입니다: <strong class="text-teal-700">소요시간 비중(하단 0~50%)</strong>과 <strong class="text-rose-600">인지적 피로도(상단 0~10점)</strong>의 눈금이 각각 독립적으로 적용됩니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Automation Classification Matrix Section -->
+        <section id="matrix" class="scroll-mt-20 space-y-6">
+            <div class="border-l-4 border-indigo-600 pl-4">
+                <h2 class="text-2xl font-bold text-slate-900">2. 자동화 vs 수동 유지 영역 분할 체계</h2>
+                <p class="text-slate-600 mt-1">4대 평가 기준(규칙성, 구조화, 정서민감도, 교육책무성)에 따른 기능 분할 모델</p>
+            </div>
+
+            <div class="bg-slate-900 text-white rounded-2xl p-6 shadow-lg space-y-4">
+                <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                    모든 업무를 무분별하게 인공지능에 위임하는 것은 교육적 윤리와 서비스 진정성을 훼손할 수 있습니다. 본 연구는 <strong>결정론적 규칙성</strong>, <strong>데이터 구조화 수준</strong>, <strong>정서·관계적 민감도</strong>, <strong>교육적 책무성 및 평가 권한</strong>의 4대 기준을 적용하여 3단계로 영역을 명확히 분획했습니다.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                    <div class="bg-slate-800/80 border border-teal-500/40 rounded-xl p-4">
+                        <div class="flex items-center space-x-2 text-teal-400 font-bold text-base mb-2">
+                            <span>🤖</span>
+                            <span>전면 자동화 (Full Auto)</span>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-normal">
+                            규칙 기반 산술 연산 및 표준화 데이터 처리. 교사는 결과 모니터링만 수행.
+                        </p>
+                        <ul class="text-xs text-slate-400 mt-2 space-y-1 list-disc list-inside">
+                            <li>출결/수업 일정 리마인더</li>
+                            <li>교재 발주 필요 수량 산출</li>
+                            <li>맞춤법/띄어쓰기 1차 검사</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-800/80 border border-indigo-500/40 rounded-xl p-4">
+                        <div class="flex items-center space-x-2 text-indigo-300 font-bold text-base mb-2">
+                            <span>🤝</span>
+                            <span>인간 참여형 반자동화 (HITL)</span>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-normal">
+                            AI가 분석 및 초안 생성, 교사가 인간적 맥락 보정 및 최종 승인(Veto) 행사.
+                        </p>
+                        <ul class="text-xs text-slate-400 mt-2 space-y-1 list-disc list-inside">
+                            <li>손글씨 OCR 1:1 디지털화</li>
+                            <li>분석적 루브릭 기반 논술 첨삭</li>
+                            <li>월말 종합 리포트 초안 생성</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-800/80 border border-rose-500/40 rounded-xl p-4">
+                        <div class="flex items-center space-x-2 text-rose-400 font-bold text-base mb-2">
+                            <span>👨‍🏫</span>
+                            <span>완전 수동 유지 (Human Only)</span>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-normal">
+                            비언어적 상호작용, 정서적 라포 형성, 교육적 공적 평가 및 최종 결재 권한.
+                        </p>
+                        <ul class="text-xs text-slate-400 mt-2 space-y-1 list-disc list-inside">
+                            <li>대면 찬반 토론 중재 및 라포</li>
+                            <li>학부모 심층 전화/대면 상담</li>
+                            <li>최종 성적 평가 & 결재 실행</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack & Pipeline Section -->
+        <section id="tech-stack" class="scroll-mt-20 space-y-6">
+            <div class="border-l-4 border-teal-600 pl-4">
+                <h2 class="text-2xl font-bold text-slate-900">3. 자동화 시스템 핵심 기술 스택 & 성과</h2>
+                <p class="text-slate-600 mt-1">OpenCV, 필기체 OCR, 한국어 맞춤법 엔진, RAG, n8n 기반의 통합 파이프라인</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Tech Stack Component Cards -->
+                <div class="space-y-4">
+                    <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200 flex items-start space-x-4">
+                        <div class="p-3 bg-teal-100 text-teal-800 rounded-lg font-bold text-xl">01</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-base">OpenCV 원고지 격자 제거 전처리</h4>
+                            <p class="text-xs text-slate-600 mt-1">
+                                원고지의 적색/녹색 격자선을 HSV 색상 마스킹 및 형태학적 연산(Morphological Filter)으로 감쇄시켜 손글씨 획만 분리 추출.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200 flex items-start space-x-4">
+                        <div class="p-3 bg-indigo-100 text-indigo-800 rounded-lg font-bold text-xl">02</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-base">1:1 무보정 필기체 OCR (Verbatim OCR)</h4>
+                            <p class="text-xs text-slate-600 mt-1">
+                                일반 상용 OCR의 자동 오탈자 교정 기능을 비활성화하여 아동의 철자 오류, 띄어쓰기 실수를 오리지널 형태로 정확히 보존.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200 flex items-start space-x-4">
+                        <div class="p-3 bg-purple-100 text-purple-800 rounded-lg font-bold text-xl">03</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-base">부산대 맞춤법 API & 규칙 기반 검사</h4>
+                            <p class="text-xs text-slate-600 mt-1">
+                                LLM의 문법 환각을 방지하기 위해 형태소 분석 기반 국립국어원 규정 교차 검증 및 `errInfo` 원인 코드 추출.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200 flex items-start space-x-4">
+                        <div class="p-3 bg-rose-100 text-rose-800 rounded-lg font-bold text-xl">04</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-base">분석적 루브릭 RAG + LLM 체이닝</h4>
+                            <p class="text-xs text-slate-600 mt-1">
+                                내용/조직/표현 3개 영역별 가이드라인과 정식 줄거리를 벡터 DB에 임베딩하여 주관성을 배제한 비간섭적 첨삭 생성.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chart 3: Before vs After Time Comparison -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-bold text-slate-800 text-lg">자동화 도입 전/후 주간 업무시간 비교</h3>
+                            <span class="text-xs bg-teal-100 text-teal-800 px-2.5 py-1 rounded-md font-semibold">시뮬레이션 결과</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mb-4">
+                            주당 업무 항목별 소요 시간(분) 변화입니다. 대면 수업 지도 시간은 온전히 유지하면서 단순 행정과 첨삭 시간을 대폭 단축합니다.
+                        </p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="beforeAfterChart" role="img" aria-label="HITL 자동화 도입 전후 주간 소요시간 비교 막대 차트"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HITL Pipeline Architecture Section -->
+        <section id="hitl-architecture" class="scroll-mt-20 space-y-6">
+            <div class="border-l-4 border-amber-500 pl-4">
+                <h2 class="text-2xl font-bold text-slate-900">4. LangGraph 기반 HITL 5단계 제어 구조</h2>
+                <p class="text-slate-600 mt-1">인간 교사의 Veto 권한을 물리적으로 보장하는 파이프라인 및 상태 머신 흐름</p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-6">
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    본 시스템은 무조건적인 자동 실행 대신 교사의 승인(Approve) 및 수동 수정(Edit)을 강제하는 <strong>LangGraph State Machine Architecture</strong>를 채택합니다. OCR 신뢰도가 낮거나 루브릭 채점 점수 편차가 심할 경우 시각적 하이라이트로 교사의 검토를 유도합니다.
+                </p>
+
+                <!-- Step-by-Step Flow Chart using Structured HTML/CSS -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 relative">
+                    <!-- Step 1 -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between space-y-3 relative">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-extrabold text-teal-600 uppercase tracking-wider">Step 01</span>
+                                <span class="text-lg">📷</span>
+                            </div>
+                            <h4 class="font-bold text-slate-900 text-sm mt-2">수집 계층</h4>
+                            <p class="text-xs text-slate-500 mt-1">원고지 촬영 이미지 및 관찰 태그 입력</p>
+                        </div>
+                        <div class="text-xs text-slate-400 font-mono">Input: Scan/Photo</div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between space-y-3 relative">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-extrabold text-teal-600 uppercase tracking-wider">Step 02</span>
+                                <span class="text-lg">🛡️</span>
+                            </div>
+                            <h4 class="font-bold text-slate-900 text-sm mt-2">전처리/비식별화</h4>
+                            <p class="text-xs text-slate-500 mt-1">격자 마스킹 & 이름/학교 가명 UUID 변환</p>
+                        </div>
+                        <div class="text-xs text-slate-400 font-mono">OpenCV & NER</div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between space-y-3 relative">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-extrabold text-teal-600 uppercase tracking-wider">Step 03</span>
+                                <span class="text-lg">🧠</span>
+                            </div>
+                            <h4 class="font-bold text-slate-900 text-sm mt-2">복합 AI 추론</h4>
+                            <p class="text-xs text-slate-500 mt-1">1:1 OCR + 맞춤법 검사 + LLM 초안 생성</p>
+                        </div>
+                        <div class="text-xs text-slate-400 font-mono">Draft Generation</div>
+                    </div>
+
+                    <!-- Step 4 (Highlight Interrupt) -->
+                    <div class="bg-amber-50 border-2 border-amber-400 rounded-xl p-4 flex flex-col justify-between space-y-3 relative shadow-md">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-extrabold text-amber-700 uppercase tracking-wider">Step 04 (HITL)</span>
+                                <span class="text-lg">🛑</span>
+                            </div>
+                            <h4 class="font-bold text-amber-900 text-sm mt-2">인터럽트 & 교사 승인</h4>
+                            <p class="text-xs text-amber-800 mt-1">UI 대시보드에서 OCR/LLM 초안 검토 및 수정</p>
+                        </div>
+                        <div class="text-xs text-amber-700 font-semibold font-mono">`interrupt()` Hold</div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col justify-between space-y-3 relative">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-extrabold text-teal-600 uppercase tracking-wider">Step 05</span>
+                                <span class="text-lg">📲</span>
+                            </div>
+                            <h4 class="font-bold text-slate-900 text-sm mt-2">최종 전송</h4>
+                            <p class="text-xs text-slate-500 mt-1">실명 복원 후 알림톡 발송 & 에듀넷 출력</p>
+                        </div>
+                        <div class="text-xs text-slate-400 font-mono">Kakao API / Export</div>
+                    </div>
+                </div>
+
+                <!-- State Snapshot Table -->
+                <div class="mt-6 border-t border-slate-200 pt-6">
+                    <h4 class="font-bold text-slate-800 text-sm mb-3">LangGraph 상태 스냅샷 (State Snapshot) 메커니즘</h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left text-slate-600">
+                            <thead class="bg-slate-100 text-slate-800 font-bold uppercase">
+                                <tr>
+                                    <th class="p-3 rounded-l-lg">구성 요소</th>
+                                    <th class="p-3">시스템 역할</th>
+                                    <th class="p-3 rounded-r-lg">안정성 보장 메커니즘</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-3 font-semibold text-slate-900">Checkpointer</td>
+                                    <td class="p-3">SQLite/PostgreSQL 기반 노드별 실행 상태 영속성 저장</td>
+                                    <td class="p-3">서버 장애 시 미승인 지점부터 바로 재개 가능</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-semibold text-slate-900">Confidence Threshold Filter</td>
+                                    <td class="p-3">OCR 문자 인식률 85% 미만 단어 자동 하이라이팅</td>
+                                    <td class="p-3">교사의 수동 검수 집중도를 유도하여 오인식 보정</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-semibold text-slate-900">Command Resume</td>
+                                    <td class="p-3">교사의 `Approve` 또는 `Edit` 클릭 이벤트를 받아 그래프 재개</td>
+                                    <td class="p-3">교사 승인 없는 무단 외부 메시지 발송 100% 차단</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Regulatory Governance & Platform Security Section -->
+        <section id="governance" class="scroll-mt-20 space-y-6">
+            <div class="border-l-4 border-rose-500 pl-4">
+                <h2 class="text-2xl font-bold text-slate-900">5. 규제 거버넌스 & 플랫폼 약관 무결성</h2>
+                <p class="text-slate-600 mt-1">개인정보 보호법 제22조의2 준수 및 에듀넷 서비스 제재 방지 전략</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Privacy Card -->
+                <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl p-6 shadow-md space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-2xl">🔒</span>
+                        <h3 class="font-bold text-lg text-teal-300">아동 개인정보 완전 보호 (Privacy First)</h3>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        만 14세 미만 아동의 민감정보 보호를 위해 상용 AI 서비스 직접 입력을 엄격히 금지합니다. Regex 및 NER 기반으로 이름을 가명(학생A, B)으로 전환하고 주소/학교명을 제거합니다.
+                    </p>
+                    <div class="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700 text-xs text-slate-300 space-y-1">
+                        <div class="font-semibold text-teal-400">Zero Data Retention (ZDR) API</div>
+                        <div>데이터 보전 및 모델 재학습을 차단하는 엔터프라이즈 API 엔드포인트만 사용.</div>
+                    </div>
+                </div>
+
+                <!-- Platform Safeguard Card -->
+                <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl p-6 shadow-md space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-2xl">🛡️</span>
+                        <h3 class="font-bold text-lg text-indigo-300">에지 보조 분리 공간 (Edge-Assisted Workspace)</h3>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        에듀넷 인트라넷에 대한 매크로/스크래핑 접근은 IP 차단 및 사번 정지 위험을 유발합니다. 에듀넷은 수동 결제 창구로만 격리하고, 모든 AI 연산은 분리된 사설 환경에서 실행합니다.
+                    </p>
+                    <div class="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700 text-xs text-slate-300 space-y-1">
+                        <div class="font-semibold text-indigo-400">약관 침해 원천 차단</div>
+                        <div>교차 연동은 정제된 수량 집계표 출력 및 교사의 복사-붙여넣기 형태로 유지.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion & Takeaway Footer Card -->
+        <footer class="bg-gradient-to-r from-teal-800 to-indigo-900 text-white rounded-3xl p-8 sm:p-10 shadow-xl text-center space-y-4">
+            <h3 class="text-2xl font-bold">결론: 기계적 행정으로부터 교사의 교육적 본질 회복</h3>
+            <p class="max-w-3xl mx-auto text-slate-200 text-sm sm:text-base leading-relaxed">
+                본 지능형 자동화 및 HITL 프레임워크 구축을 통해 독서논술 지도교사는 반복적 피로를 야기하는 원고지 오탈자 검수와 행정 서류 압박에서 벗어나, 학생 개개인의 비판적 사고력을 신장시키고 정서적 교감을 나누는 진정한 <strong>교육적 멘토(Educator & Mentor)</strong>로 재정립될 수 있습니다.
+            </p>
+            <div class="pt-2 text-xs text-teal-300 font-mono">
+                Research & Architecture Designed for Hanuri Edunet Workflow Automation
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- JavaScript Charts Initialization -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Chart.js Global Settings
+            Chart.defaults.font.family = "'Pretendard', sans-serif";
+            Chart.defaults.color = '#64748b';
+
+        // Label Wrapping Logic (16-character rule compliance)
+        function wrapLabel(label) {
+            if (typeof label === 'string' && label.length > 16) {
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + ' ' + word).trim().length > 16) {
+                        if (currentLine.trim()) lines.push(currentLine.trim());
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                });
+                if (currentLine.trim()) lines.push(currentLine.trim());
+                return lines;
+            }
+            return label;
+        }
+
+        // Standard Tooltip Callback Logic Required for wrapped labels
+        const standardTooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // Chart 1: Donut Chart - Time Breakdown
+        const ctx1 = document.getElementById('timeBreakdownChart').getContext('2d');
+        const labels1 = [
+            '비정형 원고지 첨삭',
+            '사전 교안 분석 및 발문',
+            '월말 리포트 및 학부모 소통',
+            '교재 발주 및 학사 행정',
+            '순수 대면 수업 지도'
+        ].map(wrapLabel);
+
+        new Chart(ctx1, {
+            type: 'doughnut',
+            data: {
+                labels: labels1,
+                datasets: [{
+                    data: [35, 18, 12, 10, 25],
+                    backgroundColor: [
+                        '#f43f5e', // Coral Rose
+                        '#f59e0b', // Amber
+                        '#6366f1', // Indigo
+                        '#8b5cf6', // Violet
+                        '#0d9488'  // Teal
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 12,
+                            padding: 15,
+                            font: { size: 11 }
+                        }
+                    },
+                    tooltip: standardTooltipConfig
+                },
+                cutout: '65%'
+            }
+        });
+
+        // Chart 2: Horizontal Bar Chart - Workload & Fatigue
+        const ctx2 = document.getElementById('workloadChart').getContext('2d');
+        const labels2 = [
+            '비정형 원고지 첨삭',
+            '사전 교안 분석 및 발문',
+            '월말 리포트 및 학부모 소통',
+            '교재 발주 및 학사 행정',
+            '순수 대면 수업 지도'
+        ].map(wrapLabel);
+
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: labels2,
+                datasets: [
+                    {
+                        label: '주간 소요시간 (비중 %)',
+                        data: [35, 18, 12, 10, 25],
+                        backgroundColor: '#0d9488',
+                        borderRadius: 6,
+                        xAxisID: 'x'
+                    },
+                    {
+                        label: '인지적 피로도 (10점 만점)',
+                        data: [9.2, 8.5, 7.8, 6.5, 5.0],
+                        backgroundColor: '#f43f5e',
+                        borderRadius: 6,
+                        xAxisID: 'x2'
+                    }
+                ]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        beginAtZero: true,
+                        max: 50,
+                        title: { display: true, text: '소요시간 비중 (%)', font: { size: 11, weight: 'bold' } },
+                        grid: { color: '#f1f5f9' },
+                        ticks: { callback: function(val) { return val + '%'; } }
+                    },
+                    x2: {
+                        type: 'linear',
+                        position: 'top',
+                        beginAtZero: true,
+                        max: 10,
+                        title: { display: true, text: '인지적 피로도 (/10점)', font: { size: 11, weight: 'bold' } },
+                        grid: { display: false },
+                        ticks: { callback: function(val) { return val + '점'; } }
+                    },
+                    y: {
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12, font: { size: 11 } }
+                    },
+                    tooltip: standardTooltipConfig
+                }
+            }
+        });
+
+        // Chart 3: Grouped Bar Chart - Before vs After Time
+        const ctx3 = document.getElementById('beforeAfterChart').getContext('2d');
+        const labels3 = [
+            '수업 사전 준비',
+            '원고지 수기 첨삭',
+            '월말 리포트 작성',
+            '교재 발주/정산',
+            '대면 수업 및 상담'
+        ].map(wrapLabel);
+
+        new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: labels3,
+                datasets: [
+                    {
+                        label: '도입 전 소요시간 (분/주)',
+                        data: [150, 240, 180, 80, 200],
+                        backgroundColor: '#cbd5e1',
+                        borderRadius: 6
+                    },
+                    {
+                        label: 'HITL 도입 후 소요시간 (분/주)',
+                        data: [35, 45, 30, 10, 200],
+                        backgroundColor: '#6366f1',
+                        borderRadius: 6
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#f1f5f9' },
+                        title: { display: true, text: '시간 (분)' }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12, font: { size: 11 } }
+                    },
+                    tooltip: standardTooltipConfig
+                }
+            }
+        });
+        });
+    </script>
+</body>
+</html>

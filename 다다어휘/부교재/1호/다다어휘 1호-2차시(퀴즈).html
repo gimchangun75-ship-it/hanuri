@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>다다어휘 1호 2차시 퀴즈</title>
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    background: #f0f2f5;
+    color: #222;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 18mm 16mm;
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+    border-radius: 4px;
+    position: relative;
+    page-break-after: always;
+  }
+  @media print {
+    body { background: none; padding: 0; }
+    .page { box-shadow: none; margin: 0; border-radius: 0; page-break-after: always; }
+    .no-print { display: none; }
+  }
+  .top-banner {
+    background: #F3D8E1;
+    border-radius: 8px;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  .banner-left .unit { font-size: 13px; color: #8A4060; font-weight: 500; }
+  .banner-left .title { font-size: 18px; color: #4A152D; font-weight: 700; margin-top: 2px; }
+  .banner-right .name-box { font-size: 14px; color: #555; border-bottom: 1.5px solid #A8285C; padding-bottom: 2px; width: 140px; text-align: right; }
+  
+  .badge-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0 15px 0;
+  }
+  .badge {
+    background: #A8285C;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .badge-inst { font-size: 14.5px; font-weight: 700; color: #333; }
+
+  /* Match lines */
+  .match-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  .match-table td {
+    padding: 9px 4px;
+    font-size: 14px;
+    vertical-align: middle;
+  }
+  .word-cell { font-weight: 700; color: #A8285C; width: 18%; text-align: right; padding-right: 8px; }
+  .dot-cell { width: 5%; text-align: center; color: #555; }
+  .mean-cell { width: 44%; color: #333; line-height: 1.45; }
+  .spacer-cell { width: 6%; }
+
+  /* Quiz */
+  .ox-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+  }
+  .ox-table td {
+    padding: 8px 10px;
+    font-size: 14px;
+    border-bottom: 1px dashed #f0c5d5;
+  }
+  .ox-q { width: 82%; line-height: 1.5; }
+  .ox-choice { width: 18%; text-align: center; font-weight: 700; color: #A8285C; letter-spacing: 2px; }
+
+  .two-col-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 10px;
+  }
+  .q-item { margin-bottom: 14px; font-size: 13.5px; line-height: 1.5; }
+  .q-title { font-weight: 700; color: #222; margin-bottom: 4px; }
+  .q-opt { color: #444; margin-left: 6px; }
+
+  /* Hanja */
+  .hanja-block {
+    display: flex;
+    border: 1.5px solid #F3D8E1;
+    border-radius: 8px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .hanja-left {
+    width: 32%;
+    background: #FCF4F7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 1.5px solid #F3D8E1;
+    padding: 15px;
+  }
+  .hanja-name { font-size: 20px; font-weight: 700; color: #A8285C; }
+  .hanja-sub { font-size: 12px; color: #888; margin-top: 4px; }
+  .hanja-right {
+    width: 68%;
+    padding: 6px 12px;
+  }
+  .hanja-right table { width: 100%; border-collapse: collapse; }
+  .hanja-right td { padding: 6px 4px; font-size: 13.5px; }
+
+  /* Answer table */
+  .ans-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .ans-table th { background: #A8285C; color: #fff; padding: 10px; font-size: 14px; }
+  .ans-table td { border: 1px solid #F3D8E1; padding: 9px; text-align: center; font-size: 13.5px; }
+  .ans-table tr:nth-child(even) { background: #FCF4F7; }
+</style>
+</head>
+<body>
+
+  <div class="page">
+    <div class="top-banner">
+      <div class="banner-left">
+        <div class="unit">Unit 01 | 다다어휘 1호</div>
+        <div class="title">● 헷갈리는 말 ② (확인 퀴즈)</div>
+      </div>
+      <div class="banner-right">
+        <div class="name-box">이름 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      </div>
+    </div>
+    <div class="badge-row">
+      <div class="badge">A</div>
+      <div class="badge-inst">문장을 읽고, 《문어잼 1권 ① 헷갈리는 말》과 내용이 같으면 ○, 다르면 ×에 표시하세요. (1~3)</div>
+    </div>
+    <table class="ox-table">
+      <tr><td class="ox-q"><b>1.</b> 물통이 센다는 어울이의 쪽지를 보고 어울이 엄마는 물통을 세어보았다.</td><td class="ox-choice">[ ○ ｜ × ]</td></tr>
+      <tr><td class="ox-q"><b>2.</b> 어진이는 급식 시간에 달걀 껍질을 까지 않았다.</td><td class="ox-choice">[ ○ ｜ × ]</td></tr>
+      <tr><td class="ox-q"><b>3.</b> 어진이와 엄마는 쌍꺼풀 없이 동그란 눈에 짙은 속눈썹이 엄마와 똑 닮았다.</td><td class="ox-choice">[ ○ ｜ × ]</td></tr>
+    </table>
+
+    <div class="badge-row">
+      <div class="badge">B</div>
+      <div class="badge-inst">문제를 읽고 알맞은 답을 골라 보세요. (4~10)</div>
+    </div>
+    <div class="two-col-grid">
+      <div>
+        <div class="q-item">
+          <div class="q-title">4. 다음 상황에 알맞은 낱말끼리 바르게 짝지어진 것은?</div>
+          <div class="q-opt" style="background:#fcf4f7; padding:4px 8px; border-radius:4px; margin-bottom:4px;">
+            (가) 냄비에 물을 ( &nbsp;&nbsp; ).<br>
+            (나) 구멍 난 양말을 실과 바늘로 ( &nbsp;&nbsp; ).
+          </div>
+          <div class="q-opt">① (가) 꿰다 - (나) 얹다 &nbsp; ② (가) 붓다 - (나) 꿰매다<br>③ (가) 짚다 - (나) 덮다 &nbsp; ④ (가) 덮다 - (나) 얹다</div>
+        </div>
+        <div class="q-item">
+          <div class="q-title">5. 다음 보기 중 뜻풀이가 옳지 않은 것은 무엇인가요?</div>
+          <div class="q-opt">① 깊다 – 겉에서 속까지의 거리가 멀다.</div>
+          <div class="q-opt">② 덮다 - 더 넓은 것을 위에 얹어 가리거나 쌓아서 가리다.</div>
+          <div class="q-opt">③ 짚다 - 손으로 이마나 머리를 가볍게 눌러 대다.</div>
+          <div class="q-opt">④ 엎다 - 등에 대고 손으로 붙잡거나 무엇으로 동여매어 붙어 있게 하다.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-title">6. 다음 중 빈칸에 들어갈 낱말로 알맞은 것은?</div>
+          <div class="q-opt" style="background:#fcf4f7; padding:4px 8px; border-radius:4px; margin-bottom:4px;">
+            새미야! 네 자리에 종이가 엄청 ( &nbsp;&nbsp; )! 쓰레기 더미인 줄! 얼른 치워!
+          </div>
+          <div class="q-opt">① 쌌였네 &nbsp; ② 쌓였네 &nbsp; ③ 싸였네 &nbsp; ④ 싸혔네</div>
+        </div>
+      </div>
+      <div>
+        <div class="q-item">
+          <div class="q-title">7. 다음 중 '너비'라는 낱말이 바르게 사용된 문장은?</div>
+          <div class="q-opt">① 사다리꼴의 너비를 구해 보세요.</div>
+          <div class="q-opt">② 방문보다 책상 너비가 더 넓어서 들어가지 않았다.</div>
+          <div class="q-opt">③ 정사각형의 너비는 한 변의 길이를 제곱하여 구한다.</div>
+          <div class="q-opt">④ 지중해 지역은 건조하고 너비가 길다.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-title">8. 다음 상황에 알맞은 낱말끼리 바르게 짝지어진 것은?</div>
+          <div class="q-opt" style="background:#fcf4f7; padding:4px 8px; border-radius:4px; margin-bottom:4px;">
+            (가) 떡을 찜기에 넣어서 불 위에 올리는 것을 ( &nbsp;&nbsp; ).<br>
+            (나) ( &nbsp;&nbsp; )는 잠을 자지 않고 밤을 보내는 거다.
+          </div>
+          <div class="q-opt">① (가) 앉히다 - (나) 세우다 &nbsp; ② (가) 엎다 - (나) 붓다<br>③ (가) 담다 - (나) 덮다 &nbsp; ④ (가) 안치다 - (나) 새우다</div>
+        </div>
+        <div class="q-item">
+          <div class="q-title">9. 다음 말한 친구 중에 틀리게 말한 친구는 누구인가요?</div>
+          <div class="q-opt">① 어진: 할아버지, 할머니! 헤어질 때마다 아쉬워요.</div>
+          <div class="q-opt">② 어울: 이따 나가서 꽃향기 좀 맞고 오자!</div>
+          <div class="q-opt">③ 우주: 지금 너는 발표하러 무대에 나가는 거니까 출연하는 거야.</div>
+          <div class="q-opt">④ 엄마: 지금 보니까 어진이가 엄마 눈을 많이 닮았네.</div>
+        </div>
+        <div class="q-item">
+          <div class="q-title">10. 보기의 문장에서 틀린 부분을 찾고, 바르게 고친 사람은?</div>
+          <div class="q-opt" style="background:#fcf4f7; padding:4px 8px; border-radius:4px; margin-bottom:4px;">
+            [ 보기 : 할머니께서 맛있는 묵은지를 반찬 통에 담아 보자기로 꽉 매어 묵어 오셨다. 그리고 할아버지는 그 묵은지와 함께 먹을 라면을 끓이기 위해 냄비에 물을 붓자고 하셨다. ]
+          </div>
+          <div class="q-opt">① 어진: 매어 -> 메어 &nbsp; ② 어울: 묵어 -> 묶어<br>③ 우주: 묵은지 -> 묶은지 &nbsp; ④ 세미: 붓자 -> 붇자</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="top-banner">
+      <div class="banner-left">
+        <div class="unit">Unit 01 | 다다어휘 1호</div>
+        <div class="title">● 헷갈리는 말 ② (확인 퀴즈 정답표)</div>
+      </div>
+    </div>
+    <table class="ans-table">
+      <tr><th>문항</th><th>정답</th><th>교재 참고 페이지</th></tr>
+      <tr><td><b>1번</b></td><td style="color:#A8285C; font-weight:700;">X</td><td>교재 52~53쪽 참고</td></tr>
+      <tr><td><b>2번</b></td><td style="color:#A8285C; font-weight:700;">X (껍데기를 깠다)</td><td>교재 57쪽 참고</td></tr>
+      <tr><td><b>3번</b></td><td style="color:#A8285C; font-weight:700;">○</td><td>교재 80쪽 참고</td></tr>
+      <tr><td><b>4번</b></td><td style="color:#A8285C; font-weight:700;">②</td><td>교재 75, 83쪽 참고</td></tr>
+      <tr><td><b>5번</b></td><td style="color:#A8285C; font-weight:700;">④</td><td>교재 14쪽 참고</td></tr>
+      <tr><td><b>6번</b></td><td style="color:#A8285C; font-weight:700;">②</td><td>교재 60쪽 참고</td></tr>
+      <tr><td><b>7번</b></td><td style="color:#A8285C; font-weight:700;">②</td><td>교재 16쪽 참고</td></tr>
+      <tr><td><b>8번</b></td><td style="color:#A8285C; font-weight:700;">④</td><td>교재 76~77쪽 참고</td></tr>
+      <tr><td><b>9번</b></td><td style="color:#A8285C; font-weight:700;">②</td><td>교재 74, 61, 58, 80쪽 참고</td></tr>
+      <tr><td><b>10번</b></td><td style="color:#A8285C; font-weight:700;">②</td><td>교재 72~73쪽 참고</td></tr>
+    </table>
+  </div>
+  
+</body>
+</html>

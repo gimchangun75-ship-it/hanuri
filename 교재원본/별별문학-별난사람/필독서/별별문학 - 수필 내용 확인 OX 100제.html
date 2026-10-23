@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>별별문학 | 수필 필독서 내용 확인 OX 100제</title>
+  <style>
+    :root {
+      --primary: #A8285C;
+      --primary-light: #F3D8E1;
+      --primary-dark: #7A1940;
+      --accent: #E06D8C;
+      --text: #2D3748;
+      --text-muted: #718096;
+      --bg: #F8F9FA;
+      --card-bg: #FFFFFF;
+      --border: #E2E8F0;
+      --success: #2E7D32;
+      --error: #C62828;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: "맑은 고딕", "Malgun Gothic", "함초롬돋움", "Apple SD Gothic Neo", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      padding: 32px 36px;
+    }
+
+    /* 상단 배너 */
+    .header-banner {
+      background: var(--primary-light);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      border-left: 6px solid var(--primary);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .banner-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .unit-tag {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    .student-info {
+      display: flex;
+      gap: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    .student-info span {
+      background: #FFFFFF;
+      padding: 4px 12px;
+      border-radius: 6px;
+      border: 1px solid rgba(168, 40, 92, 0.2);
+    }
+
+    .doc-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      letter-spacing: -0.5px;
+    }
+
+    .doc-desc {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    /* 툴바 컨트롤 */
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px dashed var(--border);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #EDF2F7;
+      color: #4A5568;
+    }
+
+    .btn-secondary:hover {
+      background: #E2E8F0;
+    }
+
+    .stats-badge {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 6px 12px;
+      border-radius: 20px;
+    }
+
+    /* 꼭지 섹션 */
+    .section-card {
+      margin-bottom: 36px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      page-break-inside: avoid;
+    }
+
+    .section-header {
+      background: #FFF5F7;
+      border-bottom: 1px solid rgba(168, 40, 92, 0.15);
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .badge-no {
+      background: var(--primary);
+      color: #FFFFFF;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .author-tag {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* 문항 영역 */
+    .question-list {
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .question-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 10px 14px;
+      background: #FAFAFA;
+      border-radius: 8px;
+      border: 1px solid #F0F0F0;
+      transition: background 0.15s;
+    }
+
+    .question-item:hover {
+      background: #FDF4F6;
+      border-color: #F8D3DF;
+    }
+
+    .q-text {
+      flex: 1;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #2D3748;
+    }
+
+    .q-num {
+      font-weight: 700;
+      color: var(--primary);
+      margin-right: 6px;
+    }
+
+    /* OX 선택지 버튼 & 마킹 */
+    .ox-selector {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .ox-btn {
+      width: 38px;
+      height: 34px;
+      border: 1.5px solid #CBD5E0;
+      background: #FFFFFF;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #718096;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .ox-btn:hover {
+      border-color: var(--accent);
+      color: var(--primary);
+    }
+
+    .ox-btn.selected-o {
+      background: #E8F5E9;
+      border-color: var(--success);
+      color: var(--success);
+      font-weight: 800;
+      box-shadow: 0 0 0 1px var(--success);
+    }
+
+    .ox-btn.selected-x {
+      background: #FFEBEE;
+      border-color: var(--error);
+      color: var(--error);
+      font-weight: 800;
+      box-shadow: 0 0 0 1px var(--error);
+    }
+
+    /* 꼭지별 정답 및 해설 영역 (기본 숨김) */
+    .answer-section {
+      background: #FFF9FA;
+      border-top: 1px solid rgba(168, 40, 92, 0.15);
+      padding: 18px 24px;
+      display: none;
+    }
+
+    .answer-section.open {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .answer-header {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .answer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .answer-item {
+      font-size: 13.5px;
+      line-height: 1.55;
+      padding: 8px 12px;
+      background: #FFFFFF;
+      border-radius: 6px;
+      border-left: 4px solid var(--primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .ans-tag {
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 6px;
+    }
+
+    .ans-tag.tag-o {
+      background: #E8F5E9;
+      color: var(--success);
+    }
+
+    .ans-tag.tag-x {
+      background: #FFEBEE;
+      color: var(--error);
+    }
+
+    /* 하단 핵심 요약 및 팁 */
+    .footer-tip {
+      background: var(--primary-light);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 32px;
+      font-size: 13px;
+      color: var(--primary-dark);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* 인쇄 최적화 스타일 (@media print) */
+    @media print {
+      body {
+        background: #FFFFFF;
+        padding: 0;
+        font-size: 13px;
+      }
+
+      .container {
+        max-width: 100%;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .controls, .btn, .btn-toggle-ans {
+        display: none !important;
+      }
+
+      .header-banner {
+        border-left: 4px solid var(--primary);
+        padding: 12px 16px;
+        margin-bottom: 16px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .section-card {
+        border: 1px solid #CCC;
+        margin-bottom: 24px;
+        page-break-inside: avoid;
+      }
+
+      .section-header {
+        background: #F5E8ED !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        padding: 8px 12px;
+      }
+
+      .question-list {
+        padding: 12px 14px;
+        gap: 8px;
+      }
+
+      .question-item {
+        background: #FFFFFF;
+        border: none;
+        border-bottom: 1px solid #EEE;
+        padding: 6px 0;
+        border-radius: 0;
+      }
+
+      .ox-btn {
+        border: 1px solid #999;
+        width: 32px;
+        height: 28px;
+        font-size: 13px;
+      }
+
+      .answer-section {
+        display: block !important;
+        border-top: 1px dashed #AAA;
+        background: #FFFDFE !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        padding: 10px 14px;
+        margin-top: 8px;
+      }
+
+      .page-break {
+        page-break-after: always;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- 상단 배너 -->
+    <header class="header-banner">
+      <div class="banner-top">
+        <span class="unit-tag">별별문학 | 별난 사람 이야기</span>
+        <div class="student-info">
+          <span>성명 : ____________________</span>
+          <span>점수 : ________ / 100점</span>
+        </div>
+      </div>
+      <h1 class="doc-title">● 수필 필독서 내용 확인 OX 100제</h1>
+      <p class="doc-desc">
+        수록된 10편의 수필을 꼼꼼하게 읽고, 각 문장이 맞으면 <strong>O</strong>, 틀리면 <strong>X</strong>에 표기하세요.<br>
+        (모든 문항은 본문의 줄거리, 사건, 인물의 심리와 깨달음을 바탕으로 출제되었습니다.)
+      </p>
+    </header>
+
+    <!-- 인터랙티브 컨트롤 툴바 -->
+    <div class="controls">
+      <div class="btn-group">
+        <a href="별별문학 - 수필 내용 확인 OX 100제 (정답 및 해설).html" class="btn btn-primary" target="_blank">
+          📑 별도 정답 및 해설집 열기 ↗
+        </a>
+        <button class="btn btn-secondary" onclick="toggleAllAnswers()">
+          <span id="allToggleIcon">📖</span> <span id="allToggleText">화면 해설 펼치기</span>
+        </button>
+        <button class="btn btn-secondary" onclick="resetSelections()">
+          🔄 마킹 초기화
+        </button>
+      </div>
+      <div class="btn-group">
+        <span class="stats-badge" id="solveProgress">진행도: 0 / 100 문항</span>
+        <button class="btn btn-secondary" onclick="window.print()">
+          🖨️ 시험지 인쇄
+        </button>
+      </div>
+    </div>
+
+    <!-- 10개 꼭지 섹션 반복 -->
+    <main id="quizSections">
+
+      <!-- 꼭지 1 -->
+      <section class="section-card" id="sec-1">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="badge-no">꼭지 01</span>
+            <span>아름다운 흉터</span>
+            <span class="author-tag">| 이청준 (12~14쪽)</span>
+          </div>
+          <button class="btn btn-secondary btn-toggle-ans" onclick="toggleAnswer(1)">
+            <span id="btn-icon-1">🔍</span> 정답 및 해설 확인
+          </button>
+        </div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">1.</span> 글쓴이의 두 손등과 손가락들에는 세 종류의 흉터가 선명하게 남아 있다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 1, 1, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 1, 1, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">2.</span> 첫 번째 흉터는 초등학교 1학년 소풍 전날 누렁이의 목을 조르다가 물려 생긴 개 이빨 자국이다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 1, 2, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 1, 2, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">3.</span> 글쓴이는 초등학교 3학년 때 친구와 장난을 치다 칼에 베여 두 번째 흉터가 생겼다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 1, 3, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 1, 3, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">4.</span> 글쓴이는 고등학교 때까지 방학마다 고향 집으로 내려가 낫질을 하다 손가락에 상처를 남겼다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 1, 4, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 1, 4, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">5.</span> 글쓴이는 시골에서 광주로 중학교를 진학하면서부터 자신의 흉터들을 매우 자랑스럽게 여겼다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 1, 5, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 1, 5, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">6.</span> 청년기 직장에서 만난 한 나이 든 선배를 통해 흉터에 대한 생각이 바뀌기 시작했다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 1, 6, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 1, 6, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">7.</span> 직장 선배는 글쓴이의 손을 보고 게으름을 피우다 다친 손이라며 크게 나무랐다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 1, 7, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 1, 7, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">8.</span> 글쓴이는 삶의 쓰라린 상처와 흔적이야말로 삶의 단단한 마디이자 숨은 값이라고 생각한다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 1, 8, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 1, 8, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">9.</span> 글쓴이는 자신의 흉터를 오직 나만의 자랑거리와 남에게 내세울 무기로 삼아야 한다고 보았다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 1, 9, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 1, 9, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">10.</span> 글쓴이는 자기 흉터에는 겸손한 긍지를, 남의 흉터에는 위로와 경의를 보낼 수 있기를 바란다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 1, 10, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 1, 10, 'X')">X</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="answer-section" id="ans-1">
+          <div class="answer-header">📌 【꼭지 1】 정답 및 해설 (선생님 채점용)</div>
+          <div class="answer-grid">
+            <div class="answer-item"><span class="ans-tag tag-o">1. O</span> 본문 첫 문장에 "세 종류의 흉터가 선명하게 남아 있다"고 밝힘.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">2. O</span> 초등 1학년 소풍 전날 토방 아래 누렁이 목을 조르다 왼손을 물려 생긴 상처임.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">3. X</span> 초등학교 5학년 때 남의 산에 나무하러 갔다가 도둑 톱질 끝에 쓰러지는 나무를 피하려다 마른 가지에 찍힌 흉터임.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">4. O</span> 고등학교 때까지 방학마다 고향 집에서 논밭걷이와 푸나무 낫질을 하다 왼손 검지와 장지에 상처가 더해짐.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">5. X</span> 도회지 아이들의 희고 깨끗한 손에 비해 일로 거칠어지고 흉터가 많아 큰 부끄러움거리가 되었음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">6. O</span> 직장의 나이 든 선배가 자신의 상처 많은 손을 보여주며 건넨 따뜻한 말 한마디로 인식이 변화됨.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">7. X</span> "어려운 시절을 힘차게 살아 냈구먼"이라며 깊이 이해하고 위로해 줌.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">8. O</span> 상처의 흔적이야말로 우리 삶의 단단한 마디요 숨은 값이라고 서술함.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">9. X</span> 오직 나만의 자랑거리로 삼지 말고 자신의 삶을 겸손하게 되돌아보는 거울로 삼아야 한다고 강조함.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">10. O</span> "자기 흉터엔 겸손한 긍지를, 남의 흉터엔 위로와 경의를, 흉터 많은 우리 삶엔 사랑의 찬가를"이라며 마무리함.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 꼭지 2 -->
+      <section class="section-card" id="sec-2">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="badge-no">꼭지 02</span>
+            <span>어느 날 자전거가 내 삶 속으로 들어왔다</span>
+            <span class="author-tag">| 성석제 (16~19쪽)</span>
+          </div>
+          <button class="btn btn-secondary btn-toggle-ans" onclick="toggleAnswer(2)">
+            <span id="btn-icon-2">🔍</span> 정답 및 해설 확인
+          </button>
+        </div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">1.</span> 글쓴이가 배정받은 공립 중학교는 초등학교 때처럼 걸어서 다닐 수 있는 가까운 거리였다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 2, 1, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 2, 1, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">2.</span> 글쓴이의 고향은 평탄한 분지 지형이어서 집집마다 자전거가 없는 집이 없었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 2, 2, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 2, 2, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">3.</span> 글쓴이는 자전거를 배우기 위해 큰집에서 무겁고 짐받이가 큰 '농업용' 자전거를 빌렸다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 2, 3, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 2, 3, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">4.</span> 글쓴이는 평소 운동 신경이 워낙 뛰어나 자전거 타는 아이들을 전혀 부러워하지 않았다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 2, 4, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 2, 4, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">5.</span> 글쓴이는 사람이 많은 읍내 시장통 복판에서 첫 자전거 연습을 시작했다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 2, 5, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 2, 5, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">6.</span> 글쓴이는 자전거 연습 첫날 바퀴가 굴러가기도 전에 수없이 넘어지며 정강이와 허벅지에 멍이 들었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 2, 6, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 2, 6, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">7.</span> 집으로 돌아오는 길에 50미터쯤 되는 오르막에 선 글쓴이는 내리막길을 달려 내려가 보기로 결심했다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 2, 7, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 2, 7, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">8.</span> 내리막길 정면에는 물장구를 치고 놀던 도랑과 거름으로 쓸 분뇨를 모아 두는 '똥통'이 있었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 2, 8, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 2, 8, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">9.</span> 글쓴이는 결국 내리막길에서 중심을 잃고 똥통에 빠지고 말았다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 2, 9, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 2, 9, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">10.</span> 글쓴이는 자전거를 타며 '일단 안장 위에 올라선 이상 계속 가지 않으면 쓰러진다'는 삶의 이치를 깨달았다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 2, 10, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 2, 10, 'X')">X</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="answer-section" id="ans-2">
+          <div class="answer-header">📌 【꼭지 2】 정답 및 해설 (선생님 채점용)</div>
+          <div class="answer-grid">
+            <div class="answer-item"><span class="ans-tag tag-x">1. X</span> 초등학교 때처럼 걸어서 다니기 힘든 거리였고, 버스나 자가용도 없었음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">2. O</span> 고향이 분지 지형이라 평탄하여 집집마다 자전거가 흔했음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">3. O</span> 큰집에서 짐받이가 크고 무거운 농업용 자전거를 빌려 연습함.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">4. X</span> 운동 신경이 둔하다는 핑계로 타지 않았으나 다른 아이들이 부럽기도 했음.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">5. X</span> 오전에 사람이 없는 운동장으로 가서 시멘트 계단 옆에서 출발 연습을 함.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">6. O</span> 바퀴가 두 번 구르기도 전에 넘어지기를 수백 번 거듭하며 멍이 들고 피부가 벗겨짐.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">7. O</span> 50미터쯤 되는 오르막에서 내리막을 달려 내려가면 쉽게 탈 수 있을 거라 생각함.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">8. O</span> 내리막 아래 휘어진 길 정면에는 도랑과 거름용 분뇨 똥통이 있었음.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">9. X</span> 도랑과 똥통 옆을 무사히 통과하여 읍내 길을 신나게 내달림.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">10. O</span> "일단 안장 위에 올라선 이상 계속 가지 않으면 쓰러진다"는 중요한 삶의 원리를 깨달음.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 꼭지 3 -->
+      <section class="section-card" id="sec-3">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="badge-no">꼭지 03</span>
+            <span>부딪치면서 배워요</span>
+            <span class="author-tag">| 오소희 (22~26쪽)</span>
+          </div>
+          <button class="btn btn-secondary btn-toggle-ans" onclick="toggleAnswer(3)">
+            <span id="btn-icon-3">🔍</span> 정답 및 해설 확인
+          </button>
+        </div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">1.</span> 작가는 에티오피아에서 돌아온 직후 시각 장애를 가진 친척 동생의 부탁이 담긴 이메일을 받았다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 3, 1, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 3, 1, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">2.</span> 작가의 아프리카 여행기 책은 당시 시각 장애인용 점자책과 읽어 주는 책으로 출판되어 있었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 3, 2, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 3, 2, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">3.</span> 작가가 만난 시각 장애 소년 수빈과 희원은 당시 중학교 2학년이었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 3, 3, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 3, 3, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">4.</span> 수빈은 작고 유쾌한 성격이었고, 희원은 덩치가 크고 진중한 성격이었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 3, 4, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 3, 4, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">5.</span> 어두워진 겨울 저녁 교실에서 수빈이가 가장 먼저 한 행동은 교실 불을 끈 것이다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 3, 5, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 3, 5, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">6.</span> 불이 꺼지자 아이들은 앞이 보이지 않아 당황하며 작가에게 불을 켜 달라고 소리쳤다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 3, 6, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 3, 6, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">7.</span> 작가는 교실 형광등이 시각 장애 소년들이 아니라 오직 자신만을 위해 켜져 있었다는 사실을 깨달았다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 3, 7, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 3, 7, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">8.</span> 새로운 공간에 가면 어떻게 하느냐는 작가의 질문에 희원이는 "부딪치면서 배워요"라고 답했다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 3, 8, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 3, 8, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">9.</span> 작가는 아이들의 "부딪치면서 배워요"라는 말을 듣고 아무런 감흥도 느끼지 못했다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 3, 9, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 3, 9, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">10.</span> 작가는 아이들과의 만남을 통해 다가올 중년의 삶을 더 부딪치고 더 배우며 살아가겠다고 다짐했다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 3, 10, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 3, 10, 'X')">X</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="answer-section" id="ans-3">
+          <div class="answer-header">📌 【꼭지 3】 정답 및 해설 (선생님 채점용)</div>
+          <div class="answer-grid">
+            <div class="answer-item"><span class="ans-tag tag-o">1. O</span> 에티오피아에서 돌아온 뒤 아프리카 여행기를 읽고 싶어 하는 친척 동생의 사연 메일을 받음.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">2. X</span> 당시 점자책이나 오디오북이 없어 작가가 직접 가서 읽어 주겠다고 답장을 보냄.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">3. O</span> 수빈과 희원은 당시 중학교 2학년 시각 장애 소년들이었음.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">4. X</span> 수빈은 덩치가 크고 진중했고, 희원은 작고 유쾌했음 (성격이 뒤바뀜).</div>
+            <div class="answer-item"><span class="ans-tag tag-o">5. O</span> 교실 정리 시간이 되자 수빈이가 '제일 먼저' 불을 끔.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">6. X</span> 아이들은 암흑 속에서도 매우 능숙하고 자연스럽게 블라인드를 내리고 책걸상을 정리함.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">7. O</span> 형광등은 아이들이 아니라 오직 글쓴이 자신만을 위해 켜져 있었음을 비로소 깨달음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">8. O</span> 새로운 공간에선 어떻게 하냐고 묻자 희원이가 "부딪치면서 배워요"라고 명쾌하게 대답함.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">9. X</span> 1~2초간 숨이 멎을 정도로 깊은 감동과 신선한 깨달음을 얻음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">10. O</span> 온몸을 내던져 부딪치며 배우는 삶의 태도를 본받아 중년의 삶을 살아가겠다고 다짐함.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 꼭지 4 -->
+      <section class="section-card" id="sec-4">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="badge-no">꼭지 04</span>
+            <span>괜찮아</span>
+            <span class="author-tag">| 장영희 (28~32쪽)</span>
+          </div>
+          <button class="btn btn-secondary btn-toggle-ans" onclick="toggleAnswer(4)">
+            <span id="btn-icon-4">🔍</span> 정답 및 해설 확인
+          </button>
+        </div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">1.</span> 글쓴이의 어린 시절 집은 서울 동대문구 제기동에 있는 작은 한옥이었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 4, 1, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 4, 1, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">2.</span> 어머니는 글쓴이가 골목길에 나가지 않고 집 안에서 조용히 책만 읽는 것을 매우 좋아하셨다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 4, 2, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 4, 2, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">3.</span> 목발을 짚던 글쓴이는 친구들과 어울려 직접 공기놀이에 참여할 수 있었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 4, 3, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 4, 3, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">4.</span> 골목 안 친구들은 몸이 불편한 글쓴이를 따돌리고 함께 놀아주지 않았다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 4, 4, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 4, 4, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">5.</span> 지나가던 깨엿 장수 아저씨는 글쓴이에게 깨엿 두 개를 불쑥 내밀며 "괜찮아"라고 말했다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 4, 5, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 4, 5, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">6.</span> 글쓴이는 깨엿 장수 아저씨의 말을 듣고 세상은 선의와 사랑이 있어 참 살 만한 곳이라고 믿게 되었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 4, 6, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 4, 6, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">7.</span> 방송에 나온 가수 김현철은 초등학교 시절 뚱뚱해서 축구를 못 하던 친구에게 골키퍼를 맡겨 함께 놀았다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 4, 7, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 4, 7, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">8.</span> 글쓴이는 2002년 월드컵 결승전에서 한국이 승리했을 때 관중들이 "괜찮아"를 외쳤다고 회상했다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 4, 8, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 4, 8, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">9.</span> 글쓴이에게 '괜찮아'라는 말은 용서, 격려, 나눔, 그리고 다시 시작할 수 있다는 희망의 말이다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 4, 9, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 4, 9, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">10.</span> 글쓴이는 일이 잘 풀리고 모든 것이 만족스러울 때만 '괜찮아'라는 말을 떠올린다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 4, 10, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 4, 10, 'X')">X</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="answer-section" id="ans-4">
+          <div class="answer-header">📌 【꼭지 4】 정답 및 해설 (선생님 채점용)</div>
+          <div class="answer-grid">
+            <div class="answer-item"><span class="ans-tag tag-o">1. O</span> 서울 동대문구 제기동의 작은 한옥에서 유년 시절을 보냄.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">2. X</span> 어머니는 방에만 틀어박혀 책 읽는 것을 싫어하셔서 방석을 깔아 대문 앞 계단에 앉히셨음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">3. O</span> 다른 뛰어노는 놀이는 못 했지만 공기놀이에는 직접 참여함.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">4. X</span> 심판, 가방 보관, 술래잡기 숨을 곳 미리 알려주기 등 친구들이 소외되지 않도록 역할을 만들어 줌.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">5. O</span> 깨엿 장수 아저씨가 리어카를 두고 돌아와 깨엿 두 개를 주며 "괜찮아"라고 말함.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">6. O</span> 세상은 그런대로 살 만한 곳이고 좋은 친구들과 선의와 사랑이 있음을 마음에 새김.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">7. O</span> 뚱뚱한 친구를 위해 "얜 골키퍼를 시키면 우리 함께 놀 수 있잖아!"라며 함께 어울림.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">8. X</span> 2002년 월드컵 4강전에서 독일에게 패배했을 때 관중들이 외친 위로와 격려였음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">9. O</span> 용서, 격려, 나눔, 부축, 그리고 다시 시작할 수 있다는 희망의 속삭임임.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">10. X</span> 세상살이가 만만치 않고 뜻대로 풀리지 않을 때 마음속에서 떠올리는 말임.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 꼭지 5 -->
+      <section class="section-card" id="sec-5">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="badge-no">꼭지 05</span>
+            <span>천 원</span>
+            <span class="author-tag">| 손성주 (34~36쪽)</span>
+          </div>
+          <button class="btn btn-secondary btn-toggle-ans" onclick="toggleAnswer(5)">
+            <span id="btn-icon-5">🔍</span> 정답 및 해설 확인
+          </button>
+        </div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">1.</span> 글쓴이는 학교에서 친구들과 큰 다툼을 벌인 뒤 화가 나서 울며 집으로 돌아오던 길이었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 5, 1, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 5, 1, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">2.</span> 피곤함과 우울함에 지친 글쓴이는 집 근처 보건소 앞 벤치에 털썩 주저앉았다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 5, 1, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 5, 2, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">3.</span> 벤치에 앉아 있던 글쓴이에게 다가와 말을 건 사람은 보라색 잠바를 입은 할머니였다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 5, 3, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 5, 3, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">4.</span> 할머니는 글쓴이에게 따뜻한 음료수 캔과 빵을 사서 건네주셨다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 5, 4, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 5, 4, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">5.</span> 할머니는 글쓴이 또래의 손녀가 생각나서 주는 것이니 그냥 받으라고 하셨다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 5, 5, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 5, 5, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">6.</span> 글쓴이는 낯선 할머니가 주신 돈을 즉시 그 자리에서 바닥에 던져 버렸다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 5, 6, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 5, 6, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">7.</span> 집으로 걸어가는 길에 글쓴이는 뜻밖의 따뜻한 위로를 받아 눈물을 훔쳤다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 5, 7, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 5, 7, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">8.</span> 글쓴이는 할머니가 주신 1,000원으로 편의점에서 맛있는 과자를 사 먹었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 5, 8, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 5, 8, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">9.</span> 글쓴이는 그 1,000원을 현재 방 책장 위 지갑 안에 소중히 간직하고 있다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 5, 9, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 5, 9, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">10.</span> 글쓴이는 가끔 아무것도 하기 싫고 뻗어 버릴 것 같을 때 그 지갑을 손에 쥐며 힘을 얻는다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 5, 10, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 5, 10, 'X')">X</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="answer-section" id="ans-5">
+          <div class="answer-header">📌 【꼭지 5】 정답 및 해설 (선생님 채점용)</div>
+          <div class="answer-grid">
+            <div class="answer-item"><span class="ans-tag tag-x">1. X</span> 학교생활도 잘하고 친구들과 즐겁게 지내다 오던 길에 이유 없이 극심한 피로와 우울함이 찾아옴.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">2. O</span> 몸이 무겁고 지쳐 집에 다 와서 보건소 앞 벤치에 털썩 주저앉음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">3. O</span> 지나가던 두 할머니 중 보라색 잠바를 입으신 할머니가 다가오심.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">4. X</span> 가방에서 주섬주섬 꼬깃꼬깃한 1,000원짜리 지폐를 꺼내 주심.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">5. O</span> 딱 나만 한 손녀가 있어 손녀 생각이 나서 주는 것이라며 받게 하심.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">6. X</span> 거절하는 것이 예의가 아닌 것 같아 감사하고 찡한 마음으로 받음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">7. O</span> 지나가는 사람들의 시선 때문에 훌쩍이며 눈물을 닦았고 큰 위로를 받음.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">8. X</span> 맛있는 걸 사 먹지 않고 힘들 때 보고 힘내기 위해 고이 간직함.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">9. O</span> 현재도 방 책장 위 지갑 안에 소중히 보관하고 있음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">10. O</span> 번아웃이 오거나 지칠 때마다 지갑을 쥐어 보며 힘을 냄.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 꼭지 6 -->
+      <section class="section-card" id="sec-6">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="badge-no">꼭지 06</span>
+            <span>선물</span>
+            <span class="author-tag">| 성석제 (38~40쪽)</span>
+          </div>
+          <button class="btn btn-secondary btn-toggle-ans" onclick="toggleAnswer(6)">
+            <span id="btn-icon-6">🔍</span> 정답 및 해설 확인
+          </button>
+        </div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">1.</span> 글쓴이가 태어나 자란 고향은 식구들끼리 선물을 자주 주고받는 유목적이고 도시적인 환경이었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 6, 1, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 6, 1, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">2.</span> 아버지는 겨울밤 점퍼 속에 호떡 종이 봉지에 들어갈 만큼 작은 강아지를 넣어 와 선물로 주셨다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 6, 2, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 6, 2, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">3.</span> 아버지가 강아지를 주었을 때 글쓴이는 초등학교 3학년이었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 6, 3, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 6, 3, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">4.</span> 아버지가 일평생 처음으로 선물이라며 강아지를 건넬 때 아버지에게서 술 냄새가 났다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 6, 4, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 6, 4, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">5.</span> 가축은 집 안에 들일 수 없다는 원칙 때문에 강아지는 현관 바깥 종이 상자에 놓여졌다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 6, 5, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 6, 5, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">6.</span> 한밤중에 강아지가 낑낑거리며 울자 다른 온 가족들이 잠에서 깨어 밖으로 뛰어나왔다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 6, 6, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 6, 6, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">7.</span> 글쓴이는 배고파 우는 강아지를 위해 저녁에 아껴둔 백설기와 물을 큰맘 먹고 내밀었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 6, 7, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 6, 7, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">8.</span> 강아지는 글쓴이가 준 백설기를 게눈 감추듯 맛있게 다 먹어 치웠다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 6, 8, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 6, 8, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">9.</span> 강아지는 머리를 쓰다듬어 주자 비로소 울음을 그쳤고, 글쓴이는 밤새 곁을 지켰다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 6, 9, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 6, 9, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">10.</span> 글쓴이는 강아지를 통해 난생처음으로 '연민의 감정'을 선물 받았다고 깨달았다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 6, 10, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 6, 10, 'X')">X</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="answer-section" id="ans-6">
+          <div class="answer-header">📌 【꼭지 6】 정답 및 해설 (선생님 채점용)</div>
+          <div class="answer-grid">
+            <div class="answer-item"><span class="ans-tag tag-x">1. X</span> 정착민, 농경의 세계여서 식구끼리 선물을 주고받는 것은 상상조차 못 했음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">2. O</span> 호떡 종이 봉지에 들어갈 정도로 작은 강아지를 점퍼 속에 넣어 오심.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">3. X</span> 중학교 2학년 때 서울로 전학 온 시기였음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">4. O</span> 일평생 처음 선물을 주시던 겨울밤, 아버지에게서 술 냄새가 났음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">5. O</span> 가축은 집 안에 들이지 않는 가풍에 따라 현관 밖 상자에 둠.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">6. X</span> 글쓴이 외에는 아무도 일어나지 않았고 아버지는 코를 골며 주무심.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">7. O</span> 배가 고파 우는 줄 알고 저녁에 남겨둔 백설기와 물을 갖다 줌.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">8. X</span> 너무 어려서 백설기를 전혀 먹지 못하고 물도 마시지 않았음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">9. O</span> 머리를 쓰다듬자 울음을 그쳤고, 글쓴이는 내복 바람으로 밤새 곁을 지키며 날을 샜음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">10. O</span> 아버지는 강아지를, 나는 백설기를 선물했고 강아지는 내게 '연민의 감정'을 선물함.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 꼭지 7 -->
+      <section class="section-card" id="sec-7">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="badge-no">꼭지 07</span>
+            <span>열보다 큰 아홉</span>
+            <span class="author-tag">| 이문구 (42~45쪽)</span>
+          </div>
+          <button class="btn btn-secondary btn-toggle-ans" onclick="toggleAnswer(7)">
+            <span id="btn-icon-7">🔍</span> 정답 및 해설 확인
+          </button>
+        </div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">1.</span> 글쓴이는 '열'이라는 수가 십진급수에서 제일 먼저 꽉 차고 완전함을 이룬 수라고 보았다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 7, 1, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 7, 1, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">2.</span> '십상 좋다'라는 말의 '십상'은 '열 십(十)'과 '이룰 성(成)'에서 나온 말이다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 7, 2, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 7, 2, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">3.</span> 글쓴이는 우리 조상들이 오랜 옛날부터 아홉보다 열을 훨씬 더 사랑했다고 설명했다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 7, 3, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 7, 3, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">4.</span> 끝없이 높고 너른 하늘을 표현할 때 '십만리장천'이 아니라 '구만리장천'이라고 한다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 7, 4, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 7, 4, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">5.</span> 옛 문화재 탑들을 보면 10층 탑은 매우 흔하지만 9층 탑은 찾아보기 어렵다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 7, 5, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 7, 5, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">6.</span> 음력 9월 9일 중양절은 1,000년이 넘도록 큰 명절로 지켜져 왔다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 7, 6, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 7, 6, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">7.</span> 조상들이 아홉을 더 사랑한 이유는 이 세상 모든 일에서 완벽함을 기대했기 때문이다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 7, 7, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 7, 7, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">8.</span> 세계적인 최고 기록을 수록하는 &lt;기네스북&gt;은 해마다 다시 찍어 낼 필요가 없다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 7, 8, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 7, 8, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">9.</span> '아홉'은 꽉 차서 끝난 열과 달리 '다음'과 미래의 꿈, 가능성을 품고 있는 수이다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 7, 9, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 7, 9, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">10.</span> 글쓴이는 중학생들에게 부족하고 어설픈 자신을 비관하기보다 아홉이란 수를 더 사랑하라고 당부한다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 7, 10, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 7, 10, 'X')">X</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="answer-section" id="ans-7">
+          <div class="answer-header">📌 【꼭지 7】 정답 및 해설 (선생님 채점용)</div>
+          <div class="answer-grid">
+            <div class="answer-item"><span class="ans-tag tag-o">1. O</span> 열은 십진법에서 제일 먼저 꽉 찬 수이며 이룰 것을 이룬 완전한 수임.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">2. O</span> '십상(十成) 좋다'의 십상은 열 십과 이룰 성에서 유래함.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">3. X</span> 조상들은 오랜 옛날부터 열보다 아홉을 더 사랑했음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">4. O</span> 십만리장천이 아니라 '구만리장천(九萬里長天)'이라고 표현함.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">5. X</span> 9층 탑은 부지기수로 많아도 10층 탑은 보기 어렵다고 밝힘.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">6. O</span> 음력 9월 9일 중양절(중굿날)을 1,000년 넘게 명절로 쇠었음.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">7. X</span> 완벽함을 기대하지 않았고, 세상에 완전한 것이 없음을 알았기 때문임.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">8. X</span> "모든 기록은 깨어지기 위해서 있다"는 말처럼 해마다 기록이 깨지므로 계속 개정 발간됨.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">9. O</span> 아홉은 여유가 있고 미래의 꿈과 다음 단계의 가능성을 열어두는 수임.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">10. O</span> 한창 자라는 중학생들에게 부족하고 어설픈 것이 정상이니 아홉의 마음가짐을 갖길 권함.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 꼭지 8 -->
+      <section class="section-card" id="sec-8">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="badge-no">꼭지 08</span>
+            <span>탑차를 끄는 사계절의 산타</span>
+            <span class="author-tag">| 김지원 (48~53쪽)</span>
+          </div>
+          <button class="btn btn-secondary btn-toggle-ans" onclick="toggleAnswer(8)">
+            <span id="btn-icon-8">🔍</span> 정답 및 해설 확인
+          </button>
+        </div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">1.</span> 글쓴이는 택배 기사인 아버지를 도와 7년 동안 매일 밤 운송장 번호를 컴퓨터에 입력해 왔다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 8, 1, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 8, 1, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">2.</span> 아버지가 매일 배송한 운송장에는 12자리 숫자가 적혀 있으며 하루 약 200장 정도였다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 8, 2, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 8, 2, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">3.</span> 비가 오는 초여름 날, 아버지는 택배 박스보다 자신의 몸을 먼저 챙기며 우산을 꼭 쓰고 다녔다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 8, 3, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 8, 2, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">4.</span> 배송을 마치고 차로 돌아온 아버지는 글쓴이에게 차에 늘 있던 소보로빵을 건네주셨다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 8, 4, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 8, 4, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">5.</span> 글쓴이는 빗물에 젖어 너덜너덜해진 운송장을 자신의 교복 재킷에 대고 말렸다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 8, 5, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 8, 5, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">6.</span> 아버지는 스마트폰을 능숙하게 다루며 모든 고객의 주소와 현관 위치를 앱에만 의존했다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 8, 6, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 8, 6, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">7.</span> 아버지는 고객들이 단 하나의 택배를 애타게 기다리기 때문에 물건이 그들에게 매우 각별하다고 여겼다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 8, 7, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 8, 7, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">8.</span> 글쓴이의 두 동생은 글쓴이와 나이 차이가 전혀 나지 않는 세 쌍둥이였다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 8, 8, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 8, 8, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">9.</span> 글쓴이는 아버지가 매일매일 사람들에게 기다림의 선물을 전하는 '사계절의 산타'라고 생각했다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 8, 9, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 8, 9, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">10.</span> 아버지는 배송지에 도착하면 아무에게도 알리지 않고 문 앞에 물건만 던져 두고 떠났다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 8, 10, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 8, 10, 'X')">X</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="answer-section" id="ans-8">
+          <div class="answer-header">📌 【꼭지 8】 정답 및 해설 (선생님 채점용)</div>
+          <div class="answer-grid">
+            <div class="answer-item"><span class="ans-tag tag-o">1. O</span> 7년 동안 매일 밤 아버지가 가져온 운송장의 숫자를 컴퓨터에 입력함.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">2. O</span> 12자리 숫자로 된 운송장을 하루 약 200장씩 처리함.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">3. X</span> 우산 대신 두꺼운 박스에 든 물건이 젖을까 봐 품에 꼭 안고 비를 맞으며 달림.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">4. O</span> 차에 늘 있던 소보로빵을 건네주며 따뜻하게 챙겨 주심.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">5. O</span> 진한 붉은 계열 교복 재킷에 대고 빗물에 젖은 송장을 빳빳하게 말림.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">6. X</span> 스마트폰은 잘 다루지 못했으나 주소와 현관 특징, 부재 시 보관 장소를 머릿속으로 완벽히 기억함.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">7. O</span> 기사는 여러 개를 배달하지만 받는 사람은 오직 그 하나를 기다리므로 각별하다고 생각함.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">8. X</span> 글쓴이와는 띠동갑 차이가 나고 서로에겐 연년생인 어린 동생들이었음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">9. O</span> 루돌프 대신 탑차를 몰며 1년 365일 선물을 전하는 사계절의 산타임.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">10. X</span> 집 앞에 도착하면 꼭 전화를 걸어 "누가 안 가져가게 잘 넣어 둘게요"라고 안심시켜 줌.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 꼭지 9 -->
+      <section class="section-card" id="sec-9">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="badge-no">꼭지 09</span>
+            <span>할아버지의 엄마 나무</span>
+            <span class="author-tag">| 한아리 (56~58쪽)</span>
+          </div>
+          <button class="btn btn-secondary btn-toggle-ans" onclick="toggleAnswer(9)">
+            <span id="btn-icon-9">🔍</span> 정답 및 해설 확인
+          </button>
+        </div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">1.</span> 글쓴이가 할아버지 방에서 처음 본 낡은 액자는 유명 화가가 그린 풍경화였다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 9, 1, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 9, 1, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">2.</span> 삼촌이 작은 통에 담아 온 흙은 황해도 연백에서 가져온 이북의 흙이었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 9, 2, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 9, 2, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">3.</span> 글쓴이의 할아버지는 6.25 전쟁으로 고향을 떠나 돌아가지 못한 실향민이다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 9, 3, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 9, 3, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">4.</span> 6.25 전쟁 당시 증조할아버지는 온 가족을 한꺼번에 안전하게 남쪽으로 피란시켰다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 9, 4, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 9, 4, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">5.</span> 할아버지는 흙을 손으로 만지고 냄새 맡으며 증조할머니 생각에 눈물을 흘리셨다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 9, 5, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 9, 5, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">6.</span> 할아버지와 글쓴이는 삼촌이 가져온 흙을 마당 구석 화단에 넣고 나무를 심었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 9, 6, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 9, 6, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">7.</span> 화단에 심은 나무는 증조할머니가 생전에 좋아하셨던 '철쭉'이었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 9, 7, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 9, 7, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">8.</span> 글쓴이는 새로 심은 철쭉나무의 이름을 '고향 나무'라고 지었다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 9, 8, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 9, 8, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">9.</span> 할아버지는 나무 이름을 '엄마'로 짓자는 손녀의 제안에 크게 화를 내셨다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 9, 9, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 9, 9, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">10.</span> 글쓴이는 봄에 필 철쭉꽃을 보며 할아버지가 조금이라도 슬픔을 위로받기를 바란다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 9, 10, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 9, 10, 'X')">X</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="answer-section" id="ans-9">
+          <div class="answer-header">📌 【꼭지 9】 정답 및 해설 (선생님 채점용)</div>
+          <div class="answer-grid">
+            <div class="answer-item"><span class="ans-tag tag-x">1. X</span> 낡은 그림인 줄 알았으나 빛바랜 '증조할머니의 사진'이었음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">2. O</span> 이북 5도민 단체에서 나눠준 황해도 연백의 고향 흙이었음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">3. O</span> 열세 살에 가족과 헤어져 홀로 남쪽에 남겨진 실향민이심.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">4. X</span> 열세 살 할아버지를 먼저 남쪽에 데려다 놓고 가족을 데리러 북으로 가신 사이 분단됨.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">5. O</span> 흙을 만지고 냄새 맡으며 엄마를 품에 안듯 눈물을 흘리심.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">6. O</span> 통에 든 고향 흙을 마당 구석 화단에 넣고 함께 식재함.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">7. O</span> 증조할머니가 생전에 좋아하셨던 철쭉을 심음.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">8. X</span> 글쓴이가 "할아버지, 우리 이 나무 이름을 '엄마'라고 지어요"라고 제안함.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">9. X</span> "그거 좋다"라며 손녀를 따뜻하게 안아 주심.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">10. O</span> 활짝 핀 철쭉꽃을 보며 할아버지가 슬픔을 위로받길 진심으로 소망함.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 꼭지 10 -->
+      <section class="section-card" id="sec-10">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="badge-no">꼭지 10</span>
+            <span>사막을 같이 가는 벗</span>
+            <span class="author-tag">| 양귀자 (60~63쪽)</span>
+          </div>
+          <button class="btn btn-secondary btn-toggle-ans" onclick="toggleAnswer(10)">
+            <span id="btn-icon-10">🔍</span> 정답 및 해설 확인
+          </button>
+        </div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">1.</span> 글쓴이는 학창 시절 학년과 반이 바뀌는 신학기를 몹시 싫어하고 두려워했다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 10, 1, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 10, 1, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">2.</span> 글쓴이는 신학기가 되면 낯선 아이들과 첫날부터 스스럼없이 바로 친해졌다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 10, 2, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 10, 2, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">3.</span> 글쓴이는 점심시간에 친하지 않은 짝과 김치 국물이 흐른 도시락을 먹는 것이 무렴하고 거북했다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 10, 3, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 10, 3, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">4.</span> 여름 방학을 할 때쯤이 되면 늘 마음이 맞는 단짝 친구 한 명 정도는 생겨나곤 했다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 10, 4, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 10, 4, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">5.</span> 어른이 된 후 마주한 세상살이는 신학기 학교생활보다 훨씬 더 평화롭고 안락했다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 10, 5, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 10, 5, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">6.</span> 글쓴이는 인생이라는 험난한 항해를 헤쳐 나갈 때 영혼을 나눌 진정한 친구가 절실하다고 보았다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 10, 6, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 10, 6, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">7.</span> 글쓴이가 만난 어떤 사람은 사업에 실패해 낙향한 친구를 위해 직장을 정리하고 함께 시골로 내려갔다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 10, 7, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 10, 7, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">8.</span> 시골로 내려간 두 집 가족들은 서로를 원망하며 크게 후회했다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 10, 8, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 10, 8, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">9.</span> 글쓴이는 '친구 없이 사는 일만큼 무서운 사막은 없다'는 말을 마음 깊이 새겼다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 10, 9, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 10, 9, 'X')">X</button>
+            </div>
+          </div>
+          <div class="question-item">
+            <div class="q-text"><span class="q-num">10.</span> 글쓴이는 우정이란 가만히 있어도 저절로 굴러들어 오는 일방적인 행위라고 생각했다.</div>
+            <div class="ox-selector">
+              <button class="ox-btn" onclick="selectOX(this, 10, 10, 'O')">O</button>
+              <button class="ox-btn" onclick="selectOX(this, 10, 10, 'X')">X</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="answer-section" id="ans-10">
+          <div class="answer-header">📌 【꼭지 10】 정답 및 해설 (선생님 채점용)</div>
+          <div class="answer-grid">
+            <div class="answer-item"><span class="ans-tag tag-o">1. O</span> 학년과 반이 바뀌어 친구들과 헤어지는 신학기를 유별나게 싫어함.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">2. X</span> 낯가림으로 혼자 외톨이가 된 것 같아 가슴이 써늘해지고 도망가고 싶어 했음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">3. O</span> 서먹한 짝과 밥알 씹는 소리까지 들으며 먹는 점심시간이 몹시 거북(무렴)했음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">4. O</span> 방학 때쯤이면 외로움을 덜어줄 단짝 친구를 발견하곤 했음.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">5. X</span> 시기, 미움, 속임이 가득한 거친 파도의 망망대해 같은 황폐한 세상살이였음.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">6. O</span> 고난의 인생길에서 영혼의 교류를 나눌 따뜻한 동반자가 절실함을 강조함.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">7. O</span> 실패한 친구를 위해 직장을 그만두고 온 가족과 함께 시골로 내려가 땅을 일굼.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">8. X</span> 냉혹한 세상에 맞서 힘을 합쳤으니 든든하다며 서로 깊이 신뢰함.</div>
+            <div class="answer-item"><span class="ans-tag tag-o">9. O</span> 친구 없는 삶은 무서운 사막이자 증인 없이 죽는 일이라는 경구를 깊이 새김.</div>
+            <div class="answer-item"><span class="ans-tag tag-x">10. X</span> 우정은 일방적인 것이 아니라 상호 교류이며 내가 먼저 쌓아야 할 탑이자 경작할 열매임.</div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 하단 코멘트 -->
+    <footer class="footer-tip">
+      💡 <strong>학습 안내</strong>: 문제를 모두 푼 뒤, 꼭지별 [정답 및 해설 확인] 버튼을 눌러 채점해 보세요.<br>
+      인쇄 시 상단 메뉴의 [시험지 인쇄]를 누르면 A4 규격에 알맞게 바로 출력할 수 있습니다.
+    </footer>
+  </div>
+
+  <script>
+    const userAnswers = {};
+    let allOpened = false;
+
+    // OX 버튼 클릭 선택 토글
+    function selectOX(btn, sectionNo, qNo, choice) {
+      const parent = btn.parentElement;
+      const buttons = parent.querySelectorAll('.ox-btn');
+      const qKey = `${sectionNo}_${qNo}`;
+
+      if (btn.classList.contains(choice === 'O' ? 'selected-o' : 'selected-x')) {
+        // 이미 선택된 것을 다시 클릭하면 취소
+        btn.classList.remove('selected-o', 'selected-x');
+        delete userAnswers[qKey];
+      } else {
+        buttons.forEach(b => b.classList.remove('selected-o', 'selected-x'));
+        btn.classList.add(choice === 'O' ? 'selected-o' : 'selected-x');
+        userAnswers[qKey] = choice;
+      }
+      updateProgress();
+    }
+
+    // 꼭지별 정답 토글
+    function toggleAnswer(secNo) {
+      const ansElem = document.getElementById(`ans-${secNo}`);
+      const iconElem = document.getElementById(`btn-icon-${secNo}`);
+      if (!ansElem) return;
+
+      if (ansElem.classList.contains('open')) {
+        ansElem.classList.remove('open');
+        if (iconElem) iconElem.innerText = '🔍';
+      } else {
+        ansElem.classList.add('open');
+        if (iconElem) iconElem.innerText = '🔒';
+      }
+    }
+
+    // 전체 정답 펼치기/접기
+    function toggleAllAnswers() {
+      allOpened = !allOpened;
+      for (let i = 1; i <= 10; i++) {
+        const ans = document.getElementById(`ans-${i}`);
+        const icon = document.getElementById(`btn-icon-${i}`);
+        if (ans) {
+          if (allOpened) {
+            ans.classList.add('open');
+            if (icon) icon.innerText = '🔒';
+          } else {
+            ans.classList.remove('open');
+            if (icon) icon.innerText = '🔍';
+          }
+        }
+      }
+      document.getElementById('allToggleText').innerText = allOpened ? '전체 정답 및 해설 접기' : '전체 정답 및 해설 펼치기';
+      document.getElementById('allToggleIcon').innerText = allOpened ? '🔒' : '📖';
+    }
+
+    // 마킹 초기화
+    function resetSelections() {
+      if (!confirm('풀이한 모든 선택을 초기화하시겠습니까?')) return;
+      document.querySelectorAll('.ox-btn').forEach(b => b.classList.remove('selected-o', 'selected-x'));
+      for (let k in userAnswers) delete userAnswers[k];
+      updateProgress();
+    }
+
+    // 진행도 업데이트
+    function updateProgress() {
+      const count = Object.keys(userAnswers).length;
+      document.getElementById('solveProgress').innerText = `진행도: ${count} / 100 문항`;
+    }
+  </script>
+</body>
+</html>

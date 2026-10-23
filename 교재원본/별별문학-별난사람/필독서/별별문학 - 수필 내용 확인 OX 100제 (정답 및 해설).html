@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>별별문학 | 수필 필독서 내용 확인 OX 100제 (정답 및 해설)</title>
+  <style>
+    :root {
+      --primary: #A8285C;
+      --primary-light: #F3D8E1;
+      --primary-dark: #7A1940;
+      --accent: #E06D8C;
+      --text: #2D3748;
+      --text-muted: #718096;
+      --bg: #F8F9FA;
+      --card-bg: #FFFFFF;
+      --border: #E2E8F0;
+      --success: #2E7D32;
+      --error: #C62828;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: "맑은 고딕", "Malgun Gothic", "함초롬돋움", "Apple SD Gothic Neo", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      padding: 32px 36px;
+    }
+
+    /* 상단 배너 */
+    .header-banner {
+      background: var(--primary-light);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      border-left: 6px solid var(--primary);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .banner-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .unit-tag {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      background: rgba(255, 255, 255, 0.85);
+      padding: 4px 12px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+
+    .doc-type-badge {
+      font-size: 13px;
+      font-weight: 700;
+      color: #FFFFFF;
+      background: var(--primary);
+      padding: 4px 12px;
+      border-radius: 6px;
+    }
+
+    .doc-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      letter-spacing: -0.5px;
+    }
+
+    .doc-desc {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    /* 상단 툴바 */
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px dashed var(--border);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: #EDF2F7;
+      color: #4A5568;
+    }
+
+    .btn-secondary:hover {
+      background: #E2E8F0;
+    }
+
+    /* 빠른 정답표 (5열 테이블) */
+    .quick-table-wrap {
+      margin-bottom: 36px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .quick-table-header {
+      background: #FFF0F4;
+      padding: 14px 20px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 2px solid rgba(168, 40, 92, 0.2);
+    }
+
+    .quick-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .quick-table th {
+      background: #FDF4F6;
+      color: var(--primary-dark);
+      padding: 10px 8px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .quick-table td {
+      padding: 9px 8px;
+      border-bottom: 1px solid #F0F0F0;
+      font-size: 13.5px;
+    }
+
+    .quick-table tr:hover {
+      background: #FAF8F9;
+    }
+
+    .quick-table td.sec-name {
+      text-align: left;
+      font-weight: 700;
+      color: #2D3748;
+      padding-left: 16px;
+      width: 32%;
+    }
+
+    .tag-o {
+      display: inline-block;
+      width: 26px;
+      height: 24px;
+      line-height: 24px;
+      background: #E8F5E9;
+      color: var(--success);
+      font-weight: 800;
+      border-radius: 4px;
+      margin: 0 1px;
+    }
+
+    .tag-x {
+      display: inline-block;
+      width: 26px;
+      height: 24px;
+      line-height: 24px;
+      background: #FFEBEE;
+      color: var(--error);
+      font-weight: 800;
+      border-radius: 4px;
+      margin: 0 1px;
+    }
+
+    /* 상세 해설 섹션 */
+    .detail-section-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin: 36px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .detail-card {
+      margin-bottom: 28px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      page-break-inside: avoid;
+    }
+
+    .detail-card-header {
+      background: #FFF5F7;
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(168, 40, 92, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge-no {
+      background: var(--primary);
+      color: #FFFFFF;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .detail-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .detail-card-author {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .detail-list {
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #FFFFFF;
+    }
+
+    .detail-item {
+      font-size: 13.5px;
+      line-height: 1.6;
+      padding: 8px 12px;
+      background: #FAFAFA;
+      border-radius: 6px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .detail-item strong {
+      color: var(--primary-dark);
+    }
+
+    /* 하단 안내 */
+    .footer-note {
+      background: var(--primary-light);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 36px;
+      font-size: 13px;
+      color: var(--primary-dark);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* 인쇄 최적화 (@media print) */
+    @media print {
+      body {
+        background: #FFFFFF;
+        padding: 0;
+        font-size: 12px;
+      }
+
+      .container {
+        max-width: 100%;
+        box-shadow: none;
+        padding: 0;
+      }
+
+      .controls {
+        display: none !important;
+      }
+
+      .header-banner {
+        border-left: 4px solid var(--primary);
+        padding: 10px 14px;
+        margin-bottom: 14px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .quick-table th {
+        background: #FDF4F6 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .tag-o {
+        background: #E8F5E9 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .tag-x {
+        background: #FFEBEE !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .detail-card-header {
+        background: #FFF5F7 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .detail-card {
+        page-break-inside: avoid;
+        margin-bottom: 16px;
+      }
+
+      .page-break {
+        page-break-after: always;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- 상단 배너 -->
+    <header class="header-banner">
+      <div class="banner-top">
+        <span class="unit-tag">별별문학 | 별난 사람 이야기</span>
+        <span class="doc-type-badge">선생님 채점 및 지도용</span>
+      </div>
+      <h1 class="doc-title">● 수필 필독서 내용 확인 OX 100제 (정답 및 해설집)</h1>
+      <p class="doc-desc">
+        스캔 원본 10편의 수필에 수록된 100문항의 <strong>빠른 채점 정답표</strong>와 <strong>본문 근거 상세 해설</strong>입니다.<br>
+        학생용 시험지와 분리되어 채점 및 오답 지도 시 즉시 활용하실 수 있습니다.
+      </p>
+    </header>
+
+    <!-- 컨트롤 툴바 -->
+    <div class="controls">
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="window.print()">
+          🖨️ 해설지 A4 인쇄
+        </button>
+        <a href="별별문학 - 수필 내용 확인 OX 100제.html" class="btn btn-secondary">
+          📝 학생용 문제지 보기
+        </a>
+      </div>
+      <div class="btn-group">
+        <span style="font-size:13px; font-weight:600; color:var(--primary);">총 10개 꼭지 | 100문항 완비</span>
+      </div>
+    </div>
+
+    <!-- PART 1: 100문항 빠른 채점표 (5열 정답표) -->
+    <section class="quick-table-wrap">
+      <div class="quick-table-header">
+        <span>⚡ 100문항 한눈에 보는 빠른 채점표 (Quick Answer Key)</span>
+      </div>
+      <table class="quick-table">
+        <thead>
+          <tr>
+            <th style="width:10%;">꼭지</th>
+            <th style="width:28%; text-align:left; padding-left:16px;">수록 작품 (저자)</th>
+            <th style="width:31%;">1번 ~ 5번</th>
+            <th style="width:31%;">6번 ~ 10번</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>01</strong></td>
+            <td class="sec-name">아름다운 흉터 (이청준)</td>
+            <td><span class="tag-o">O</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-x">X</span></td>
+            <td><span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span></td>
+          </tr>
+          <tr>
+            <td><strong>02</strong></td>
+            <td class="sec-name">어느 날 자전거가 (성석제)</td>
+            <td><span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-x">X</span></td>
+            <td><span class="tag-o">O</span> <span class="tag-o">O</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span></td>
+          </tr>
+          <tr>
+            <td><strong>03</strong></td>
+            <td class="sec-name">부딪치면서 배워요 (오소희)</td>
+            <td><span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span></td>
+            <td><span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span></td>
+          </tr>
+          <tr>
+            <td><strong>04</strong></td>
+            <td class="sec-name">괜찮아 (장영희)</td>
+            <td><span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span></td>
+            <td><span class="tag-o">O</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-x">X</span></td>
+          </tr>
+          <tr>
+            <td><strong>05</strong></td>
+            <td class="sec-name">천 원 (손성주)</td>
+            <td><span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span></td>
+            <td><span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-o">O</span></td>
+          </tr>
+          <tr>
+            <td><strong>06</strong></td>
+            <td class="sec-name">선물 (성석제)</td>
+            <td><span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-o">O</span></td>
+            <td><span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-o">O</span></td>
+          </tr>
+          <tr>
+            <td><strong>07</strong></td>
+            <td class="sec-name">열보다 큰 아홉 (이문구)</td>
+            <td><span class="tag-o">O</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-x">X</span></td>
+            <td><span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-o">O</span></td>
+          </tr>
+          <tr>
+            <td><strong>08</strong></td>
+            <td class="sec-name">탑차를 끄는 산타 (김지원)</td>
+            <td><span class="tag-o">O</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-o">O</span></td>
+            <td><span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-x">X</span></td>
+          </tr>
+          <tr>
+            <td><strong>09</strong></td>
+            <td class="sec-name">할아버지의 엄마 나무 (한아리)</td>
+            <td><span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span></td>
+            <td><span class="tag-o">O</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-x">X</span> <span class="tag-o">O</span></td>
+          </tr>
+          <tr>
+            <td><strong>10</strong></td>
+            <td class="sec-name">사막을 같이 가는 벗 (양귀자)</td>
+            <td><span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-o">O</span> <span class="tag-x">X</span></td>
+            <td><span class="tag-o">O</span> <span class="tag-o">O</span> <span class="tag-x">X</span> <span class="tag-o">O</span> <span class="tag-x">X</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- PART 2: 꼭지별 1~10문항 본문 근거 상세 풀이 -->
+    <h2 class="detail-section-title">📖 꼭지별 상세 해설 및 본문 근거 풀이집</h2>
+
+    <!-- 꼭지 1 -->
+    <article class="detail-card">
+      <div class="detail-card-header">
+        <span class="badge-no">꼭지 01</span>
+        <span class="detail-card-title">아름다운 흉터</span>
+        <span class="detail-card-author">| 이청준 (12~14쪽)</span>
+      </div>
+      <div class="detail-list">
+        <div class="detail-item"><strong>1. O</strong> : 본문 첫 문장에 "세 종류의 흉터가 선명하게 남아 있다"고 밝힘.</div>
+        <div class="detail-item"><strong>2. O</strong> : 초등 1학년 소풍 전날 토방 아래 누렁이 목을 조르다 왼손을 물려 생긴 상처임.</div>
+        <div class="detail-item"><strong>3. X</strong> : 초등학교 5학년 때 남의 산에 나무하러 갔다가 도둑 톱질 끝에 쓰러지는 나무를 피하려다 마른 가지에 찍힌 흉터임.</div>
+        <div class="detail-item"><strong>4. O</strong> : 고등학교 때까지 방학마다 고향 집에서 논밭걷이와 푸나무 낫질을 하다 왼손 검지와 장지에 상처가 더해짐.</div>
+        <div class="detail-item"><strong>5. X</strong> : 도회지 아이들의 희고 깨끗한 손에 비해 일로 거칠어지고 흉터가 많아 큰 부끄러움거리가 되었음.</div>
+        <div class="detail-item"><strong>6. O</strong> : 직장의 나이 든 선배가 자신의 상처 많은 손을 보여주며 건넨 따뜻한 말 한마디로 인식이 변화됨.</div>
+        <div class="detail-item"><strong>7. X</strong> : "어려운 시절을 힘차게 살아 냈구먼"이라며 깊이 이해하고 위로해 줌.</div>
+        <div class="detail-item"><strong>8. O</strong> : 상처의 흔적이야말로 우리 삶의 단단한 마디요 숨은 값이라고 서술함.</div>
+        <div class="detail-item"><strong>9. X</strong> : 오직 나만의 자랑거리로 삼지 말고 자신의 삶을 겸손하게 되돌아보는 거울로 삼아야 한다고 강조함.</div>
+        <div class="detail-item"><strong>10. O</strong> : "자기 흉터엔 겸손한 긍지를, 남의 흉터엔 위로와 경의를, 흉터 많은 우리 삶엔 사랑의 찬가를"이라며 마무리함.</div>
+      </div>
+    </article>
+
+    <!-- 꼭지 2 -->
+    <article class="detail-card">
+      <div class="detail-card-header">
+        <span class="badge-no">꼭지 02</span>
+        <span class="detail-card-title">어느 날 자전거가 내 삶 속으로 들어왔다</span>
+        <span class="detail-card-author">| 성석제 (16~19쪽)</span>
+      </div>
+      <div class="detail-list">
+        <div class="detail-item"><strong>1. X</strong> : 초등학교 때처럼 걸어서 다니기 힘든 거리였고, 버스나 자가용도 없었음.</div>
+        <div class="detail-item"><strong>2. O</strong> : 고향이 분지 지형이라 평탄하여 집집마다 자전거가 흔했음.</div>
+        <div class="detail-item"><strong>3. O</strong> : 큰집에서 짐받이가 크고 무거운 농업용 자전거를 빌려 연습함.</div>
+        <div class="detail-item"><strong>4. X</strong> : 운동 신경이 둔하다는 핑계로 타지 않았으나 다른 아이들이 부럽기도 했음.</div>
+        <div class="detail-item"><strong>5. X</strong> : 오전에 사람이 없는 운동장으로 가서 시멘트 계단 옆에서 출발 연습을 함.</div>
+        <div class="detail-item"><strong>6. O</strong> : 바퀴가 두 번 구르기도 전에 넘어지기를 수백 번 거듭하며 멍이 들고 피부가 벗겨짐.</div>
+        <div class="detail-item"><strong>7. O</strong> : 50미터쯤 되는 오르막에서 내리막을 달려 내려가면 쉽게 탈 수 있을 거라 생각함.</div>
+        <div class="detail-item"><strong>8. O</strong> : 내리막 아래 휘어진 길 정면에는 도랑과 거름용 분뇨 똥통이 있었음.</div>
+        <div class="detail-item"><strong>9. X</strong> : 도랑과 똥통 옆을 무사히 통과하여 읍내 길을 신나게 내달림.</div>
+        <div class="detail-item"><strong>10. O</strong> : "일단 안장 위에 올라선 이상 계속 가지 않으면 쓰러진다"는 중요한 삶의 원리를 깨달음.</div>
+      </div>
+    </article>
+
+    <!-- 꼭지 3 -->
+    <article class="detail-card">
+      <div class="detail-card-header">
+        <span class="badge-no">꼭지 03</span>
+        <span class="detail-card-title">부딪치면서 배워요</span>
+        <span class="detail-card-author">| 오소희 (22~26쪽)</span>
+      </div>
+      <div class="detail-list">
+        <div class="detail-item"><strong>1. O</strong> : 에티오피아에서 돌아온 뒤 아프리카 여행기를 읽고 싶어 하는 친척 동생의 사연 메일을 받음.</div>
+        <div class="detail-item"><strong>2. X</strong> : 당시 점자책이나 오디오북이 없어 작가가 직접 가서 읽어 주겠다고 답장을 보냄.</div>
+        <div class="detail-item"><strong>3. O</strong> : 수빈과 희원은 당시 중학교 2학년 시각 장애 소년들이었음.</div>
+        <div class="detail-item"><strong>4. X</strong> : 수빈은 덩치가 크고 진중했고, 희원은 작고 유쾌했음 (성격이 뒤바뀜).</div>
+        <div class="detail-item"><strong>5. O</strong> : 교실 정리 시간이 되자 수빈이가 '제일 먼저' 불을 끔.</div>
+        <div class="detail-item"><strong>6. X</strong> : 아이들은 암흑 속에서도 매우 능숙하고 자연스럽게 블라인드를 내리고 책걸상을 정리함.</div>
+        <div class="detail-item"><strong>7. O</strong> : 형광등은 아이들이 아니라 오직 글쓴이 자신만을 위해 켜져 있었음을 비로소 깨달음.</div>
+        <div class="detail-item"><strong>8. O</strong> : 새로운 공간에선 어떻게 하냐고 묻자 희원이가 "부딪치면서 배워요"라고 명쾌하게 대답함.</div>
+        <div class="detail-item"><strong>9. X</strong> : 1~2초간 숨이 멎을 정도로 깊은 감동과 신선한 깨달음을 얻음.</div>
+        <div class="detail-item"><strong>10. O</strong> : 온몸을 내던져 부딪치며 배우는 삶의 태도를 본받아 중년의 삶을 살아가겠다고 다짐함.</div>
+      </div>
+    </article>
+
+    <!-- 꼭지 4 -->
+    <article class="detail-card">
+      <div class="detail-card-header">
+        <span class="badge-no">꼭지 04</span>
+        <span class="detail-card-title">괜찮아</span>
+        <span class="detail-card-author">| 장영희 (28~32쪽)</span>
+      </div>
+      <div class="detail-list">
+        <div class="detail-item"><strong>1. O</strong> : 서울 동대문구 제기동의 작은 한옥에서 유년 시절을 보냄.</div>
+        <div class="detail-item"><strong>2. X</strong> : 어머니는 방에만 틀어박혀 책 읽는 것을 싫어하셔서 방석을 깔아 대문 앞 계단에 앉히셨음.</div>
+        <div class="detail-item"><strong>3. O</strong> : 다른 뛰어노는 놀이는 못 했지만 공기놀이에는 직접 참여함.</div>
+        <div class="detail-item"><strong>4. X</strong> : 심판, 가방 보관, 술래잡기 숨을 곳 미리 알려주기 등 친구들이 소외되지 않도록 역할을 만들어 줌.</div>
+        <div class="detail-item"><strong>5. O</strong> : 깨엿 장수 아저씨가 리어카를 두고 돌아와 깨엿 두 개를 주며 "괜찮아"라고 말함.</div>
+        <div class="detail-item"><strong>6. O</strong> : 세상은 그런대로 살 만한 곳이고 좋은 친구들과 선의와 사랑이 있음을 마음에 새김.</div>
+        <div class="detail-item"><strong>7. O</strong> : 뚱뚱한 친구를 위해 "얜 골키퍼를 시키면 우리 함께 놀 수 있잖아!"라며 함께 어울림.</div>
+        <div class="detail-item"><strong>8. X</strong> : 2002년 월드컵 4강전에서 독일에게 패배했을 때 관중들이 외친 위로와 격려였음.</div>
+        <div class="detail-item"><strong>9. O</strong> : 용서, 격려, 나눔, 부축, 그리고 다시 시작할 수 있다는 희망의 속삭임임.</div>
+        <div class="detail-item"><strong>10. X</strong> : 세상살이가 만만치 않고 뜻대로 풀리지 않을 때 마음속에서 떠올리는 말임.</div>
+      </div>
+    </article>
+
+    <!-- 꼭지 5 -->
+    <article class="detail-card">
+      <div class="detail-card-header">
+        <span class="badge-no">꼭지 05</span>
+        <span class="detail-card-title">천 원</span>
+        <span class="detail-card-author">| 손성주 (34~36쪽)</span>
+      </div>
+      <div class="detail-list">
+        <div class="detail-item"><strong>1. X</strong> : 학교생활도 잘하고 친구들과 즐겁게 지내다 오던 길에 이유 없이 극심한 피로와 우울함이 찾아옴.</div>
+        <div class="detail-item"><strong>2. O</strong> : 몸이 무겁고 지쳐 집에 다 와서 보건소 앞 벤치에 털썩 주저앉음.</div>
+        <div class="detail-item"><strong>3. O</strong> : 지나가던 두 할머니 중 보라색 잠바를 입으신 할머니가 다가오심.</div>
+        <div class="detail-item"><strong>4. X</strong> : 가방에서 주섬주섬 꼬깃꼬깃한 1,000원짜리 지폐를 꺼내 주심.</div>
+        <div class="detail-item"><strong>5. O</strong> : 딱 나만 한 손녀가 있어 손녀 생각이 나서 주는 것이라며 받게 하심.</div>
+        <div class="detail-item"><strong>6. X</strong> : 거절하는 것이 예의가 아닌 것 같아 감사하고 찡한 마음으로 받음.</div>
+        <div class="detail-item"><strong>7. O</strong> : 지나가는 사람들의 시선 때문에 훌쩍이며 눈물을 닦았고 큰 위로를 받음.</div>
+        <div class="detail-item"><strong>8. X</strong> : 맛있는 걸 사 먹지 않고 힘들 때 보고 힘내기 위해 고이 간직함.</div>
+        <div class="detail-item"><strong>9. O</strong> : 현재도 방 책장 위 지갑 안에 소중히 보관하고 있음.</div>
+        <div class="detail-item"><strong>10. O</strong> : 번아웃이 오거나 지칠 때마다 지갑을 쥐어 보며 힘을 냄.</div>
+      </div>
+    </article>
+
+    <!-- 꼭지 6 -->
+    <article class="detail-card">
+      <div class="detail-card-header">
+        <span class="badge-no">꼭지 06</span>
+        <span class="detail-card-title">선물</span>
+        <span class="detail-card-author">| 성석제 (38~40쪽)</span>
+      </div>
+      <div class="detail-list">
+        <div class="detail-item"><strong>1. X</strong> : 정착민, 농경의 세계여서 식구끼리 선물을 주고받는 것은 상상조차 못 했음.</div>
+        <div class="detail-item"><strong>2. O</strong> : 호떡 종이 봉지에 들어갈 정도로 작은 강아지를 점퍼 속에 넣어 오심.</div>
+        <div class="detail-item"><strong>3. X</strong> : 중학교 2학년 때 서울로 전학 온 시기였음.</div>
+        <div class="detail-item"><strong>4. O</strong> : 일평생 처음 선물을 주시던 겨울밤, 아버지에게서 술 냄새가 났음.</div>
+        <div class="detail-item"><strong>5. O</strong> : 가축은 집 안에 들이지 않는 가풍에 따라 현관 밖 상자에 둠.</div>
+        <div class="detail-item"><strong>6. X</strong> : 글쓴이 외에는 아무도 일어나지 않았고 아버지는 코를 골며 주무심.</div>
+        <div class="detail-item"><strong>7. O</strong> : 배가 고파 우는 줄 알고 저녁에 남겨둔 백설기와 물을 갖다 줌.</div>
+        <div class="detail-item"><strong>8. X</strong> : 너무 어려서 백설기를 전혀 먹지 못하고 물도 마시지 않았음.</div>
+        <div class="detail-item"><strong>9. O</strong> : 머리를 쓰다듬자 울음을 그쳤고, 글쓴이는 내복 바람으로 밤새 곁을 지키며 날을 샜음.</div>
+        <div class="detail-item"><strong>10. O</strong> : 아버지는 강아지를, 나는 백설기를 선물했고 강아지는 내게 '연민의 감정'을 선물함.</div>
+      </div>
+    </article>
+
+    <!-- 꼭지 7 -->
+    <article class="detail-card">
+      <div class="detail-card-header">
+        <span class="badge-no">꼭지 07</span>
+        <span class="detail-card-title">열보다 큰 아홉</span>
+        <span class="detail-card-author">| 이문구 (42~45쪽)</span>
+      </div>
+      <div class="detail-list">
+        <div class="detail-item"><strong>1. O</strong> : 열은 십진법에서 제일 먼저 꽉 찬 수이며 이룰 것을 이룬 완전한 수임.</div>
+        <div class="detail-item"><strong>2. O</strong> : '십상(十成) 좋다'의 십상은 열 십과 이룰 성에서 유래함.</div>
+        <div class="detail-item"><strong>3. X</strong> : 조상들은 오랜 옛날부터 열보다 아홉을 더 사랑했음.</div>
+        <div class="detail-item"><strong>4. O</strong> : 십만리장천이 아니라 '구만리장천(九萬里長天)'이라고 표현함.</div>
+        <div class="detail-item"><strong>5. X</strong> : 9층 탑은 부지기수로 많아도 10층 탑은 보기 어렵다고 밝힘.</div>
+        <div class="detail-item"><strong>6. O</strong> : 음력 9월 9일 중양절(중굿날)을 1,000년 넘게 명절로 쇠었음.</div>
+        <div class="detail-item"><strong>7. X</strong> : 완벽함을 기대하지 않았고, 세상에 완전한 것이 없음을 알았기 때문임.</div>
+        <div class="detail-item"><strong>8. X</strong> : "모든 기록은 깨어지기 위해서 있다"는 말처럼 해마다 기록이 깨지므로 계속 개정 발간됨.</div>
+        <div class="detail-item"><strong>9. O</strong> : 아홉은 여유가 있고 미래의 꿈과 다음 단계의 가능성을 열어두는 수임.</div>
+        <div class="detail-item"><strong>10. O</strong> : 한창 자라는 중학생들에게 부족하고 어설픈 것이 정상이니 아홉의 마음가짐을 갖길 권함.</div>
+      </div>
+    </article>
+
+    <!-- 꼭지 8 -->
+    <article class="detail-card">
+      <div class="detail-card-header">
+        <span class="badge-no">꼭지 08</span>
+        <span class="detail-card-title">탑차를 끄는 사계절의 산타</span>
+        <span class="detail-card-author">| 김지원 (48~53쪽)</span>
+      </div>
+      <div class="detail-list">
+        <div class="detail-item"><strong>1. O</strong> : 7년 동안 매일 밤 아버지가 가져온 운송장의 숫자를 컴퓨터에 입력함.</div>
+        <div class="detail-item"><strong>2. O</strong> : 12자리 숫자로 된 운송장을 하루 약 200장씩 처리함.</div>
+        <div class="detail-item"><strong>3. X</strong> : 우산 대신 두꺼운 박스에 든 물건이 젖을까 봐 품에 꼭 안고 비를 맞으며 달림.</div>
+        <div class="detail-item"><strong>4. O</strong> : 차에 늘 있던 소보로빵을 건네주며 따뜻하게 챙겨 주심.</div>
+        <div class="detail-item"><strong>5. O</strong> : 진한 붉은 계열 교복 재킷에 대고 빗물에 젖은 송장을 빳빳하게 말림.</div>
+        <div class="detail-item"><strong>6. X</strong> : 스마트폰은 잘 다루지 못했으나 주소와 현관 특징, 부재 시 보관 장소를 머릿속으로 완벽히 기억함.</div>
+        <div class="detail-item"><strong>7. O</strong> : 기사는 여러 개를 배달하지만 받는 사람은 오직 그 하나를 기다리므로 각별하다고 생각함.</div>
+        <div class="detail-item"><strong>8. X</strong> : 글쓴이와는 띠동갑 차이가 나고 서로에겐 연년생인 어린 동생들이었음.</div>
+        <div class="detail-item"><strong>9. O</strong> : 루돌프 대신 탑차를 몰며 1년 365일 선물을 전하는 사계절의 산타임.</div>
+        <div class="detail-item"><strong>10. X</strong> : 집 앞에 도착하면 꼭 전화를 걸어 "누가 안 가져가게 잘 넣어 둘게요"라고 안심시켜 줌.</div>
+      </div>
+    </article>
+
+    <!-- 꼭지 9 -->
+    <article class="detail-card">
+      <div class="detail-card-header">
+        <span class="badge-no">꼭지 09</span>
+        <span class="detail-card-title">할아버지의 엄마 나무</span>
+        <span class="detail-card-author">| 한아리 (56~58쪽)</span>
+      </div>
+      <div class="detail-list">
+        <div class="detail-item"><strong>1. X</strong> : 낡은 그림인 줄 알았으나 빛바랜 '증조할머니의 사진'이었음.</div>
+        <div class="detail-item"><strong>2. O</strong> : 이북 5도민 단체에서 나눠준 황해도 연백의 고향 흙이었음.</div>
+        <div class="detail-item"><strong>3. O</strong> : 열세 살에 가족과 헤어져 홀로 남쪽에 남겨진 실향민이심.</div>
+        <div class="detail-item"><strong>4. X</strong> : 열세 살 할아버지를 먼저 남쪽에 데려다 놓고 가족을 데리러 북으로 가신 사이 분단됨.</div>
+        <div class="detail-item"><strong>5. O</strong> : 흙을 만지고 냄새 맡으며 엄마를 품에 안듯 눈물을 흘리심.</div>
+        <div class="detail-item"><strong>6. O</strong> : 통에 든 고향 흙을 마당 구석 화단에 넣고 함께 식재함.</div>
+        <div class="detail-item"><strong>7. O</strong> : 증조할머니가 생전에 좋아하셨던 철쭉을 심음.</div>
+        <div class="detail-item"><strong>8. X</strong> : 글쓴이가 "할아버지, 우리 이 나무 이름을 '엄마'라고 지어요"라고 제안함.</div>
+        <div class="detail-item"><strong>9. X</strong> : "그거 좋다"라며 손녀를 따뜻하게 안아 주심.</div>
+        <div class="detail-item"><strong>10. O</strong> : 활짝 핀 철쭉꽃을 보며 할아버지가 슬픔을 위로받길 진심으로 소망함.</div>
+      </div>
+    </article>
+
+    <!-- 꼭지 10 -->
+    <article class="detail-card">
+      <div class="detail-card-header">
+        <span class="badge-no">꼭지 10</span>
+        <span class="detail-card-title">사막을 같이 가는 벗</span>
+        <span class="detail-card-author">| 양귀자 (60~63쪽)</span>
+      </div>
+      <div class="detail-list">
+        <div class="detail-item"><strong>1. O</strong> : 학년과 반이 바뀌어 친구들과 헤어지는 신학기를 유별나게 싫어함.</div>
+        <div class="detail-item"><strong>2. X</strong> : 낯가림으로 혼자 외톨이가 된 것 같아 가슴이 써늘해지고 도망가고 싶어 했음.</div>
+        <div class="detail-item"><strong>3. O</strong> : 서먹한 짝과 밥알 씹는 소리까지 들으며 먹는 점심시간이 몹시 거북(무렴)했음.</div>
+        <div class="detail-item"><strong>4. O</strong> : 방학 때쯤이면 외로움을 덜어줄 단짝 친구를 발견하곤 했음.</div>
+        <div class="detail-item"><strong>5. X</strong> : 시기, 미움, 속임이 가득한 거친 파도의 망망대해 같은 황폐한 세상살이였음.</div>
+        <div class="detail-item"><strong>6. O</strong> : 고난의 인생길에서 영혼의 교류를 나눌 따뜻한 동반자가 절실함을 강조함.</div>
+        <div class="detail-item"><strong>7. O</strong> : 실패한 친구를 위해 직장을 그만두고 온 가족과 함께 시골로 내려가 땅을 일굼.</div>
+        <div class="detail-item"><strong>8. X</strong> : 냉혹한 세상에 맞서 힘을 합쳤으니 든든하다며 서로 깊이 신뢰함.</div>
+        <div class="detail-item"><strong>9. O</strong> : 친구 없는 삶은 무서운 사막이자 증인 없이 죽는 일이라는 경구를 깊이 새김.</div>
+        <div class="detail-item"><strong>10. X</strong> : 우정은 일방적인 것이 아니라 상호 교류이며 내가 먼저 쌓아야 할 탑이자 경작할 열매임.</div>
+      </div>
+    </article>
+
+    <!-- 푸터 -->
+    <footer class="footer-note">
+      💡 <strong>채점 가이드</strong>: 상단 [🖨️ 해설지 A4 인쇄]를 누르시면 빠른 정답표와 해설이 규격에 맞게 인쇄됩니다.<br>
+      학생 배부용 시험지는 [📝 학생용 문제지 보기] 버튼을 클릭하여 이동하실 수 있습니다.
+    </footer>
+  </div>
+
+</body>
+</html>
