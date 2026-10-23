@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한우리 대화방 기억보관소 & 온톨로지 검색기</title>
+    <script src="ontology_data.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: #eef2ff;
+            --secondary: #ec4899;
+            --dark: #0f172a;
+            --sidebar-bg: #1e293b;
+            --sidebar-hover: #334155;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --chat-user: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            --chat-kitty: #ffffff;
+            --highlight: #fef08a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Malgun Gothic", "맑은 고딕", sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Header */
+        header {
+            background: linear-gradient(135deg, #0f172a, #1e1b4b);
+            color: white;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 100;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-brand i {
+            font-size: 24px;
+            color: #ec4899;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header-subtitle {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 24px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 42px 10px 16px;
+            border-radius: 24px;
+            border: 1px solid #334155;
+            background: #1e293b;
+            color: white;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .search-input:focus {
+            background: #0f172a;
+            border-color: #ec4899;
+            box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.25);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .action-btn {
+            background: #334155;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+
+        .action-btn:hover {
+            background: #475569;
+        }
+
+        .action-btn.active {
+            background: #ec4899;
+        }
+
+        /* Main Container */
+        .app-body {
+            display: flex;
+            flex: 1;
+            height: calc(100vh - 65px);
+            overflow: hidden;
+        }
+
+        /* Left Sidebar: Dates and Sessions */
+        .sidebar {
+            width: 320px;
+            background: var(--sidebar-bg);
+            color: #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #334155;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            padding: 14px 16px;
+            border-bottom: 1px solid #334155;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #94a3b8;
+        }
+
+        .sidebar-scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .date-group {
+            margin-bottom: 8px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #182234;
+        }
+
+        .date-header {
+            padding: 10px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            background: #253349;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .date-header:hover {
+            background: #2d3d57;
+        }
+
+        .date-header .badge {
+            font-size: 10px;
+            background: #3b82f6;
+            color: white;
+            padding: 2px 7px;
+            border-radius: 12px;
+        }
+
+        .session-list {
+            padding: 4px 0;
+        }
+
+        .session-item {
+            padding: 9px 14px;
+            font-size: 12px;
+            color: #cbd5e1;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all 0.15s;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .session-item:hover {
+            background: #29384f;
+            color: white;
+        }
+
+        .session-item.active {
+            background: #2d3d57;
+            border-left-color: #ec4899;
+            color: white;
+            font-weight: 600;
+        }
+
+        .session-item-time {
+            font-size: 10px;
+            color: #64748b;
+        }
+
+        .session-item-title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Center Content: Chat View */
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-main);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .chat-topbar {
+            padding: 12px 20px;
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-topbar-info h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .chat-topbar-info p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .chat-scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .chat-bubble-wrapper {
+            display: flex;
+            gap: 12px;
+            max-width: 85%;
+        }
+
+        .chat-bubble-wrapper.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .chat-bubble-wrapper.kitty {
+            align-self: flex-start;
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .avatar.kitty-avatar {
+            background: #fdf2f8;
+            color: #db2777;
+            border: 2px solid #fbcfe8;
+        }
+
+        .avatar.user-avatar {
+            background: #eff6ff;
+            color: #2563eb;
+            border: 2px solid #bfdbfe;
+        }
+
+        .bubble-box {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .bubble-meta {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .chat-bubble-wrapper.user .bubble-meta {
+            justify-content: flex-end;
+        }
+
+        .bubble {
+            padding: 14px 18px;
+            border-radius: 16px;
+            font-size: 13.5px;
+            line-height: 1.6;
+            word-break: break-word;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            position: relative;
+        }
+
+        .chat-bubble-wrapper.user .bubble {
+            background: var(--chat-user);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-bubble-wrapper.kitty .bubble {
+            background: var(--chat-kitty);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+            border-bottom-left-radius: 4px;
+        }
+
+        .bubble pre {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 12px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 8px 0;
+            font-size: 12px;
+            font-family: Consolas, monospace;
+        }
+
+        .bubble code {
+            background: rgba(0,0,0,0.06);
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-family: Consolas, monospace;
+        }
+
+        .chat-bubble-wrapper.user .bubble code {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.05);
+            border: none;
+            padding: 3px 7px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--text-muted);
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .bubble:hover .copy-btn {
+            opacity: 1;
+        }
+
+        .copy-btn:hover {
+            background: rgba(0,0,0,0.1);
+            color: var(--text-dark);
+        }
+
+        .highlight {
+            background-color: var(--highlight);
+            color: #0f172a;
+            font-weight: 700;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        /* Right Panel: Ontology Graph */
+        .ontology-panel {
+            width: 380px;
+            background: white;
+            border-left: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            transition: width 0.3s ease;
+        }
+
+        .ontology-panel.collapsed {
+            width: 0;
+            overflow: hidden;
+            border-left: none;
+        }
+
+        .ontology-header {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ontology-header h4 {
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .graph-area {
+            flex: 1;
+            position: relative;
+            background: #fafafa;
+        }
+
+        #ontology-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .graph-legend {
+            padding: 10px 14px;
+            border-top: 1px solid var(--border-color);
+            font-size: 11px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            background: white;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .legend-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+        }
+
+        /* Empty State */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 40px;
+            gap: 12px;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            color: #cbd5e1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-brand">
+            <i class="fa-solid fa-brain"></i>
+            <div>
+                <div class="header-title">한우리 대화방 기억보관소</div>
+                <div class="header-subtitle">온톨로지 지식 그래프 & 일별 대화 영구 검색 엔진</div>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-input" placeholder="키워드 검색 (예: 나일강, 스코틀랜드, 이탈리아, 결재, 시간표, 캡션)..." onkeyup="handleSearch(event)">
+            <button class="search-btn" onclick="executeSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+
+        <div class="header-actions">
+            <button class="action-btn" id="btn-toggle-graph" onclick="toggleGraph()"><i class="fa-solid fa-circle-nodes"></i> 온톨로지 그래프</button>
+            <button class="action-btn" onclick="openDailyFolder()"><i class="fa-solid fa-folder-open"></i> 일별 파일 열기</button>
+        </div>
+    </header>
+
+    <div class="app-body">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span><i class="fa-regular fa-calendar-days"></i> 일별 대화 기록</span>
+                <span id="total-days-badge" style="font-size: 11px;">6일치 보관</span>
+            </div>
+            <div class="sidebar-scroll" id="sidebar-dates">
+                <!-- Injected via JavaScript -->
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-container">
+            <div class="chat-topbar">
+                <div class="chat-topbar-info">
+                    <h3 id="current-view-title">대화 세션을 선택해주세요</h3>
+                    <p id="current-view-sub">좌측 일별 목록 또는 상단 검색창을 활용하세요.</p>
+                </div>
+                <div id="search-results-count" style="font-size: 12px; color: var(--primary); font-weight: 600;"></div>
+            </div>
+
+            <div class="chat-scroll" id="chat-stream">
+                <div class="empty-state">
+                    <i class="fa-solid fa-comments"></i>
+                    <h3>대화 기억보관소에 오신 것을 환영합니다!</h3>
+                    <p>좌측 일별 날짜를 클릭하거나 상단 검색창에 키워드를 입력하시면<br>과거부터 오늘까지의 모든 대화와 온톨로지 맥락을 즉시 확인할 수 있습니다.</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Ontology Panel -->
+        <aside class="ontology-panel" id="ontology-panel">
+            <div class="ontology-header">
+                <h4><i class="fa-solid fa-network-wired" style="color: var(--primary);"></i> 온톨로지 지식망</h4>
+                <span style="font-size: 11px; color: var(--text-muted);" id="graph-stat">노드 43 / 엣지 95</span>
+            </div>
+            <div class="graph-area">
+                <svg id="ontology-svg"></svg>
+            </div>
+            <div class="graph-legend">
+                <div class="legend-item"><div class="legend-dot" style="background: #3b82f6;"></div>날짜 (Daily)</div>
+                <div class="legend-item"><div class="legend-dot" style="background: #8b5cf6;"></div>프로젝트</div>
+                <div class="legend-item"><div class="legend-dot" style="background: #10b981;"></div>토픽/주제</div>
+                <div class="legend-item"><div class="legend-dot" style="background: #ef4444;"></div>결정/규칙</div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        let currentActiveSession = null;
+        let isGraphOpen = true;
+
+        // Initialize App
+        window.addEventListener('DOMContentLoaded', () => {
+            renderSidebar();
+            initOntologyGraph();
+            
+            // Auto open the latest day (2026-10-22)
+            const dates = Object.keys(ALL_DAILY_DATA).sort().reverse();
+            if (dates.length > 0) {
+                const latestDate = dates[0];
+                const sessions = ALL_DAILY_DATA[latestDate];
+                if (sessions && sessions.length > 0) {
+                    loadSession(latestDate, 0);
+                }
+            }
+        });
+
+        // Render Sidebar Dates & Sessions
+        function renderSidebar() {
+            const container = document.getElementById('sidebar-dates');
+            container.innerHTML = '';
+
+            const dates = Object.keys(ALL_DAILY_DATA).sort().reverse();
+            document.getElementById('total-days-badge').innerText = `${dates.length}일치 보관`;
+
+            dates.forEach((date, dateIdx) => {
+                const sessions = ALL_DAILY_DATA[date] || [];
+                const group = document.createElement('div');
+                group.className = 'date-group';
+
+                const header = document.createElement('div');
+                header.className = 'date-header';
+                header.innerHTML = `
+                    <span><i class="fa-solid fa-folder"></i> ${date}</span>
+                    <span class="badge">${sessions.length}개 세션</span>
+                `;
+                header.onclick = () => toggleDateAccordion(date);
+
+                const list = document.createElement('div');
+                list.className = 'session-list';
+                list.id = `session-list-${date}`;
+
+                sessions.forEach((sess, sIdx) => {
+                    const item = document.createElement('div');
+                    item.className = 'session-item';
+                    item.id = `sess-item-${date}-${sIdx}`;
+                    
+                    const userTurn = sess.turns && sess.turns.find(t => t.role === 'User');
+                    const firstTurn = sess.turns && sess.turns[0];
+                    let prompt = userTurn ? userTurn.content : (firstTurn ? firstTurn.content : (sess.topic || '대화 세션'));
+                    prompt = prompt.replace(/\n/g, ' ').trim();
+                    if (prompt.length > 38) prompt = prompt.substring(0, 38) + '...';
+
+                    const rawTime = (firstTurn && firstTurn.createdAt) || (userTurn && userTurn.createdAt) || '';
+                    const time = rawTime.length >= 16 ? rawTime.substring(11, 16) : '';
+
+                    item.innerHTML = `
+                        <div class="session-item-time"><i class="fa-regular fa-clock"></i> ${time} (${sess.turns ? sess.turns.length : 0}개 턴)</div>
+                        <div class="session-item-title">${escapeHtml(prompt)}</div>
+                    `;
+                    item.onclick = () => loadSession(date, sIdx);
+                    list.appendChild(item);
+                });
+
+                group.appendChild(header);
+                group.appendChild(list);
+                container.appendChild(group);
+            });
+        }
+
+        function toggleDateAccordion(date) {
+            const list = document.getElementById(`session-list-${date}`);
+            if (list) {
+                list.style.display = list.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        // Load and Display a Session
+        function loadSession(date, sIdx, targetTurnIndex = -1) {
+            const sessions = ALL_DAILY_DATA[date];
+            if (!sessions || !sessions[sIdx]) return;
+
+            const sess = sessions[sIdx];
+            currentActiveSession = { date, sIdx };
+
+            // Update UI Active State
+            document.querySelectorAll('.session-item').forEach(el => el.classList.remove('active'));
+            const activeEl = document.getElementById(`sess-item-${date}-${sIdx}`);
+            if (activeEl) activeEl.classList.add('active');
+
+            const userTurn = sess.turns && sess.turns.find(t => t.role === 'User');
+            const firstTurn = sess.turns && sess.turns[0];
+            let title = userTurn ? userTurn.content : (firstTurn ? firstTurn.content : (sess.topic || '대화 세션'));
+            title = title.replace(/\n/g, ' ').trim();
+            if (title.length > 45) title = title.substring(0, 45) + '...';
+
+            document.getElementById('current-view-title').innerText = `📅 ${date} | ${title}`;
+            document.getElementById('current-view-sub').innerText = `세션 ID: ${sess.sessionId} (총 ${sess.turns ? sess.turns.length : 0}개 대화 턴)`;
+
+            renderTurns(sess.turns || [], targetTurnIndex);
+        }
+
+        // Render Conversation Turns
+        function renderTurns(turns, targetTurnIndex = -1, highlightKeyword = '') {
+            const stream = document.getElementById('chat-stream');
+            stream.innerHTML = '';
+
+            if (!turns || turns.length === 0) {
+                stream.innerHTML = '<div class="empty-state"><p>대화 내용이 없습니다.</p></div>';
+                return;
+            }
+
+            turns.forEach((turn, idx) => {
+                const time = turn.createdAt && turn.createdAt.length >= 19 ? turn.createdAt.substring(11, 19) : (turn.createdAt || '');
+                const isUser = turn.role === 'User';
+                const roleName = isUser ? '선생님' : '키티 (실무 에이전트)';
+
+                const wrap = document.createElement('div');
+                wrap.className = `chat-bubble-wrapper ${isUser ? 'user' : 'kitty'}`;
+                wrap.id = `turn-bubble-${idx}`;
+
+                const avatarHtml = isUser 
+                    ? '<div class="avatar user-avatar"><i class="fa-solid fa-user"></i></div>'
+                    : '<div class="avatar kitty-avatar">🐱</div>';
+
+                wrap.innerHTML = `
+                    ${avatarHtml}
+                    <div class="bubble-box">
+                        <div class="bubble-meta">
+                            <span>${roleName}</span>
+                            <span>${time}</span>
+                        </div>
+                        <div class="bubble">
+                            <button class="copy-btn" onclick="copyText(this)">복사</button>
+                            <div class="bubble-content">${formatText(turn.content || '', highlightKeyword)}</div>
+                        </div>
+                    </div>
+                `;
+                stream.appendChild(wrap);
+            });
+
+            if (targetTurnIndex >= 0) {
+                const targetEl = document.getElementById(`turn-bubble-${targetTurnIndex}`);
+                if (targetEl) {
+                    setTimeout(() => targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' }), 120);
+                }
+            } else {
+                stream.scrollTop = 0;
+            }
+        }
+
+        // Text Formatting (Markdown & Highlight)
+        function formatText(text, highlight = '') {
+            if (!text) return '';
+            let formatted = escapeHtml(text)
+                .replace(/\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/`(.*?)`/g, '<code>$1</code>');
+
+            if (highlight) {
+                const regex = new RegExp(`(${escapeRegex(highlight)})`, 'gi');
+                formatted = formatted.replace(regex, '<span class="highlight">$1</span>');
+            }
+            return formatted;
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function escapeRegex(str) {
+            return str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        }
+
+        function copyText(btn) {
+            const text = btn.nextElementSibling.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const orig = btn.innerText;
+                btn.innerText = '완료!';
+                setTimeout(() => btn.innerText = orig, 1500);
+            });
+        }
+
+        let searchMatches = [];
+        let currentMatchIdx = -1;
+
+        // Live Search Engine
+        function handleSearch(e) {
+            if (e.key === 'Enter') {
+                executeSearch();
+            }
+        }
+
+        function executeSearch() {
+            const query = document.getElementById('search-input').value.trim();
+            if (!query) {
+                document.getElementById('search-results-count').innerText = '';
+                return;
+            }
+
+            searchMatches = [];
+            currentMatchIdx = -1;
+
+            const qLower = query.toLowerCase();
+
+            Object.keys(ALL_DAILY_DATA).sort().reverse().forEach(date => {
+                const sessions = ALL_DAILY_DATA[date] || [];
+                sessions.forEach((sess, sIdx) => {
+                    (sess.turns || []).forEach((turn, tIdx) => {
+                        if (turn.content && turn.content.toLowerCase().includes(qLower)) {
+                            searchMatches.push({ date, sIdx, tIdx, turn });
+                        }
+                    });
+                });
+            });
+
+            if (searchMatches.length > 0) {
+                currentMatchIdx = 0;
+                updateSearchNavUI(query);
+                jumpToMatch(currentMatchIdx, query);
+            } else {
+                document.getElementById('search-results-count').innerHTML = `<span style="color:#ef4444;">'${escapeHtml(query)}' 검색 결과 없음</span>`;
+                alert(`'${query}'에 대한 대화 검색 결과가 없습니다.`);
+            }
+        }
+
+        function updateSearchNavUI(query) {
+            const countEl = document.getElementById('search-results-count');
+            countEl.innerHTML = `
+                <span>총 <strong>${searchMatches.length}</strong>건 검색됨 (${currentMatchIdx + 1}/${searchMatches.length})</span>
+                <button class="action-btn" style="padding:2px 8px; font-size:11px; margin-left:6px;" onclick="prevMatch('${escapeHtml(query)}')"><i class="fa-solid fa-chevron-left"></i> 이전</button>
+                <button class="action-btn" style="padding:2px 8px; font-size:11px;" onclick="nextMatch('${escapeHtml(query)}')">다음 <i class="fa-solid fa-chevron-right"></i></button>
+            `;
+        }
+
+        function jumpToMatch(idx, query) {
+            if (idx < 0 || idx >= searchMatches.length) return;
+            const match = searchMatches[idx];
+            loadSession(match.date, match.sIdx, match.tIdx);
+            setTimeout(() => {
+                const currentSess = ALL_DAILY_DATA[match.date][match.sIdx];
+                renderTurns(currentSess.turns, match.tIdx, query);
+            }, 60);
+        }
+
+        function nextMatch(query) {
+            if (searchMatches.length === 0) return;
+            currentMatchIdx = (currentMatchIdx + 1) % searchMatches.length;
+            updateSearchNavUI(query);
+            jumpToMatch(currentMatchIdx, query);
+        }
+
+        function prevMatch(query) {
+            if (searchMatches.length === 0) return;
+            currentMatchIdx = (currentMatchIdx - 1 + searchMatches.length) % searchMatches.length;
+            updateSearchNavUI(query);
+            jumpToMatch(currentMatchIdx, query);
+        }
+
+        // Toggle Graph Panel
+        function toggleGraph() {
+            const panel = document.getElementById('ontology-panel');
+            const btn = document.getElementById('btn-toggle-graph');
+            isGraphOpen = !isGraphOpen;
+            if (isGraphOpen) {
+                panel.classList.remove('collapsed');
+                btn.classList.add('active');
+            } else {
+                panel.classList.add('collapsed');
+                btn.classList.remove('active');
+            }
+        }
+
+        function openDailyFolder() {
+            alert('탐색기에서 "D:\\한우리\\대화방_기억보관소\\일별대화" 폴더를 확인하실 수 있습니다.');
+        }
+
+        // D3.js Interactive Ontology Knowledge Graph
+        function initOntologyGraph() {
+            if (typeof d3 === 'undefined') {
+                console.warn('d3.js CDN 로드 대기 중이거나 오프라인입니다.');
+                return;
+            }
+            if (typeof GRAPH_INDEX === 'undefined' || !GRAPH_INDEX.nodes || !GRAPH_INDEX.edges) {
+                console.warn('GRAPH_INDEX 온톨로지 데이터가 없습니다.');
+                return;
+            }
+
+            try {
+                const svg = d3.select("#ontology-svg");
+                svg.selectAll("*").remove();
+
+                const width = document.querySelector('.graph-area').clientWidth || 380;
+                const height = document.querySelector('.graph-area').clientHeight || 500;
+
+                const colorMap = {
+                    'Daily': '#3b82f6',
+                    'Project': '#8b5cf6',
+                    'Topic': '#10b981',
+                    'Decision': '#ef4444',
+                    'Artifact': '#f59e0b'
+                };
+
+                const nodes = GRAPH_INDEX.nodes.map(d => ({ ...d }));
+                const links = GRAPH_INDEX.edges.map(d => ({ ...d }));
+
+                const simulation = d3.forceSimulation(nodes)
+                    .force("link", d3.forceLink(links).id(d => d.id).distance(60))
+                    .force("charge", d3.forceManyBody().strength(-140))
+                    .force("center", d3.forceCenter(width / 2, height / 2))
+                    .force("collide", d3.forceCollide().radius(18));
+
+                const g = svg.append("g");
+
+                // Zoom behavior
+                svg.call(d3.zoom().scaleExtent([0.3, 3]).on("zoom", (event) => {
+                    g.attr("transform", event.transform);
+                }));
+
+                // Draw links
+                const link = g.append("g")
+                    .selectAll("line")
+                    .data(links)
+                    .join("line")
+                    .attr("stroke", "#cbd5e1")
+                    .attr("stroke-width", 1.2);
+
+                // Draw nodes
+                const node = g.append("g")
+                    .selectAll("circle")
+                    .data(nodes)
+                    .join("circle")
+                    .attr("r", d => d.type === 'Daily' ? 10 : (d.type === 'Project' ? 8 : 6))
+                    .attr("fill", d => colorMap[d.type] || '#94a3b8')
+                    .attr("stroke", "#ffffff")
+                    .attr("stroke-width", 1.5)
+                    .style("cursor", "pointer")
+                    .call(d3.drag()
+                        .on("start", (event, d) => {
+                            if (!event.active) simulation.alphaTarget(0.3).restart();
+                            d.fx = d.x; d.fy = d.y;
+                        })
+                        .on("drag", (event, d) => { d.fx = event.x; d.fy = event.y; })
+                        .on("end", (event, d) => {
+                            if (!event.active) simulation.alphaTarget(0);
+                            d.fx = null; d.fy = null;
+                        })
+                    )
+                    .on("click", (event, d) => {
+                        if (d.type === 'Daily' && ALL_DAILY_DATA[d.id]) {
+                            loadSession(d.id, 0);
+                        } else {
+                            document.getElementById('search-input').value = d.label;
+                            executeSearch();
+                        }
+                    });
+
+                // Labels
+                const label = g.append("g")
+                    .selectAll("text")
+                    .data(nodes)
+                    .join("text")
+                    .text(d => d.label)
+                    .attr("font-size", "9px")
+                    .attr("fill", "#334155")
+                    .attr("font-weight", "600")
+                    .attr("dx", 10)
+                    .attr("dy", 3);
+
+                simulation.on("tick", () => {
+                    link
+                        .attr("x1", d => d.source.x)
+                        .attr("y1", d => d.source.y)
+                        .attr("x2", d => d.target.x)
+                        .attr("y2", d => d.target.y);
+
+                    node
+                        .attr("cx", d => d.x)
+                        .attr("cy", d => d.y);
+
+                    label
+                        .attr("x", d => d.x)
+                        .attr("y", d => d.y);
+                });
+            } catch (err) {
+                console.error("Ontology Graph Init Error:", err);
+            }
+        }
+    </script>
+</body>
+</html>

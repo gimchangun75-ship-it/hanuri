@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Unit 01 | 다다어휘 1호 ● 헷갈리는 말 ① (어휘 충전)</title>
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    background: #f0f2f5;
+    color: #222;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    letter-spacing: -0.3px;
+  }
+  .page {
+    width: 210mm;
+    height: 297mm;
+    max-height: 297mm;
+    padding: 12mm 15mm 10mm 15mm;
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+    border-radius: 4px;
+    position: relative;
+    page-break-after: always;
+    page-break-inside: avoid;
+    overflow: hidden;
+  }
+  @media print {
+    body { background: none; padding: 0; }
+    .page { box-shadow: none; margin: 0; border-radius: 0; page-break-after: always; page-break-inside: avoid; width: 210mm; height: 297mm; max-height: 297mm; overflow: hidden; }
+    .no-print { display: none; }
+  }
+  .top-banner {
+    background: #F3D8E1;
+    border-radius: 8px;
+    padding: 10px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .banner-left .unit { font-size: 13px; color: #8A4060; font-weight: 500; }
+  .banner-left .title { font-size: 17px; color: #4A152D; font-weight: 700; margin-top: 2px; }
+  .banner-right .name-box { font-size: 13.5px; color: #4A152D; font-weight: 500; border-bottom: 1.5px solid #A8285C; padding-bottom: 2px; min-width: 140px; text-align: center; }
+  
+  .badge-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0 10px 0;
+  }
+  .badge {
+    background: #A8285C;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .badge-inst { font-size: 13.5px; font-weight: 700; color: #333; }
+
+  /* 11열 선 잇기 구조: 드러내다 등 4글자 한 줄 안착 */
+  .match-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 6px;
+  }
+  .match-table td {
+    padding: 5px 2px;
+    font-size: 12.5px;
+    vertical-align: middle;
+  }
+  .word-cell { font-weight: 700; color: #A8285C; width: 13%; text-align: right; padding-right: 4px; white-space: nowrap; letter-spacing: -0.4px; }
+  .dot-cell { width: 3%; text-align: center; color: #444; font-size: 10px; }
+  .line-space { width: 8%; border-bottom: 1px dashed #e8d0d8; }
+  .mean-cell { width: 23%; color: #333; line-height: 1.35; padding-left: 6px; word-break: keep-all; letter-spacing: -0.3px; }
+  .spacer-cell { width: 6%; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-banner">
+      <div class="banner-left">
+        <div class="unit">Unit 01 | 다다어휘 1호</div>
+        <div class="title">● 헷갈리는 말 ① (어휘 충전)</div>
+      </div>
+      <div class="banner-right">
+        <div class="name-box">이름 : ______________</div>
+      </div>
+    </div>
+
+    <div class="badge-row">
+      <div class="badge">A</div>
+      <div class="badge-inst">낱말의 알맞은 뜻을 찾아 선으로 이어 보세요.</div>
+    </div>
+
+    <table class="match-table">
+      
+      <tr>
+        <td class="word-cell">낫다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">배 속의 아이, 새끼, 알을 몸 밖으로 내놓다.</td>
+        <td class="spacer-cell"></td>
+        <td class="word-cell">베다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">날이 있는 연장 따위로 무엇을 끊거나 자르거나 가르다.</td>
+      </tr>
+      <tr>
+        <td class="word-cell">낳다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">보다 더 좋거나 앞서 있다.</td>
+        <td class="spacer-cell"></td>
+        <td class="word-cell">배다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">스며들거나 스며 나오다.</td>
+      </tr>
+      <tr>
+        <td class="word-cell">때다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">붙거나 이어져 있는 것을 서로 떨어뜨리다.</td>
+        <td class="spacer-cell"></td>
+        <td class="word-cell">쫓다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">목표, 이상, 행복 따위를 추구하다.</td>
+      </tr>
+      <tr>
+        <td class="word-cell">떼다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">아궁이 같은 곳에 불을 붙인 땔감을 태우다.</td>
+        <td class="spacer-cell"></td>
+        <td class="word-cell">좇다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">길이, 넓이, 부피 따위가 비교 대상이나 보통보다 덜하다.</td>
+      </tr>
+      <tr>
+        <td class="word-cell">식히다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">더운 기가 없어지며 차가워지게 하다.</td>
+        <td class="spacer-cell"></td>
+        <td class="word-cell">작다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">수효나 분량, 정도가 일정한 기준에 미치지 못하다.</td>
+      </tr>
+      <tr>
+        <td class="word-cell">시키다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">어떤 일이나 행동을 하게 하다.</td>
+        <td class="spacer-cell"></td>
+        <td class="word-cell">적다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">어떤 대상을 잡거나 만나기 위하여 뒤를 급히 따르다.</td>
+      </tr>
+      <tr>
+        <td class="word-cell">빗다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">가루를 반죽하여 만두, 송편, 경단 따위를 만들다.</td>
+        <td class="spacer-cell"></td>
+        <td class="word-cell">매다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">어깨에 걸치거나 올려놓다.</td>
+      </tr>
+      <tr>
+        <td class="word-cell">빚다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">머리털을 빗 따위로 가지런히 고르다.</td>
+        <td class="spacer-cell"></td>
+        <td class="word-cell">메다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">끈이나 줄 따위의 두 끝을 엇걸고 잡아당기어 풀어지지 않게 마디를 만들다.</td>
+      </tr>
+      <tr>
+        <td class="word-cell">다리다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">옷이나 천 따위의 주름이나 구김을 펴고 다리미로 문지르다.</td>
+        <td class="spacer-cell"></td>
+        <td class="word-cell">찧다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">물체를 잡아당기어 가르다.</td>
+      </tr>
+      <tr>
+        <td class="word-cell">달이다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">액체 따위를 끓여서 진하게 만들다.</td>
+        <td class="spacer-cell"></td>
+        <td class="word-cell">찢다</td>
+        <td class="dot-cell">⚫</td>
+        <td class="line-space"></td>
+        <td class="dot-cell">⚫</td>
+        <td class="mean-cell">곡식 따위를 잘게 만들려고 절구에 담고 공이로 내리치다.</td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

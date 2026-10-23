@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한우리에듀넷 쉽게 이해하는 서비스 & 학습 안내서</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js (v4.4.4 고정) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background-color: #F8FAFC;
+            color: #1E293B;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .glass-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+</head>
+<body class="antialiased pb-12">
+
+    <header class="bg-gradient-to-r from-blue-900 via-indigo-800 to-blue-950 text-white py-12 px-4 shadow-lg">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="inline-block px-3.5 py-1.5 bg-blue-500/30 rounded-full text-blue-100 text-xs md:text-sm font-semibold tracking-wide mb-3 border border-blue-400/40">
+                학부모와 일반인을 위한 쉬운 한우리 안내서
+            </div>
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
+                한우리 독서토론논술 서비스 한눈에 보기
+            </h1>
+            <p class="text-blue-100 text-base md:text-lg max-w-3xl mx-auto font-light leading-relaxed">
+                어려운 전문 용어는 쉽게 풀고, 한우리웹 사이트 구성부터 아이들의 연령별 학습 방식, 책 추천 엔진, 인터넷 상담 순서까지 한눈에 알기 쉽게 설명해 드립니다.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto mt-8 text-slate-800">
+                <div class="bg-white/95 backdrop-blur rounded-xl p-4 shadow-md text-center border-t-4 border-blue-600">
+                    <div class="text-xl md:text-2xl font-black text-blue-600">3개의 전용 사이트</div>
+                    <div class="text-xs md:text-sm font-medium text-slate-600 mt-1">학부모용 · 교사용 · 교육원</div>
+                </div>
+                <div class="bg-white/95 backdrop-blur rounded-xl p-4 shadow-md text-center border-t-4 border-indigo-600">
+                    <div class="text-xl md:text-2xl font-black text-indigo-600">전국 600여 곳</div>
+                    <div class="text-xs md:text-sm font-medium text-slate-600 mt-1">우리 동네 지역 센터</div>
+                </div>
+                <div class="bg-white/95 backdrop-blur rounded-xl p-4 shadow-md text-center border-t-4 border-orange-500">
+                    <div class="text-xl md:text-2xl font-black text-orange-500">16가지 주제</div>
+                    <div class="text-xs md:text-sm font-medium text-slate-600 mt-1">맞춤 책 추천 (픽마이북)</div>
+                </div>
+                <div class="bg-white/95 backdrop-blur rounded-xl p-4 shadow-md text-center border-t-4 border-emerald-500">
+                    <div class="text-xl md:text-2xl font-black text-emerald-600">5가지 종합 능력</div>
+                    <div class="text-xs md:text-sm font-medium text-slate-600 mt-1">읽기·말하기·듣기·쓰기·생각하기</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 space-y-12">
+
+        <section class="glass-card rounded-2xl p-6 md:p-8 bg-amber-50/40 border-amber-200">
+            <div class="flex items-center space-x-3 mb-4">
+                <div class="w-10 h-10 bg-amber-500 text-white font-bold rounded-xl flex items-center justify-center text-xl shadow-sm">💡</div>
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900">미리 보는 한우리 쉬운 용어 사전</h2>
+                    <p class="text-xs text-slate-600">자주 나오는 전문 용어를 알기 쉽게 해석해 드립니다.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+                <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm space-y-1">
+                    <span class="font-bold text-amber-900 text-sm block">1. 플랫폼 3원화 (트라이아드)</span>
+                    <p class="text-slate-600 leading-relaxed">
+                        사용 목적에 따라 <strong>학부모용, 선생님 전용, 선생님 교육용</strong> 3개의 별도 인터넷 홈페이지로 나누어 안전하게 운영하는 방식입니다.
+                    </p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm space-y-1">
+                    <span class="font-bold text-amber-900 text-sm block">2. 학생 관리 시스템 (LMS)</span>
+                    <p class="text-slate-600 leading-relaxed">
+                        우리 아이가 무슨 책을 읽었는지, 어떤 글을 썼는지 출석과 학습 성장을 인터넷으로 기록·관리하는 <strong>디지털 학습 일지</strong>입니다.
+                    </p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm space-y-1">
+                    <span class="font-bold text-amber-900 text-sm block">3. 교재 배송 시스템 (SCM)</span>
+                    <p class="text-slate-600 leading-relaxed">
+                        매달 수업에 필요한 맞춤 책과 교재가 교사나 가정으로 빠르고 정확하게 배달되도록 관리하는 <strong>전용 물류망</strong>입니다.
+                    </p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm space-y-1">
+                    <span class="font-bold text-amber-900 text-sm block">4. 온·오프라인 연결 (O2O)</span>
+                    <p class="text-slate-600 leading-relaxed">
+                        인터넷(온라인)에서 상담을 신청하면 우리 집 근처의 학원이나 방문 선생님(오프라인)으로 연결해 주는 서비스 방식입니다.
+                    </p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm space-y-1">
+                    <span class="font-bold text-amber-900 text-sm block">5. 5력 1체 통합 학습</span>
+                    <p class="text-slate-600 leading-relaxed">
+                        독서에 필요한 <strong>읽기, 말하기, 듣기, 쓰기, 생각하기</strong> 5가지 능력을 균형 있게 한 번에 기르는 한우리만의 교육 방법입니다.
+                    </p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm space-y-1">
+                    <span class="font-bold text-amber-900 text-sm block">6. 맞춤 책 추천 (큐레이션)</span>
+                    <p class="text-slate-600 leading-relaxed">
+                        수많은 책 중에서 우리 아이의 나이, 학년, 관심사에 딱 맞는 좋은 책을 쏙쏙 골라 추천해 주는 기능입니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="space-y-6">
+            <div class="border-l-4 border-blue-600 pl-4">
+                <h2 class="text-2xl font-bold text-slate-900">1. 한우리 인터넷 사이트 3곳의 역할 분담</h2>
+                <p class="text-slate-600 text-sm mt-1">
+                    한우리는 학부모님을 위한 안내 사이트와 선생님 전용 비밀 사이트, 교육 사이트를 따로 구분하여 정보를 안전하고 편리하게 관리합니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-card rounded-2xl p-6 border-t-4 border-blue-500 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold px-2.5 py-1 bg-blue-100 text-blue-800 rounded-md">1. 학부모·일반용</span>
+                            <span class="text-xs text-slate-400">누구나 접속 가능</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">공식 홈페이지 (hanuribook.com)</h3>
+                        <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                            한우리 수업에 대한 소개를 확인하고, 아이 연령별 교육 정보 검색, 맞춤 책 추천 받기, 무료 독서 진단 및 상담 신청을 하는 공개 공간입니다.
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 text-xs">
+                        <span class="font-semibold text-slate-700 block mb-1">주요 이용자:</span>
+                        <span class="text-slate-600">학부모님, 학생, 교육에 관심 있는 일반인</span>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 border-t-4 border-indigo-600 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold px-2.5 py-1 bg-indigo-100 text-indigo-800 rounded-md">2. 선생님 전용</span>
+                            <span class="text-xs text-slate-400">본인 인증 필요</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">한우리 에듀넷 (edunet.hanuribook.com)</h3>
+                        <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                            자격을 가진 선생님만 비밀번호와 휴대폰 인증을 거쳐 들어가는 전용 공간입니다. 수업 준비 자료 확인, 학생 학습 기록 관리, 매월 수업 교재 주문을 진행합니다.
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 text-xs">
+                        <span class="font-semibold text-slate-700 block mb-1">주요 이용자:</span>
+                        <span class="text-slate-600">한우리 전문 독서지도사, 지역 센터장</span>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 border-t-4 border-emerald-500 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-bold px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-md">3. 선생님 교육원</span>
+                            <span class="text-xs text-slate-400">수업 수강 전용</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">한우리 캠퍼스 (hanuricampus.com)</h3>
+                        <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                            독서지도사가 되고 싶은 분들이 자격증 과정을 공부하거나, 기존 선생님들이 새로운 교육법을 배우는 온라인 선생님 학교입니다.
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 text-xs">
+                        <span class="font-semibold text-slate-700 block mb-1">주요 이용자:</span>
+                        <span class="text-slate-600">예비 독서지도사, 재교육 수강 선생님</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-6 md:p-8 mt-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-5 space-y-4">
+                        <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded">사이트별 역할 비율</span>
+                        <h3 class="text-xl font-bold text-slate-800">3대 인터넷 서비스의 주요 업무 비중</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            학부모님을 위한 <strong>공식 홈페이지</strong>는 주로 정보 제공과 상담 신청에 집중하고, <strong>에듀넷</strong>은 선생님의 수업 준비와 교재 배송을 지원하며, <strong>한우리캠퍼스</strong>는 전문 선생님 양성을 담당합니다.
+                        </p>
+                    </div>
+                    <div class="lg:col-span-7">
+                        <div class="chart-container">
+                            <canvas id="platformRoleChart" role="img" aria-label="3대 인터넷 서비스 주요 업무 비중 도넛 차트"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="space-y-6">
+            <div class="border-l-4 border-indigo-600 pl-4">
+                <h2 class="text-2xl font-bold text-slate-900">2. 우리 아이 연령별 학습 책 구성 & 3단계 수업 방식</h2>
+                <p class="text-slate-600 text-sm mt-1">
+                    유아부터 고등학생까지 아이의 성장 단계에 맞춘 한달 교재 구성과 한우리만의 독특한 수업 흐름을 소개합니다.
+                </p>
+            </div>
+
+            <div class="glass-card rounded-2xl p-6 md:p-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7">
+                        <div class="chart-container">
+                            <canvas id="curriculumChart" role="img" aria-label="연령별 매월 제공되는 책과 워크북 권수 막대 차트"></canvas>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 space-y-4">
+                        <span class="text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded">한 달 교재 꾸러미</span>
+                        <h3 class="text-xl font-bold text-slate-800">매월 제공되는 책과 워크북 권수</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            모든 정규 과정은 <strong>매달 1~2권의 활동 워크북</strong>과 <strong>2~3권의 필독 도서</strong>가 세트로 제공됩니다. 학년이 올라갈수록 비문학(지식 책)과 글쓰기 포트폴리오 비중이 늘어납니다.
+                        </p>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2 text-xs text-slate-700">
+                            <div class="flex justify-between font-semibold border-b border-slate-200 pb-1">
+                                <span>프로그램 이름</span>
+                                <span>수업 대상</span>
+                            </div>
+                            <div class="flex justify-between"><span>꿈꾸는 새싹</span><span class="text-slate-500">유아 (5세~7세)</span></div>
+                            <div class="flex justify-between"><span>생각하는 나무</span><span class="text-slate-500">초등 1학년~2학년</span></div>
+                            <div class="flex justify-between"><span>독서리더</span><span class="text-slate-500">초등 3학년~4학년</span></div>
+                            <div class="flex justify-between"><span>논리리더</span><span class="text-slate-500">초등 5학년~6학년</span></div>
+                            <div class="flex justify-between"><span>소크라테스</span><span class="text-slate-500">중학생 및 고등학생</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-6 md:p-8">
+                <h3 class="text-lg font-bold text-slate-800 mb-2 text-center">한우리 수업의 3단계 진행 흐름</h3>
+                <p class="text-xs text-slate-500 text-center mb-6">책을 단순히 읽기만 하는 것이 아니라 사전 준비부터 표현까지 차근차근 진행합니다.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-blue-50/70 rounded-xl p-5 border border-blue-200">
+                        <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm mb-3">1</div>
+                        <h4 class="font-bold text-blue-900 text-base mb-1">1단계: 읽기 전 (호기심 갖기)</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                            선생님의 흥미로운 질문과 관련 대화를 통해 책을 읽고 싶은 마음을 일으키고 준비를 합니다.
+                        </p>
+                        <span class="inline-block px-2.5 py-1 bg-blue-100 text-blue-800 text-[11px] font-semibold rounded">목표: 호기심 유발 및 배경지식 쌓기</span>
+                    </div>
+
+                    <div class="bg-indigo-50/70 rounded-xl p-5 border border-indigo-200">
+                        <div class="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold text-sm mb-3">2</div>
+                        <h4 class="font-bold text-indigo-900 text-base mb-1">2단계: 읽는 중 (깊이 이해하기)</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                            어려운 단어의 뜻을 파악하고, 이야기의 흐름과 중요한 사건을 차근차근 짚어가며 읽습니다.
+                        </p>
+                        <span class="inline-block px-2.5 py-1 bg-indigo-100 text-indigo-800 text-[11px] font-semibold rounded">목표: 낱말 뜻 이해 및 중심 내용 파악</span>
+                    </div>
+
+                    <div class="bg-orange-50/70 rounded-xl p-5 border border-orange-200">
+                        <div class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-sm mb-3">3</div>
+                        <h4 class="font-bold text-orange-900 text-base mb-1">3단계: 읽은 후 (생각 표현하기)</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                            친구들과 자유롭게 토론하고 글을 써보며 자기 생각을 멋지게 완성합니다.
+                        </p>
+                        <span class="inline-block px-2.5 py-1 bg-orange-100 text-orange-800 text-[11px] font-semibold rounded">목표: 토론 및 글쓰기로 생각 완성</span>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-200 text-center">
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-3">수업을 통해 길러지는 5가지 종합 능력 (5력)</span>
+                    <div class="flex flex-wrap justify-center gap-2.5">
+                        <span class="px-3.5 py-1.5 bg-slate-100 text-slate-800 rounded-lg text-xs font-bold border border-slate-200">📖 1. 읽기 능력</span>
+                        <span class="px-3.5 py-1.5 bg-slate-100 text-slate-800 rounded-lg text-xs font-bold border border-slate-200">🗣️ 2. 말하기 능력</span>
+                        <span class="px-3.5 py-1.5 bg-slate-100 text-slate-800 rounded-lg text-xs font-bold border border-slate-200">👂 3. 듣기 능력</span>
+                        <span class="px-3.5 py-1.5 bg-slate-100 text-slate-800 rounded-lg text-xs font-bold border border-slate-200">✍️ 4. 쓰기 능력</span>
+                        <span class="px-3.5 py-1.5 bg-slate-100 text-slate-800 rounded-lg text-xs font-bold border border-slate-200">💡 5. 생각하기 능력</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="space-y-6">
+            <div class="border-l-4 border-orange-500 pl-4">
+                <h2 class="text-2xl font-bold text-slate-900">3. 맞춤 책 추천 기능 '픽마이북' & 독서 진단평가</h2>
+                <p class="text-slate-600 text-sm mt-1">
+                    아이의 읽기 실력을 과학적으로 검사하고, 학교 교과서와 연결된 흥미로운 책을 찾아주는 기능입니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-7 glass-card rounded-2xl p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-slate-800 mb-1">독서능력 진단평가의 5가지 검사 지표</h3>
+                    <p class="text-xs text-slate-600 mb-4">
+                        수업 전 진단검사를 통해 우리 아이가 잘하는 부분과 부족한 영역을 파악하여 딱 맞는 단계로 안내합니다.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="diagnosticRadarChart" role="img" aria-label="독서능력 5대 진단 기준 점수 방사형 차트"></canvas>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 glass-card rounded-2xl p-6 md:p-8 flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-orange-600 bg-orange-50 px-2.5 py-1 rounded">스마트 도서 추천 엔진</span>
+                        <h3 class="text-xl font-bold text-slate-800 mt-2 mb-2">픽마이북 16가지 재미있는 주제별 추천</h3>
+                        <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                            학교 교과서 단원(예: 초등 국어 4학년 1학기)과 직접 관련된 책을 주제별로 학부모님께 무료로 찾아드립니다.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div class="p-2.5 bg-slate-50 rounded-lg font-medium text-slate-700 text-center border border-slate-100">👨‍👩‍👧 가족과 사랑</div>
+                            <div class="p-2.5 bg-slate-50 rounded-lg font-medium text-slate-700 text-center border border-slate-100">🤝 친구와 우정</div>
+                            <div class="p-2.5 bg-slate-50 rounded-lg font-medium text-slate-700 text-center border border-slate-100">🌱 나의 마음 성찰</div>
+                            <div class="p-2.5 bg-slate-50 rounded-lg font-medium text-slate-700 text-center border border-slate-100">💬 배려와 소통</div>
+                            <div class="p-2.5 bg-slate-50 rounded-lg font-medium text-slate-700 text-center border border-slate-100">🏛️ 역사와 인물</div>
+                            <div class="p-2.5 bg-slate-50 rounded-lg font-medium text-slate-700 text-center border border-slate-100">🚀 과학과 우주</div>
+                            <div class="p-2.5 bg-slate-50 rounded-lg font-medium text-slate-700 text-center border border-slate-100">🌍 자연과 환경</div>
+                            <div class="p-2.5 bg-slate-50 rounded-lg font-medium text-slate-700 text-center border border-slate-100">💼 미래와 직업</div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-orange-50 rounded-xl border border-orange-200 text-xs text-orange-900">
+                        <strong>📌 교과서 연계 정보 제공:</strong> 책마다 "초등 국어 5-2 7단원 연계"처럼 적혀 있어 학교 공부에도 큰 도움이 됩니다.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="space-y-6">
+            <div class="border-l-4 border-emerald-500 pl-4">
+                <h2 class="text-2xl font-bold text-slate-900">4. 인터넷 상담 신청부터 수업 시작까지 (O2O 과정)</h2>
+                <p class="text-slate-600 text-sm mt-1">
+                    인터넷으로 간단히 상담을 신청하면 가까운 동네 센터로 자동으로 이어져 빠른 안내를 받는 과정입니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-6 glass-card rounded-2xl p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-slate-800 mb-1">수업 방식별 월 예상 수강료 안내</h3>
+                    <p class="text-xs text-slate-600 mb-4">
+                        1:1 선생님 방문 수업, 공부방/홈클럽 소그룹 수업, 학원형 센터 수업 중 선택할 수 있습니다.
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="tuitionChart" role="img" aria-label="수업 형태별 월 예상 수강료 가로 막대 차트"></canvas>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 glass-card rounded-2xl p-6 md:p-8 space-y-4">
+                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded">쉬운 4단계 진행 절차</span>
+                    <h3 class="text-xl font-bold text-slate-800">인터넷 신청 후 첫 수업까지의 순서</h3>
+                    
+                    <div class="space-y-3 pt-1">
+                        <div class="flex items-center p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="w-9 h-9 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center text-xs mr-3 shrink-0">1단계</div>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-800">홈페이지에서 상담 신청</h4>
+                                <p class="text-[11px] text-slate-500">학부모님 이름과 자녀 학년, 사시는 지역 주소를 입력합니다.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="w-9 h-9 rounded-lg bg-indigo-600 text-white font-bold flex items-center justify-center text-xs mr-3 shrink-0">2단계</div>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-800">우리 동네 센터로 자동 연결</h4>
+                                <p class="text-[11px] text-slate-500">주소를 바탕으로 전국 600여 곳 중 가장 가까운 센터로 연결됩니다.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="w-9 h-9 rounded-lg bg-orange-500 text-white font-bold flex items-center justify-center text-xs mr-3 shrink-0">3단계</div>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-800">독서력 진단 & 전화 상담</h4>
+                                <p class="text-[11px] text-slate-500">선생님이 친절하게 전화하여 아이의 읽기 상태를 점검하고 상담합니다.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="w-9 h-9 rounded-lg bg-emerald-600 text-white font-bold flex items-center justify-center text-xs mr-3 shrink-0">4단계</div>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-800">교재 집 배송 및 첫 수업 시작</h4>
+                                <p class="text-[11px] text-slate-500">맞춤 교재가 집으로 배송되고 방문 및 공부방 수업이 개시됩니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-16 bg-slate-900 text-slate-400 py-8 px-4 border-t border-slate-800 text-center text-xs">
+        <div class="max-w-7xl mx-auto space-y-2">
+            <p class="text-slate-300 font-medium">한우리 독서토론논술 서비스 생태계 쉽게 풀이한 안내서</p>
+            <p>본 안내서는 한우리 공식 홈페이지 및 교사 에듀넷 시스템 정보를 바탕으로 학부모와 일반인이 쉽게 이해하도록 작성되었습니다.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            function wrapLabel(label) {
+                if (typeof label === 'string' && label.length > 16) {
+                    const words = label.split(' ');
+                    const lines = [];
+                    let currentLine = '';
+                    words.forEach(word => {
+                        if ((currentLine + ' ' + word).trim().length > 16) {
+                            if (currentLine.trim()) lines.push(currentLine.trim());
+                            currentLine = word;
+                        } else {
+                            currentLine = (currentLine + ' ' + word).trim();
+                        }
+                    });
+                    if (currentLine.trim()) lines.push(currentLine.trim());
+                    return lines;
+                }
+                return label;
+            }
+
+            const standardTooltipOption = {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        } else {
+                            return label;
+                        }
+                    }
+                }
+            };
+
+            const rawLabels1 = ['학부모용 홈페이지 (도서검색 및 상담신청)', '선생님 전용 에듀넷 (수업준비 및 학생관리)', '선생님 교육원 (자격증 과정 및 전문교육)'];
+            const ctx1 = document.getElementById('platformRoleChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'doughnut',
+                data: {
+                    labels: rawLabels1.map(wrapLabel),
+                    datasets: [{
+                        data: [40, 45, 15],
+                        backgroundColor: ['#2563EB', '#4F46E5', '#10B981'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { size: 11 },
+                                padding: 15
+                            }
+                        },
+                        tooltip: standardTooltipOption
+                    },
+                    cutout: '65%'
+                }
+            });
+
+            const rawLabels2 = ['유아 (꿈꾸는 새싹)', '초등 저학년 (생각하는 나무)', '초등 중학년 (독서리더)', '초등 고학년 (논리리더)', '중·고등학생 (소크라테스)'];
+            const ctx2 = document.getElementById('curriculumChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: rawLabels2.map(wrapLabel),
+                    datasets: [
+                        {
+                            label: '한 달에 읽는 필독서 (권)',
+                            data: [3, 3, 2, 2, 2],
+                            backgroundColor: '#2563EB',
+                            borderRadius: 6
+                        },
+                        {
+                            label: '워크북 및 글쓰기장 (권)',
+                            data: [1, 1, 2, 2, 2],
+                            backgroundColor: '#F97316',
+                            borderRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 5,
+                            ticks: { stepSize: 1 }
+                        },
+                        x: {
+                            ticks: {
+                                font: { size: 10 }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: standardTooltipOption
+                    }
+                }
+            });
+
+            const rawLabels3 = ['막힘없이 읽기 (유창성)', '단어 뜻 파악 (어휘력)', '내용 그대로 이해 (사실적 독해)', '숨은 뜻 파악 (추론적 사고)', '내 생각 표현 (비판적 사고)'];
+            const ctx3 = document.getElementById('diagnosticRadarChart').getContext('2d');
+            new Chart(ctx3, {
+                type: 'radar',
+                data: {
+                    labels: rawLabels3.map(wrapLabel),
+                    datasets: [{
+                        label: '독서능력 진단 기준 점수',
+                        data: [85, 90, 80, 75, 88],
+                        backgroundColor: 'rgba(249, 115, 22, 0.25)',
+                        borderColor: '#F97316',
+                        pointBackgroundColor: '#F97316',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#F97316'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#E2E8F0' },
+                            grid: { color: '#E2E8F0' },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: standardTooltipOption
+                    }
+                }
+            });
+
+            const rawLabels4 = ['1:1 개인 집 방문 수업 (주1회 90분)', '1:1 방문 심화 수업 (주1회 90분)', '1:4 공부방·학원 소그룹 (주1회 60-90분)'];
+            const ctx4 = document.getElementById('tuitionChart').getContext('2d');
+            new Chart(ctx4, {
+                type: 'bar',
+                data: {
+                    labels: rawLabels4.map(wrapLabel),
+                    datasets: [{
+                        label: '월 예상 수강료 (천원 단위)',
+                        data: [146, 166, 120],
+                        backgroundColor: ['#10B981', '#059669', '#3B82F6'],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) { return value + '천원'; }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: standardTooltipOption.callbacks.title,
+                                label: function(context) {
+                                    return context.dataset.label + ': 약 ' + context.raw + ',000원';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>

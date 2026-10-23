@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>한우리 에듀넷 & 수업지원시스템 자동 로그인 설정 가이드</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", sans-serif;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 36px 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .hero {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb, #7c3aed);
+      color: #fff;
+      padding: 28px 32px;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.2);
+    }
+    .hero h1 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+    .hero p { font-size: 15px; color: #e0e7ff; }
+    .card {
+      background: #fff;
+      border: 1px solid #cbd5e1;
+      border-radius: 18px;
+      padding: 26px 30px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+    }
+    .card h2 {
+      font-size: 19px;
+      font-weight: 800;
+      color: #1e3a8a;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .step-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      display: inline-block;
+      background: #2563eb;
+      color: #fff;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 3px 10px;
+      border-radius: 99px;
+      margin-right: 8px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      color: #fff;
+      background: #2563eb;
+      transition: all 0.15s;
+    }
+    .btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .btn-pink { background: #db2777; }
+    .btn-pink:hover { background: #be185d; }
+    .btn-amber { background: #d97706; }
+    .btn-amber:hover { background: #b45309; }
+    .code-box {
+      background: #0f172a;
+      color: #fde047;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: #059669;
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-weight: 800;
+      opacity: 0;
+      transition: opacity 0.25s;
+      pointer-events: none;
+    }
+    #toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <h1>🤖 한우리 에듀넷 & 수업지원시스템 자동 로그인 도우미</h1>
+      <p>한 번만 켜두면 <strong>수업지원시스템은 문자 인증 없이 1초 만에 직통 접속</strong>되고, <strong>에듀넷은 문자 발송까지 자동으로 완료</strong>됩니다!</p>
+    </div>
+
+    <!-- Step 1: 30초 설치법 -->
+    <div class="card">
+      <h2>⚡ 1단계: 크롬에 자동 로그인 도우미 켜기 (최초 1번만, 20초 완성!)</h2>
+      <p style="font-size:14.5px; color:#475569;">아래 3단계만 따라 하시면 앞으로 한우리 로그인 창이 열릴 때마다 오른쪽 위에 자동 로그인 도우미가 항상 나타납니다.</p>
+
+      <div class="step-list">
+        <div class="step-item">
+          <div>
+            <span class="badge">순서 1</span>
+            오른쪽 버튼을 눌러 <strong>크롬 확장 프로그램 주소(<code>chrome://extensions</code>)</strong>를 복사한 뒤, 크롬 새 탭 주소창에 붙여넣고 엔터를 누릅니다.
+          </div>
+          <button class="btn" onclick="copyText('chrome://extensions', '복사 완료! 크롬 주소창에 붙여넣기(Ctrl+V) 후 엔터를 누르세요.')">📋 chrome://extensions 주소 복사</button>
+        </div>
+
+        <div class="step-item">
+          <div>
+            <span class="badge">순서 2</span>
+            열린 화면 오른쪽 맨 위의 <strong>[개발자 모드]</strong> 스위치를 <strong>켬(파란색)</strong>으로 바꾼 뒤, 왼쪽 위에 생긴 <strong>[압축해제된 확장 프로그램을 로드합니다]</strong> 버튼을 누릅니다.
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div>
+            <span class="badge">순서 3</span>
+            폴더 선택 창이 뜨면 아래 경로(<strong><code>D:\한우리\한우리_자동로그인_도우미</code></strong>)를 선택하면 설치 끝!
+          </div>
+          <button class="btn btn-amber" onclick="copyText('D:\\한우리\\한우리_자동로그인_도우미', '폴더 경로 복사 완료! 폴더 선택창 주소줄에 붙여넣으세요.')">📂 도우미 폴더 경로 복사</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: 바로 접속 테스트 -->
+    <div class="card">
+      <h2>🚀 2단계: 바로 자동 접속 실행하기</h2>
+      <p style="font-size:14.5px; color:#475569; margin-bottom:16px;">설치 후 아래 버튼을 눌러 접속하신 뒤, 오른쪽 위 도우미 창에 <strong>비밀번호를 딱 한 번만 저장</strong>해 두시면 평생 자동으로 작동합니다!</p>
+
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="https://edunet.hanuribook.com/login?auto=teaching" target="_blank" class="btn btn-pink">📚 한우리 수업지원시스템 1초 직통 접속 (문자 인증 없음!) ↗</a>
+        <a href="https://edunet.hanuribook.com/login?auto=edunet" target="_blank" class="btn">🚀 한우리 에듀넷 본사이트 자동 로그인 (문자 자동발송!) ↗</a>
+        <a href="온톨로지_설계도_SVG.html" class="btn" style="background:#334155;">🕸️ 온톨로지 SVG 뷰어로 돌아가기</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast">복사되었습니다!</div>
+
+  <script>
+    function copyText(txt, msg) {
+      navigator.clipboard.writeText(txt);
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 3000);
+    }
+  </script>
+</body>
+</html>

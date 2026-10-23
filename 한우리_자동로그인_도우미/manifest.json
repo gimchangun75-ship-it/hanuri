@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "한우리 에듀넷 & 수업지원시스템 스마트 도우미",
+  "version": "1.3.0",
+  "description": "한우리 에듀넷 원클릭 로그인 및 수업지원시스템 5대 자료실 실시간 딥스캔(Deep-Scan) 탐색기",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://edunet.hanuribook.com/*",
+        "http://edunet.hanuribook.com/*",
+        "https://teaching.hanuribook.com/*",
+        "http://teaching.hanuribook.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ]
+}

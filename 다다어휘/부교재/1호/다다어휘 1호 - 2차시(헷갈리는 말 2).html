@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>다다어휘 1호 - 2차시 (헷갈리는 말 ②)</title>
+  <style>
+    /* =========================================================
+       전역 스타일 및 인쇄 규격 (A4 최적화)
+       ========================================================= */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Pretendard', '함초롬돋움', '맑은 고딕', 'Malgun Gothic', -apple-system, sans-serif;
+      background-color: #f1f5f9;
+      color: #1e293b;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 화면 상단 제어 툴바 (인쇄 시 숨김) */
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #ffffff;
+      border-bottom: 1px solid #cbd5e1;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .toolbar-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn {
+      padding: 8px 16px;
+      font-size: 13.5px;
+      font-weight: 700;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-print {
+      background: #a8285c;
+      color: #ffffff;
+    }
+    .btn-print:hover {
+      background: #881c47;
+    }
+    .btn-reset {
+      background: #f8fafc;
+      color: #475569;
+      border-color: #cbd5e1;
+    }
+    .btn-reset:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+    .btn-link {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border-color: #bfdbfe;
+    }
+    .btn-link:hover {
+      background: #dbeafe;
+    }
+
+    /* =========================================================
+       A4 페이지 컨테이너
+       ========================================================= */
+    .page-container {
+      max-width: 900px;
+      margin: 24px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      padding-bottom: 60px;
+    }
+
+    .a4-page {
+      background: #ffffff;
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      padding: 18mm 20mm 20mm 20mm;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 상단 배너 디자인 (파스텔 핑크 #F3D8E1) */
+    .header-banner {
+      background: #f6dfe7;
+      border-radius: 6px;
+      padding: 12px 18px 10px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 22px;
+    }
+    .header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .unit-tag {
+      font-size: 12px;
+      font-weight: 700;
+      color: #b03060;
+      letter-spacing: 0.5px;
+    }
+    .header-title {
+      font-size: 21px;
+      font-weight: 900;
+      color: #a8285c;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .header-title-dot {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #a8285c;
+    }
+    .header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+    .sub-eng {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #9d4067;
+      letter-spacing: 0.2px;
+    }
+    .name-field {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #475569;
+      margin-top: 2px;
+    }
+    .name-line {
+      display: inline-block;
+      width: 100px;
+      border-bottom: 1.5px solid #64748b;
+      margin-left: 4px;
+    }
+
+    /* 2페이지, 3페이지용 간소화 상단 배너 */
+    .header-banner-sub {
+      background: #f6dfe7;
+      border-radius: 6px;
+      padding: 9px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+    .header-banner-sub .header-title {
+      font-size: 17px;
+    }
+
+    /* 대문항 섹션 헤더 & 버건디 배지 */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .section-badge {
+      background: #a8285c;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 900;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .section-desc {
+      font-size: 15px;
+      font-weight: 800;
+      color: #1e293b;
+      letter-spacing: -0.3px;
+    }
+
+    /* 문항 목록 (1단 가로형, 한 줄 깔끔 배치) */
+    .question-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      flex-grow: 1;
+    }
+    .question-row {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-size: 14.5px;
+      line-height: 1.8;
+      color: #1e293b;
+      padding: 1px 0;
+    }
+    .q-num {
+      width: 24px;
+      font-weight: 800;
+      color: #334155;
+      text-align: right;
+      flex-shrink: 0;
+      font-size: 14.5px;
+    }
+    .q-sentence {
+      flex-grow: 1;
+      word-break: keep-all;
+    }
+
+    /* 선택지 괄호 디자인 */
+    .choice-group {
+      display: inline-flex;
+      align-items: baseline;
+      padding: 0 4px;
+      font-weight: 800;
+      color: #a8285c;
+      letter-spacing: 0.2px;
+    }
+    .choice-opt {
+      display: inline-block;
+      padding: 0 6px;
+      cursor: pointer;
+      border-radius: 9999px;
+      transition: all 0.15s;
+      position: relative;
+      user-select: none;
+    }
+    .choice-opt:hover {
+      background-color: #fce7f3;
+    }
+    /* 학생이 클릭했을 때 동그라미 표기 */
+    .choice-opt.selected {
+      color: #a8285c;
+      border: 2px solid #a8285c;
+      border-radius: 9999px;
+      padding: 0 5px;
+      background-color: #ffe4e6;
+    }
+    .choice-slash {
+      color: #94a3b8;
+      font-weight: 500;
+      margin: 0 2px;
+    }
+
+    /* 핵심 어휘 정리 박스 (3페이지) */
+    .summary-box {
+      background: #fff5f8;
+      border: 1.5px solid #f2c2d4;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-top: 24px;
+      margin-bottom: 24px;
+    }
+    .summary-title {
+      font-size: 14.5px;
+      font-weight: 900;
+      color: #a8285c;
+      text-align: center;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+    .summary-item {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #334155;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .summary-item:last-child {
+      margin-bottom: 0;
+    }
+    .summary-bullet {
+      color: #a8285c;
+      font-weight: 900;
+    }
+
+    /* 5열 정답 확인표 디자인 */
+    .answer-key-section {
+      margin-top: 10px;
+    }
+    .answer-key-title {
+      font-size: 14.5px;
+      font-weight: 900;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .answer-badge {
+      background: #059669;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .answer-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: center;
+      border: 1px solid #cbd5e1;
+    }
+    .answer-table th {
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 800;
+      padding: 8px 4px;
+      border: 1px solid #cbd5e1;
+      width: 20%;
+    }
+    .answer-table td {
+      padding: 6px 4px;
+      border: 1px solid #e2e8f0;
+      color: #1e293b;
+      vertical-align: middle;
+    }
+    .ans-num {
+      font-weight: 700;
+      color: #64748b;
+      margin-right: 4px;
+      font-size: 12px;
+    }
+    .ans-val {
+      font-weight: 800;
+      color: #a8285c;
+    }
+
+    /* 하단 쪽 번호 */
+    .page-footer {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #94a3b8;
+      margin-top: 16px;
+    }
+
+    /* =========================================================
+       인쇄 전용 스타일 (@media print)
+       ========================================================= */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 14mm 16mm 14mm 16mm;
+      }
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      .toolbar {
+        display: none !important;
+      }
+      .page-container {
+        margin: 0 !important;
+        padding: 0 !important;
+        gap: 0 !important;
+        max-width: 100% !important;
+      }
+      .a4-page {
+        width: 100% !important;
+        min-height: auto !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        page-break-after: always;
+        break-after: page;
+      }
+      .a4-page:last-child {
+        page-break-after: auto;
+        break-after: auto;
+      }
+      .header-banner, .header-banner-sub {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        background: #f6dfe7 !important;
+      }
+      .section-badge {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        background: #a8285c !important;
+        color: #ffffff !important;
+      }
+      .summary-box {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        background: #fff5f8 !important;
+        border-color: #f2c2d4 !important;
+      }
+      .choice-opt.selected {
+        border: 2px solid #a8285c !important;
+        background-color: transparent !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 화면 상단 제어 툴바 -->
+  <header class="toolbar">
+    <div class="toolbar-title">
+      <span>📚</span>
+      <span>다다어휘 1호 · 2차시 (헷갈리는 말 ②) 학습지</span>
+    </div>
+    <div class="toolbar-actions">
+      <button class="btn btn-print" onclick="window.print()">🖨️ A4 용지 인쇄하기</button>
+      <button class="btn btn-reset" onclick="resetSelections()">⭕ 동그라미 초기화</button>
+      <a class="btn btn-link" href="../파일검색.html?q=헷갈리는+말">🔍 파일 검색으로 이동</a>
+    </div>
+  </header>
+
+  <main class="page-container">
+
+    <!-- =========================================================
+         [ 1 쪽 ] 문항 1 ~ 20 (대문항 A)
+         ========================================================= -->
+    <section class="a4-page">
+      <!-- 상단 배너 -->
+      <div class="header-banner">
+        <div class="header-left">
+          <span class="unit-tag">Unit 02 &nbsp;|&nbsp; 다다어휘 1호</span>
+          <h1 class="header-title">
+            <span class="header-title-dot"></span>
+            헷갈리는 말 ②
+          </h1>
+        </div>
+        <div class="header-right">
+          <span class="sub-eng">Dada Vocabulary · Unit 02</span>
+          <div class="name-field">이름 : <span class="name-line"></span></div>
+        </div>
+      </div>
+
+      <!-- 대문항 A -->
+      <div class="section-header">
+        <div class="section-badge">A</div>
+        <div class="section-desc">다음 괄호에 알맞은 낱말을 골라 ○표 하세요. (1~20)</div>
+      </div>
+
+      <!-- 문항 1~20 -->
+      <div class="question-list">
+        <div class="question-row">
+          <span class="q-num">1</span>
+          <span class="q-sentence">달빛이 세상을 환하게 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">비추었다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">비치었다</span> )</span>.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">2</span>
+          <span class="q-sentence">호수에 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">비친</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">비춘</span> )</span> 달이 환하다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">3</span>
+          <span class="q-sentence">냇물에 발을 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">담그고</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">담구고</span> )</span> 있었다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">4</span>
+          <span class="q-sentence">농부가 땅을 갈아 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">엎었다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">업었다</span> )</span>.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">5</span>
+          <span class="q-sentence">쓰레기 더미를 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">헤치고</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">해치고</span> )</span> 잃어버린 물건을 찾았다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">6</span>
+          <span class="q-sentence">쓰레기가 도시의 환경을 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">헤치고</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">해치고</span> )</span> 있다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">7</span>
+          <span class="q-sentence">탄산음료는 우리의 건강을 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">헤친다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">해친다</span> )</span>.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">8</span>
+          <span class="q-sentence">선원들은 거친 파도를 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">헤치고</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">해치고</span> )</span> 바다를 나아갔다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">9</span>
+          <span class="q-sentence">대구를 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">거쳐</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">걷혀</span> )</span> 부산으로 가자.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">10</span>
+          <span class="q-sentence">장마가 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">거치자</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">걷히자</span> )</span> 불볕더위가 시작됐다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">11</span>
+          <span class="q-sentence">큰 문제가 해결되었으니 이제 우리에게 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">거칠</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">걷힐</span> )</span> 문제가 없다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">12</span>
+          <span class="q-sentence">우리는 롯데자이언츠의 가을 야구를 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">바란다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">바랜다</span> )</span>.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">13</span>
+          <span class="q-sentence">내 방에 햇빛이 들어와 책장에 꽂힌 책의 색이 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">바랐다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">바랬다</span> )</span>.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">14</span>
+          <span class="q-sentence">아빠는 성공에 대한 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">바람</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">바램</span> )</span>이 간절하다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">15</span>
+          <span class="q-sentence">도배를 하기 전 누렇게 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">바란</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">바랜</span> )</span> 벽지를 뜯어냈다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">16</span>
+          <span class="q-sentence">윗집에서 밤마다 세탁기 돌리는 소리가 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">들여</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">들려</span> )</span> 잠을 잘 수가 없다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">17</span>
+          <span class="q-sentence">학원에 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">들렀다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">들렸다</span> )</span> 집에 갔다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">18</span>
+          <span class="q-sentence">박물관에 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">들렀는데</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">들렸는데</span> )</span> 멀리서 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">들르는</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">들리는</span> )</span> 바이올린 선율이 아름다웠다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">19</span>
+          <span class="q-sentence">유니폼이 유난히 눈에 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">띤다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">띈다</span> )</span>.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">20</span>
+          <span class="q-sentence">심청이의 목소리를 들은 심봉사의 눈이 번쩍 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">띠었다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">띄었다</span> )</span>.</span>
+        </div>
+      </div>
+
+      <div class="page-footer">- 1 -</div>
+    </section>
+
+    <!-- =========================================================
+         [ 2 쪽 ] 문항 21 ~ 40 (대문항 B)
+         ========================================================= -->
+    <section class="a4-page">
+      <!-- 2쪽 상단 배너 -->
+      <div class="header-banner-sub">
+        <h2 class="header-title">
+          <span class="header-title-dot"></span>
+          헷갈리는 말 ②
+        </h2>
+        <span class="sub-eng">Dada Vocabulary · Unit 02</span>
+      </div>
+
+      <!-- 대문항 B -->
+      <div class="section-header">
+        <div class="section-badge">B</div>
+        <div class="section-desc">다음 괄호에 알맞은 낱말을 골라 ○표 하세요. (21~40)</div>
+      </div>
+
+      <!-- 문항 21~40 -->
+      <div class="question-list">
+        <div class="question-row">
+          <span class="q-num">21</span>
+          <span class="q-sentence">선생님은 항상 미소를 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">띠며</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">띄며</span> )</span> 말씀하신다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">22</span>
+          <span class="q-sentence">달리기를 한 뒤 우리 반에는 얼굴에 홍조를 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">띠는</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">띄는</span> )</span> 친구가 많았다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">23</span>
+          <span class="q-sentence">포도 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">껍데기</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">껍질</span> )</span>은 먹어도 돼.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">24</span>
+          <span class="q-sentence">소라 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">껍데기</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">껍질</span> )</span>에서 바닷소리가 들렸다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">25</span>
+          <span class="q-sentence">안에 든 젤리는 다 먹고 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">껍데기</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">껍질</span> )</span>만 남았다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">26</span>
+          <span class="q-sentence">사각형의 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">너비</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">넓이</span> )</span>를 구해야 한다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">27</span>
+          <span class="q-sentence">도로의 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">너비</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">넓이</span> )</span>가 좁아서 차가 지나가기 힘들다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">28</span>
+          <span class="q-sentence">영화에 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">출연</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">출현</span> )</span>하기로 결심했다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">29</span>
+          <span class="q-sentence">전문가들은 새로운 바이러스의 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">출연</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">출현</span> )</span> 가능성이 있다고 전망했다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">30</span>
+          <span class="q-sentence">책상에 책이 가득 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">싸여 있다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">쌓여 있다</span> )</span>.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">31</span>
+          <span class="q-sentence">먼지가 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">싸인</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">쌓인</span> )</span> 책상을 닦았다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">32</span>
+          <span class="q-sentence">포장지에 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">싸인</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">쌓인</span> )</span> 선물을 내밀었다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">33</span>
+          <span class="q-sentence">강이 무척 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">깁다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">깊다</span> )</span>.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">34</span>
+          <span class="q-sentence">할머니는 헌 옷을 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">깁고</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">깊고</span> )</span> 계셨다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">35</span>
+          <span class="q-sentence">선생님께서 나에게 발표를 시키실까 마음을 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">조렸다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">졸였다</span> )</span>.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">36</span>
+          <span class="q-sentence">생선을 양념에 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">조리는</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">졸이는</span> )</span> 중이다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">37</span>
+          <span class="q-sentence">국물을 오래 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">조리면</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">졸이면</span> )</span> 맛이 짜진다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">38</span>
+          <span class="q-sentence">비가 와서 강물이 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">부었다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">불었다</span> )</span>.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">39</span>
+          <span class="q-sentence">국수는 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">붇기</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">붓기</span> )</span> 전에 먹어야 한다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">40</span>
+          <span class="q-sentence">주전자에 물을 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">붇고</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">붓고</span> )</span> 있다.</span>
+        </div>
+      </div>
+
+      <div class="page-footer">- 2 -</div>
+    </section>
+
+    <!-- =========================================================
+         [ 3 쪽 ] 문항 41 ~ 51 (대문항 C) + 핵심 정리 + 정답 확인표
+         ========================================================= -->
+    <section class="a4-page">
+      <!-- 3쪽 상단 배너 -->
+      <div class="header-banner-sub">
+        <h2 class="header-title">
+          <span class="header-title-dot"></span>
+          헷갈리는 말 ②
+        </h2>
+        <span class="sub-eng">Dada Vocabulary · Unit 02</span>
+      </div>
+
+      <!-- 대문항 C -->
+      <div class="section-header">
+        <div class="section-badge">C</div>
+        <div class="section-desc">다음 괄호에 알맞은 낱말을 골라 ○표 하세요. (41~51)</div>
+      </div>
+
+      <!-- 문항 41~51 -->
+      <div class="question-list" style="flex-grow: 0;">
+        <div class="question-row">
+          <span class="q-num">41</span>
+          <span class="q-sentence">넘어진 아이가 땅을 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">집고</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">짚고</span> )</span> 일어났다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">42</span>
+          <span class="q-sentence">젓가락으로 콩을 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">집었다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">짚었다</span> )</span>.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">43</span>
+          <span class="q-sentence">운동장에 모인 학생 수를 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">세었다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">새었다</span> )</span>.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">44</span>
+          <span class="q-sentence">달빛이 문틈으로 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">센다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">샌다</span> )</span>.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">45</span>
+          <span class="q-sentence">음료수 병에서 물이 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">셌다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">샜다</span> )</span>.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">46</span>
+          <span class="q-sentence">반지를 손가락에 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">끼웠다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">꿰었다</span> )</span>.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">47</span>
+          <span class="q-sentence">바늘에 실을 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">끼웠다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">꿰었다</span> )</span>.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">48</span>
+          <span class="q-sentence">엄마는 우리가 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">묵을</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">묶을</span> )</span> 숙소를 예약했다.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">49</span>
+          <span class="q-sentence">선생님이 우리를 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">맞았다</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">맡았다</span> )</span>.</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">50</span>
+          <span class="q-sentence">추우면 창문을 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">닫을까</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">닿을까</span> )</span>?</span>
+        </div>
+        <div class="question-row">
+          <span class="q-num">51</span>
+          <span class="q-sentence">소재가 부드러워서 피부에 <span class="choice-group">( <span class="choice-opt" onclick="toggleChoice(this)">닫는</span><span class="choice-slash">/</span><span class="choice-opt" onclick="toggleChoice(this)">닿는</span> )</span> 감촉이 좋다.</span>
+        </div>
+      </div>
+
+      <!-- 핵심 어휘 정리 박스 -->
+      <div class="summary-box">
+        <div class="summary-title">• 핵심 어휘 정리 •</div>
+        <div class="summary-item">
+          <span class="summary-bullet">⊙</span>
+          <div><strong>헤치다 / 해치다 :</strong> <strong>헤치다</strong>(모인 것을 양옆으로 파거나 젖히다) &nbsp;vs&nbsp; <strong>해치다</strong>(손상을 입혀 망가지게 하다)</div>
+        </div>
+        <div class="summary-item">
+          <span class="summary-bullet">⊙</span>
+          <div><strong>바라다 / 바래다 :</strong> <strong>바라다</strong>(생각이나 희망대로 되기를 원하다) &nbsp;vs&nbsp; <strong>바래다</strong>(볕이나 습기로 색이 변하다)</div>
+        </div>
+        <div class="summary-item">
+          <span class="summary-bullet">⊙</span>
+          <div><strong>껍질 / 껍데기 :</strong> <strong>껍질</strong>(무르지 않은 겉 부분: 사과·포도·양파) &nbsp;vs&nbsp; <strong>껍데기</strong>(딱딱한 겉 부분: 조개·달걀·소라)</div>
+        </div>
+        <div class="summary-item">
+          <span class="summary-bullet">⊙</span>
+          <div><strong>조리다 / 졸이다 :</strong> <strong>조리다</strong>(양념이 배어들게 바특하게 끓이다) &nbsp;vs&nbsp; <strong>졸이다</strong>(국물을 증발시키다 / 마음을 태우다)</div>
+        </div>
+      </div>
+
+      <!-- 5열 정답 확인표 -->
+      <div class="answer-key-section">
+        <div class="answer-key-title">
+          <span>✓ 정답 확인표 (1~51)</span>
+          <span class="answer-badge">Answer Key</span>
+        </div>
+        <table class="answer-table">
+          <thead>
+            <tr>
+              <th>1 ~ 10</th>
+              <th>11 ~ 20</th>
+              <th>21 ~ 30</th>
+              <th>31 ~ 40</th>
+              <th>41 ~ 51</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ans-num">1</span> <span class="ans-val">비추었다</span></td>
+              <td><span class="ans-num">11</span> <span class="ans-val">거칠</span></td>
+              <td><span class="ans-num">21</span> <span class="ans-val">띠며</span></td>
+              <td><span class="ans-num">31</span> <span class="ans-val">쌓인</span></td>
+              <td><span class="ans-num">41</span> <span class="ans-val">짚고</span></td>
+            </tr>
+            <tr>
+              <td><span class="ans-num">2</span> <span class="ans-val">비친</span></td>
+              <td><span class="ans-num">12</span> <span class="ans-val">바란다</span></td>
+              <td><span class="ans-num">22</span> <span class="ans-val">띠는</span></td>
+              <td><span class="ans-num">32</span> <span class="ans-val">싸인</span></td>
+              <td><span class="ans-num">42</span> <span class="ans-val">집었다</span></td>
+            </tr>
+            <tr>
+              <td><span class="ans-num">3</span> <span class="ans-val">담그고</span></td>
+              <td><span class="ans-num">13</span> <span class="ans-val">바랬다</span></td>
+              <td><span class="ans-num">23</span> <span class="ans-val">껍질</span></td>
+              <td><span class="ans-num">33</span> <span class="ans-val">깊다</span></td>
+              <td><span class="ans-num">43</span> <span class="ans-val">세었다</span></td>
+            </tr>
+            <tr>
+              <td><span class="ans-num">4</span> <span class="ans-val">엎었다</span></td>
+              <td><span class="ans-num">14</span> <span class="ans-val">바람</span></td>
+              <td><span class="ans-num">24</span> <span class="ans-val">껍데기</span></td>
+              <td><span class="ans-num">34</span> <span class="ans-val">깁고</span></td>
+              <td><span class="ans-num">44</span> <span class="ans-val">샌다</span></td>
+            </tr>
+            <tr>
+              <td><span class="ans-num">5</span> <span class="ans-val">헤치고</span></td>
+              <td><span class="ans-num">15</span> <span class="ans-val">바랜</span></td>
+              <td><span class="ans-num">25</span> <span class="ans-val">껍질</span></td>
+              <td><span class="ans-num">35</span> <span class="ans-val">조렸다</span></td>
+              <td><span class="ans-num">45</span> <span class="ans-val">샜다</span></td>
+            </tr>
+            <tr>
+              <td><span class="ans-num">6</span> <span class="ans-val">해치고</span></td>
+              <td><span class="ans-num">16</span> <span class="ans-val">들려</span></td>
+              <td><span class="ans-num">26</span> <span class="ans-val">넓이</span></td>
+              <td><span class="ans-num">36</span> <span class="ans-val">조리는</span></td>
+              <td><span class="ans-num">46</span> <span class="ans-val">끼웠다</span></td>
+            </tr>
+            <tr>
+              <td><span class="ans-num">7</span> <span class="ans-val">해친다</span></td>
+              <td><span class="ans-num">17</span> <span class="ans-val">들렀다</span></td>
+              <td><span class="ans-num">27</span> <span class="ans-val">너비</span></td>
+              <td><span class="ans-num">37</span> <span class="ans-val">졸이면</span></td>
+              <td><span class="ans-num">47</span> <span class="ans-val">꿰었다</span></td>
+            </tr>
+            <tr>
+              <td><span class="ans-num">8</span> <span class="ans-val">헤치고</span></td>
+              <td><span class="ans-num">18</span> <span class="ans-val">들렀는데/들리는</span></td>
+              <td><span class="ans-num">28</span> <span class="ans-val">출연</span></td>
+              <td><span class="ans-num">38</span> <span class="ans-val">불었다</span></td>
+              <td><span class="ans-num">48</span> <span class="ans-val">묵을</span></td>
+            </tr>
+            <tr>
+              <td><span class="ans-num">9</span> <span class="ans-val">거쳐</span></td>
+              <td><span class="ans-num">19</span> <span class="ans-val">띈다</span></td>
+              <td><span class="ans-num">29</span> <span class="ans-val">출현</span></td>
+              <td><span class="ans-num">39</span> <span class="ans-val">붇기</span></td>
+              <td><span class="ans-num">49</span> <span class="ans-val">맡았다</span></td>
+            </tr>
+            <tr>
+              <td><span class="ans-num">10</span> <span class="ans-val">걷히자</span></td>
+              <td><span class="ans-num">20</span> <span class="ans-val">띄었다</span></td>
+              <td><span class="ans-num">30</span> <span class="ans-val">쌓여 있다</span></td>
+              <td><span class="ans-num">40</span> <span class="ans-val">붓고</span></td>
+              <td><span class="ans-num">50</span> <span class="ans-val">닫을까</span><br/><span class="ans-num">51</span> <span class="ans-val">닿는</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="page-footer">- 3 -</div>
+    </section>
+
+  </main>
+
+  <script>
+    // 선택지 클릭 토글 인터랙션
+    function toggleChoice(el) {
+      const parent = el.closest('.choice-group');
+      if (!parent) return;
+      const opts = parent.querySelectorAll('.choice-opt');
+      if (el.classList.contains('selected')) {
+        el.classList.remove('selected');
+      } else {
+        opts.forEach(opt => opt.classList.remove('selected'));
+        el.classList.add('selected');
+      }
+    }
+
+    // 모든 선택지 초기화
+    function resetSelections() {
+      document.querySelectorAll('.choice-opt.selected').forEach(el => {
+        el.classList.remove('selected');
+      });
+    }
+  </script>
+</body>
+</html>

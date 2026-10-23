@@ -1,0 +1,572 @@
+{
+  "compareDate": "2026. 10. 23. PM 4:50:13",
+  "baselineScanTime": "2026. 10. 18. 오후 4:10:31",
+  "newItemsCount": 59,
+  "categories": {
+    "정오표": {
+      "totalNow": 41,
+      "totalBaseline": 43,
+      "newItemsCount": 23,
+      "newItems": [
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "어휘2 정오표 (238 | 11월 | 어휘2 정오표 | )",
+          "category": "11월",
+          "date": "",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "등록일 2026-10-22 | 조회 12 | 첨부 1",
+          "category": "조회  12",
+          "date": "2026-10-22",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "소크라테스1 정오표 (237 | 10월 | 소크라테스1 정오표 | )",
+          "category": "10월",
+          "date": "",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "등록일 2026-10-22 | 조회 14 | 첨부 1",
+          "category": "조회  14",
+          "date": "2026-10-22",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "소크라테스1 정오표 (236 | 9월 | 소크라테스1 정오표 | )",
+          "category": "9월",
+          "date": "",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "수정일 2026-10-21 | 조회 344 | 첨부 1",
+          "category": "조회  344",
+          "date": "2026-10-21",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "통합사회1-한국사 정오표 (235 | 통사 | 통합사회1-한국사 정오표 | )",
+          "category": "통사",
+          "date": "",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "등록일 2026-10-16 | 조회 52 | 첨부 2",
+          "category": "조회  52",
+          "date": "2026-10-16",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "논리1 정오표 (234 | 10월 | 논리1 정오표 | )",
+          "category": "10월",
+          "date": "",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "수정일 2026-10-13 | 조회 371 | 첨부 1",
+          "category": "조회  371",
+          "date": "2026-10-13",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "한국사봄 정오표 (233 | 특강 | 한국사봄 정오표 | )",
+          "category": "특강",
+          "date": "",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "수정일 2026-10-08 | 조회 8436 | 첨부 1",
+          "category": "조회  8436",
+          "date": "2026-10-08",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "통합사회3-세계사 정오표 (232 | 통사 | 통합사회3-세계사 정오표 | )",
+          "category": "통사",
+          "date": "",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "수정일 2026-10-08 | 조회 8017 | 첨부 7",
+          "category": "조회  8017",
+          "date": "2026-10-08",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "과학탐탐 정오표 (231 | 10월 | 과학탐탐 정오표 | )",
+          "category": "10월",
+          "date": "",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "등록일 2026-10-01 | 조회 147 | 첨부 1",
+          "category": "조회  147",
+          "date": "2026-10-01",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "똑독해 정오표 (230 | 특강 | 똑독해 정오표 | )",
+          "category": "특강",
+          "date": "",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "수정일 2026-09-29 | 조회 1088 | 첨부 2",
+          "category": "조회  1088",
+          "date": "2026-09-29",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "새싹2 정오표 (229 | 9월 | 새싹2 정오표 | )",
+          "category": "9월",
+          "date": "",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "수정일 2026-09-17 | 조회 68 | 첨부 1",
+          "category": "조회  68",
+          "date": "2026-09-17",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "논리1 정오표 (228 | 9월 | 논리1 정오표통합사회2-지리 정오표 | )",
+          "category": "9월",
+          "date": "",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "수정일 2026-09-09 | 조회 623 | 첨부 1",
+          "category": "조회  623",
+          "date": "2026-09-09",
+          "url": "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "errata",
+          "catName": "정오표",
+          "title": "어휘2 정오표",
+          "category": "11월",
+          "date": "",
+          "url": "https://teaching.hanuribook.com/view('15482','1','','tg0');",
+          "isNew": false
+        }
+      ]
+    },
+    "수업자료": {
+      "totalNow": 42,
+      "totalBaseline": 42,
+      "newItemsCount": 10,
+      "newItems": [
+        {
+          "catId": "source",
+          "catName": "수업자료",
+          "title": "수정일 2026-10-14 | 조회 882 | 첨부 1",
+          "category": "조회  882",
+          "date": "2026-10-14",
+          "url": "https://teaching.hanuribook.com/hu/source?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "source",
+          "catName": "수업자료",
+          "title": "등록일 2026-10-01 | 조회 73 | 첨부 2",
+          "category": "조회  73",
+          "date": "2026-10-01",
+          "url": "https://teaching.hanuribook.com/hu/source?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "source",
+          "catName": "수업자료",
+          "title": "수정일 2026-10-01 | 조회 848 | 첨부 2",
+          "category": "조회  848",
+          "date": "2026-10-01",
+          "url": "https://teaching.hanuribook.com/hu/source?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "source",
+          "catName": "수업자료",
+          "title": "등록일 2026-10-01 | 조회 83 | 첨부 3",
+          "category": "조회  83",
+          "date": "2026-10-01",
+          "url": "https://teaching.hanuribook.com/hu/source?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "source",
+          "catName": "수업자료",
+          "title": "등록일 2026-10-01 | 조회 426 | 첨부 2",
+          "category": "조회  426",
+          "date": "2026-10-01",
+          "url": "https://teaching.hanuribook.com/hu/source?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "source",
+          "catName": "수업자료",
+          "title": "수정일 2026-09-23 | 조회 316 | 첨부 2",
+          "category": "조회  316",
+          "date": "2026-09-23",
+          "url": "https://teaching.hanuribook.com/hu/source?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "source",
+          "catName": "수업자료",
+          "title": "등록일 2026-09-01 | 조회 118 | 첨부 2",
+          "category": "조회  118",
+          "date": "2026-09-01",
+          "url": "https://teaching.hanuribook.com/hu/source?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "source",
+          "catName": "수업자료",
+          "title": "등록일 2026-09-01 | 조회 1294 | 첨부 2",
+          "category": "조회  1294",
+          "date": "2026-09-01",
+          "url": "https://teaching.hanuribook.com/hu/source?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "source",
+          "catName": "수업자료",
+          "title": "수정일 2026-09-01 | 조회 211 | 첨부 3",
+          "category": "조회  211",
+          "date": "2026-09-01",
+          "url": "https://teaching.hanuribook.com/hu/source?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "source",
+          "catName": "수업자료",
+          "title": "수정일 2026-08-28 | 조회 89 | 첨부 2",
+          "category": "조회  89",
+          "date": "2026-08-28",
+          "url": "https://teaching.hanuribook.com/hu/source?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        }
+      ]
+    },
+    "평가자료": {
+      "totalNow": 40,
+      "totalBaseline": 40,
+      "newItemsCount": 15,
+      "newItems": [
+        {
+          "catId": "test",
+          "catName": "평가자료",
+          "title": "독서1 (49 | 11월 | 독서1 필독서퀴즈과학탐탐 필독서퀴즈 | )",
+          "category": "11월",
+          "date": "",
+          "url": "https://teaching.hanuribook.com/hu/test?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "test",
+          "catName": "평가자료",
+          "title": "수정일 2026-10-20 | 조회 292 | 첨부 3",
+          "category": "조회  292",
+          "date": "2026-10-20",
+          "url": "https://teaching.hanuribook.com/hu/test?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "test",
+          "catName": "평가자료",
+          "title": "논리1 (48 | 11월 | 논리1 필독서퀴즈통합사회2-지리 필독서퀴즈 | )",
+          "category": "11월",
+          "date": "",
+          "url": "https://teaching.hanuribook.com/hu/test?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "test",
+          "catName": "평가자료",
+          "title": "수정일 2026-10-20 | 조회 350 | 첨부 3",
+          "category": "조회  350",
+          "date": "2026-10-20",
+          "url": "https://teaching.hanuribook.com/hu/test?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "test",
+          "catName": "평가자료",
+          "title": "어휘1,어휘2,독서1,독서2,논리1,논리2 (47 | 11월 | 어휘1,어휘2,독서1,독서2,논리1,논리2 필독서퀴즈과학탐탐,통합사회2-지리 필독서퀴즈 | )",
+          "category": "11월",
+          "date": "",
+          "url": "https://teaching.hanuribook.com/hu/test?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "test",
+          "catName": "평가자료",
+          "title": "등록일 2026-10-19 | 조회 199 | 첨부 1",
+          "category": "조회  199",
+          "date": "2026-10-19",
+          "url": "https://teaching.hanuribook.com/hu/test?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "test",
+          "catName": "평가자료",
+          "title": "독서2 (46 | 11월 | 독서2 필독서퀴즈 | )",
+          "category": "11월",
+          "date": "",
+          "url": "https://teaching.hanuribook.com/hu/test?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "test",
+          "catName": "평가자료",
+          "title": "등록일 2026-10-08 | 조회 211 | 첨부 2",
+          "category": "조회  211",
+          "date": "2026-10-08",
+          "url": "https://teaching.hanuribook.com/hu/test?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "test",
+          "catName": "평가자료",
+          "title": "등록일 2026-10-08 | 조회 178 | 첨부 2",
+          "category": "조회  178",
+          "date": "2026-10-08",
+          "url": "https://teaching.hanuribook.com/hu/test?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "test",
+          "catName": "평가자료",
+          "title": "등록일 2026-10-08 | 조회 106 | 첨부 2",
+          "category": "조회  106",
+          "date": "2026-10-08",
+          "url": "https://teaching.hanuribook.com/hu/test?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "test",
+          "catName": "평가자료",
+          "title": "수정일 2026-10-08 | 조회 209 | 첨부 2",
+          "category": "조회  209",
+          "date": "2026-10-08",
+          "url": "https://teaching.hanuribook.com/hu/test?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "test",
+          "catName": "평가자료",
+          "title": "등록일 2026-09-21 | 조회 2537 | 첨부 1",
+          "category": "조회  2537",
+          "date": "2026-09-21",
+          "url": "https://teaching.hanuribook.com/hu/test?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "test",
+          "catName": "평가자료",
+          "title": "등록일 2026-09-10 | 조회 1265 | 첨부 3",
+          "category": "조회  1265",
+          "date": "2026-09-10",
+          "url": "https://teaching.hanuribook.com/hu/test?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "test",
+          "catName": "평가자료",
+          "title": "등록일 2026-09-10 | 조회 952 | 첨부 2",
+          "category": "조회  952",
+          "date": "2026-09-10",
+          "url": "https://teaching.hanuribook.com/hu/test?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "test",
+          "catName": "평가자료",
+          "title": "등록일 2026-09-10 | 조회 382 | 첨부 2",
+          "category": "조회  382",
+          "date": "2026-09-10",
+          "url": "https://teaching.hanuribook.com/hu/test?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        }
+      ]
+    },
+    "학부모제공자료": {
+      "totalNow": 51,
+      "totalBaseline": 53,
+      "newItemsCount": 0,
+      "newItems": []
+    },
+    "상담자료": {
+      "totalNow": 42,
+      "totalBaseline": 42,
+      "newItemsCount": 11,
+      "newItems": [
+        {
+          "catId": "samplebook",
+          "catName": "상담자료",
+          "title": "등록일 2026-09-29 | 조회 48 | 첨부 1",
+          "category": "조회  48",
+          "date": "2026-09-29",
+          "url": "https://teaching.hanuribook.com/hu/samplebook?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "samplebook",
+          "catName": "상담자료",
+          "title": "등록일 2026-09-29 | 조회 25 | 첨부 1",
+          "category": "조회  25",
+          "date": "2026-09-29",
+          "url": "https://teaching.hanuribook.com/hu/samplebook?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "samplebook",
+          "catName": "상담자료",
+          "title": "등록일 2026-09-29 | 조회 28 | 첨부 1",
+          "category": "조회  28",
+          "date": "2026-09-29",
+          "url": "https://teaching.hanuribook.com/hu/samplebook?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "samplebook",
+          "catName": "상담자료",
+          "title": "등록일 2026-09-29 | 조회 80 | 첨부 1",
+          "category": "조회  80",
+          "date": "2026-09-29",
+          "url": "https://teaching.hanuribook.com/hu/samplebook?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "samplebook",
+          "catName": "상담자료",
+          "title": "등록일 2026-09-29 | 조회 47 | 첨부 1",
+          "category": "조회  47",
+          "date": "2026-09-29",
+          "url": "https://teaching.hanuribook.com/hu/samplebook?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "samplebook",
+          "catName": "상담자료",
+          "title": "수정일 2025-10-16 | 조회 2350 | 첨부 2",
+          "category": "조회  2350",
+          "date": "2025-10-16",
+          "url": "https://teaching.hanuribook.com/hu/samplebook?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "samplebook",
+          "catName": "상담자료",
+          "title": "수정일 2025-05-30 | 조회 927 | 첨부 1",
+          "category": "조회  927",
+          "date": "2025-05-30",
+          "url": "https://teaching.hanuribook.com/hu/samplebook?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "samplebook",
+          "catName": "상담자료",
+          "title": "수정일 2024-02-07 | 조회 818 | 첨부 1",
+          "category": "조회  818",
+          "date": "2024-02-07",
+          "url": "https://teaching.hanuribook.com/hu/samplebook?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "samplebook",
+          "catName": "상담자료",
+          "title": "수정일 2024-01-05 | 조회 1507 | 첨부 1",
+          "category": "조회  1507",
+          "date": "2024-01-05",
+          "url": "https://teaching.hanuribook.com/hu/samplebook?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "samplebook",
+          "catName": "상담자료",
+          "title": "수정일 2023-11-14 | 조회 1158 | 첨부 1",
+          "category": "조회  1158",
+          "date": "2023-11-14",
+          "url": "https://teaching.hanuribook.com/hu/samplebook?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        },
+        {
+          "catId": "samplebook",
+          "catName": "상담자료",
+          "title": "등록일 2022-12-13 | 조회 655 | 첨부 1",
+          "category": "조회  655",
+          "date": "2022-12-13",
+          "url": "https://teaching.hanuribook.com/hu/samplebook?jpage=1&type=&t_group=tg0",
+          "isNew": false
+        }
+      ]
+    }
+  }
+}
