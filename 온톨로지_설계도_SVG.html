@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>한우리 온톨로지 지식 시스템 설계도 (SVG 대화형 뷰어)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    header {
+      background: #1e293b;
+      border-bottom: 1px solid #334155;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      z-index: 10;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+    .brand h1 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .brand p {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .mode-group {
+      background: #0f172a;
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      display: flex;
+      gap: 4px;
+      margin-right: 4px;
+    }
+    .btn {
+      background: #334155;
+      color: #f8fafc;
+      border: 1px solid #475569;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .btn:hover {
+      background: #475569;
+      border-color: #60a5fa;
+    }
+    .btn.active {
+      background: #2563eb;
+      border-color: #3b82f6;
+      color: #ffffff;
+    }
+    .btn-emerald {
+      background: #059669;
+      border-color: #10b981;
+      color: #ffffff;
+    }
+    .btn-emerald:hover {
+      background: #047857;
+    }
+    .zoom-badge {
+      font-family: monospace;
+      font-size: 14px;
+      font-weight: 800;
+      color: #fde047;
+      min-width: 58px;
+      text-align: center;
+    }
+    #canvasWrap {
+      flex: 1;
+      position: relative;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+      background-color: #0f172a;
+      background-image: radial-gradient(rgba(148, 163, 184, 0.2) 1.5px, transparent 1.5px);
+      background-size: 26px 26px;
+      overflow: hidden;
+    }
+    #canvasWrap:active {
+      cursor: grabbing;
+    }
+    .node-group {
+      cursor: pointer;
+      transition: filter 0.18s ease, opacity 0.2s ease;
+    }
+    .node-group:hover {
+      filter: drop-shadow(0 10px 20px rgba(59, 130, 246, 0.4));
+    }
+    .svg-open-btn {
+      cursor: pointer;
+    }
+    .svg-open-btn:hover rect {
+      fill: #f59e0b !important;
+    }
+    .svg-open-btn:hover text {
+      fill: #0f172a !important;
+    }
+    @keyframes dashFlow {
+      to { stroke-dashoffset: -24; }
+    }
+    .edge-animated {
+      stroke-dasharray: 8 4;
+      animation: dashFlow 0.9s linear infinite;
+    }
+    footer {
+      background: #1e293b;
+      border-top: 1px solid #334155;
+      padding: 14px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 10;
+    }
+    .footer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .detail-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+    .badge {
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 800;
+      background: #2563eb;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .detail-text {
+      font-size: 14.5px;
+      color: #e2e8f0;
+      line-height: 1.4;
+    }
+    .links-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .file-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #93c5fd;
+      background: rgba(37, 99, 235, 0.22);
+      border: 1px solid rgba(96, 165, 250, 0.45);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .file-link-btn:hover {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #60a5fa;
+      transform: translateY(-1px);
+    }
+    .file-link-btn.direct-dl {
+      color: #fde047;
+      background: rgba(217, 119, 6, 0.22);
+      border-color: rgba(251, 191, 36, 0.45);
+    }
+    .file-link-btn.direct-dl:hover {
+      background: #d97706;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-icon">🕸️</div>
+      <div>
+        <h1>한우리 온톨로지 지식 시스템 설계도 (SVG 확대/축소 + 파일 직통 링크)</h1>
+        <p>마우스 휠(스크롤)로 크게/작게 조절하고, 각 박스의 [🔗열기] 또는 하단 링크 버튼을 눌러 새 창으로 문서를 바로 여세요.</p>
+      </div>
+    </div>
+
+    <div class="controls">
+      <a href="https://edunet.hanuribook.com/login?auto=teaching" target="_blank" class="btn" style="background:#db2777;border-color:#f472b6;color:#fff;">📚 수업지원시스템 1초 직통 ↗</a>
+      <a href="https://edunet.hanuribook.com/login?auto=edunet" target="_blank" class="btn" style="background:#d97706;border-color:#fbbf24;color:#fff;">🚀 에듀넷 자동로그인 ↗</a>
+      <a href="온톨로지_지식베이스.html" class="btn" style="background:linear-gradient(135deg,#4f46e5,#9333ea);border-color:#c4b5fd;color:#fff;">🧠 온톨로지 지식베이스 열기</a>
+      <a href="파일검색.html" target="_blank" class="btn btn-emerald">🔍 통합 파일 검색 새 창 ↗</a>
+      <div class="mode-group">
+        <button id="btnModeArch" class="btn active" onclick="switchMode('arch')">1. 전체 온톨로지 설계도</button>
+        <button id="btnModeReal" class="btn" onclick="switchMode('real')">2. 실제 자료 연결망</button>
+        <button id="btnModePortal" class="btn" onclick="switchMode('portal')">3. 🌐 에듀넷 & 수업지원 포털 연계망</button>
+      </div>
+      <button class="btn" onclick="zoomBy(1.25)">➕ 크게 확대</button>
+      <button class="btn" onclick="zoomBy(0.8)">➖ 작게 축소</button>
+      <span id="zoomLabel" class="zoom-badge">100%</span>
+      <button class="btn" onclick="resetView()">🔄 화면 맞춤(100%)</button>
+    </div>
+  </header>
+
+  <div id="canvasWrap">
+    <svg id="ontologySvg" width="100%" height="100%" viewBox="0 0 1150 500" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#60a5fa" />
+        </marker>
+        <marker id="arrow-active" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 1 L 9 5 L 0 9 z" fill="#fbbf24" />
+        </marker>
+        <filter id="card-shadow" x="-10%" y="-10%" width="120%" height="125%">
+          <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.35" />
+        </filter>
+      </defs>
+      <g id="viewportGroup" transform="translate(0,0) scale(1)">
+        <g id="edgesLayer"></g>
+        <g id="nodesLayer"></g>
+      </g>
+    </svg>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div class="detail-box">
+        <span id="detailBadge" class="badge">전체 온톨로지</span>
+        <span id="detailText" class="detail-text">다이어그램의 <strong>각 박스(노드)</strong>나 <strong>아래 링크 버튼</strong>을 클릭하면 <strong>새 브라우저 창</strong>으로 문서 내용과 파일이 즉시 열립니다.</span>
+      </div>
+      <button id="btnShowAll" class="btn" style="display:none;" onclick="clearSelection()">전체 연결 다시 보기</button>
+    </div>
+    <div id="linksContainer" class="links-row"></div>
+  </footer>
+
+  <script>
+    const DEFAULT_LINKS = [
+      { label: "🔍 통합 파일 검색(파일검색.html) 새 창 열기", url: "파일검색.html" },
+      { label: "🌐 2차시 HTML 학습지 바로 열기 (새 창)", url: "다다어휘/다다어휘 1호 - 2차시(헷갈리는 말 2).html", fileUrl: "다다어휘/다다어휘 1호 - 2차시(헷갈리는 말 2).html" },
+      { label: "🌐 1차시 HTML 학습지 바로 열기 (새 창)", url: "다다어휘/다다어휘 1호 - 1차시(헷갈리는 말 1).html", fileUrl: "다다어휘/다다어휘 1호 - 1차시(헷갈리는 말 1).html" },
+      { label: "✨ 다다어휘 1호 2차시(디자인).hwpx 보기", url: "파일검색.html?q=다다어휘 1호 - 2차시(헷갈리는 말 2) 이미종(디자인)&preview=1", fileUrl: "다다어휘/다다어휘 1호 - 2차시(헷갈리는 말 2) 이미종(디자인).hwpx" },
+      { label: "✨ 다다어휘 1호 1차시(디자인).hwpx 보기", url: "파일검색.html?q=다다어휘 1호 - 1차시(헷갈리는 말 1) 이미종(디자인)&preview=1", fileUrl: "다다어휘/다다어휘 1호 - 1차시(헷갈리는 말 1) 이미종(디자인).hwpx" }
+    ];
+
+    const DATASETS = {
+      arch: {
+        nodes: [
+          {
+            id: "student",
+            x: 35, y: 110, w: 220, h: 115,
+            icon: "🧑‍🎓",
+            title: "학생 / 수업반",
+            sub1: "독1·독2 / 소1·소2 / 별별문학",
+            sub2: "요일별 시간표 · 수강생 매핑",
+            headerBg: "#2563eb",
+            cardBg: "#eff6ff",
+            borderColor: "#60a5fa",
+            textColor: "#1e3a8a",
+            desc: "[10월 이미종 시간표.hwp] 기반 수업반 및 학생 정보입니다. 클릭 시 새 브라우저 창으로 시간표와 수업반 자료를 엽니다.",
+            links: [
+              { label: "📅 10월 이미종 시간표 본문 열기 (새 창)", url: "파일검색.html?q=10월 이미종 시간표&preview=1", fileUrl: "10월 이미종 시간표.hwp" },
+              { label: "🔍 시간표 관련 파일 검색 (새 창)", url: "파일검색.html?q=시간표" },
+              { label: "🔍 별별문학 수업 자료 검색 (새 창)", url: "파일검색.html?q=별별문학" }
+            ]
+          },
+          {
+            id: "program",
+            x: 325, y: 110, w: 230, h: 115,
+            icon: "📚",
+            title: "교육 과정 / 호수",
+            sub1: "다다어휘 · 똑똑한국사",
+            sub2: "통합과학 · 어휘리더 필독서",
+            headerBg: "#7c3aed",
+            cardBg: "#f5f3ff",
+            borderColor: "#a78bfa",
+            textColor: "#4c1d95",
+            desc: "한우리 핵심 커리큘럼 과정입니다. 각 과정별 전체 자료를 새 브라우저 창으로 즉시 조회합니다.",
+            links: [
+              { label: "🔍 다다어휘 전체 자료 보기 (새 창)", url: "파일검색.html?q=다다어휘" },
+              { label: "🔍 똑똑한국사 전체 자료 보기 (새 창)", url: "파일검색.html?q=똑똑한국사" },
+              { label: "🔍 통합과학(똑독해) 자료 보기 (새 창)", url: "파일검색.html?q=통합과학" },
+              { label: "🔍 어휘리더 필독서 자료 보기 (새 창)", url: "파일검색.html?q=어휘리더" }
+            ]
+          },
+          {
+            id: "topic",
+            x: 625, y: 110, w: 220, h: 115,
+            icon: "📖",
+            title: "단원 / 필독서",
+            sub1: "헷갈리는 말 · 속담 · 관용어",
+            sub2: "돈키호테 · 시대별 한국사",
+            headerBg: "#059669",
+            cardBg: "#ecfdf5",
+            borderColor: "#34d399",
+            textColor: "#064e3b",
+            desc: "각 수업 차시에서 다루는 중심 단원이나 문학 작품(필독서)입니다.",
+            links: [
+              { label: "📄 1 헷갈리는 말 1차시 열기 (새 창)", url: "파일검색.html?q=1 헷갈리는 말 1차시&preview=1", fileUrl: "다다어휘/1 헷갈리는 말 1차시.hwp" },
+              { label: "📄 관용어_1차시 열기 (새 창)", url: "파일검색.html?q=관용어_1차시&preview=1", fileUrl: "다다어휘/관용어_1차시.hwp" },
+              { label: "📄 문어잼4_속담2차시 열기 (새 창)", url: "파일검색.html?q=속담2차시&preview=1", fileUrl: "다다어휘/26010_문어잼4_속담2차시_양정숙.hwp" },
+              { label: "🔍 돈키호테 관련 자료 검색 (새 창)", url: "파일검색.html?q=돈키호테" }
+            ]
+          },
+          {
+            id: "school",
+            x: 605, y: 310, w: 240, h: 115,
+            icon: "🏫",
+            title: "학교 / 학년 과정",
+            sub1: "사직중 · 사직여중 기출",
+            sub2: "초등 ~ 중등 국어 교육과정",
+            headerBg: "#d97706",
+            cardBg: "#fffbeb",
+            borderColor: "#fbbf24",
+            textColor: "#78350f",
+            desc: "학교별 내신 시험 범위 및 초·중등 필수 국어 개념(산문, 운문, 두괄식 등)과 한우리 학습 개념을 직접 연결합니다.",
+            links: [
+              { label: "🏫 00.중등 국어용어-FIN 열기 (새 창)", url: "파일검색.html?q=00.중등 국어용어-FIN&preview=1", fileUrl: "00.중등 국어용어-FIN.hwp" },
+              { label: "🔍 사직중/사직여중 내신 자료 검색 (새 창)", url: "파일검색.html?q=사직중" }
+            ]
+          },
+          {
+            id: "file",
+            x: 910, y: 45, w: 215, h: 120,
+            icon: "📄",
+            title: "실제 파일 자산",
+            sub1: "본교재(.hwpx) · 복습지(.hwp)",
+            sub2: "수업 PPT · 학부모 안내문",
+            headerBg: "#db2777",
+            cardBg: "#fdf2f8",
+            borderColor: "#f472b6",
+            textColor: "#831843",
+            desc: "D:\\한우리 폴더에 저장된 실제 파일들입니다. 원본 파일, 리디자인 파일, 복습 충전지, 정답지가 세트로 묶입니다.",
+            links: [
+              { label: "✨ 다다어휘 1호 1차시(디자인) 열기 (새 창)", url: "파일검색.html?q=다다어휘 1호 - 1차시(헷갈리는 말 1) 이미종(디자인)&preview=1", fileUrl: "다다어휘/다다어휘 1호 - 1차시(헷갈리는 말 1) 이미종(디자인).hwpx" },
+              { label: "✨ 다다어휘 1호 2차시(디자인) 열기 (새 창)", url: "파일검색.html?q=다다어휘 1호 - 2차시(헷갈리는 말 2) 이미종(디자인)&preview=1", fileUrl: "다다어휘/다다어휘 1호 - 2차시(헷갈리는 말 2) 이미종(디자인).hwpx" },
+              { label: "📢 학부모 안내문 모아보기 (새 창)", url: "파일검색.html?q=안내문" }
+            ]
+          },
+          {
+            id: "concept",
+            x: 910, y: 290, w: 215, h: 120,
+            icon: "💡",
+            title: "핵심 지식 / 어휘",
+            sub1: "반드시/반듯이 · 사자성어",
+            sub2: "교과서 관용어 · 토론 논제",
+            headerBg: "#0284c7",
+            cardBg: "#f0f9ff",
+            borderColor: "#38bdf8",
+            textColor: "#0c4a6e",
+            desc: "문서 내부에 들어있는 개별 지식 알맹이(단어, 속담, 문학 개념)입니다. 특정 어휘가 쓰인 모든 문항과 교재를 역추적합니다.",
+            links: [
+              { label: "🔍 '반드시' 포함 문서 검색 (새 창)", url: "파일검색.html?q=반드시" },
+              { label: "🔍 '관용어' 포함 문서 검색 (새 창)", url: "파일검색.html?q=관용어" },
+              { label: "🔍 '토론' 스크립트 검색 (새 창)", url: "파일검색.html?q=토론" }
+            ]
+          }
+        ],
+        edges: [
+          { from: "student", to: "program", label: "수강 중" },
+          { from: "program", to: "topic", label: "포함 단원/도서" },
+          { from: "topic", to: "file", label: "연계 학습자료" },
+          { from: "topic", to: "concept", label: "학습 개념 추출" },
+          { from: "school", to: "concept", label: "출제 / 연계" }
+        ]
+      },
+      real: {
+        nodes: [
+          {
+            id: "r_class",
+            x: 30, y: 180, w: 205, h: 110,
+            icon: "🗓️",
+            title: "초등 어휘/독서반",
+            sub1: "월 2:30 손연수·이예준 외",
+            sub2: "10월 이미종 시간표 연동",
+            headerBg: "#2563eb",
+            cardBg: "#eff6ff",
+            borderColor: "#60a5fa",
+            textColor: "#1e3a8a",
+            desc: "시간표 파일(10월 이미종 시간표.hwp)의 요일별 수업반과 학생 명단 노드입니다.",
+            links: [
+              { label: "📅 10월 이미종 시간표 열기 (새 창)", url: "파일검색.html?q=10월 이미종 시간표&preview=1", fileUrl: "10월 이미종 시간표.hwp" }
+            ]
+          },
+          {
+            id: "r_dada1",
+            x: 285, y: 180, w: 205, h: 110,
+            icon: "📘",
+            title: "다다어휘 1호",
+            sub1: "Unit 01 · 헷갈리는 말 ①",
+            sub2: "Unit 02 · 헷갈리는 말 ②",
+            headerBg: "#7c3aed",
+            cardBg: "#f5f3ff",
+            borderColor: "#a78bfa",
+            textColor: "#4c1d95",
+            desc: "다다어휘 1호 과정입니다. 1차시·2차시 본수업과 어휘 충전 복습 과정이 체계적으로 연결됩니다.",
+            links: [
+              { label: "🔍 다다어휘 1호 전체 파일 검색 (새 창)", url: "파일검색.html?q=다다어휘 1호" },
+              { label: "🖼️ 1차시 디자인 미리보기.png (새 창)", url: "다다어휘/다다어휘 1호 - 1차시(디자인 미리보기).png" },
+              { label: "🖼️ 2차시 디자인 미리보기.png (새 창)", url: "다다어휘/다다어휘 1호 - 2차시(디자인 미리보기).png" }
+            ]
+          },
+          {
+            id: "r_hwpx",
+            x: 560, y: 35, w: 245, h: 105,
+            icon: "✨",
+            title: "1차시 리디자인 교재",
+            sub1: "다다어휘 1호 - 1차시(디자인).hwpx",
+            sub2: "55문항 + 핵심어휘 + 정답표",
+            headerBg: "#db2777",
+            cardBg: "#fdf2f8",
+            borderColor: "#f472b6",
+            textColor: "#831843",
+            desc: "수업용으로 깔끔하게 디자인된 본교재(.hwpx) 파일입니다. 1~55번 선택형 문항과 5열 정답표가 포함되어 있습니다.",
+            links: [
+              { label: "🌐 2차시 HTML 학습지 바로 열기 (새 창)", url: "다다어휘/다다어휘 1호 - 2차시(헷갈리는 말 2).html", fileUrl: "다다어휘/다다어휘 1호 - 2차시(헷갈리는 말 2).html" },
+              { label: "🌐 1차시 HTML 학습지 바로 열기 (새 창)", url: "다다어휘/다다어휘 1호 - 1차시(헷갈리는 말 1).html", fileUrl: "다다어휘/다다어휘 1호 - 1차시(헷갈리는 말 1).html" },
+              { label: "✨ 2차시(디자인).hwpx 본문 열기 (새 창)", url: "파일검색.html?q=다다어휘 1호 - 2차시(헷갈리는 말 2) 이미종(디자인)&preview=1", fileUrl: "다다어휘/다다어휘 1호 - 2차시(헷갈리는 말 2) 이미종(디자인).hwpx" },
+              { label: "✨ 1차시(디자인).hwpx 본문 열기 (새 창)", url: "파일검색.html?q=다다어휘 1호 - 1차시(헷갈리는 말 1) 이미종(디자인)&preview=1", fileUrl: "다다어휘/다다어휘 1호 - 1차시(헷갈리는 말 1) 이미종(디자인).hwpx" },
+              { label: "📘 1차시 원본.hwp 본문 열기 (새 창)", url: "파일검색.html?q=다다어휘 1호 - 1차시(헷갈리는 말 1) 이미종.hwp&preview=1", fileUrl: "다다어휘/다다어휘 1호 - 1차시(헷갈리는 말 1) 이미종.hwp" }
+            ]
+          },
+          {
+            id: "r_review",
+            x: 560, y: 180, w: 245, h: 105,
+            icon: "📝",
+            title: "짝꿍 복습 & 테스트지",
+            sub1: "1 헷갈리는 말 1차시 어휘 충전.hwp",
+            sub2: "1 헷갈리는 말 1차시(문어잼).hwp",
+            headerBg: "#059669",
+            cardBg: "#ecfdf5",
+            borderColor: "#34d399",
+            textColor: "#064e3b",
+            desc: "본교재 학습 직후 또는 숙제로 활용할 수 있는 '선 잇기 어휘 충전' 및 '문어잼 객관식 확인 학습지' 세트입니다.",
+            links: [
+              { label: "📝 1차시 어휘 충전.hwp 열기 (새 창)", url: "파일검색.html?q=1 헷갈리는 말 1차시 어휘 충전&preview=1", fileUrl: "다다어휘/1 헷갈리는 말 1차시 어휘 충전.hwp" },
+              { label: "📝 1차시 문어잼.hwp 열기 (새 창)", url: "파일검색.html?q=1 헷갈리는 말 1차시.hwp&preview=1", fileUrl: "다다어휘/1 헷갈리는 말 1차시.hwp" },
+              { label: "📝 2차시 어휘 충전.hwp 열기 (새 창)", url: "파일검색.html?q=1 헷갈리는 말 2차시 어휘 충전&preview=1", fileUrl: "다다어휘/1 헷갈리는 말 2차시 어휘 충전.hwp" }
+            ]
+          },
+          {
+            id: "r_concept1",
+            x: 875, y: 90, w: 240, h: 110,
+            icon: "💡",
+            title: "어휘쌍: 반드시 vs 반듯이",
+            sub1: "반드시(꼭) / 반듯이(바르게)",
+            sub2: "출제: 본교재 1~3번, 문어잼 4번",
+            headerBg: "#0284c7",
+            cardBg: "#f0f9ff",
+            borderColor: "#38bdf8",
+            textColor: "#0c4a6e",
+            desc: "개별 어휘 지식 노드입니다. '반드시/반듯이'가 출제된 모든 파일과 문항 번호를 바로 확인합니다.",
+            links: [
+              { label: "🔍 '반드시' 출제 문서 전체 검색 (새 창)", url: "파일검색.html?q=반드시" },
+              { label: "✨ 1차시 본교재(1~3번) 열기 (새 창)", url: "파일검색.html?q=다다어휘 1호 - 1차시(헷갈리는 말 1) 이미종(디자인)&preview=1", fileUrl: "다다어휘/다다어휘 1호 - 1차시(헷갈리는 말 1) 이미종(디자인).hwpx" },
+              { label: "📝 문어잼(4번 문항) 열기 (새 창)", url: "파일검색.html?q=1 헷갈리는 말 1차시.hwp&preview=1", fileUrl: "다다어휘/1 헷갈리는 말 1차시.hwp" }
+            ]
+          },
+          {
+            id: "r_concept2",
+            x: 875, y: 255, w: 240, h: 110,
+            icon: "💡",
+            title: "어휘쌍: 부치다 vs 붙이다",
+            sub1: "짐·편지를 부치다 / 우표를 붙이다",
+            sub2: "출제: 본교재 36~41번, 문어잼 6번",
+            headerBg: "#d97706",
+            cardBg: "#fffbeb",
+            borderColor: "#fbbf24",
+            textColor: "#78350f",
+            desc: "학생들이 가장 자주 틀리는 '부치다/붙이다' 지식 노드입니다. 연관 예문이 포함된 문서를 바로 엽니다.",
+            links: [
+              { label: "🔍 '부치' 출제 문서 전체 검색 (새 창)", url: "파일검색.html?q=부치" },
+              { label: "✨ 1차시 본교재(36~41번) 열기 (새 창)", url: "파일검색.html?q=다다어휘 1호 - 1차시(헷갈리는 말 1) 이미종(디자인)&preview=1", fileUrl: "다다어휘/다다어휘 1호 - 1차시(헷갈리는 말 1) 이미종(디자인).hwpx" },
+              { label: "📝 문어잼(6번 문항) 열기 (새 창)", url: "파일검색.html?q=1 헷갈리는 말 1차시.hwp&preview=1", fileUrl: "다다어휘/1 헷갈리는 말 1차시.hwp" }
+            ]
+          },
+          {
+            id: "r_term",
+            x: 560, y: 330, w: 245, h: 105,
+            icon: "🏫",
+            title: "중등 국어용어 & 내신 연계",
+            sub1: "00.중등 국어용어-FIN.hwp",
+            sub2: "초등 낱말 ➔ 중등 어휘·문법 확장",
+            headerBg: "#4f46e5",
+            cardBg: "#eef2ff",
+            borderColor: "#818cf8",
+            textColor: "#312e81",
+            desc: "초등 다다어휘에서 배운 기초 어휘력이 중등 국어용어 및 사직중/사직여중 내신 국어로 이어지는 경로입니다.",
+            links: [
+              { label: "🏫 00.중등 국어용어-FIN 열기 (새 창)", url: "파일검색.html?q=00.중등 국어용어-FIN&preview=1", fileUrl: "00.중등 국어용어-FIN.hwp" },
+              { label: "🔍 중등 국어용어 검색 (새 창)", url: "파일검색.html?q=국어용어" }
+            ]
+          }
+        ],
+        edges: [
+          { from: "r_class", to: "r_dada1", label: "진도 배정" },
+          { from: "r_dada1", to: "r_hwpx", label: "본수업 교재" },
+          { from: "r_dada1", to: "r_review", label: "복습 세트" },
+          { from: "r_dada1", to: "r_term", label: "상위 학년 연계" },
+          { from: "r_hwpx", to: "r_concept1", label: "1~3번 문항" },
+          { from: "r_review", to: "r_concept1", label: "문어잼 4번" },
+          { from: "r_hwpx", to: "r_concept2", label: "36~41번 문항" },
+          { from: "r_review", to: "r_concept2", label: "문어잼 6번" }
+        ]
+      },
+      portal: {
+        nodes: [
+          {
+            id: "p_edunet_main",
+            x: 30, y: 35, w: 235, h: 105,
+            icon: "🏢",
+            title: "한우리 에듀넷 메인홈",
+            sub1: "부산동래지부 이미종 선생님",
+            sub2: "11/10 CJ방송 · 플러스완성반 도입",
+            headerBg: "#d97706",
+            cardBg: "#fffbeb",
+            borderColor: "#fbbf24",
+            textColor: "#78350f",
+            desc: "한우리 교사 전용 포털 메인홈입니다. 최신 공지: [CJ] 11/10 방송 편성 안내(10/16), 한우리 플러스완성반 도입 안내(10/14), 겨울방학/플러스완성반 홍보물 오픈.",
+            links: [
+              { label: "🏠 에듀넷 메인홈 열기", url: "https://edunet.hanuribook.com/main" },
+              { label: "📢 본사알림판 (/board/1/list)", url: "https://edunet.hanuribook.com/board/1/list" },
+              { label: "🏫 우리센터알림판 (/board/6/list)", url: "https://edunet.hanuribook.com/board/6/list" },
+              { label: "📁 일반자료실 (/board/2/list)", url: "https://edunet.hanuribook.com/board/2/list" },
+              { label: "🎨 홍보/판촉자료실 (/board/3/list)", url: "https://edunet.hanuribook.com/board/3/list" },
+              { label: "📸 본사알림판 캡처 보기", url: "crawler/screenshots/board_notice.png" },
+              { label: "📸 홍보자료실 캡처 보기", url: "crawler/screenshots/board_promo.png" }
+            ]
+          },
+          {
+            id: "p_edunet_member",
+            x: 30, y: 175, w: 235, h: 105,
+            icon: "👥",
+            title: "회원 및 지도그룹",
+            sub1: "10월 목표 (회원: 36명)",
+            sub2: "정규/특강 · 몰입독서 · 시간표",
+            headerBg: "#2563eb",
+            cardBg: "#eff6ff",
+            borderColor: "#60a5fa",
+            textColor: "#1e3a8a",
+            desc: "학생 등록(정규/특강/몰입독서) 및 요일별·시간대별 수업반을 편성하는 회원/지도그룹 관리 시스템입니다.",
+            links: [
+              { label: "👥 회원관리(정규/특강) (/member/list)", url: "https://edunet.hanuribook.com/member/list" },
+              { label: "📖 회원관리(몰입독서) (/member/mdlist)", url: "https://edunet.hanuribook.com/member/mdlist" },
+              { label: "📚 지도그룹 관리 (/group/list)", url: "https://edunet.hanuribook.com/group/list" },
+              { label: "🗓️ 수업시간표관리 (/group/groupschedule)", url: "https://edunet.hanuribook.com/group/groupschedule" },
+              { label: "📅 10월 이미종 시간표.hwp 열기", url: "파일검색.html?q=10월 이미종 시간표&preview=1", fileUrl: "10월 이미종 시간표.hwp" }
+            ]
+          },
+          {
+            id: "p_edunet_order",
+            x: 30, y: 315, w: 235, h: 105,
+            icon: "📦",
+            title: "교재주문 & 독서진단",
+            sub1: "주문관리 · 추가주문 · 재가입",
+            sub2: "매출채권현황 · 읽기능력진단",
+            headerBg: "#059669",
+            cardBg: "#ecfdf5",
+            borderColor: "#34d399",
+            textColor: "#064e3b",
+            desc: "매월 정규/추가 교재 주문(/order/orderList), 센터 매출채권(/salesBond/tradecenter), 유초중등 독서진단(/readbook/resultlist) 시스템입니다.",
+            links: [
+              { label: "📦 주문관리 (/order/orderList)", url: "https://edunet.hanuribook.com/order/orderList" },
+              { label: "➕ 추가주문 (/order/teacherOrderAdd)", url: "https://edunet.hanuribook.com/order/teacherOrderAdd" },
+              { label: "💳 매출채권현황 (/salesBond/tradecenter)", url: "https://edunet.hanuribook.com/salesBond/tradecenter" },
+              { label: "🧠 독서진단 결과출력 (/readbook/resultlist)", url: "https://edunet.hanuribook.com/readbook/resultlist" },
+              { label: "📝 입회테스트 (/readbook/joinquest)", url: "https://edunet.hanuribook.com/readbook/joinquest" }
+            ]
+          },
+          {
+            id: "p_teaching_hub",
+            x: 320, y: 170, w: 245, h: 115,
+            icon: "💻",
+            title: "수업지원시스템 허브",
+            sub1: "teaching.hanuribook.com",
+            sub2: "selectToken SSO 무인 연동",
+            headerBg: "#db2777",
+            cardBg: "#fdf2f8",
+            borderColor: "#f472b6",
+            textColor: "#831843",
+            desc: "에듀넷의 $.header.selectToken(IS, PS, RT) 암호화 폼 전송으로 문자 인증 없이 1초 만에 직통 접속되는 5대 자료실 허브입니다.",
+            links: [
+              { label: "🚀 수업지원시스템 1초 직통 접속", url: "https://edunet.hanuribook.com/login?auto=teaching" },
+              { label: "📊 전체 최신자료 스캔 리포트(JSON) 열기", url: "최신자료_리포트.json" }
+            ]
+          },
+          {
+            id: "p_ts_source",
+            x: 620, y: 35, w: 235, h: 105,
+            icon: "📂",
+            title: "수업자료실 (/hu/source)",
+            sub1: "최신: 몰입독서 P~S 계획안(10/14)",
+            sub2: "11월호 전 단계 계획안/참고(10/01)",
+            headerBg: "#0284c7",
+            cardBg: "#f0f9ff",
+            borderColor: "#38bdf8",
+            textColor: "#0c4a6e",
+            desc: "최신 등록: [511번] 몰입독서 P~S 활동계획안(10/14), [507~510번] 11월호 새싹·어휘·독서·논리·소크라테스·과학탐탐·통사 활동계획안 및 참고자료(10/01).",
+            links: [
+              { label: "📂 수업자료실 바로가기 (/hu/source)", url: "https://teaching.hanuribook.com/hu/source?jpage=1&type=&t_group=tg0" },
+              { label: "📸 수업자료실 최신 목록 캡처 보기", url: "crawler/screenshots/source.png" }
+            ]
+          },
+          {
+            id: "p_ts_test",
+            x: 620, y: 175, w: 235, h: 105,
+            icon: "📝",
+            title: "평가자료실 (/hu/test)",
+            sub1: "최신: 11월호 필독서퀴즈(10/08)",
+            sub2: "어휘1·2, 독서1·2, 논리1·2, 과학/지리",
+            headerBg: "#7c3aed",
+            cardBg: "#f5f3ff",
+            borderColor: "#a78bfa",
+            textColor: "#4c1d95",
+            desc: "최신 등록: [43~48번] 11월호 독서1·2, 어휘1·2, 논리1·2, 과학탐탐, 통합사회2-지리 필독서퀴즈 전 과정 업로드 완료(2026-10-08).",
+            links: [
+              { label: "📝 평가자료실 바로가기 (/hu/test)", url: "https://teaching.hanuribook.com/hu/test?jpage=1&type=&t_group=tg0" },
+              { label: "📸 평가자료실 최신 목록 캡처 보기", url: "crawler/screenshots/test.png" }
+            ]
+          },
+          {
+            id: "p_ts_errata",
+            x: 620, y: 315, w: 235, h: 105,
+            icon: "📖",
+            title: "정오표·학부모·상담자료",
+            sub1: "정오표: 통사1-한국사(10/16 신규)",
+            sub2: "상담: 다다어휘·교과문학탐독(09/29)",
+            headerBg: "#4f46e5",
+            cardBg: "#eef2ff",
+            borderColor: "#818cf8",
+            textColor: "#312e81",
+            desc: "최신 등록: [정오표] 통사1-한국사(10/16), 10월 논리1(10/13), 한국사봄(10/08) / [학부모(/hu/feedback)] 몰입독서 6호 및 11월호 월별계획안 / [상담(/hu/samplebook)] 다다어휘·한국사람·교과문학탐독 상담자료.",
+            links: [
+              { label: "📖 정오표 바로가기 (/hu/errata)", url: "https://teaching.hanuribook.com/hu/errata?jpage=1&type=&t_group=tg0" },
+              { label: "👨‍👩‍👧 학부모제공자료 바로가기 (/hu/feedback)", url: "https://teaching.hanuribook.com/hu/feedback" },
+              { label: "💬 상담자료 바로가기 (/hu/samplebook)", url: "https://teaching.hanuribook.com/hu/samplebook" },
+              { label: "📸 정오표 캡처 보기", url: "crawler/screenshots/errata.png" },
+              { label: "📸 학부모제공자료 캡처 보기", url: "crawler/screenshots/feedback.png" },
+              { label: "📸 상담자료 캡처 보기", url: "crawler/screenshots/samplebook.png" }
+            ]
+          },
+          {
+            id: "p_local_dada",
+            x: 910, y: 70, w: 215, h: 110,
+            icon: "📁",
+            title: "로컬 교재 (D:\\한우리)",
+            sub1: "다다어휘 1호 본교재 (.hwpx)",
+            sub2: "선택형 55문항 + 5열 정답표",
+            headerBg: "#db2777",
+            cardBg: "#fdf2f8",
+            borderColor: "#f472b6",
+            textColor: "#831843",
+            desc: "수업지원시스템의 활동계획안 및 다다어휘 상담자료와 연계하여 학생 눈높이에 맞춰 리디자인한 실전 수업용 교재입니다.",
+            links: [
+              { label: "🌐 1차시 HTML 학습지 열기", url: "다다어휘/다다어휘 1호 - 1차시(헷갈리는 말 1).html" },
+              { label: "🌐 2차시 HTML 학습지 열기", url: "다다어휘/다다어휘 1호 - 2차시(헷갈리는 말 2).html" },
+              { label: "✨ 1차시(디자인).hwpx 보기", url: "파일검색.html?q=다다어휘 1호 - 1차시(헷갈리는 말 1) 이미종(디자인)&preview=1", fileUrl: "다다어휘/다다어휘 1호 - 1차시(헷갈리는 말 1) 이미종(디자인).hwpx" }
+            ]
+          },
+          {
+            id: "p_local_quiz",
+            x: 910, y: 250, w: 215, h: 110,
+            icon: "💡",
+            title: "복습지 & 평가 문항",
+            sub1: "1차시 어휘 충전 (선 잇기)",
+            sub2: "문어잼 4·6번 헷갈리는 말",
+            headerBg: "#059669",
+            cardBg: "#ecfdf5",
+            borderColor: "#34d399",
+            textColor: "#064e3b",
+            desc: "수업지원시스템 평가자료와 연계하여 구성된 복습 확인 학습지 및 어휘 테스트지 세트입니다.",
+            links: [
+              { label: "📝 1차시 어휘 충전.hwp 열기", url: "파일검색.html?q=1 헷갈리는 말 1차시 어휘 충전&preview=1", fileUrl: "다다어휘/1 헷갈리는 말 1차시 어휘 충전.hwp" },
+              { label: "📝 1차시 문어잼.hwp 열기", url: "파일검색.html?q=1 헷갈리는 말 1차시.hwp&preview=1", fileUrl: "다다어휘/1 헷갈리는 말 1차시.hwp" }
+            ]
+          }
+        ],
+        edges: [
+          { from: "p_edunet_main", to: "p_edunet_member", label: "회원/반 관리" },
+          { from: "p_edunet_main", to: "p_edunet_order", label: "교재 주문/진단" },
+          { from: "p_edunet_main", to: "p_teaching_hub", label: "selectToken SSO" },
+          { from: "p_teaching_hub", to: "p_ts_source", label: "11월호 계획안" },
+          { from: "p_teaching_hub", to: "p_ts_test", label: "11월호 필독서퀴즈" },
+          { from: "p_teaching_hub", to: "p_ts_errata", label: "정오표/학부모/상담" },
+          { from: "p_ts_source", to: "p_local_dada", label: "로컬 교재 활용 매핑" },
+          { from: "p_ts_test", to: "p_local_quiz", label: "복습/평가 세트 연결" }
+        ]
+      }
+    };
+
+    let currentMode = "arch";
+    let selectedNodeId = null;
+    let scale = 1;
+    let panX = 0;
+    let panY = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+
+    const svgEl = document.getElementById("ontologySvg");
+    const viewportGroup = document.getElementById("viewportGroup");
+    const edgesLayer = document.getElementById("edgesLayer");
+    const nodesLayer = document.getElementById("nodesLayer");
+    const zoomLabel = document.getElementById("zoomLabel");
+    const detailBadge = document.getElementById("detailBadge");
+    const detailText = document.getElementById("detailText");
+    const btnShowAll = document.getElementById("btnShowAll");
+    const linksContainer = document.getElementById("linksContainer");
+
+    function renderLinks(links) {
+      const list = links && links.length ? links : DEFAULT_LINKS;
+      linksContainer.innerHTML = list.map(item => {
+        let html = `<a href="${item.url}" target="_blank" class="file-link-btn">${item.label} ↗</a>`;
+        if (item.fileUrl) {
+          const shortName = item.fileUrl.split("/").pop();
+          html += `<a href="${item.fileUrl}" download="${shortName}" class="file-link-btn direct-dl" title="한글(.hwp/.hwpx) 원본 파일을 바로 내려받아 실행합니다">📥 ${shortName} 파일받기</a>`;
+        }
+        return html;
+      }).join("");
+    }
+
+    function updateTransform() {
+      viewportGroup.setAttribute("transform", `translate(${panX}, ${panY}) scale(${scale})`);
+      zoomLabel.textContent = Math.round(scale * 100) + "%";
+    }
+
+    function zoomBy(factor, centerX = 575, centerY = 250) {
+      const newScale = Math.min(3.5, Math.max(0.4, scale * factor));
+      panX = centerX - (centerX - panX) * (newScale / scale);
+      panY = centerY - (centerY - panY) * (newScale / scale);
+      scale = newScale;
+      updateTransform();
+    }
+
+    function resetView() {
+      scale = 1;
+      panX = 0;
+      panY = 0;
+      updateTransform();
+    }
+
+    function switchMode(mode) {
+      currentMode = mode;
+      selectedNodeId = null;
+      resetView();
+      document.getElementById("btnModeArch").classList.toggle("active", mode === "arch");
+      document.getElementById("btnModeReal").classList.toggle("active", mode === "real");
+      document.getElementById("btnModePortal").classList.toggle("active", mode === "portal");
+      btnShowAll.style.display = "none";
+      
+      if (mode === "arch") {
+        detailBadge.textContent = "전체 온톨로지";
+        detailBadge.style.backgroundColor = "#2563eb";
+        detailText.innerHTML = "다이어그램의 <strong>각 박스(노드)</strong>나 <strong>아래 링크 버튼</strong>을 클릭하면 <strong>새 브라우저 창</strong>으로 문서 내용과 파일이 즉시 열립니다.";
+      } else if (mode === "real") {
+        detailBadge.textContent = "실제 자료 연결망";
+        detailBadge.style.backgroundColor = "#7c3aed";
+        detailText.innerHTML = "<strong>다다어휘 1호</strong>를 중심으로 수업반, 본교재, 복습지, 개별 어휘 개념의 직통 링크를 제공합니다.";
+      } else {
+        detailBadge.textContent = "포털 연계 온톨로지";
+        detailBadge.style.backgroundColor = "#d97706";
+        detailText.innerHTML = "<strong>한우리 에듀넷 본원</strong>과 <strong>수업지원시스템</strong>, 그리고 <strong>로컬 교재</strong> 간의 유기적 데이터 연결망을 탐색하고 원클릭으로 바로 이동합니다.";
+      }
+      renderLinks(DEFAULT_LINKS);
+      renderDiagram();
+    }
+
+    function clearSelection() {
+      selectedNodeId = null;
+      btnShowAll.style.display = "none";
+      if (currentMode === "arch") {
+        detailBadge.textContent = "전체 온톨로지";
+        detailBadge.style.backgroundColor = "#2563eb";
+      } else if (currentMode === "real") {
+        detailBadge.textContent = "실제 자료 연결망";
+        detailBadge.style.backgroundColor = "#7c3aed";
+      } else {
+        detailBadge.textContent = "포털 연계 온톨로지";
+        detailBadge.style.backgroundColor = "#d97706";
+      }
+      detailText.innerHTML = "박스를 클릭하면 해당 노드와 연결된 실제 웹 링크 및 파일 바로가기가 표시됩니다.";
+      renderLinks(DEFAULT_LINKS);
+      renderDiagram();
+    }
+
+    function selectNode(node) {
+      selectedNodeId = node.id;
+      detailBadge.textContent = `${node.icon} ${node.title}`;
+      detailBadge.style.backgroundColor = node.headerBg;
+      detailText.textContent = node.desc;
+      btnShowAll.style.display = "inline-flex";
+      renderLinks(node.links);
+      renderDiagram();
+    }
+
+    function renderDiagram() {
+      const data = DATASETS[currentMode];
+      const nodeMap = {};
+      data.nodes.forEach(n => nodeMap[n.id] = n);
+
+      const connectedIds = new Set();
+      if (selectedNodeId) {
+        connectedIds.add(selectedNodeId);
+        data.edges.forEach(e => {
+          if (e.from === selectedNodeId) connectedIds.add(e.to);
+          if (e.to === selectedNodeId) connectedIds.add(e.from);
+        });
+      }
+
+      edgesLayer.innerHTML = data.edges.map(e => {
+        const n1 = nodeMap[e.from];
+        const n2 = nodeMap[e.to];
+        const x1 = n1.x + n1.w;
+        const y1 = n1.y + n1.h / 2;
+        const x2 = n2.x;
+        const y2 = n2.y + n2.h / 2;
+        const dx = Math.abs(x2 - x1) * 0.5;
+        const pathD = `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2 - 4} ${y2}`;
+
+        const midX = (x1 + x2) / 2;
+        const midY = (y1 + y2) / 2;
+
+        const isHighlighted = selectedNodeId && (e.from === selectedNodeId || e.to === selectedNodeId);
+        const isDimmed = selectedNodeId && !isHighlighted;
+
+        const strokeColor = isHighlighted ? "#fbbf24" : "#60a5fa";
+        const strokeWidth = isHighlighted ? "4" : "2.8";
+        const opacity = isDimmed ? "0.2" : "1";
+        const marker = isHighlighted ? "url(#arrow-active)" : "url(#arrow-blue)";
+        const animClass = isHighlighted ? "edge-animated" : "";
+        const labelWidth = e.label.length * 11.5 + 24;
+
+        return `
+          <g style="opacity: ${opacity}">
+            <path d="${pathD}" fill="none" stroke="${strokeColor}" stroke-width="${strokeWidth}" class="${animClass}" marker-end="${marker}" />
+            <rect x="${midX - labelWidth / 2}" y="${midY - 14}" width="${labelWidth}" height="26" rx="13" fill="#0f172a" stroke="${strokeColor}" stroke-width="1.6" />
+            <text x="${midX}" y="${midY + 4}" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">${e.label}</text>
+          </g>
+        `;
+      }).join("");
+
+      nodesLayer.innerHTML = data.nodes.map(n => {
+        const isSelected = selectedNodeId === n.id;
+        const isDimmed = selectedNodeId && !connectedIds.has(n.id);
+        const opacity = isDimmed ? "0.28" : "1";
+        const strokeW = isSelected ? "4.5" : "2.5";
+        const strokeC = isSelected ? "#fbbf24" : n.borderColor;
+
+        return `
+          <g class="node-group" data-id="${n.id}" style="opacity: ${opacity}" filter="url(#card-shadow)">
+            <rect x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" rx="15" fill="${n.cardBg}" stroke="${strokeC}" stroke-width="${strokeW}" />
+            <path d="M ${n.x} ${n.y + 15} Q ${n.x} ${n.y} ${n.x + 15} ${n.y} L ${n.x + n.w - 15} ${n.y} Q ${n.x + n.w} ${n.y} ${n.x + n.w} ${n.y + 15} L ${n.x + n.w} ${n.y + 42} L ${n.x} ${n.y + 42} Z" fill="${n.headerBg}" />
+            <text x="${n.x + 14}" y="${n.y + 28}" fill="#ffffff" font-size="15.5" font-weight="800">${n.icon} ${n.title}</text>
+            <g class="svg-open-btn" data-open-id="${n.id}">
+              <rect x="${n.x + n.w - 56}" y="${n.y + 9}" width="46" height="24" rx="7" fill="rgba(255,255,255,0.22)" />
+              <text x="${n.x + n.w - 33}" y="${n.y + 25}" text-anchor="middle" fill="#fde047" font-size="12" font-weight="800">🔗열기</text>
+            </g>
+            <text x="${n.x + 15}" y="${n.y + 70}" fill="${n.textColor}" font-size="14" font-weight="700">• ${n.sub1}</text>
+            <text x="${n.x + 15}" y="${n.y + 95}" fill="${n.textColor}" font-size="13" font-weight="600" opacity="0.9">• ${n.sub2}</text>
+          </g>
+        `;
+      }).join("");
+
+      nodesLayer.querySelectorAll(".svg-open-btn").forEach(btn => {
+        btn.addEventListener("click", (ev) => {
+          ev.stopPropagation();
+          const id = btn.getAttribute("data-open-id");
+          const node = nodeMap[id];
+          if (node && node.links && node.links[0]) {
+            window.open(node.links[0].url, "_blank");
+          }
+        });
+      });
+
+      nodesLayer.querySelectorAll(".node-group").forEach(g => {
+        g.addEventListener("click", (ev) => {
+          if (ev.target.closest(".svg-open-btn")) return;
+          ev.stopPropagation();
+          const id = g.getAttribute("data-id");
+          const node = nodeMap[id];
+          if (node) selectNode(node);
+        });
+      });
+    }
+
+    const canvasWrap = document.getElementById("canvasWrap");
+    canvasWrap.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const rect = svgEl.getBoundingClientRect();
+      const svgX = ((e.clientX - rect.left) / rect.width) * 1150;
+      const svgY = ((e.clientY - rect.top) / rect.height) * 500;
+      const factor = e.deltaY < 0 ? 1.15 : 0.87;
+      zoomBy(factor, svgX, svgY);
+    }, { passive: false });
+
+    canvasWrap.addEventListener("pointerdown", (e) => {
+      if (e.target.closest(".node-group") || e.target.closest(".svg-open-btn")) return;
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      canvasWrap.setPointerCapture(e.pointerId);
+    });
+
+    canvasWrap.addEventListener("pointermove", (e) => {
+      if (!isDragging) return;
+      const rect = svgEl.getBoundingClientRect();
+      const dx = ((e.clientX - startX) / rect.width) * 1150;
+      const dy = ((e.clientY - startY) / rect.height) * 500;
+      panX += dx;
+      panY += dy;
+      startX = e.clientX;
+      startY = e.clientY;
+      updateTransform();
+    });
+
+    canvasWrap.addEventListener("pointerup", () => {
+      isDragging = false;
+    });
+
+    renderLinks(DEFAULT_LINKS);
+    renderDiagram();
+  </script>
+</body>
+</html>
