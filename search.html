@@ -7919,6 +7919,7 @@
           : `
             <button class="btn btn-primary" onclick="openPreviewModal(${item.id})">${previewBtnLabel}</button>
             <button class="btn" style="background:#eff6ff; border-color:#93c5fd; color:#1d4ed8; font-weight:700;" onclick="launchFile('${escapeHtml(item.relPath.replace(/\\/g, "/"))}', '${escapeHtml(item.name)}')">🚀 파일 직접 실행</button>
+            <button class="btn" style="background:#ecfdf5; border-color:#6ee7b7; color:#047857; font-weight:700;" onclick="openInGDrive('${escapeHtml(item.name)}')">☁️ 구글드라이브 원본</button>
             <button class="btn" onclick="copyText('${escapeHtml(item.fullPath.replace(/\\/g, "\\\\"))}', '파일 전체 경로가 복사되었습니다!')">📋 파일경로 복사</button>
             <button class="btn" onclick="copyText('${escapeHtml(item.folderPath.replace(/\\/g, "\\\\"))}', '폴더 경로가 복사되었습니다! 탐색기 주소창에 붙여넣으세요.')">📂 폴더경로 복사</button>
           `;
@@ -8132,14 +8133,24 @@
       }
     });
 
+    window.openInGDrive = function(fileName) {
+      const gdriveSearchUrl = "https://drive.google.com/drive/search?q=" + encodeURIComponent(fileName);
+      window.open(gdriveSearchUrl, "_blank");
+      showToast("☁️ 구글 드라이브에서 [" + fileName + "] 원본을 검색하여 엽니다!");
+    };
+
     window.launchFile = function(relPath, fileName) {
+      if (location.protocol === "https:" || location.hostname.includes("github.io")) {
+        window.openInGDrive(fileName);
+        return;
+      }
       const a = document.createElement("a");
       a.href = relPath;
       a.download = fileName;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      showToast(`📥 [${fileName}] 파일을 열었습니다! (브라우저 우측 상단 다운로드 목록에서 바로 실행 가능)`);
+      showToast("📥 [" + fileName + "] 파일을 열었습니다! (브라우저 우측 상단 다운로드 목록에서 바로 실행 가능)");
     };
 
     // Initial render (with URL query parameter support from Ontology SVG Viewer)
