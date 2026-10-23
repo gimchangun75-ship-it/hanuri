@@ -3,7 +3,96 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
   <title>한우리 통합 자료실 · 스마트 검색</title>
+  <style>
+    /* Security Lock Overlay */
+    #authOverlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .auth-card {
+      background: var(--surface, #ffffff);
+      border: 1px solid var(--border, #e2e8f0);
+      border-radius: 20px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+      width: 100%;
+      max-width: 400px;
+      padding: 32px 28px;
+      text-align: center;
+      animation: authPop 0.3s ease-out;
+    }
+    @keyframes authPop {
+      from { opacity: 0; transform: scale(0.92); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .auth-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+    .auth-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text, #0f172a);
+      margin-bottom: 6px;
+    }
+    .auth-desc {
+      font-size: 13.5px;
+      color: var(--text-muted, #64748b);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .auth-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--border, #cbd5e1);
+      border-radius: 12px;
+      font-size: 18px;
+      letter-spacing: 4px;
+      text-align: center;
+      background: var(--header-bg, #f8fafc);
+      color: var(--text, #0f172a);
+      outline: none;
+      transition: all 0.2s ease;
+      margin-bottom: 14px;
+    }
+    .auth-input:focus {
+      border-color: var(--primary, #059669);
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.2);
+    }
+    .auth-btn {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 12px;
+      background: var(--primary, #059669);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .auth-btn:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+    .auth-error {
+      color: #ef4444;
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
   <script>
     (function() {
       try {
@@ -16,6 +105,18 @@
   <link rel="stylesheet" href="hanuri_theme.css" />
 </head>
 <body>
+
+  <!-- 0. Security Authentication Gate -->
+  <div id="authOverlay" style="display:none;">
+    <div class="auth-card">
+      <div class="auth-icon">🔒</div>
+      <h2 class="auth-title">한우리 보안 자료실</h2>
+      <p class="auth-desc">인가된 교사용 자료 보호를 위해<br/>인증 비밀번호를 입력해 주세요.</p>
+      <input type="password" id="authInput" class="auth-input" placeholder="비밀번호 입력" autofocus />
+      <button type="button" id="authSubmitBtn" class="auth-btn">확인 및 자료실 열기</button>
+      <div id="authError" class="auth-error">❌ 비밀번호가 올바르지 않습니다.</div>
+    </div>
+  </div>
 
   <!-- 1. Top Navigation Bar (Locked at Top) -->
   <nav class="topbar">
@@ -7515,6 +7616,56 @@
       document.body.removeChild(a);
       showToast("📥 [" + fileName + "] 다운로드 시작! (아이폰: 한컴독스 앱으로 열기)");
     };
+
+    // Security Auth Logic (SHA256 of '12121212')
+    const AUTH_HASH = "054e3b308708370ea029dc2ebd1646c498d59d7203c9e1a44cf0484df98e581a";
+    const authOverlay = document.getElementById("authOverlay");
+    const authInput = document.getElementById("authInput");
+    const authSubmitBtn = document.getElementById("authSubmitBtn");
+    const authError = document.getElementById("authError");
+
+    async function sha256(message) {
+      const msgBuffer = new TextEncoder().encode(message);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    function checkAuth() {
+      // 로컬 파일로 열었거나 이미 인증된 경우 패스
+      if (location.protocol === "file:") return;
+      try {
+        const savedAuth = localStorage.getItem("hanuri_auth_token");
+        if (savedAuth === AUTH_HASH) return;
+      } catch (_) {}
+
+      // 비인증 상태이면 오버레이 표시 및 스크롤 잠금
+      authOverlay.style.display = "flex";
+      document.body.style.overflow = "hidden";
+      setTimeout(() => authInput.focus(), 150);
+    }
+
+    async function submitAuth() {
+      const val = (authInput.value || "").trim();
+      const hash = await sha256(val);
+      if (hash === AUTH_HASH) {
+        try { localStorage.setItem("hanuri_auth_token", AUTH_HASH); } catch (_) {}
+        authOverlay.style.display = "none";
+        document.body.style.overflow = "";
+        showToast("🔓 인증 성공! 한우리 자료실이 활성화되었습니다.");
+      } else {
+        authError.style.display = "block";
+        authInput.value = "";
+        authInput.focus();
+      }
+    }
+
+    authSubmitBtn.addEventListener("click", submitAuth);
+    authInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") submitAuth();
+    });
+
+    checkAuth();
 
     const urlParams = new URLSearchParams(window.location.search);
     const initialQ = urlParams.get("q");
