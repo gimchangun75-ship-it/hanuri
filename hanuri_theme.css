@@ -1341,3 +1341,56 @@ html.device-desktop .mobile-only {
     font-size: 13px;
   }
 }
+/* =========================================================================
+   html.device-mobile 클래스 강제 적용 셀렉터 (미디어쿼리와 무관하게 무조건 발동)
+   ========================================================================= */
+html.device-mobile body {
+  height: auto !important;
+  overflow-x: hidden;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+html.device-mobile .desktop-only { display: none !important; }
+html.device-mobile .topbar { position: sticky; top: 0; padding: 8px 12px; z-index: 220; }
+html.device-mobile .brand-icon { font-size: 22px; }
+html.device-mobile .brand-text h1 { font-size: 15px; line-height: 1.2; }
+html.device-mobile .brand-text p { display: none !important; }
+html.device-mobile .stat-badge { display: none !important; }
+html.device-mobile .topbar-actions { gap: 5px; }
+html.device-mobile .theme-btn { padding: 3px 6px; font-size: 11px; }
+html.device-mobile .nav-btn { padding: 4px 8px; font-size: 11px; }
+
+html.device-mobile .sticky-header { position: sticky; top: 48px; padding: 8px 12px; z-index: 210; }
+html.device-mobile .search-row { margin-bottom: 6px; }
+html.device-mobile .search-box-wrap { min-width: 0; height: 40px; padding: 0 10px; }
+html.device-mobile #searchInput { font-size: 13.5px; }
+html.device-mobile .kbd-hint { display: none !important; }
+html.device-mobile .search-options { font-size: 11.5px; padding-left: 6px; }
+
+html.device-mobile .toolbar { flex-direction: column; align-items: stretch; gap: 8px; padding-top: 6px; }
+html.device-mobile .ext-filters { overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch; width: 100%; }
+html.device-mobile .ext-filters::-webkit-scrollbar { display: none; }
+html.device-mobile .ext-chip { padding: 3px 8px; font-size: 11px; white-space: nowrap; flex-shrink: 0; }
+html.device-mobile .toolbar-right { justify-content: space-between; width: 100%; font-size: 12px; }
+html.device-mobile .sort-select { padding: 3px 8px; font-size: 11.5px; }
+
+html.device-mobile .container { display: flex !important; flex-direction: column !important; padding: 10px 12px !important; gap: 10px !important; overflow: visible !important; }
+html.device-mobile .sidebar { height: auto !important; max-height: none !important; padding: 10px 12px; border-radius: 10px; overflow: visible; }
+html.device-mobile .sidebar-title { cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding: 4px 6px; margin-bottom: 0; border-bottom: none; user-select: none; }
+html.device-mobile .sidebar-title::after { content: "▾"; font-size: 14px; transition: transform 0.2s; }
+html.device-mobile .sidebar.collapsed .sidebar-title::after { transform: rotate(-90deg); }
+html.device-mobile .sidebar.collapsed .folder-list { display: none !important; }
+html.device-mobile .folder-list { margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--border); max-height: 240px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+html.device-mobile .folder-item { padding: 7px 10px; font-size: 12.5px; }
+
+html.device-mobile .main-area { overflow: visible !important; max-height: none !important; }
+html.device-mobile .results-grid { gap: 10px; }
+html.device-mobile .file-card { padding: 12px; border-radius: 10px; }
+html.device-mobile .card-top { flex-direction: column; align-items: stretch; gap: 10px; }
+html.device-mobile .file-title-group { gap: 8px; }
+html.device-mobile .file-name { font-size: 14px; line-height: 1.35; word-break: break-word; }
+html.device-mobile .file-meta { font-size: 11px; margin-top: 3px; }
+html.device-mobile .card-actions { width: 100%; display: grid !important; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 5px; }
+html.device-mobile .card-actions .btn { padding: 6px 4px; font-size: 11.5px; text-align: center; justify-content: center; border-radius: 6px; }
+html.device-mobile .location-bar { padding: 6px 8px; font-size: 11px; flex-wrap: wrap; gap: 4px; }
+html.device-mobile .full-path-text { width: 100%; margin-left: 0; margin-top: 2px; font-size: 10.5px; }
