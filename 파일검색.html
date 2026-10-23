@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko" data-theme="forest">
 <head>
   <meta charset="UTF-8" />
@@ -99,6 +99,24 @@
         var saved = localStorage.getItem("hanuri_theme") || "forest";
         document.documentElement.setAttribute("data-theme", saved);
       } catch (_) {}
+
+      /* 📱 하이브리드 모바일 vs 데스크톱 자동 감지 (SSOT) */
+      function detectDevice() {
+        var isTouch = ("ontouchstart" in window) || (navigator.maxTouchPoints > 0);
+        var isSmall = window.innerWidth <= 768;
+        var isMobileUA = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        var isMobile = (isTouch && isSmall) || isMobileUA || (window.innerWidth <= 768);
+
+        if (isMobile) {
+          document.documentElement.classList.add("device-mobile");
+          document.documentElement.classList.remove("device-desktop");
+        } else {
+          document.documentElement.classList.add("device-desktop");
+          document.documentElement.classList.remove("device-mobile");
+        }
+      }
+      detectDevice();
+      window.addEventListener("resize", detectDevice);
     })();
   </script>
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
@@ -243,9 +261,9 @@
 
   <!-- 3. Main 2-Column Independent Scroll Workspace -->
   <main class="container">
-    <aside class="sidebar">
-      <div class="sidebar-title">
-        <span>폴더 & 카테고리</span>
+    <aside class="sidebar collapsed" id="categorySidebar">
+      <div class="sidebar-title" id="sidebarTitle" title="카테고리 펼치기 / 접기">
+        <span>📂 폴더 & 카테고리 (필터)</span>
       </div>
       <ul class="folder-list" id="folderList"></ul>
     </aside>
@@ -7150,6 +7168,18 @@
       portalDrawerBtn.addEventListener("click", () => {
         const isOpen = portalDrawer.classList.toggle("open");
         portalDrawerBtn.textContent = isOpen ? "⚡ 포털 빠른메뉴 ▴" : "⚡ 포털 빠른메뉴 ▾";
+      });
+    }
+
+    // 모바일 사이드바 아코디언 토글 제어
+    const categorySidebar = document.getElementById("categorySidebar");
+    const sidebarTitle = document.getElementById("sidebarTitle");
+    if (categorySidebar && sidebarTitle) {
+      if (document.documentElement.classList.contains("device-desktop")) {
+        categorySidebar.classList.remove("collapsed");
+      }
+      sidebarTitle.addEventListener("click", () => {
+        categorySidebar.classList.toggle("collapsed");
       });
     }
 
