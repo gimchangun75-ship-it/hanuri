@@ -3,9 +3,9 @@
     "title": "한우리 독서토론논술 온톨로지 지식 베이스 (Ontology Knowledge Base)",
     "version": "2.2.0",
     "masterRoot": "G:\\내 드라이브\\한우리",
-    "generatedAt": "2026. 10. 23. PM 11:44:26",
-    "entityCount": 531,
-    "relationCount": 568,
+    "generatedAt": "2026. 10. 23. PM 11:58:12",
+    "entityCount": 532,
+    "relationCount": 569,
     "classes": [
       {
         "type": "Schedule",
@@ -11076,6 +11076,28 @@
       }
     },
     {
+      "id": "file_40656064",
+      "type": "LocalFile",
+      "label": "이벤트트리거_검증.txt",
+      "subtitle": "다다어휘 | TXT | 2026-10-23",
+      "badge": "TXT",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/다다어휘/이벤트트리거_검증.txt",
+      "fullPath": "D:\\한우리\\다다어휘\\이벤트트리거_검증.txt",
+      "screenshotUrl": "",
+      "summary": "다다어휘 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "이벤트트리거_검증.txt",
+        "분류 폴더": "다다어휘",
+        "상세 경로": "D:\\한우리\\다다어휘\\이벤트트리거_검증.txt",
+        "수정일": "2026-10-23",
+        "확장자": ".txt"
+      }
+    },
+    {
       "id": "file_900312",
       "type": "LocalFile",
       "label": "온톨로지_지식베이스.html",
@@ -15159,49 +15181,49 @@
     },
     {
       "id": "rel_503",
+      "source": "unit_dada_1",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_40656064"
+    },
+    {
+      "id": "rel_504",
       "source": "course_byulbyul",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_source"
     },
     {
-      "id": "rel_504",
+      "id": "rel_505",
       "source": "course_dada",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_source"
     },
     {
-      "id": "rel_505",
+      "id": "rel_506",
       "source": "course_dok2",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_source"
     },
     {
-      "id": "rel_506",
+      "id": "rel_507",
       "source": "course_dok1",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_source"
     },
     {
-      "id": "rel_507",
+      "id": "rel_508",
       "source": "course_so1",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_source"
     },
     {
-      "id": "rel_508",
-      "source": "course_so2",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_source"
-    },
-    {
       "id": "rel_509",
-      "source": "course_molip",
+      "source": "course_so2",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_source"
@@ -15211,409 +15233,416 @@
       "source": "course_molip",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
-      "target": "portal_board_test"
+      "target": "portal_board_source"
     },
     {
       "id": "rel_511",
-      "source": "course_dok2",
+      "source": "course_molip",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_test"
     },
     {
       "id": "rel_512",
-      "source": "course_so1",
+      "source": "course_dok2",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_test"
     },
     {
       "id": "rel_513",
-      "source": "course_so2",
+      "source": "course_so1",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_test"
     },
     {
       "id": "rel_514",
-      "source": "course_dok1",
+      "source": "course_so2",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
-      "target": "portal_board_errata"
+      "target": "portal_board_test"
     },
     {
       "id": "rel_515",
-      "source": "course_dok2",
+      "source": "course_dok1",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_errata"
     },
     {
       "id": "rel_516",
-      "source": "course_byulbyul",
+      "source": "course_dok2",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_errata"
     },
     {
       "id": "rel_517",
-      "source": "course_so1",
+      "source": "course_byulbyul",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_errata"
     },
     {
       "id": "rel_518",
-      "source": "course_so2",
+      "source": "course_so1",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_errata"
     },
     {
       "id": "rel_519",
-      "source": "course_dok1",
+      "source": "course_so2",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
-      "target": "portal_board_feedback"
+      "target": "portal_board_errata"
     },
     {
       "id": "rel_520",
-      "source": "course_dok2",
+      "source": "course_dok1",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_feedback"
     },
     {
       "id": "rel_521",
-      "source": "course_molip",
+      "source": "course_dok2",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_feedback"
     },
     {
       "id": "rel_522",
-      "source": "course_eohwi1",
+      "source": "course_molip",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_feedback"
     },
     {
       "id": "rel_523",
-      "source": "course_molip",
+      "source": "course_eohwi1",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
-      "target": "portal_board_samplebook"
+      "target": "portal_board_feedback"
     },
     {
       "id": "rel_524",
-      "source": "course_dada",
+      "source": "course_molip",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_samplebook"
     },
     {
       "id": "rel_525",
-      "source": "course_ttokdok",
+      "source": "course_dada",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_samplebook"
     },
     {
       "id": "rel_526",
-      "source": "course_byulbyul",
+      "source": "course_ttokdok",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
-      "target": "portal_board_notice"
+      "target": "portal_board_samplebook"
     },
     {
       "id": "rel_527",
-      "source": "course_so1",
+      "source": "course_byulbyul",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_notice"
     },
     {
       "id": "rel_528",
-      "source": "course_so2",
+      "source": "course_so1",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_notice"
     },
     {
       "id": "rel_529",
-      "source": "course_dok1",
+      "source": "course_so2",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
-      "target": "portal_board_center"
+      "target": "portal_board_notice"
     },
     {
       "id": "rel_530",
-      "source": "course_dok2",
+      "source": "course_dok1",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_center"
     },
     {
       "id": "rel_531",
+      "source": "course_dok2",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_center"
+    },
+    {
+      "id": "rel_532",
       "source": "course_eohwi1",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_general"
     },
     {
-      "id": "rel_532",
+      "id": "rel_533",
       "source": "course_molip",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_general"
     },
     {
-      "id": "rel_533",
-      "source": "course_dada",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_promo"
-    },
-    {
       "id": "rel_534",
-      "source": "course_molip",
+      "source": "course_dada",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_promo"
     },
     {
       "id": "rel_535",
-      "source": "course_ttokdok",
+      "source": "course_molip",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_promo"
     },
     {
       "id": "rel_536",
+      "source": "course_ttokdok",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_promo"
+    },
+    {
+      "id": "rel_537",
       "source": "portal_board_errata",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_errata_dok1"
     },
     {
-      "id": "rel_537",
+      "id": "rel_538",
       "source": "course_dok1",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_errata_dok1"
     },
     {
-      "id": "rel_538",
+      "id": "rel_539",
       "source": "portal_board_errata",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_errata_socr"
     },
     {
-      "id": "rel_539",
+      "id": "rel_540",
       "source": "course_so1",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_errata_socr"
     },
     {
-      "id": "rel_540",
+      "id": "rel_541",
       "source": "portal_board_source",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_source_molipc"
     },
     {
-      "id": "rel_541",
+      "id": "rel_542",
       "source": "course_molip",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_source_molipc"
     },
     {
-      "id": "rel_542",
+      "id": "rel_543",
       "source": "portal_board_test",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_test_quiz"
     },
     {
-      "id": "rel_543",
+      "id": "rel_544",
       "source": "course_molip",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_test_quiz"
     },
     {
-      "id": "rel_544",
+      "id": "rel_545",
       "source": "portal_board_feedback",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_feedback_oct"
     },
     {
-      "id": "rel_545",
+      "id": "rel_546",
       "source": "course_dok2",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_feedback_oct"
     },
     {
-      "id": "rel_546",
+      "id": "rel_547",
       "source": "portal_board_notice",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_notice_plus"
     },
     {
-      "id": "rel_547",
+      "id": "rel_548",
       "source": "course_byulbyul",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_notice_plus"
     },
     {
-      "id": "rel_548",
+      "id": "rel_549",
       "source": "portal_board_promo",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_promo_weekly"
     },
     {
-      "id": "rel_549",
+      "id": "rel_550",
       "source": "course_dada",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_promo_weekly"
     },
     {
-      "id": "rel_550",
+      "id": "rel_551",
       "source": "course_so1",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_sentence_types"
     },
     {
-      "id": "rel_551",
+      "id": "rel_552",
       "source": "unit_byul_1",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_sentence_types"
     },
     {
-      "id": "rel_552",
+      "id": "rel_553",
       "source": "file_1",
       "predicate": "containsConcept",
       "label": "개념 수록",
       "target": "concept_sentence_types"
     },
     {
-      "id": "rel_553",
+      "id": "rel_554",
       "source": "course_byulbyul",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_genre_types"
     },
     {
-      "id": "rel_554",
+      "id": "rel_555",
       "source": "unit_byul_general",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_genre_types"
     },
     {
-      "id": "rel_555",
+      "id": "rel_556",
       "source": "file_1",
       "predicate": "containsConcept",
       "label": "개념 수록",
       "target": "concept_genre_types"
     },
     {
-      "id": "rel_556",
+      "id": "rel_557",
       "source": "course_ttokdok",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_structure_types"
     },
     {
-      "id": "rel_557",
+      "id": "rel_558",
       "source": "unit_ttokdok",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_structure_types"
     },
     {
-      "id": "rel_558",
+      "id": "rel_559",
       "source": "file_1",
       "predicate": "containsConcept",
       "label": "개념 수록",
       "target": "concept_structure_types"
     },
     {
-      "id": "rel_559",
+      "id": "rel_560",
       "source": "course_dada",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
-      "target": "concept_dada_u1"
-    },
-    {
-      "id": "rel_560",
-      "source": "unit_dada_1",
-      "predicate": "coversConcept",
-      "label": "단원 개념",
       "target": "concept_dada_u1"
     },
     {
       "id": "rel_561",
+      "source": "unit_dada_1",
+      "predicate": "coversConcept",
+      "label": "단원 개념",
+      "target": "concept_dada_u1"
+    },
+    {
+      "id": "rel_562",
       "source": "course_dada",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_dada_u2"
     },
     {
-      "id": "rel_562",
+      "id": "rel_563",
       "source": "unit_dada_1",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_dada_u2"
     },
     {
-      "id": "rel_563",
+      "id": "rel_564",
       "source": "course_debate",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_debate_formats"
     },
     {
-      "id": "rel_564",
+      "id": "rel_565",
       "source": "unit_debate",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_debate_formats"
     },
     {
-      "id": "rel_565",
+      "id": "rel_566",
       "source": "file_270",
       "predicate": "containsConcept",
       "label": "개념 수록",
       "target": "concept_debate_formats"
     },
     {
-      "id": "rel_566",
+      "id": "rel_567",
       "source": "course_so2",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_civil_disobedience"
     },
     {
-      "id": "rel_567",
+      "id": "rel_568",
       "source": "unit_so_pdf",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_civil_disobedience"
     },
     {
-      "id": "rel_568",
+      "id": "rel_569",
       "source": "file_223",
       "predicate": "containsConcept",
       "label": "개념 수록",
