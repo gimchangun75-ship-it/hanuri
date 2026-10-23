@@ -99,28 +99,10 @@
         var saved = localStorage.getItem("hanuri_theme") || "forest";
         document.documentElement.setAttribute("data-theme", saved);
       } catch (_) {}
-
-      /* 📱 하이브리드 모바일 vs 데스크톱 자동 감지 (SSOT) */
-      function detectDevice() {
-        var isTouch = ("ontouchstart" in window) || (navigator.maxTouchPoints > 0);
-        var isSmall = window.innerWidth <= 768;
-        var isMobileUA = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        var isMobile = (isTouch && isSmall) || isMobileUA || (window.innerWidth <= 768);
-
-        if (isMobile) {
-          document.documentElement.classList.add("device-mobile");
-          document.documentElement.classList.remove("device-desktop");
-        } else {
-          document.documentElement.classList.add("device-desktop");
-          document.documentElement.classList.remove("device-mobile");
-        }
-      }
-      detectDevice();
-      window.addEventListener("resize", detectDevice);
     })();
   </script>
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-  <link rel="stylesheet" href="hanuri_theme.css?v=20261024071940" />
+  <link rel="stylesheet" href="hanuri_theme.css" />
 </head>
 <body>
 
@@ -262,9 +244,9 @@
 
   <!-- 3. Main 2-Column Independent Scroll Workspace -->
   <main class="container">
-    <aside class="sidebar collapsed" id="categorySidebar">
-      <div class="sidebar-title" id="sidebarTitle" title="카테고리 펼치기 / 접기">
-        <span>📂 폴더 & 카테고리 (필터)</span>
+    <aside class="sidebar">
+      <div class="sidebar-title">
+        <span>폴더 & 카테고리</span>
       </div>
       <ul class="folder-list" id="folderList"></ul>
     </aside>
@@ -7172,18 +7154,6 @@
       });
     }
 
-    // 모바일 사이드바 아코디언 토글 제어
-    const categorySidebar = document.getElementById("categorySidebar");
-    const sidebarTitle = document.getElementById("sidebarTitle");
-    if (categorySidebar && sidebarTitle) {
-      if (document.documentElement.classList.contains("device-desktop")) {
-        categorySidebar.classList.remove("collapsed");
-      }
-      sidebarTitle.addEventListener("click", () => {
-        categorySidebar.classList.toggle("collapsed");
-      });
-    }
-
     window.addEventListener("keydown", (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
@@ -7413,26 +7383,17 @@
             ? "🖼️ 이미지"
             : (item.content ? "📖 본문 보기" : "ℹ️ 상세"));
 
-        const isHtml = item.ext === ".html" || item.ext === ".htm";
-        const cleanRel = (item.relPath || "").replace(/\\/g, "/");
         const actionButtonsHtml = isPortal
           ? `
             <button class="btn btn-primary" onclick="openPreviewModal(${item.id})">${previewBtnLabel}</button>
-            <button class="btn" onclick="window.open(\x27${escapeHtml(item.portalUrl)}\x27, \x27_blank\x27)">🌐 포털 열기 ↗</button>
-          `
-          : isHtml
-          ? `
-            <button class="btn btn-primary" onclick="openHtmlPage(\x27${escapeHtml(cleanRel)}\x27, \x27${escapeHtml(item.name)}\x27)" style="font-weight:700;">🌐 새 탭으로 바로 열기 ↗</button>
-            <button class="btn btn-gdrive" onclick="openInGDrive(\x27${escapeHtml(item.name)}\x27)">☁️ 드라이브</button>
-            <button class="btn" onclick="openPreviewModal(${item.id})">ℹ️ 상세</button>
-            <button class="btn btn-ghost" onclick="copyText(\x27${escapeHtml((item.fullPath || "").replace(/\\\\/g, "\\\\\\\\"))}\x27, \x27파일 전체 경로가 복사되었습니다!\x27)" title="파일 전체 경로 복사">📋 경로</button>
+            <button class="btn" onclick="window.open('${escapeHtml(item.portalUrl)}', '_blank')">🌐 포털 열기 ↗</button>
           `
           : `
-            <button class="btn btn-gdrive" onclick="openInGDrive(\x27${escapeHtml(item.name)}\x27)">☁️ 구글드라이브 원본</button>
+            <button class="btn btn-gdrive" onclick="openInGDrive('${escapeHtml(item.name)}')">☁️ 구글드라이브 원본</button>
             <button class="btn btn-primary" onclick="openPreviewModal(${item.id})">${previewBtnLabel}</button>
-            <button class="btn" onclick="launchFile(\x27${escapeHtml(cleanRel)}\x27, \x27${escapeHtml(item.name)}\x27)" title="파일 열기">📥 열기</button>
-            <button class="btn btn-ghost" onclick="copyText(\x27${escapeHtml((item.fullPath || "").replace(/\\\\/g, "\\\\\\\\"))}\x27, \x27파일 전체 경로가 복사되었습니다!\x27)" title="파일 전체 경로 복사">📋 경로</button>
-            <button class="btn btn-ghost" onclick="copyText(\x27${escapeHtml((item.folderPath || "").replace(/\\\\/g, "\\\\\\\\"))}\x27, \x27폴더 경로가 복사되었습니다!\x27)" title="폴더 경로 복사">📂 폴더</button>
+            <button class="btn" onclick="launchFile('${escapeHtml((item.relPath || "").replace(/\\/g, "/"))}', '${escapeHtml(item.name)}')" title="파일 열기">📥 열기</button>
+            <button class="btn btn-ghost" onclick="copyText('${escapeHtml((item.fullPath || "").replace(/\\/g, "\\\\"))}', '파일 전체 경로가 복사되었습니다!')" title="파일 전체 경로 복사">📋 경로</button>
+            <button class="btn btn-ghost" onclick="copyText('${escapeHtml((item.folderPath || "").replace(/\\/g, "\\\\"))}', '폴더 경로가 복사되었습니다!')" title="폴더 경로 복사">📂 폴더</button>
           `;
 
         return `
@@ -7441,7 +7402,7 @@
               <div class="file-title-group">
                 <span class="ext-badge ext-${extClean}">${extClean}</span>
                 <div class="file-info">
-                  <div class="file-name" onclick="${isHtml ? `openHtmlPage(\x27${escapeHtml(cleanRel)}\x27, \x27${escapeHtml(item.name)}\x27)` : `openPreviewModal(${item.id})`}" title="${isHtml ? `클릭 시 새 탭에서 바로 열립니다` : `상세 정보 보기`}">${highlightText(item.name, tokens)}${isHtml ? ` <span style=\x22font-size:12px; color:var(--primary); font-weight:700;\x22>↗ 새 탭</span>` : ``}</div>
+                  <div class="file-name" onclick="openPreviewModal(${item.id})">${highlightText(item.name, tokens)}</div>
                   <div class="file-meta">
                     <span>${isPortal ? "스캔일" : "수정일"} ${item.mtime}</span>
                     <span>·</span>
@@ -7542,7 +7503,7 @@
           <div style="background:var(--primary-soft); border:1.5px solid var(--primary-border); padding:20px; border-radius:12px; margin-top:14px; text-align:center;">
             <p style="font-size:16px; font-weight:700; color:var(--text); margin-bottom:8px;">🌐 이 문서는 완성된 웹페이지(HTML) 형식입니다.</p>
             <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:16px;">다운로드할 필요 없이 브라우저 새 탭에서 즉시 완성된 화면을 확인하실 수 있습니다.</p>
-            <button class="btn btn-primary" onclick="window.open(\x27${urlParts}\x27, \x27_blank\x27)" style="padding:10px 24px; font-size:14.5px; font-weight:700;">🌐 새 탭으로 문서 바로 열기 ↗</button>
+            <button class="btn btn-primary" onclick="window.open('${urlParts}', '_blank')" style="padding:10px 24px; font-size:14.5px; font-weight:700;">🌐 새 탭으로 문서 바로 열기 ↗</button>
           </div>
         `;
       } else if (!imgSrc) {
@@ -7666,13 +7627,12 @@
 
     window.launchFile = function(relPath, fileName) {
       const cleanRel = (relPath || "").replace(/\\/g, "/");
+      // HTML 파일은 다운로드가 아니라 새 탭에서 즉시 열기!
       if (fileName.toLowerCase().endsWith(".html") || fileName.toLowerCase().endsWith(".htm")) {
         window.openHtmlPage(cleanRel, fileName);
         return;
       }
       const a = document.createElement("a");
-      // relPath가 역슬래시로 되어 있는 경우 웹 URL 규격(/)으로 변환
-      const cleanRel = (relPath || "").replace(/\\/g, "/");
       a.href = cleanRel;
       a.download = fileName;
       document.body.appendChild(a);
