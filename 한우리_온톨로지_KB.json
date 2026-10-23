@@ -1,8 +1,9 @@
 {
   "meta": {
     "title": "한우리 독서토론논술 온톨로지 지식 베이스 (Ontology Knowledge Base)",
-    "version": "2.1.0",
-    "generatedAt": "2026. 10. 23. PM 11:23:57",
+    "version": "2.2.0",
+    "masterRoot": "G:\\내 드라이브\\한우리",
+    "generatedAt": "2026. 10. 23. PM 11:43:43",
     "entityCount": 531,
     "relationCount": 568,
     "classes": [
