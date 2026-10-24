@@ -3,9 +3,9 @@
     "title": "한우리 독서토론논술 온톨로지 지식 베이스 (Ontology Knowledge Base)",
     "version": "2.2.0",
     "masterRoot": "D:\\한우리",
-    "generatedAt": "2026. 10. 24. PM 7:21:52",
-    "entityCount": 679,
-    "relationCount": 712,
+    "generatedAt": "2026. 10. 24. PM 7:40:58",
+    "entityCount": 691,
+    "relationCount": 716,
     "classes": [
       {
         "type": "Schedule",
@@ -14332,6 +14332,270 @@
       }
     },
     {
+      "id": "file_144001681",
+      "type": "LocalFile",
+      "label": "[교사용] 과학탐탐_2611_퀴즈_소리가 궁금해_정답.pdf",
+      "subtitle": "01_선생님_전달자료 | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/01_선생님_전달자료/2026년11월_최신업데이트_자료/[교사용] 과학탐탐_2611_퀴즈_소리가 궁금해_정답.pdf",
+      "fullPath": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[교사용] 과학탐탐_2611_퀴즈_소리가 궁금해_정답.pdf",
+      "screenshotUrl": "",
+      "summary": "01_선생님_전달자료 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "[교사용] 과학탐탐_2611_퀴즈_소리가 궁금해_정답.pdf",
+        "분류 폴더": "01_선생님_전달자료",
+        "상세 경로": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[교사용] 과학탐탐_2611_퀴즈_소리가 궁금해_정답.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_268871835",
+      "type": "LocalFile",
+      "label": "[교사용] 논리1_2611_2차시_퀴즈_법 만드는 아이들_정답.pdf",
+      "subtitle": "01_선생님_전달자료 | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/01_선생님_전달자료/2026년11월_최신업데이트_자료/[교사용] 논리1_2611_2차시_퀴즈_법 만드는 아이들_정답.pdf",
+      "fullPath": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[교사용] 논리1_2611_2차시_퀴즈_법 만드는 아이들_정답.pdf",
+      "screenshotUrl": "",
+      "summary": "01_선생님_전달자료 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "[교사용] 논리1_2611_2차시_퀴즈_법 만드는 아이들_정답.pdf",
+        "분류 폴더": "01_선생님_전달자료",
+        "상세 경로": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[교사용] 논리1_2611_2차시_퀴즈_법 만드는 아이들_정답.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_187434317",
+      "type": "LocalFile",
+      "label": "[교사용] 논리1_2611_4차시_퀴즈_마지막 거인_정답.pdf",
+      "subtitle": "01_선생님_전달자료 | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/01_선생님_전달자료/2026년11월_최신업데이트_자료/[교사용] 논리1_2611_4차시_퀴즈_마지막 거인_정답.pdf",
+      "fullPath": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[교사용] 논리1_2611_4차시_퀴즈_마지막 거인_정답.pdf",
+      "screenshotUrl": "",
+      "summary": "01_선생님_전달자료 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "[교사용] 논리1_2611_4차시_퀴즈_마지막 거인_정답.pdf",
+        "분류 폴더": "01_선생님_전달자료",
+        "상세 경로": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[교사용] 논리1_2611_4차시_퀴즈_마지막 거인_정답.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_238506789",
+      "type": "LocalFile",
+      "label": "[교사용] 독서1_2611_퀴즈_2차시_ 그렇게 치킨이 된다_정답.pdf",
+      "subtitle": "01_선생님_전달자료 | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/01_선생님_전달자료/2026년11월_최신업데이트_자료/[교사용] 독서1_2611_퀴즈_2차시_ 그렇게 치킨이 된다_정답.pdf",
+      "fullPath": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[교사용] 독서1_2611_퀴즈_2차시_ 그렇게 치킨이 된다_정답.pdf",
+      "screenshotUrl": "",
+      "summary": "01_선생님_전달자료 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "[교사용] 독서1_2611_퀴즈_2차시_ 그렇게 치킨이 된다_정답.pdf",
+        "분류 폴더": "01_선생님_전달자료",
+        "상세 경로": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[교사용] 독서1_2611_퀴즈_2차시_ 그렇게 치킨이 된다_정답.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_10484760",
+      "type": "LocalFile",
+      "label": "[교사용] 독서1_2611_퀴즈_4차시_눈의 여왕_정답.pdf",
+      "subtitle": "01_선생님_전달자료 | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/01_선생님_전달자료/2026년11월_최신업데이트_자료/[교사용] 독서1_2611_퀴즈_4차시_눈의 여왕_정답.pdf",
+      "fullPath": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[교사용] 독서1_2611_퀴즈_4차시_눈의 여왕_정답.pdf",
+      "screenshotUrl": "",
+      "summary": "01_선생님_전달자료 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "[교사용] 독서1_2611_퀴즈_4차시_눈의 여왕_정답.pdf",
+        "분류 폴더": "01_선생님_전달자료",
+        "상세 경로": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[교사용] 독서1_2611_퀴즈_4차시_눈의 여왕_정답.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_171249594",
+      "type": "LocalFile",
+      "label": "[교사용] 세계문화지리_2611_퀴즈_09 오세아니아와 극지방_정답.pdf",
+      "subtitle": "01_선생님_전달자료 | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/01_선생님_전달자료/2026년11월_최신업데이트_자료/[교사용] 세계문화지리_2611_퀴즈_09 오세아니아와 극지방_정답.pdf",
+      "fullPath": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[교사용] 세계문화지리_2611_퀴즈_09 오세아니아와 극지방_정답.pdf",
+      "screenshotUrl": "",
+      "summary": "01_선생님_전달자료 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "[교사용] 세계문화지리_2611_퀴즈_09 오세아니아와 극지방_정답.pdf",
+        "분류 폴더": "01_선생님_전달자료",
+        "상세 경로": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[교사용] 세계문화지리_2611_퀴즈_09 오세아니아와 극지방_정답.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_29286046",
+      "type": "LocalFile",
+      "label": "[학생용] 과학탐탐_2611_퀴즈_소리가 궁금해.pdf",
+      "subtitle": "01_선생님_전달자료 | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/01_선생님_전달자료/2026년11월_최신업데이트_자료/[학생용] 과학탐탐_2611_퀴즈_소리가 궁금해.pdf",
+      "fullPath": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[학생용] 과학탐탐_2611_퀴즈_소리가 궁금해.pdf",
+      "screenshotUrl": "",
+      "summary": "01_선생님_전달자료 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "[학생용] 과학탐탐_2611_퀴즈_소리가 궁금해.pdf",
+        "분류 폴더": "01_선생님_전달자료",
+        "상세 경로": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[학생용] 과학탐탐_2611_퀴즈_소리가 궁금해.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_170354667",
+      "type": "LocalFile",
+      "label": "[학생용] 논리1_2611_2차시_퀴즈_법 만드는 아이들.pdf",
+      "subtitle": "01_선생님_전달자료 | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/01_선생님_전달자료/2026년11월_최신업데이트_자료/[학생용] 논리1_2611_2차시_퀴즈_법 만드는 아이들.pdf",
+      "fullPath": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[학생용] 논리1_2611_2차시_퀴즈_법 만드는 아이들.pdf",
+      "screenshotUrl": "",
+      "summary": "01_선생님_전달자료 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "[학생용] 논리1_2611_2차시_퀴즈_법 만드는 아이들.pdf",
+        "분류 폴더": "01_선생님_전달자료",
+        "상세 경로": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[학생용] 논리1_2611_2차시_퀴즈_법 만드는 아이들.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_101885509",
+      "type": "LocalFile",
+      "label": "[학생용] 논리1_2611_4차시_퀴즈_마지막 거인.pdf",
+      "subtitle": "01_선생님_전달자료 | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/01_선생님_전달자료/2026년11월_최신업데이트_자료/[학생용] 논리1_2611_4차시_퀴즈_마지막 거인.pdf",
+      "fullPath": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[학생용] 논리1_2611_4차시_퀴즈_마지막 거인.pdf",
+      "screenshotUrl": "",
+      "summary": "01_선생님_전달자료 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "[학생용] 논리1_2611_4차시_퀴즈_마지막 거인.pdf",
+        "분류 폴더": "01_선생님_전달자료",
+        "상세 경로": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[학생용] 논리1_2611_4차시_퀴즈_마지막 거인.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_2216320",
+      "type": "LocalFile",
+      "label": "[학생용] 독서1_2611_퀴즈_2차시_ 그렇게 치킨이 된다.pdf",
+      "subtitle": "01_선생님_전달자료 | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/01_선생님_전달자료/2026년11월_최신업데이트_자료/[학생용] 독서1_2611_퀴즈_2차시_ 그렇게 치킨이 된다.pdf",
+      "fullPath": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[학생용] 독서1_2611_퀴즈_2차시_ 그렇게 치킨이 된다.pdf",
+      "screenshotUrl": "",
+      "summary": "01_선생님_전달자료 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "[학생용] 독서1_2611_퀴즈_2차시_ 그렇게 치킨이 된다.pdf",
+        "분류 폴더": "01_선생님_전달자료",
+        "상세 경로": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[학생용] 독서1_2611_퀴즈_2차시_ 그렇게 치킨이 된다.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_79461643",
+      "type": "LocalFile",
+      "label": "[학생용] 독서1_2611_퀴즈_4차시_눈의 여왕.pdf",
+      "subtitle": "01_선생님_전달자료 | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/01_선생님_전달자료/2026년11월_최신업데이트_자료/[학생용] 독서1_2611_퀴즈_4차시_눈의 여왕.pdf",
+      "fullPath": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[학생용] 독서1_2611_퀴즈_4차시_눈의 여왕.pdf",
+      "screenshotUrl": "",
+      "summary": "01_선생님_전달자료 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "[학생용] 독서1_2611_퀴즈_4차시_눈의 여왕.pdf",
+        "분류 폴더": "01_선생님_전달자료",
+        "상세 경로": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[학생용] 독서1_2611_퀴즈_4차시_눈의 여왕.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_84078535",
+      "type": "LocalFile",
+      "label": "[학생용] 세계문화지리_2611_퀴즈_09 오세아니아와 극지방.pdf",
+      "subtitle": "01_선생님_전달자료 | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/01_선생님_전달자료/2026년11월_최신업데이트_자료/[학생용] 세계문화지리_2611_퀴즈_09 오세아니아와 극지방.pdf",
+      "fullPath": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[학생용] 세계문화지리_2611_퀴즈_09 오세아니아와 극지방.pdf",
+      "screenshotUrl": "",
+      "summary": "01_선생님_전달자료 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "[학생용] 세계문화지리_2611_퀴즈_09 오세아니아와 극지방.pdf",
+        "분류 폴더": "01_선생님_전달자료",
+        "상세 경로": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[학생용] 세계문화지리_2611_퀴즈_09 오세아니아와 극지방.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
       "id": "file_900312",
       "type": "LocalFile",
       "label": "온톨로지_지식베이스.html",
@@ -19423,461 +19687,489 @@
     },
     {
       "id": "rel_647",
-      "source": "course_byulbyul",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_source"
+      "source": "unit_debate",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_268871835"
     },
     {
       "id": "rel_648",
-      "source": "course_dada",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_source"
+      "source": "unit_debate",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_187434317"
     },
     {
       "id": "rel_649",
-      "source": "course_dok2",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_source"
+      "source": "unit_debate",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_170354667"
     },
     {
       "id": "rel_650",
-      "source": "course_dok1",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_source"
+      "source": "unit_debate",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_101885509"
     },
     {
       "id": "rel_651",
-      "source": "course_so1",
+      "source": "course_byulbyul",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_source"
     },
     {
       "id": "rel_652",
-      "source": "course_so2",
+      "source": "course_dada",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_source"
     },
     {
       "id": "rel_653",
-      "source": "course_molip",
+      "source": "course_dok2",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_source"
     },
     {
       "id": "rel_654",
+      "source": "course_dok1",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_source"
+    },
+    {
+      "id": "rel_655",
+      "source": "course_so1",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_source"
+    },
+    {
+      "id": "rel_656",
+      "source": "course_so2",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_source"
+    },
+    {
+      "id": "rel_657",
+      "source": "course_molip",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_source"
+    },
+    {
+      "id": "rel_658",
       "source": "course_molip",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_test"
-    },
-    {
-      "id": "rel_655",
-      "source": "course_dok2",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_test"
-    },
-    {
-      "id": "rel_656",
-      "source": "course_so1",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_test"
-    },
-    {
-      "id": "rel_657",
-      "source": "course_so2",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_test"
-    },
-    {
-      "id": "rel_658",
-      "source": "course_dok1",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_errata"
     },
     {
       "id": "rel_659",
       "source": "course_dok2",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
-      "target": "portal_board_errata"
+      "target": "portal_board_test"
     },
     {
       "id": "rel_660",
-      "source": "course_byulbyul",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_errata"
-    },
-    {
-      "id": "rel_661",
       "source": "course_so1",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
-      "target": "portal_board_errata"
+      "target": "portal_board_test"
+    },
+    {
+      "id": "rel_661",
+      "source": "course_so2",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_test"
     },
     {
       "id": "rel_662",
-      "source": "course_so2",
+      "source": "course_dok1",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_errata"
     },
     {
       "id": "rel_663",
+      "source": "course_dok2",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_errata"
+    },
+    {
+      "id": "rel_664",
+      "source": "course_byulbyul",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_errata"
+    },
+    {
+      "id": "rel_665",
+      "source": "course_so1",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_errata"
+    },
+    {
+      "id": "rel_666",
+      "source": "course_so2",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_errata"
+    },
+    {
+      "id": "rel_667",
       "source": "course_dok1",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_feedback"
     },
     {
-      "id": "rel_664",
+      "id": "rel_668",
       "source": "course_dok2",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_feedback"
     },
     {
-      "id": "rel_665",
+      "id": "rel_669",
       "source": "course_molip",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_feedback"
     },
     {
-      "id": "rel_666",
+      "id": "rel_670",
       "source": "course_eohwi1",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_feedback"
     },
     {
-      "id": "rel_667",
+      "id": "rel_671",
       "source": "course_molip",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_samplebook"
     },
     {
-      "id": "rel_668",
+      "id": "rel_672",
       "source": "course_dada",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_samplebook"
     },
     {
-      "id": "rel_669",
+      "id": "rel_673",
       "source": "course_ttokdok",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_samplebook"
     },
     {
-      "id": "rel_670",
+      "id": "rel_674",
       "source": "course_byulbyul",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_notice"
     },
     {
-      "id": "rel_671",
+      "id": "rel_675",
       "source": "course_so1",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_notice"
     },
     {
-      "id": "rel_672",
+      "id": "rel_676",
       "source": "course_so2",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_notice"
     },
     {
-      "id": "rel_673",
+      "id": "rel_677",
       "source": "course_dok1",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_center"
     },
     {
-      "id": "rel_674",
+      "id": "rel_678",
       "source": "course_dok2",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_center"
     },
     {
-      "id": "rel_675",
+      "id": "rel_679",
       "source": "course_eohwi1",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_general"
     },
     {
-      "id": "rel_676",
+      "id": "rel_680",
       "source": "course_molip",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_general"
     },
     {
-      "id": "rel_677",
+      "id": "rel_681",
       "source": "course_dada",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_promo"
     },
     {
-      "id": "rel_678",
+      "id": "rel_682",
       "source": "course_molip",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_promo"
     },
     {
-      "id": "rel_679",
+      "id": "rel_683",
       "source": "course_ttokdok",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_promo"
     },
     {
-      "id": "rel_680",
+      "id": "rel_684",
       "source": "portal_board_errata",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_errata_dok1"
     },
     {
-      "id": "rel_681",
+      "id": "rel_685",
       "source": "course_dok1",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_errata_dok1"
     },
     {
-      "id": "rel_682",
+      "id": "rel_686",
       "source": "portal_board_errata",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_errata_socr"
     },
     {
-      "id": "rel_683",
+      "id": "rel_687",
       "source": "course_so1",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_errata_socr"
     },
     {
-      "id": "rel_684",
+      "id": "rel_688",
       "source": "portal_board_source",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_source_molipc"
     },
     {
-      "id": "rel_685",
+      "id": "rel_689",
       "source": "course_molip",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_source_molipc"
     },
     {
-      "id": "rel_686",
+      "id": "rel_690",
       "source": "portal_board_test",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_test_quiz"
     },
     {
-      "id": "rel_687",
+      "id": "rel_691",
       "source": "course_molip",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_test_quiz"
     },
     {
-      "id": "rel_688",
+      "id": "rel_692",
       "source": "portal_board_feedback",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_feedback_oct"
     },
     {
-      "id": "rel_689",
+      "id": "rel_693",
       "source": "course_dok2",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_feedback_oct"
     },
     {
-      "id": "rel_690",
+      "id": "rel_694",
       "source": "portal_board_notice",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_notice_plus"
     },
     {
-      "id": "rel_691",
+      "id": "rel_695",
       "source": "course_byulbyul",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_notice_plus"
     },
     {
-      "id": "rel_692",
+      "id": "rel_696",
       "source": "portal_board_promo",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_promo_weekly"
     },
     {
-      "id": "rel_693",
+      "id": "rel_697",
       "source": "course_dada",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_promo_weekly"
     },
     {
-      "id": "rel_694",
+      "id": "rel_698",
       "source": "course_so1",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_sentence_types"
     },
     {
-      "id": "rel_695",
+      "id": "rel_699",
       "source": "unit_byul_1",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_sentence_types"
     },
     {
-      "id": "rel_696",
+      "id": "rel_700",
       "source": "file_1",
       "predicate": "containsConcept",
       "label": "개념 수록",
       "target": "concept_sentence_types"
     },
     {
-      "id": "rel_697",
+      "id": "rel_701",
       "source": "course_byulbyul",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_genre_types"
     },
     {
-      "id": "rel_698",
+      "id": "rel_702",
       "source": "unit_byul_general",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_genre_types"
     },
     {
-      "id": "rel_699",
+      "id": "rel_703",
       "source": "file_1",
       "predicate": "containsConcept",
       "label": "개념 수록",
       "target": "concept_genre_types"
     },
     {
-      "id": "rel_700",
+      "id": "rel_704",
       "source": "course_ttokdok",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_structure_types"
     },
     {
-      "id": "rel_701",
+      "id": "rel_705",
       "source": "unit_ttokdok",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_structure_types"
     },
     {
-      "id": "rel_702",
+      "id": "rel_706",
       "source": "file_1",
       "predicate": "containsConcept",
       "label": "개념 수록",
       "target": "concept_structure_types"
     },
     {
-      "id": "rel_703",
-      "source": "course_dada",
-      "predicate": "teachesConcept",
-      "label": "핵심개념 지도",
-      "target": "concept_dada_u1"
-    },
-    {
-      "id": "rel_704",
-      "source": "unit_dada_1",
-      "predicate": "coversConcept",
-      "label": "단원 개념",
-      "target": "concept_dada_u1"
-    },
-    {
-      "id": "rel_705",
-      "source": "course_dada",
-      "predicate": "teachesConcept",
-      "label": "핵심개념 지도",
-      "target": "concept_dada_u2"
-    },
-    {
-      "id": "rel_706",
-      "source": "unit_dada_1",
-      "predicate": "coversConcept",
-      "label": "단원 개념",
-      "target": "concept_dada_u2"
-    },
-    {
       "id": "rel_707",
+      "source": "course_dada",
+      "predicate": "teachesConcept",
+      "label": "핵심개념 지도",
+      "target": "concept_dada_u1"
+    },
+    {
+      "id": "rel_708",
+      "source": "unit_dada_1",
+      "predicate": "coversConcept",
+      "label": "단원 개념",
+      "target": "concept_dada_u1"
+    },
+    {
+      "id": "rel_709",
+      "source": "course_dada",
+      "predicate": "teachesConcept",
+      "label": "핵심개념 지도",
+      "target": "concept_dada_u2"
+    },
+    {
+      "id": "rel_710",
+      "source": "unit_dada_1",
+      "predicate": "coversConcept",
+      "label": "단원 개념",
+      "target": "concept_dada_u2"
+    },
+    {
+      "id": "rel_711",
       "source": "course_debate",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_debate_formats"
     },
     {
-      "id": "rel_708",
+      "id": "rel_712",
       "source": "unit_debate",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_debate_formats"
     },
     {
-      "id": "rel_709",
+      "id": "rel_713",
       "source": "file_270",
       "predicate": "containsConcept",
       "label": "개념 수록",
       "target": "concept_debate_formats"
     },
     {
-      "id": "rel_710",
+      "id": "rel_714",
       "source": "course_so2",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_civil_disobedience"
     },
     {
-      "id": "rel_711",
+      "id": "rel_715",
       "source": "unit_so_pdf",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_civil_disobedience"
     },
     {
-      "id": "rel_712",
+      "id": "rel_716",
       "source": "file_223",
       "predicate": "containsConcept",
       "label": "개념 수록",
