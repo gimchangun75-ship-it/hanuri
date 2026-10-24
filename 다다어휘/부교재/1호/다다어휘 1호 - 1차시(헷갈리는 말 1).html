@@ -426,6 +426,40 @@
         background-color: transparent !important;
       }
     }
+  
+    /* 인쇄 모드 전용 버튼 */
+    .btn-student-print {
+      background: #0284c7;
+      color: #ffffff;
+    }
+    .btn-student-print:hover {
+      background: #0369a1;
+    }
+    .btn-teacher-print {
+      background: #059669;
+      color: #ffffff;
+    }
+    .btn-teacher-print:hover {
+      background: #047857;
+    }
+
+    /* 화면/인쇄 시 학생용/교사용 가시성 제어 */
+    body.print-student-mode .teacher-only-page {
+      display: none !important;
+    }
+    body.print-teacher-mode .student-only-page {
+      display: none !important;
+    }
+
+    @media print {
+      body.print-student-mode .teacher-only-page {
+        display: none !important;
+      }
+      body.print-teacher-mode .student-only-page {
+        display: none !important;
+      }
+    }
+    
   </style>
 </head>
 <body>
@@ -437,7 +471,9 @@
       <span>다다어휘 1호 · 1차시 (헷갈리는 말 ①) 학습지</span>
     </div>
     <div class="toolbar-actions">
-      <button class="btn btn-print" onclick="window.print()">🖨️ A4 용지 인쇄하기</button>
+      <button class="btn btn-student-print" onclick="printStudentOnly()">🖨️ 학생용 인쇄 (정답 제외)</button>
+      <button class="btn btn-teacher-print" onclick="printTeacherOnly()">📋 정답·해설만 인쇄</button>
+      <button class="btn btn-print" onclick="printAllPages()">📚 전체 인쇄</button>
       <button class="btn btn-reset" onclick="resetSelections()">⭕ 동그라미 초기화</button>
       <a class="btn btn-link" href="../파일검색.html?q=헷갈리는+말">🔍 파일 검색으로 이동</a>
     </div>
@@ -448,7 +484,7 @@
     <!-- =========================================================
          [ 1 쪽 ] 문항 1 ~ 20 (대문항 A)
          ========================================================= -->
-    <section class="a4-page">
+    <section class="a4-page student-only-page">
       <!-- 상단 배너 -->
       <div class="header-banner">
         <div class="header-left">
@@ -560,7 +596,7 @@
     <!-- =========================================================
          [ 2 쪽 ] 문항 21 ~ 40 (대문항 B)
          ========================================================= -->
-    <section class="a4-page">
+    <section class="a4-page student-only-page">
       <!-- 2쪽 상단 배너 -->
       <div class="header-banner-sub">
         <h2 class="header-title">
@@ -666,7 +702,7 @@
     <!-- =========================================================
          [ 3 쪽 ] 문항 41 ~ 55 (대문항 C) + 핵심 정리 + 정답 확인표
          ========================================================= -->
-    <section class="a4-page">
+    <section class="a4-page student-only-page">
       <!-- 3쪽 상단 배너 -->
       <div class="header-banner-sub">
         <h2 class="header-title">
@@ -746,6 +782,22 @@
         </div>
       </div>
 
+            <div class="page-footer">- 3 -</div>
+    </section>
+    <!-- =========================================================
+         [ 4 쪽 ] 💡 핵심 어휘 정리 & 📋 정답 확인표 (교사용 / 복습용)
+         ========================================================= -->
+    <section class="a4-page teacher-only-page">
+      <!-- 4쪽 상단 배너 -->
+      <div class="header-banner-sub">
+        <h2 class="header-title">
+          <span class="header-title-dot"></span>
+          헷갈리는 말 ① — 정답 및 핵심 정리
+        </h2>
+        <span class="sub-eng">Dada Vocabulary · Unit 01 · Teacher & Study Guide</span>
+      </div>
+
+      <!-- 핵심 어휘 정리 요약 카드 -->
       <!-- 핵심 어휘 정리 박스 -->
       <div class="summary-box">
         <div class="summary-title">• 핵심 어휘 정리 •</div>
@@ -767,6 +819,7 @@
         </div>
       </div>
 
+      <!-- 정답 확인표 -->
       <!-- 5열 정답 확인표 -->
       <div class="answer-key-section">
         <div class="answer-key-title">
@@ -865,7 +918,7 @@
         </table>
       </div>
 
-      <div class="page-footer">- 3 -</div>
+      <div class="page-footer">- 4 -</div>
     </section>
 
   </main>
