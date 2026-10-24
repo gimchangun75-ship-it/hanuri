@@ -10112,11 +10112,9 @@
 ];
     /* __FILE_DATA_END__ */
 
-    /* __PORTAL_SCAN_DATA_START__ */
     let PORTAL_SCAN_DATA = [];
-    /* __PORTAL_SCAN_DATA_END__ */
 
-        // State
+    // State
     let currentQuery = "";
     let currentCategory = "ALL";
     let currentExtGroup = "all";
@@ -10298,21 +10296,6 @@
       });
     }
 
-    const SYNONYM_MAP = {
-      "정오표": ["정오표", "수정 사항", "수정사항", "오류수정"],
-      "활동계획안": ["활동계획안", "활동 계획안", "지도안", "수업계획안"],
-      "필독서퀴즈": ["필독서퀴즈", "필독서 퀴즈", "퀴즈", "향상평가"]
-    };
-    function expandSynonyms(token) {
-      const lower = token.toLowerCase();
-      for (const [key, list] of Object.entries(SYNONYM_MAP)) {
-        if (key.toLowerCase() === lower || list.some(s => s.toLowerCase() === lower)) {
-          return list.map(s => s.toLowerCase());
-        }
-      }
-      return [lower];
-    }
-
     function renderResults() {
       const rawQuery = currentQuery.trim();
       clearBtn.style.display = rawQuery.length > 0 ? "flex" : "none";
@@ -10333,23 +10316,20 @@
 
           let allMatched = true;
           for (const t of tokens) {
-            const syns = expandSynonyms(t);
-            let tokenHit = false;
-            for (const tl of syns) {
-              const inName = nameLower.includes(tl);
-              const inPath = pathLower.includes(tl);
-              const inContent = contentLower.includes(tl);
-              if (inName || inPath || inContent) {
-                tokenHit = true;
-                if (inName) score += 100;
-                if (inPath) score += 40;
-                if (inContent) { score += 15; matchedInContent = true; }
-                break;
-              }
-            }
-            if (!tokenHit) {
+            const tl = t.toLowerCase();
+            const inName = nameLower.includes(tl);
+            const inPath = pathLower.includes(tl);
+            const inContent = contentLower.includes(tl);
+
+            if (!inName && !inPath && !inContent) {
               allMatched = false;
               break;
+            }
+            if (inName) score += 100;
+            if (inPath) score += 40;
+            if (inContent) {
+              score += 15;
+              matchedInContent = true;
             }
           }
           if (!allMatched) continue;
@@ -10675,12 +10655,6 @@
       const urlParts = cleanRel.split("/").map(p => encodeURIComponent(p)).join("/");
       window.open(urlParts, "_blank");
       showToast("🌐 [" + fileName + "] 문서를 새 탭으로 열었습니다!");
-    };
-
-    window.handlePortalOpen = function(url) {
-      if (!url) { showToast("⚠️ 포털 링크 주소가 없습니다."); return; }
-      window.open(url, "_blank");
-      showToast("🌐 한우리 포털 사이트로 이동합니다!");
     };
 
     window.launchFile = function(relPath, fileName) {
