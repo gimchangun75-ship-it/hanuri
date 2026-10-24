@@ -7561,7 +7561,7 @@
     // 🌐 HTML 웹문서 새 탭 직통 열기 엔진
     
     window.handleTitleClick = function(id) {
-      const item = allFiles.find(f => f.id === id);
+      const item = (typeof FILE_DATA !== "undefined" ? FILE_DATA : (typeof allFiles !== "undefined" ? allFiles : [])).find(f => f.id === id);
       if (!item) return;
       if (item.portalUrl) {
         handlePortalOpen(item.portalUrl);
