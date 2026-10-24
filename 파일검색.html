@@ -10665,20 +10665,29 @@
     };
 
     window.launchFile = function(relPath, fileName) {
-      const cleanRel = (relPath || "").replace(/\\/g, "/");
-      // HTML 파일은 다운로드가 아니라 새 탭에서 즉시 열기!
-      if (fileName.toLowerCase().endsWith(".html") || fileName.toLowerCase().endsWith(".htm")) {
-        window.openHtmlPage(cleanRel, fileName);
-        return;
-      }
-      const a = document.createElement("a");
-      a.href = cleanRel;
-      a.download = fileName;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      showToast("📥 [" + fileName + "] 다운로드 시작! (아이폰: 한컴독스 앱으로 열기)");
-    };
+        const cleanRel = (relPath || "").replace(/\\/g, "/");
+        const lowerName = (fileName || "").toLowerCase();
+        
+        // 한글, 공백, 괄호 등 특수문자 안전 URL 인코딩 (슬래시는 보존)
+        const encodedUrl = cleanRel.split("/").map(function(part) { return encodeURIComponent(part); }).join("/");
+
+        // 1. PDF, HTML, HTM, TXT, 이미지 등은 브라우저 새 탭에서 즉시 시원하게 열기!
+        if (lowerName.endsWith(".pdf") || lowerName.endsWith(".html") || lowerName.endsWith(".htm") || 
+            lowerName.endsWith(".txt") || lowerName.endsWith(".png") || lowerName.endsWith(".jpg")) {
+          window.open(encodedUrl, "_blank");
+          showToast("🌐 [" + fileName + "] 문서를 새 탭에서 즉시 열었습니다!");
+          return;
+        }
+
+        // 2. HWP, HWPX, XLSX, ZIP 등은 인코딩된 URL로 다운로드 시작
+        const a = document.createElement("a");
+        a.href = encodedUrl;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        showToast("📥 [" + fileName + "] 다운로드 시작!");
+      };
 
     const urlParams = new URLSearchParams(window.location.search);
     const initialQ = urlParams.get("q");
