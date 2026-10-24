@@ -1,0 +1,20 @@
+# 민감 정보, 계정/토큰, 크롤러 내부 산출물 제외
+.env
+*.env
+*.log
+*.pid
+*.bak
+__pycache__/
+node_modules/
+chrome_cdp_profile/
+대화방_기억보관소/
+한우리_자동로그인_도우미/
+
+# 내부 스캔 리포트(민감 정보 포함 가능성 차단)
+최신자료_*.json
+*리포트*.json
+*.tmp
+*.drivedownload
+
+# 원본 교재 저작권 보호 (배포 사이트에는 검색 UI와 색인만 게시)
+교재원본/
