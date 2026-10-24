@@ -1,2 +1,2 @@
 Set WshShell = CreateObject("WScript.Shell")
-WshShell.Run "cmd /c ""F:\í•œìš°ë¦¬\êµ¬ê¸€ë“œë¼ì´ë¸Œ_ê°€ì ¸ì˜¤ê¸°_ë¡œë³´ì¹´í”¼_ë¬´ìŒ.bat""", 0, False
+WshShell.Run "cmd /c ""D:\ÇÑ¿ì¸®\±¸±Ûµå¶óÀÌºê_°¡Á®¿À±â_·Îº¸Ä«ÇÇ_¹«À½.bat""", 0, False
