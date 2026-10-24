@@ -10226,112 +10226,23 @@
       const lower = content.toLowerCase();
       let firstIdx = -1;
       for (const t of tokens) {
-        const idx = lower.indexOf(t.toLowerCase());
-        if (idx !== -1) {
-          firstIdx = idx;
-          break;
-        }
-      }
-      if (firstIdx === -1) {
-        return escapeHtml(content.length > 150 ? content.substring(0, 150) + "..." : content);
-      }
-      const start = Math.max(0, firstIdx - 45);
-      const end = Math.min(content.length, firstIdx + 135);
-      let slice = (start > 0 ? "..." : "") + content.substring(start, end) + (end < content.length ? "..." : "");
-      return highlightText(slice, tokens);
-    }
-
-    function matchExtGroup(ext, group) {
-      if (group === "all") return true;
-        if (group === "html") return ext === ".html" || ext === ".htm";
-      if (group === "web") return ext === ".web";
-      if (group === "hwp") return ext === ".hwp" || ext === ".hwpx";
-      if (group === "pdf") return ext === ".pdf";
-      if (group === "ppt") return ext === ".pptx" || ext === ".show" || ext === ".ppt";
-      if (group === "xlsx") return ext === ".xlsx" || ext === ".xls" || ext === ".csv";
-      if (group === "jpg") return ext === ".jpg" || ext === ".png";
-      if (group === "zip") return ext === ".zip";
-      return true;
-    }
-
-    function buildSidebar() {
-      const counts = { ALL: FILE_DATA.length };
-      FILE_DATA.forEach(f => {
-        counts[f.category] = (counts[f.category] || 0) + 1;
-      });
-
-      const categories = ["ALL", ...Object.keys(counts).filter(k => k !== "ALL").sort((a, b) => {
-        const priority = {
-          "🌐 수업지원시스템 (실시간)": 1,
-          "🏢 한우리 에듀넷 (실시간)": 2,
-          "루트(최상위 폴더)": 3
-        };
-        const pa = priority[a] || 99;
-        const pb = priority[b] || 99;
-        if (pa !== pb) return pa - pb;
-        return a.localeCompare(b, "ko");
-      })];
-
-      folderListEl.innerHTML = categories.map(cat => {
-        const label = cat === "ALL" ? "전체 폴더 보기" : cat;
-        let icon = "📁";
-        if (cat === "ALL") icon = "🗂️";
-        else if (cat.startsWith("🌐") || cat.startsWith("🏢")) icon = "";
-        else if (cat === "루트(최상위 폴더)") icon = "📌";
-        const activeClass = currentCategory === cat ? "active" : "";
-        return `
-          <li class="folder-item ${activeClass}" data-cat="${escapeHtml(cat)}">
-            <span class="folder-name">${icon ? icon + " " : ""}${escapeHtml(label)}</span>
-            <span class="folder-count">${counts[cat]}</span>
-          </li>
-        `;
-      }).join("");
-
-      folderListEl.querySelectorAll(".folder-item").forEach(li => {
-        li.addEventListener("click", () => {
-          currentCategory = li.getAttribute("data-cat");
-          buildSidebar();
-          renderResults();
-          const ma = document.querySelector(".main-area");
-          if (ma) ma.scrollTo({ top: 0, behavior: "smooth" });
-        });
-      });
-    }
-
-    function renderResults() {
-      const rawQuery = currentQuery.trim();
-      clearBtn.style.display = rawQuery.length > 0 ? "flex" : "none";
-      const tokens = rawQuery ? rawQuery.split(/\s+/).filter(Boolean) : [];
-
-      const matched = [];
-      for (const item of FILE_DATA) {
-        if (currentCategory !== "ALL" && item.category !== currentCategory) continue;
-        if (!matchExtGroup(item.ext, currentExtGroup)) continue;
-
-        let score = 0;
-        let matchedInContent = false;
-
-        if (tokens.length > 0) {
-          const nameLower = item.name.toLowerCase();
-          const pathLower = (item.relFolder || "").toLowerCase();
-          const contentLower = includeContent && item.content ? item.content.toLowerCase() : "";
-
-          let allMatched = true;
-          for (const t of tokens) {
-            const tl = t.toLowerCase();
-            const inName = nameLower.includes(tl);
-            const inPath = pathLower.includes(tl);
-            const inContent = contentLower.includes(tl);
-
-            if (!inName && !inPath && !inContent) {
+            const syns = expandSynonyms(t);
+            let tokenHit = false;
+            for (const tl of syns) {
+              const inName = nameLower.includes(tl);
+              const inPath = pathLower.includes(tl);
+              const inContent = contentLower.includes(tl);
+              if (inName || inPath || inContent) {
+                tokenHit = true;
+                if (inName) score += 100;
+                if (inPath) score += 40;
+                if (inContent) { score += 15; matchedInContent = true; }
+                break;
+              }
+            }
+            if (!tokenHit) {
               allMatched = false;
               break;
-            }
-            if (inName) score += 100;
-            if (inPath) score += 40;
-            if (inContent) {
-              score += 15;
-              matchedInContent = true;
             }
           }
           if (!allMatched) continue;
