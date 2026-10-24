@@ -3,9 +3,9 @@
     "title": "한우리 독서토론논술 온톨로지 지식 베이스 (Ontology Knowledge Base)",
     "version": "2.2.0",
     "masterRoot": "D:\\한우리",
-    "generatedAt": "2026. 10. 24. PM 7:40:58",
-    "entityCount": 691,
-    "relationCount": 716,
+    "generatedAt": "2026. 10. 24. PM 9:03:23",
+    "entityCount": 720,
+    "relationCount": 743,
     "classes": [
       {
         "type": "Schedule",
@@ -5053,7 +5053,7 @@
       "id": "file_134",
       "type": "LocalFile",
       "label": "별별문학 1호(발표자료).pdf",
-      "subtitle": "별별문학-별난사람 | PDF | 2025-11-14",
+      "subtitle": "별별문학-별난사람 | PDF | 2026-10-24",
       "badge": "PDF",
       "day": "",
       "courseCode": "",
@@ -5067,7 +5067,7 @@
         "파일명": "별별문학 1호(발표자료).pdf",
         "분류 폴더": "별별문학-별난사람",
         "상세 경로": "D:\\한우리\\교재원본\\별별문학-별난사람\\발표\\별별문학 1호(발표자료).pdf",
-        "수정일": "2025-11-14",
+        "수정일": "2026-10-24",
         "확장자": ".pdf"
       }
     },
@@ -8089,7 +8089,7 @@
       "id": "file_272",
       "type": "LocalFile",
       "label": "다다어휘 1호 - 1차시(헷갈리는 말 1).html",
-      "subtitle": "다다어휘 | HTML | 2026-10-20",
+      "subtitle": "다다어휘 | HTML | 2026-10-24",
       "badge": "HTML",
       "day": "",
       "courseCode": "",
@@ -8103,7 +8103,7 @@
         "파일명": "다다어휘 1호 - 1차시(헷갈리는 말 1).html",
         "분류 폴더": "다다어휘",
         "상세 경로": "D:\\한우리\\다다어휘\\원본\\다다어휘 1호 - 1차시(헷갈리는 말 1).html",
-        "수정일": "2026-10-20",
+        "수정일": "2026-10-24",
         "확장자": ".html"
       }
     },
@@ -8111,7 +8111,7 @@
       "id": "file_273",
       "type": "LocalFile",
       "label": "다다어휘 1호 - 2차시(헷갈리는 말 2).html",
-      "subtitle": "다다어휘 | HTML | 2026-10-20",
+      "subtitle": "다다어휘 | HTML | 2026-10-24",
       "badge": "HTML",
       "day": "",
       "courseCode": "",
@@ -8125,7 +8125,7 @@
         "파일명": "다다어휘 1호 - 2차시(헷갈리는 말 2).html",
         "분류 폴더": "다다어휘",
         "상세 경로": "D:\\한우리\\다다어휘\\원본\\다다어휘 1호 - 2차시(헷갈리는 말 2).html",
-        "수정일": "2026-10-20",
+        "수정일": "2026-10-24",
         "확장자": ".html"
       }
     },
@@ -8485,7 +8485,7 @@
       "id": "file_88017",
       "type": "LocalFile",
       "label": "다다어휘 1호 - 1차시(헷갈리는 말 1).html",
-      "subtitle": "다다어휘(부교재) | HTML | 2026-10-20",
+      "subtitle": "다다어휘(부교재) | HTML | 2026-10-24",
       "badge": "HTML",
       "day": "",
       "courseCode": "",
@@ -8499,7 +8499,7 @@
         "파일명": "다다어휘 1호 - 1차시(헷갈리는 말 1).html",
         "분류 폴더": "다다어휘(부교재)",
         "상세 경로": "D:\\한우리\\다다어휘\\부교재\\1호\\다다어휘 1호 - 1차시(헷갈리는 말 1).html",
-        "수정일": "2026-10-20",
+        "수정일": "2026-10-24",
         "확장자": ".html"
       }
     },
@@ -8507,7 +8507,7 @@
       "id": "file_88018",
       "type": "LocalFile",
       "label": "다다어휘 1호 - 2차시(헷갈리는 말 2).html",
-      "subtitle": "다다어휘(부교재) | HTML | 2026-10-20",
+      "subtitle": "다다어휘(부교재) | HTML | 2026-10-24",
       "badge": "HTML",
       "day": "",
       "courseCode": "",
@@ -8521,7 +8521,7 @@
         "파일명": "다다어휘 1호 - 2차시(헷갈리는 말 2).html",
         "분류 폴더": "다다어휘(부교재)",
         "상세 경로": "D:\\한우리\\다다어휘\\부교재\\1호\\다다어휘 1호 - 2차시(헷갈리는 말 2).html",
-        "수정일": "2026-10-20",
+        "수정일": "2026-10-24",
         "확장자": ".html"
       }
     },
@@ -10749,7 +10749,7 @@
       "id": "file_228418606",
       "type": "LocalFile",
       "label": "다다어휘 1호 - 1차시(헷갈리는 말 1).html",
-      "subtitle": "다다어휘(부교재) | HTML | 2026-10-20",
+      "subtitle": "다다어휘(부교재) | HTML | 2026-10-24",
       "badge": "HTML",
       "day": "",
       "courseCode": "",
@@ -10763,7 +10763,7 @@
         "파일명": "다다어휘 1호 - 1차시(헷갈리는 말 1).html",
         "분류 폴더": "다다어휘(부교재)",
         "상세 경로": "D:\\한우리\\다다어휘\\부교재\\1호\\디자인완성본\\다다어휘 1호 - 1차시(헷갈리는 말 1).html",
-        "수정일": "2026-10-20",
+        "수정일": "2026-10-24",
         "확장자": ".html"
       }
     },
@@ -10793,7 +10793,7 @@
       "id": "file_243668859",
       "type": "LocalFile",
       "label": "다다어휘 1호 - 2차시(헷갈리는 말 2).html",
-      "subtitle": "다다어휘(부교재) | HTML | 2026-10-20",
+      "subtitle": "다다어휘(부교재) | HTML | 2026-10-24",
       "badge": "HTML",
       "day": "",
       "courseCode": "",
@@ -10807,7 +10807,7 @@
         "파일명": "다다어휘 1호 - 2차시(헷갈리는 말 2).html",
         "분류 폴더": "다다어휘(부교재)",
         "상세 경로": "D:\\한우리\\다다어휘\\부교재\\1호\\디자인완성본\\다다어휘 1호 - 2차시(헷갈리는 말 2).html",
-        "수정일": "2026-10-20",
+        "수정일": "2026-10-24",
         "확장자": ".html"
       }
     },
@@ -14591,6 +14591,644 @@
         "파일명": "[학생용] 세계문화지리_2611_퀴즈_09 오세아니아와 극지방.pdf",
         "분류 폴더": "01_선생님_전달자료",
         "상세 경로": "D:\\한우리\\01_선생님_전달자료\\2026년11월_최신업데이트_자료\\[학생용] 세계문화지리_2611_퀴즈_09 오세아니아와 극지방.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_203525323",
+      "type": "LocalFile",
+      "label": "1-1.통합과학-1주차.pdf",
+      "subtitle": "똑독해(원희샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/똑독해(원희샘)/1-1.통합과학-1주차.pdf",
+      "fullPath": "D:\\한우리\\교재원본\\똑독해(원희샘)\\1-1.통합과학-1주차.pdf",
+      "screenshotUrl": "",
+      "summary": "똑독해(원희샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "1-1.통합과학-1주차.pdf",
+        "분류 폴더": "똑독해(원희샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\똑독해(원희샘)\\1-1.통합과학-1주차.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_234087737",
+      "type": "LocalFile",
+      "label": "1-2.통합과학-2주차.pdf",
+      "subtitle": "똑독해(원희샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/똑독해(원희샘)/1-2.통합과학-2주차.pdf",
+      "fullPath": "D:\\한우리\\교재원본\\똑독해(원희샘)\\1-2.통합과학-2주차.pdf",
+      "screenshotUrl": "",
+      "summary": "똑독해(원희샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "1-2.통합과학-2주차.pdf",
+        "분류 폴더": "똑독해(원희샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\똑독해(원희샘)\\1-2.통합과학-2주차.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_60638711",
+      "type": "LocalFile",
+      "label": "1-3.통합과학-3주차.pdf",
+      "subtitle": "똑독해(원희샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/똑독해(원희샘)/1-3.통합과학-3주차.pdf",
+      "fullPath": "D:\\한우리\\교재원본\\똑독해(원희샘)\\1-3.통합과학-3주차.pdf",
+      "screenshotUrl": "",
+      "summary": "똑독해(원희샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "1-3.통합과학-3주차.pdf",
+        "분류 폴더": "똑독해(원희샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\똑독해(원희샘)\\1-3.통합과학-3주차.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_195632650",
+      "type": "LocalFile",
+      "label": "1-4.통합과학-4주차.pdf",
+      "subtitle": "똑독해(원희샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/똑독해(원희샘)/1-4.통합과학-4주차.pdf",
+      "fullPath": "D:\\한우리\\교재원본\\똑독해(원희샘)\\1-4.통합과학-4주차.pdf",
+      "screenshotUrl": "",
+      "summary": "똑독해(원희샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "1-4.통합과학-4주차.pdf",
+        "분류 폴더": "똑독해(원희샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\똑독해(원희샘)\\1-4.통합과학-4주차.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_152617898",
+      "type": "LocalFile",
+      "label": "1-5.통합과학-5주 퀴즈.pdf",
+      "subtitle": "똑독해(원희샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/똑독해(원희샘)/1-5.통합과학-5주 퀴즈.pdf",
+      "fullPath": "D:\\한우리\\교재원본\\똑독해(원희샘)\\1-5.통합과학-5주 퀴즈.pdf",
+      "screenshotUrl": "",
+      "summary": "똑독해(원희샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "1-5.통합과학-5주 퀴즈.pdf",
+        "분류 폴더": "똑독해(원희샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\똑독해(원희샘)\\1-5.통합과학-5주 퀴즈.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_23776611",
+      "type": "LocalFile",
+      "label": "2-1..통합과학-워크북(원본).pdf",
+      "subtitle": "똑독해(원희샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/똑독해(원희샘)/2-1..통합과학-워크북(원본).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\똑독해(원희샘)\\2-1..통합과학-워크북(원본).pdf",
+      "screenshotUrl": "",
+      "summary": "똑독해(원희샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "2-1..통합과학-워크북(원본).pdf",
+        "분류 폴더": "똑독해(원희샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\똑독해(원희샘)\\2-1..통합과학-워크북(원본).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_54965525",
+      "type": "LocalFile",
+      "label": "2-2.통합과학-필독서.pdf",
+      "subtitle": "똑독해(원희샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/똑독해(원희샘)/2-2.통합과학-필독서.pdf",
+      "fullPath": "D:\\한우리\\교재원본\\똑독해(원희샘)\\2-2.통합과학-필독서.pdf",
+      "screenshotUrl": "",
+      "summary": "똑독해(원희샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "2-2.통합과학-필독서.pdf",
+        "분류 폴더": "똑독해(원희샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\똑독해(원희샘)\\2-2.통합과학-필독서.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_12140653",
+      "type": "LocalFile",
+      "label": "별별문학 2-2차시(수필 발표자료).pdf",
+      "subtitle": "별별문학-별난사람 | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/별별문학-별난사람/발표/별별문학 2-2차시(수필 발표자료).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\별별문학-별난사람\\발표\\별별문학 2-2차시(수필 발표자료).pdf",
+      "screenshotUrl": "",
+      "summary": "별별문학-별난사람 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "별별문학 2-2차시(수필 발표자료).pdf",
+        "분류 폴더": "별별문학-별난사람",
+        "상세 경로": "D:\\한우리\\교재원본\\별별문학-별난사람\\발표\\별별문학 2-2차시(수필 발표자료).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_203944453",
+      "type": "LocalFile",
+      "label": "별별문학(1-2차시) 시.pdf",
+      "subtitle": "별별문학-별난사람 | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/별별문학-별난사람/수업용 pdf/별별문학(1-2차시) 시.pdf",
+      "fullPath": "D:\\한우리\\교재원본\\별별문학-별난사람\\수업용 pdf\\별별문학(1-2차시) 시.pdf",
+      "screenshotUrl": "",
+      "summary": "별별문학-별난사람 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "별별문학(1-2차시) 시.pdf",
+        "분류 폴더": "별별문학-별난사람",
+        "상세 경로": "D:\\한우리\\교재원본\\별별문학-별난사람\\수업용 pdf\\별별문학(1-2차시) 시.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_187471001",
+      "type": "LocalFile",
+      "label": "10차시(미국의 발전,제국주의의 등장).pdf",
+      "subtitle": "세계사통사ppt(미종샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/세계사통사ppt(미종샘)/세계사통사ppt(미종샘)/10차시(미국의 발전,제국주의의 등장).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\10차시(미국의 발전,제국주의의 등장).pdf",
+      "screenshotUrl": "",
+      "summary": "세계사통사ppt(미종샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "10차시(미국의 발전,제국주의의 등장).pdf",
+        "분류 폴더": "세계사통사ppt(미종샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\10차시(미국의 발전,제국주의의 등장).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_24738946",
+      "type": "LocalFile",
+      "label": "11차시(제1,2차 세계 대전).pdf",
+      "subtitle": "세계사통사ppt(미종샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/세계사통사ppt(미종샘)/세계사통사ppt(미종샘)/11차시(제1,2차 세계 대전).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\11차시(제1,2차 세계 대전).pdf",
+      "screenshotUrl": "",
+      "summary": "세계사통사ppt(미종샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "11차시(제1,2차 세계 대전).pdf",
+        "분류 폴더": "세계사통사ppt(미종샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\11차시(제1,2차 세계 대전).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_206827635",
+      "type": "LocalFile",
+      "label": "12차시(냉전의 시작과 현대 세계).pdf",
+      "subtitle": "세계사통사ppt(미종샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/세계사통사ppt(미종샘)/세계사통사ppt(미종샘)/12차시(냉전의 시작과 현대 세계).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\12차시(냉전의 시작과 현대 세계).pdf",
+      "screenshotUrl": "",
+      "summary": "세계사통사ppt(미종샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "12차시(냉전의 시작과 현대 세계).pdf",
+        "분류 폴더": "세계사통사ppt(미종샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\12차시(냉전의 시작과 현대 세계).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_67798323",
+      "type": "LocalFile",
+      "label": "1차시(인류의 탄생과 고대 문명).pdf",
+      "subtitle": "세계사통사ppt(미종샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/세계사통사ppt(미종샘)/세계사통사ppt(미종샘)/1차시(인류의 탄생과 고대 문명).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\1차시(인류의 탄생과 고대 문명).pdf",
+      "screenshotUrl": "",
+      "summary": "세계사통사ppt(미종샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "1차시(인류의 탄생과 고대 문명).pdf",
+        "분류 폴더": "세계사통사ppt(미종샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\1차시(인류의 탄생과 고대 문명).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_123874459",
+      "type": "LocalFile",
+      "label": "2차시(고대 통일 제국).pdf",
+      "subtitle": "세계사통사ppt(미종샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/세계사통사ppt(미종샘)/세계사통사ppt(미종샘)/2차시(고대 통일 제국).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\2차시(고대 통일 제국).pdf",
+      "screenshotUrl": "",
+      "summary": "세계사통사ppt(미종샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "2차시(고대 통일 제국).pdf",
+        "분류 폴더": "세계사통사ppt(미종샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\2차시(고대 통일 제국).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_258227297",
+      "type": "LocalFile",
+      "label": "3차시(지역 문화권의 형성1-서아시아,유럽)(해제용).pdf",
+      "subtitle": "세계사통사ppt(미종샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/세계사통사ppt(미종샘)/세계사통사ppt(미종샘)/3차시(지역 문화권의 형성1-서아시아,유럽)(해제용).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\3차시(지역 문화권의 형성1-서아시아,유럽)(해제용).pdf",
+      "screenshotUrl": "",
+      "summary": "세계사통사ppt(미종샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "3차시(지역 문화권의 형성1-서아시아,유럽)(해제용).pdf",
+        "분류 폴더": "세계사통사ppt(미종샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\3차시(지역 문화권의 형성1-서아시아,유럽)(해제용).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_41141833",
+      "type": "LocalFile",
+      "label": "3차시(지역 문화권의 형성1-서아시아,유럽).pdf",
+      "subtitle": "세계사통사ppt(미종샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/세계사통사ppt(미종샘)/세계사통사ppt(미종샘)/3차시(지역 문화권의 형성1-서아시아,유럽).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\3차시(지역 문화권의 형성1-서아시아,유럽).pdf",
+      "screenshotUrl": "",
+      "summary": "세계사통사ppt(미종샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "3차시(지역 문화권의 형성1-서아시아,유럽).pdf",
+        "분류 폴더": "세계사통사ppt(미종샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\3차시(지역 문화권의 형성1-서아시아,유럽).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_126742411",
+      "type": "LocalFile",
+      "label": "4차시(지역 문화권의 형성2-인도,중국,동아시아).pdf",
+      "subtitle": "세계사통사ppt(미종샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/세계사통사ppt(미종샘)/세계사통사ppt(미종샘)/4차시(지역 문화권의 형성2-인도,중국,동아시아).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\4차시(지역 문화권의 형성2-인도,중국,동아시아).pdf",
+      "screenshotUrl": "",
+      "summary": "세계사통사ppt(미종샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "4차시(지역 문화권의 형성2-인도,중국,동아시아).pdf",
+        "분류 폴더": "세계사통사ppt(미종샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\4차시(지역 문화권의 형성2-인도,중국,동아시아).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_142959861",
+      "type": "LocalFile",
+      "label": "5차시(유럽 사회의 발전1-유럽).pdf",
+      "subtitle": "세계사통사ppt(미종샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/세계사통사ppt(미종샘)/세계사통사ppt(미종샘)/5차시(유럽 사회의 발전1-유럽).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\5차시(유럽 사회의 발전1-유럽).pdf",
+      "screenshotUrl": "",
+      "summary": "세계사통사ppt(미종샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "5차시(유럽 사회의 발전1-유럽).pdf",
+        "분류 폴더": "세계사통사ppt(미종샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\5차시(유럽 사회의 발전1-유럽).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_123410240",
+      "type": "LocalFile",
+      "label": "6차시(유럽 사회의 발전2-유럽).pdf",
+      "subtitle": "세계사통사ppt(미종샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/세계사통사ppt(미종샘)/세계사통사ppt(미종샘)/6차시(유럽 사회의 발전2-유럽).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\6차시(유럽 사회의 발전2-유럽).pdf",
+      "screenshotUrl": "",
+      "summary": "세계사통사ppt(미종샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "6차시(유럽 사회의 발전2-유럽).pdf",
+        "분류 폴더": "세계사통사ppt(미종샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\6차시(유럽 사회의 발전2-유럽).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_213327220",
+      "type": "LocalFile",
+      "label": "7차시(격변하는 세계-동양,일본).pdf",
+      "subtitle": "세계사통사ppt(미종샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/세계사통사ppt(미종샘)/세계사통사ppt(미종샘)/7차시(격변하는 세계-동양,일본).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\7차시(격변하는 세계-동양,일본).pdf",
+      "screenshotUrl": "",
+      "summary": "세계사통사ppt(미종샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "7차시(격변하는 세계-동양,일본).pdf",
+        "분류 폴더": "세계사통사ppt(미종샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\7차시(격변하는 세계-동양,일본).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_104359887",
+      "type": "LocalFile",
+      "label": "8차시(격변하는 세계-동양,중국).pdf",
+      "subtitle": "세계사통사ppt(미종샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/세계사통사ppt(미종샘)/세계사통사ppt(미종샘)/8차시(격변하는 세계-동양,중국).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\8차시(격변하는 세계-동양,중국).pdf",
+      "screenshotUrl": "",
+      "summary": "세계사통사ppt(미종샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "8차시(격변하는 세계-동양,중국).pdf",
+        "분류 폴더": "세계사통사ppt(미종샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\8차시(격변하는 세계-동양,중국).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_174506453",
+      "type": "LocalFile",
+      "label": "9차시(혁명의 시대).pdf",
+      "subtitle": "세계사통사ppt(미종샘) | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/세계사통사ppt(미종샘)/세계사통사ppt(미종샘)/9차시(혁명의 시대).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\9차시(혁명의 시대).pdf",
+      "screenshotUrl": "",
+      "summary": "세계사통사ppt(미종샘) 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "9차시(혁명의 시대).pdf",
+        "분류 폴더": "세계사통사ppt(미종샘)",
+        "상세 경로": "D:\\한우리\\교재원본\\세계사통사ppt(미종샘)\\세계사통사ppt(미종샘)\\9차시(혁명의 시대).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_19730003",
+      "type": "LocalFile",
+      "label": "미래가 온다(미래식량).pdf",
+      "subtitle": "수업 PDF | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/수업 PDF/미래가 온다(미래식량).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\수업 PDF\\미래가 온다(미래식량).pdf",
+      "screenshotUrl": "",
+      "summary": "수업 PDF 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "미래가 온다(미래식량).pdf",
+        "분류 폴더": "수업 PDF",
+        "상세 경로": "D:\\한우리\\교재원본\\수업 PDF\\미래가 온다(미래식량).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_29827117",
+      "type": "LocalFile",
+      "label": "소크라테스2 국어교과서여행.pdf",
+      "subtitle": "수업 PDF | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/수업 PDF/소크라테스2 국어교과서여행.pdf",
+      "fullPath": "D:\\한우리\\교재원본\\수업 PDF\\소크라테스2 국어교과서여행.pdf",
+      "screenshotUrl": "",
+      "summary": "수업 PDF 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "소크라테스2 국어교과서여행.pdf",
+        "분류 폴더": "수업 PDF",
+        "상세 경로": "D:\\한우리\\교재원본\\수업 PDF\\소크라테스2 국어교과서여행.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_83005481",
+      "type": "LocalFile",
+      "label": "연어(안도현).pdf",
+      "subtitle": "수업 PDF | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/수업 PDF/연어(안도현).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\수업 PDF\\연어(안도현).pdf",
+      "screenshotUrl": "",
+      "summary": "수업 PDF 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "연어(안도현).pdf",
+        "분류 폴더": "수업 PDF",
+        "상세 경로": "D:\\한우리\\교재원본\\수업 PDF\\연어(안도현).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_85175324",
+      "type": "LocalFile",
+      "label": "이순신의 마음속 기록, 난중일기.pdf",
+      "subtitle": "수업 PDF | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/수업 PDF/이순신의 마음속 기록, 난중일기.pdf",
+      "fullPath": "D:\\한우리\\교재원본\\수업 PDF\\이순신의 마음속 기록, 난중일기.pdf",
+      "screenshotUrl": "",
+      "summary": "수업 PDF 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "이순신의 마음속 기록, 난중일기.pdf",
+        "분류 폴더": "수업 PDF",
+        "상세 경로": "D:\\한우리\\교재원본\\수업 PDF\\이순신의 마음속 기록, 난중일기.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_118639459",
+      "type": "LocalFile",
+      "label": "희곡(초등).pdf",
+      "subtitle": "수업 PDF | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/수업 PDF/희곡(초등).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\수업 PDF\\희곡(초등).pdf",
+      "screenshotUrl": "",
+      "summary": "수업 PDF 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "희곡(초등).pdf",
+        "분류 폴더": "수업 PDF",
+        "상세 경로": "D:\\한우리\\교재원본\\수업 PDF\\희곡(초등).pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_260613761",
+      "type": "LocalFile",
+      "label": "스킬을 통한 최종 지리교과서 속 세계 분쟁.pdf",
+      "subtitle": "교재원본 | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/스킬을 통한 최종 지리교과서 속 세계 분쟁.pdf",
+      "fullPath": "D:\\한우리\\교재원본\\스킬을 통한 최종 지리교과서 속 세계 분쟁.pdf",
+      "screenshotUrl": "",
+      "summary": "교재원본 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "스킬을 통한 최종 지리교과서 속 세계 분쟁.pdf",
+        "분류 폴더": "교재원본",
+        "상세 경로": "D:\\한우리\\교재원본\\스킬을 통한 최종 지리교과서 속 세계 분쟁.pdf",
+        "수정일": "2026-10-24",
+        "확장자": ".pdf"
+      }
+    },
+    {
+      "id": "file_98547970",
+      "type": "LocalFile",
+      "label": "지리 교과서 속 세계분쟁(최종수업_완전무결판).pdf",
+      "subtitle": "교재원본 | PDF | 2026-10-24",
+      "badge": "PDF",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/교재원본/지리 교과서 속 세계분쟁(최종수업_완전무결판).pdf",
+      "fullPath": "D:\\한우리\\교재원본\\지리 교과서 속 세계분쟁(최종수업_완전무결판).pdf",
+      "screenshotUrl": "",
+      "summary": "교재원본 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "지리 교과서 속 세계분쟁(최종수업_완전무결판).pdf",
+        "분류 폴더": "교재원본",
+        "상세 경로": "D:\\한우리\\교재원본\\지리 교과서 속 세계분쟁(최종수업_완전무결판).pdf",
         "수정일": "2026-10-24",
         "확장자": ".pdf"
       }
@@ -19715,461 +20353,650 @@
     },
     {
       "id": "rel_651",
-      "source": "course_byulbyul",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_source"
+      "source": "unit_ttokdok",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_203525323"
     },
     {
       "id": "rel_652",
-      "source": "course_dada",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_source"
+      "source": "unit_ttokdok",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_234087737"
     },
     {
       "id": "rel_653",
-      "source": "course_dok2",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_source"
+      "source": "unit_ttokdok",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_60638711"
     },
     {
       "id": "rel_654",
-      "source": "course_dok1",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_source"
+      "source": "unit_ttokdok",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_195632650"
     },
     {
       "id": "rel_655",
-      "source": "course_so1",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_source"
+      "source": "unit_ttokdok",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_152617898"
     },
     {
       "id": "rel_656",
-      "source": "course_so2",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_source"
+      "source": "unit_ttokdok",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_23776611"
     },
     {
       "id": "rel_657",
+      "source": "unit_ttokdok",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_54965525"
+    },
+    {
+      "id": "rel_658",
+      "source": "unit_byul_general",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_12140653"
+    },
+    {
+      "id": "rel_659",
+      "source": "unit_byul_general",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_203944453"
+    },
+    {
+      "id": "rel_660",
+      "source": "unit_worldhist",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_187471001"
+    },
+    {
+      "id": "rel_661",
+      "source": "unit_worldhist",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_24738946"
+    },
+    {
+      "id": "rel_662",
+      "source": "unit_worldhist",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_206827635"
+    },
+    {
+      "id": "rel_663",
+      "source": "unit_worldhist",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_67798323"
+    },
+    {
+      "id": "rel_664",
+      "source": "unit_worldhist",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_123874459"
+    },
+    {
+      "id": "rel_665",
+      "source": "unit_worldhist",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_258227297"
+    },
+    {
+      "id": "rel_666",
+      "source": "unit_worldhist",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_41141833"
+    },
+    {
+      "id": "rel_667",
+      "source": "unit_worldhist",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_126742411"
+    },
+    {
+      "id": "rel_668",
+      "source": "unit_worldhist",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_142959861"
+    },
+    {
+      "id": "rel_669",
+      "source": "unit_worldhist",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_123410240"
+    },
+    {
+      "id": "rel_670",
+      "source": "unit_worldhist",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_213327220"
+    },
+    {
+      "id": "rel_671",
+      "source": "unit_worldhist",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_104359887"
+    },
+    {
+      "id": "rel_672",
+      "source": "unit_worldhist",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_174506453"
+    },
+    {
+      "id": "rel_673",
+      "source": "unit_so_pdf",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_19730003"
+    },
+    {
+      "id": "rel_674",
+      "source": "unit_so_pdf",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_29827117"
+    },
+    {
+      "id": "rel_675",
+      "source": "unit_so_pdf",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_83005481"
+    },
+    {
+      "id": "rel_676",
+      "source": "unit_so_pdf",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_85175324"
+    },
+    {
+      "id": "rel_677",
+      "source": "unit_so_pdf",
+      "predicate": "hasMaterial",
+      "label": "수록 자료",
+      "target": "file_118639459"
+    },
+    {
+      "id": "rel_678",
+      "source": "course_byulbyul",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_source"
+    },
+    {
+      "id": "rel_679",
+      "source": "course_dada",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_source"
+    },
+    {
+      "id": "rel_680",
+      "source": "course_dok2",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_source"
+    },
+    {
+      "id": "rel_681",
+      "source": "course_dok1",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_source"
+    },
+    {
+      "id": "rel_682",
+      "source": "course_so1",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_source"
+    },
+    {
+      "id": "rel_683",
+      "source": "course_so2",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_source"
+    },
+    {
+      "id": "rel_684",
       "source": "course_molip",
       "predicate": "linkedToPortal",
       "label": "포털 실시간 연동",
       "target": "portal_board_source"
     },
     {
-      "id": "rel_658",
-      "source": "course_molip",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_test"
-    },
-    {
-      "id": "rel_659",
-      "source": "course_dok2",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_test"
-    },
-    {
-      "id": "rel_660",
-      "source": "course_so1",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_test"
-    },
-    {
-      "id": "rel_661",
-      "source": "course_so2",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_test"
-    },
-    {
-      "id": "rel_662",
-      "source": "course_dok1",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_errata"
-    },
-    {
-      "id": "rel_663",
-      "source": "course_dok2",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_errata"
-    },
-    {
-      "id": "rel_664",
-      "source": "course_byulbyul",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_errata"
-    },
-    {
-      "id": "rel_665",
-      "source": "course_so1",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_errata"
-    },
-    {
-      "id": "rel_666",
-      "source": "course_so2",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_errata"
-    },
-    {
-      "id": "rel_667",
-      "source": "course_dok1",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_feedback"
-    },
-    {
-      "id": "rel_668",
-      "source": "course_dok2",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_feedback"
-    },
-    {
-      "id": "rel_669",
-      "source": "course_molip",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_feedback"
-    },
-    {
-      "id": "rel_670",
-      "source": "course_eohwi1",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_feedback"
-    },
-    {
-      "id": "rel_671",
-      "source": "course_molip",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_samplebook"
-    },
-    {
-      "id": "rel_672",
-      "source": "course_dada",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_samplebook"
-    },
-    {
-      "id": "rel_673",
-      "source": "course_ttokdok",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_samplebook"
-    },
-    {
-      "id": "rel_674",
-      "source": "course_byulbyul",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_notice"
-    },
-    {
-      "id": "rel_675",
-      "source": "course_so1",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_notice"
-    },
-    {
-      "id": "rel_676",
-      "source": "course_so2",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_notice"
-    },
-    {
-      "id": "rel_677",
-      "source": "course_dok1",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_center"
-    },
-    {
-      "id": "rel_678",
-      "source": "course_dok2",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_center"
-    },
-    {
-      "id": "rel_679",
-      "source": "course_eohwi1",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_general"
-    },
-    {
-      "id": "rel_680",
-      "source": "course_molip",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_general"
-    },
-    {
-      "id": "rel_681",
-      "source": "course_dada",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_promo"
-    },
-    {
-      "id": "rel_682",
-      "source": "course_molip",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_promo"
-    },
-    {
-      "id": "rel_683",
-      "source": "course_ttokdok",
-      "predicate": "linkedToPortal",
-      "label": "포털 실시간 연동",
-      "target": "portal_board_promo"
-    },
-    {
-      "id": "rel_684",
-      "source": "portal_board_errata",
-      "predicate": "containsPost",
-      "label": "최신 게시물",
-      "target": "ppost_errata_dok1"
-    },
-    {
       "id": "rel_685",
-      "source": "course_dok1",
-      "predicate": "hasKeyPortalNotice",
-      "label": "관련 포털자료",
-      "target": "ppost_errata_dok1"
+      "source": "course_molip",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_test"
     },
     {
       "id": "rel_686",
-      "source": "portal_board_errata",
-      "predicate": "containsPost",
-      "label": "최신 게시물",
-      "target": "ppost_errata_socr"
+      "source": "course_dok2",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_test"
     },
     {
       "id": "rel_687",
       "source": "course_so1",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_test"
+    },
+    {
+      "id": "rel_688",
+      "source": "course_so2",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_test"
+    },
+    {
+      "id": "rel_689",
+      "source": "course_dok1",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_errata"
+    },
+    {
+      "id": "rel_690",
+      "source": "course_dok2",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_errata"
+    },
+    {
+      "id": "rel_691",
+      "source": "course_byulbyul",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_errata"
+    },
+    {
+      "id": "rel_692",
+      "source": "course_so1",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_errata"
+    },
+    {
+      "id": "rel_693",
+      "source": "course_so2",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_errata"
+    },
+    {
+      "id": "rel_694",
+      "source": "course_dok1",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_feedback"
+    },
+    {
+      "id": "rel_695",
+      "source": "course_dok2",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_feedback"
+    },
+    {
+      "id": "rel_696",
+      "source": "course_molip",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_feedback"
+    },
+    {
+      "id": "rel_697",
+      "source": "course_eohwi1",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_feedback"
+    },
+    {
+      "id": "rel_698",
+      "source": "course_molip",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_samplebook"
+    },
+    {
+      "id": "rel_699",
+      "source": "course_dada",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_samplebook"
+    },
+    {
+      "id": "rel_700",
+      "source": "course_ttokdok",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_samplebook"
+    },
+    {
+      "id": "rel_701",
+      "source": "course_byulbyul",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_notice"
+    },
+    {
+      "id": "rel_702",
+      "source": "course_so1",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_notice"
+    },
+    {
+      "id": "rel_703",
+      "source": "course_so2",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_notice"
+    },
+    {
+      "id": "rel_704",
+      "source": "course_dok1",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_center"
+    },
+    {
+      "id": "rel_705",
+      "source": "course_dok2",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_center"
+    },
+    {
+      "id": "rel_706",
+      "source": "course_eohwi1",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_general"
+    },
+    {
+      "id": "rel_707",
+      "source": "course_molip",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_general"
+    },
+    {
+      "id": "rel_708",
+      "source": "course_dada",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_promo"
+    },
+    {
+      "id": "rel_709",
+      "source": "course_molip",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_promo"
+    },
+    {
+      "id": "rel_710",
+      "source": "course_ttokdok",
+      "predicate": "linkedToPortal",
+      "label": "포털 실시간 연동",
+      "target": "portal_board_promo"
+    },
+    {
+      "id": "rel_711",
+      "source": "portal_board_errata",
+      "predicate": "containsPost",
+      "label": "최신 게시물",
+      "target": "ppost_errata_dok1"
+    },
+    {
+      "id": "rel_712",
+      "source": "course_dok1",
+      "predicate": "hasKeyPortalNotice",
+      "label": "관련 포털자료",
+      "target": "ppost_errata_dok1"
+    },
+    {
+      "id": "rel_713",
+      "source": "portal_board_errata",
+      "predicate": "containsPost",
+      "label": "최신 게시물",
+      "target": "ppost_errata_socr"
+    },
+    {
+      "id": "rel_714",
+      "source": "course_so1",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_errata_socr"
     },
     {
-      "id": "rel_688",
+      "id": "rel_715",
       "source": "portal_board_source",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_source_molipc"
     },
     {
-      "id": "rel_689",
+      "id": "rel_716",
       "source": "course_molip",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_source_molipc"
     },
     {
-      "id": "rel_690",
+      "id": "rel_717",
       "source": "portal_board_test",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_test_quiz"
     },
     {
-      "id": "rel_691",
+      "id": "rel_718",
       "source": "course_molip",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_test_quiz"
     },
     {
-      "id": "rel_692",
+      "id": "rel_719",
       "source": "portal_board_feedback",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_feedback_oct"
     },
     {
-      "id": "rel_693",
+      "id": "rel_720",
       "source": "course_dok2",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_feedback_oct"
     },
     {
-      "id": "rel_694",
+      "id": "rel_721",
       "source": "portal_board_notice",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_notice_plus"
     },
     {
-      "id": "rel_695",
+      "id": "rel_722",
       "source": "course_byulbyul",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_notice_plus"
     },
     {
-      "id": "rel_696",
+      "id": "rel_723",
       "source": "portal_board_promo",
       "predicate": "containsPost",
       "label": "최신 게시물",
       "target": "ppost_promo_weekly"
     },
     {
-      "id": "rel_697",
+      "id": "rel_724",
       "source": "course_dada",
       "predicate": "hasKeyPortalNotice",
       "label": "관련 포털자료",
       "target": "ppost_promo_weekly"
     },
     {
-      "id": "rel_698",
+      "id": "rel_725",
       "source": "course_so1",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_sentence_types"
     },
     {
-      "id": "rel_699",
+      "id": "rel_726",
       "source": "unit_byul_1",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_sentence_types"
     },
     {
-      "id": "rel_700",
+      "id": "rel_727",
       "source": "file_1",
       "predicate": "containsConcept",
       "label": "개념 수록",
       "target": "concept_sentence_types"
     },
     {
-      "id": "rel_701",
+      "id": "rel_728",
       "source": "course_byulbyul",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_genre_types"
     },
     {
-      "id": "rel_702",
+      "id": "rel_729",
       "source": "unit_byul_general",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_genre_types"
     },
     {
-      "id": "rel_703",
+      "id": "rel_730",
       "source": "file_1",
       "predicate": "containsConcept",
       "label": "개념 수록",
       "target": "concept_genre_types"
     },
     {
-      "id": "rel_704",
+      "id": "rel_731",
       "source": "course_ttokdok",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_structure_types"
     },
     {
-      "id": "rel_705",
+      "id": "rel_732",
       "source": "unit_ttokdok",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_structure_types"
     },
     {
-      "id": "rel_706",
+      "id": "rel_733",
       "source": "file_1",
       "predicate": "containsConcept",
       "label": "개념 수록",
       "target": "concept_structure_types"
     },
     {
-      "id": "rel_707",
+      "id": "rel_734",
       "source": "course_dada",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_dada_u1"
     },
     {
-      "id": "rel_708",
+      "id": "rel_735",
       "source": "unit_dada_1",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_dada_u1"
     },
     {
-      "id": "rel_709",
+      "id": "rel_736",
       "source": "course_dada",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_dada_u2"
     },
     {
-      "id": "rel_710",
+      "id": "rel_737",
       "source": "unit_dada_1",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_dada_u2"
     },
     {
-      "id": "rel_711",
+      "id": "rel_738",
       "source": "course_debate",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_debate_formats"
     },
     {
-      "id": "rel_712",
+      "id": "rel_739",
       "source": "unit_debate",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_debate_formats"
     },
     {
-      "id": "rel_713",
+      "id": "rel_740",
       "source": "file_270",
       "predicate": "containsConcept",
       "label": "개념 수록",
       "target": "concept_debate_formats"
     },
     {
-      "id": "rel_714",
+      "id": "rel_741",
       "source": "course_so2",
       "predicate": "teachesConcept",
       "label": "핵심개념 지도",
       "target": "concept_civil_disobedience"
     },
     {
-      "id": "rel_715",
+      "id": "rel_742",
       "source": "unit_so_pdf",
       "predicate": "coversConcept",
       "label": "단원 개념",
       "target": "concept_civil_disobedience"
     },
     {
-      "id": "rel_716",
+      "id": "rel_743",
       "source": "file_223",
       "predicate": "containsConcept",
       "label": "개념 수록",
