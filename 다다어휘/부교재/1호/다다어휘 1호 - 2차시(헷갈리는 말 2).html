@@ -225,18 +225,18 @@
       display: flex;
       align-items: baseline;
       gap: 12px;
-      font-size: 14.5px;
-      line-height: 1.8;
-      color: #1e293b;
-      padding: 1px 0;
+      font-size: 16px;
+      line-height: 1.85;
+      color: #0f172a;
+      padding: 1.5px 0;
     }
     .q-num {
-      width: 24px;
+      width: 26px;
       font-weight: 800;
       color: #334155;
       text-align: right;
       flex-shrink: 0;
-      font-size: 14.5px;
+      font-size: 15.5px;
     }
     .q-sentence {
       flex-grow: 1;
@@ -368,10 +368,13 @@
     /* 하단 쪽 번호 */
     .page-footer {
       text-align: center;
-      font-size: 12px;
-      font-weight: 700;
-      color: #94a3b8;
-      margin-top: 16px;
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #64748b;
+      margin-top: auto;
+      padding-top: 14px;
+      padding-bottom: 2px;
+      letter-spacing: 2px;
     }
 
     /* =========================================================
@@ -380,11 +383,13 @@
     @media print {
       @page {
         size: A4 portrait;
-        margin: 14mm 16mm 14mm 16mm;
+        margin: 0 !important; /* 브라우저 자동 머리글/바닥글 원천 박멸 */
       }
       body {
         background: #ffffff !important;
         color: #000000 !important;
+        margin: 0 !important;
+        padding: 0 !important;
       }
       .toolbar {
         display: none !important;
@@ -396,12 +401,29 @@
         max-width: 100% !important;
       }
       .a4-page {
-        width: 100% !important;
-        min-height: auto !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        max-height: 297mm !important;
+        box-sizing: border-box !important;
         box-shadow: none !important;
-        padding: 0 !important;
-        page-break-after: always;
-        break-after: page;
+        padding: 14mm 18mm 12mm 18mm !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        overflow: hidden !important;
+      }
+      .a4-page:last-child {
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+      .page-footer {
+        margin-top: auto !important;
+        padding-bottom: 2mm !important;
+        font-size: 14px !important;
+        font-weight: 800 !important;
+        color: #475569 !important;
       }
       .a4-page:last-child {
         page-break-after: auto;
