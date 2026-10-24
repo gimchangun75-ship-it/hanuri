@@ -923,6 +923,27 @@
         el.classList.remove('selected');
       });
     }
+  
+    function printStudentOnly() {
+      document.body.classList.remove('print-teacher-mode');
+      document.body.classList.add('print-student-mode');
+      window.print();
+    }
+    function printTeacherOnly() {
+      document.body.classList.remove('print-student-mode');
+      document.body.classList.add('print-teacher-mode');
+      window.print();
+    }
+    function printAllPages() {
+      document.body.classList.remove('print-student-mode');
+      document.body.classList.remove('print-teacher-mode');
+      window.print();
+    }
+    window.addEventListener('afterprint', () => {
+      document.body.classList.remove('print-student-mode');
+      document.body.classList.remove('print-teacher-mode');
+    });
+
   </script>
 </body>
 </html>
