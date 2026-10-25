@@ -945,6 +945,59 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             100% { transform: translateY(-40px) scale(1); opacity: 0; }
         }
 
+    
+        /* ==================================================== */
+        /* 👑 [게임 전문가 에디션: 맵 중심 몰입형 레이아웃 CSS] */
+        /* ==================================================== */
+        /* 전장 맵을 화면의 70% 메인 무대로 초대형 확장 */
+        .showdown-battlefield {
+            position: relative;
+            background: #4d6f1f !important;
+            background-image: 
+                radial-gradient(circle at 50% 50%, #688e2c 0%, #3e5b18 100%),
+                repeating-linear-gradient(45deg, rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 16px, transparent 16px, transparent 32px) !important;
+            border: 4px solid #142106 !important;
+            border-radius: 1.5rem !important;
+            box-shadow: inset 0 0 60px rgba(0,0,0,0.65), 0 10px 0 #0d1604, 0 20px 30px rgba(0,0,0,0.7) !important;
+            overflow: hidden;
+            min-height: 420px sm:min-height: 480px !important;
+        }
+
+        /* 맵 안의 타깃 상자 라벨: 글자 잘림 영구 제거 & 크고 선명하게! */
+        .box-label-tag {
+            background: rgba(10, 15, 30, 0.95) !important;
+            border: 3px solid #facc15 !important;
+            border-radius: 0.9rem !important;
+            padding: 6px 14px !important;
+            color: #ffffff !important;
+            font-family: 'Noto Sans KR', sans-serif !important;
+            font-weight: 900 !important;
+            font-size: 0.95rem sm:font-size: 1.1rem !important;
+            line-height: 1.4 !important;
+            white-space: normal !important; /* 말줄임표 제거하고 전체 글자 표시 */
+            max-width: 250px sm:max-width: 280px !important;
+            text-align: center !important;
+            box-shadow: 0 6px 0 rgba(0,0,0,0.6), 0 10px 15px rgba(0,0,0,0.7) !important;
+            margin-bottom: 6px !important;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.9) !important;
+            pointer-events: none;
+        }
+
+        /* 상자 오브젝트 아이콘 초대형 확대 */
+        .box-body-icon {
+            font-size: 3.2rem sm:font-size: 3.8rem !important;
+            filter: drop-shadow(0 8px 8px rgba(0,0,0,0.8)) !important;
+            transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* 하단 선택지 버튼: 맵에 시선을 집중시키도록 슬림하고 깔끔하게 압축 */
+        .slim-action-btn {
+            min-height: 48px !important;
+            padding: 0.5rem 0.75rem !important;
+            border-radius: 1rem !important;
+            font-size: 0.95rem !important;
+        }
+
     </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1207,7 +1260,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
                     </div>
 
                     <!-- 🌴 아레나 중앙 전투 필드: 쇼다운 지형(수로, 야자수, 돌벽, 부쉬) + 카드 틀 없는 살아있는 브롤러 -->
-                    <div class="relative h-60 sm:h-72 my-1 z-20 overflow-hidden" id="brawl-arena-field">
+                    <div class="relative h-[360px] sm:h-[430px] my-1 z-20 overflow-hidden" id="brawl-arena-field">
                         <!-- 1. 우측 푸른 수로/연못 (Water Pool with Torches) -->
                         <div class="map-water-pool w-32 h-28 right-4 top-2"></div>
                         <div class="map-stone-block w-32 h-6 right-4 top-28"></div>
@@ -1341,7 +1394,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             <!-- 중앙: 4대 선택지 버튼 (브롤스타즈 카드 터치패드) -->
             
             <!-- 🎮 [학생 스마트폰 패드 전용 미니 브롤 쇼다운 전장] -->
-            <div id="pad-brawl-stage" class="showdown-battlefield p-2 mb-2 flex flex-col justify-between shadow-lg" style="min-height: 155px !important; border-radius: 1.25rem !important;">
+            <div id="pad-brawl-stage" class="showdown-battlefield p-2 mb-2 flex flex-col justify-between shadow-lg" style="min-height: 250px !important; border-radius: 1.25rem !important;">
                 <!-- 폰 아레나 상단: 생존자 & 파워 큐브 -->
                 <div class="flex items-center justify-between z-20 px-1">
                     <span class="px-2 py-0.5 rounded-lg bg-black/85 border border-black text-[10px] font-black text-white flex items-center">
@@ -1358,7 +1411,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
                 </div>
 
                 <!-- 🌴 폰 미니 전투 필드: 쉘리(좌) vs 보스(우) -->
-                <div class="relative h-28 my-0.5 z-20 overflow-hidden" id="pad-brawl-field">
+                <div class="relative h-48 sm:h-52 my-0.5 z-20 overflow-hidden" id="pad-brawl-field">
                     <!-- 미니 지형 오브젝트 -->
                     <div class="map-water-pool w-16 h-14 right-2 top-1 opacity-70"></div>
                     <span class="map-palm-tree text-2xl left-24 top-2 opacity-80">🌴</span>
@@ -4414,7 +4467,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
                 ];
                 const bgClass = colorClasses[idx % colorClasses.length];
 
-                btn.className = `w-full brawl-btn-3d ${bgClass} p-3.5 sm:p-4 text-center dynamic-opt-btn font-black cursor-pointer`;
+                btn.className = `w-full brawl-btn-3d ${bgClass} py-2 px-3 text-center slim-action-btn font-black cursor-pointer`;
                 btn.innerHTML = `
                     <div class="flex flex-col items-center justify-center py-1 px-2 text-center">
                         <span class="text-xs font-black text-amber-200 bg-black/50 px-2.5 py-0.5 rounded-full mb-1 border border-black/30">
@@ -4724,18 +4777,18 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
         // 메인 전장(대형) 상자 배치 좌표
         const BOARD_BOX_POSITIONS = [
-            { left: "34%", top: "18%" },  // 1번 (상단 좌측)
-            { left: "62%", top: "18%" },  // 2번 (상단 우측)
-            { left: "34%", top: "62%" },  // 3번 (하단 좌측)
-            { left: "62%", top: "62%" }   // 4번 (하단 우측)
+            { left: "26%", top: "12%" },  // 1번 (좌측 상단)
+            { left: "68%", top: "12%" },  // 2번 (우측 상단)
+            { left: "26%", top: "54%" },  // 3번 (좌측 하단)
+            { left: "68%", top: "54%" }   // 4번 (우측 하단)
         ];
 
         // 모바일 패드(소형) 상자 배치 좌표
         const PAD_BOX_POSITIONS = [
-            { left: "36%", top: "12%" },
-            { left: "64%", top: "12%" },
-            { left: "36%", top: "58%" },
-            { left: "64%", top: "58%" }
+            { left: "28%", top: "8%" },
+            { left: "70%", top: "8%" },
+            { left: "28%", top: "52%" },
+            { left: "70%", top: "52%" }
         ];
 
         // 맵 내에 타깃 파밍 상자 렌더링
@@ -4768,7 +4821,8 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
                     boxEl.title = `${idx + 1}번 상자 사격!`;
                     boxEl.innerHTML = `
                         <div class="box-label-tag" style="border-color: ${style.color};">
-                            <span class="text-amber-300 mr-1">${idx + 1}번</span>${opt}
+                            <span class="text-amber-300 font-black mr-1">${idx + 1}번</span>
+                            <span class="text-white">${opt}</span>
                         </div>
                         <span class="box-body-icon">${style.icon}</span>
                     `;
@@ -4788,10 +4842,10 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
                     padBoxEl.style.left = pos.left;
                     padBoxEl.style.top = pos.top;
                     padBoxEl.innerHTML = `
-                        <div class="box-label-tag text-[10px] py-0.5 px-1.5" style="border-color: ${style.color};">
-                            ${idx + 1}. ${opt}
+                        <div class="box-label-tag text-xs sm:text-sm py-1 px-2.5" style="border-color: ${style.color}; max-width: 160px !important;">
+                            <span class="text-amber-300 font-black mr-0.5">${idx + 1}.</span>${opt}
                         </div>
-                        <span class="text-xl filter drop-shadow">${style.icon}</span>
+                        <span class="text-2xl sm:text-3xl filter drop-shadow">${style.icon}</span>
                     `;
                     padBoxEl.onclick = () => submitPadAnswer(idx);
                     padContainer.appendChild(padBoxEl);
