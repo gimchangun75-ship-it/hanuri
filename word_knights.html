@@ -930,15 +930,6 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             updateQrTargetUrl();
             initAudio();
         }
-            const modal = document.getElementById('qr-modal');
-            modal.classList.remove('hidden');
-
-            const input = document.getElementById('custom-host-ip');
-            if (input) input.value = currentHostIp;
-
-            updateQrTargetUrl();
-            initAudio();
-        }
 
         function closeQrModal() {
             document.getElementById('qr-modal').classList.add('hidden');
