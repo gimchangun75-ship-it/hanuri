@@ -1143,6 +1143,9 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
             <!-- 글씨 크기 3단 -->
             <div class="hidden lg:flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800">
+                <button onclick="proceedToNextQuiz()" class="px-2.5 py-1 text-xs rounded-xl font-black bg-indigo-600 text-white border-2 border-black shadow hover:bg-indigo-500 transition-all flex items-center mr-2 cursor-pointer" title="다음 문제로 즉시 넘어가기">
+                    <span class="mr-1">⏩</span>다음 문제
+                </button>
                 <button onclick="openRankingModal()" class="px-2.5 py-1 text-xs rounded-xl font-black bg-amber-500 text-slate-950 border-2 border-black shadow hover:bg-amber-400 transition-all flex items-center mr-2 cursor-pointer">
                     <span class="mr-1">🏆</span>랭킹 보드
                 </button>
@@ -4896,89 +4899,91 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         // 💥 타깃 상자 파쇄 & HP 증감 처리 함수
         
         // 🏃💨 쉘리가 타깃 상자로 실시간 달려가서 영거리 사격하는 엔진
-        function moveShellyToBoxAndShoot(boxIdx, isCorrect, callback) {
-            const shelly = document.getElementById('shelly-avatar');
-            const padShelly = document.getElementById('pad-shelly-avatar');
-            const field = document.getElementById('brawl-arena-field');
-            const padField = document.getElementById('pad-brawl-field');
+        
+        // 🏃💨 쉘리 실시간 이동 & 영거리 샷건 사격 (안전 방탄 엔진)
+        function moveShellyToBoxAndShoot(boxIdx, isCorrect) {
+            try {
+                const shelly = document.getElementById('shelly-avatar');
+                const padShelly = document.getElementById('pad-shelly-avatar');
+                const field = document.getElementById('brawl-arena-field');
 
-            if (!shelly) {
-                if (callback) callback();
-                return;
-            }
+                if (!shelly || !activeQuiz || !activeQuiz.options) return;
 
-            // 상자 위치 가져오기
-            const isTwoOptions = (activeQuiz.options.length === 2);
-            const targetPos = isTwoOptions
-                ? (boxIdx === 0 ? { left: "40%", top: "40%" } : { left: "60%", top: "40%" })
-                : BOARD_BOX_POSITIONS[boxIdx];
+                const isTwo = (activeQuiz.options.length === 2);
+                const targetPos = isTwo
+                    ? (boxIdx === 0 ? { left: "38%", top: "42%" } : { left: "62%", top: "42%" })
+                    : (BOARD_BOX_POSITIONS[boxIdx] || { left: "50%", top: "50%" });
 
-            const padTargetPos = isTwoOptions
-                ? (boxIdx === 0 ? { left: "40%", top: "35%" } : { left: "60%", top: "35%" })
-                : PAD_BOX_POSITIONS[boxIdx];
+                const targetLeft = parseFloat(targetPos.left);
+                const targetTop = parseFloat(targetPos.top);
+                const approachLeft = (targetLeft > 50) ? `${targetLeft - 14}%` : `${targetLeft + 14}%`;
 
-            // 1. 발밑 흙먼지 뿜으며 상자 바로 앞 위치로 고속 이동! (0.45초)
-            const targetLeftNum = parseFloat(targetPos.left);
-            const targetTopNum = parseFloat(targetPos.top);
-
-            // 상자 약간 왼쪽 또는 오른쪽에 도착하도록 오프셋
-            const approachLeft = (targetLeftNum > 50) ? `${targetLeftNum - 14}%` : `${targetLeftNum + 14}%`;
-            const approachTop = `${targetTopNum}%`;
-
-            shelly.style.left = approachLeft;
-            shelly.style.top = approachTop;
-            // 상자 방향 바라보기
-            shelly.style.transform = (targetLeftNum > 50) ? "scaleX(1)" : "scaleX(-1)";
-
-            if (padShelly) {
-                const padLeftNum = parseFloat(padTargetPos.left);
-                padShelly.style.left = (padLeftNum > 50) ? `${padLeftNum - 15}%` : `${padLeftNum + 15}%`;
-                padShelly.style.top = padTargetPos.top;
-                padShelly.style.transform = (padLeftNum > 50) ? "scaleX(1)" : "scaleX(-1)";
-            }
-
-            // 달리기 흙먼지 파티클
-            if (field) {
-                const dust = document.createElement('div');
-                dust.className = "running-dust";
-                dust.innerText = "💨";
-                dust.style.left = approachLeft;
-                dust.style.top = approachTop;
-                field.appendChild(dust);
-                setTimeout(() => dust.remove(), 500);
-            }
-
-            // 2. 0.45초 후 도착 즉시 영거리 샷건 격발!
-            setTimeout(() => {
-                SoundFX.playBrawlShot();
-                shelly.classList.add('living-shelly-shoot');
-                setTimeout(() => shelly.classList.remove('living-shelly-shoot'), 400);
+                // 1. 상자 위치로 이동 대시
+                shelly.style.left = approachLeft;
+                shelly.style.top = `${targetTop}%`;
+                shelly.style.transform = (targetLeft > 50) ? "scaleX(1)" : "scaleX(-1)";
 
                 if (padShelly) {
-                    padShelly.classList.add('living-shelly-shoot');
-                    setTimeout(() => padShelly.classList.remove('living-shelly-shoot'), 400);
+                    padShelly.style.left = approachLeft;
+                    padShelly.style.top = `${targetTop}%`;
                 }
 
-                // 영거리 대형 화염 폭발
-                if (field) {
-                    const blast = document.createElement('div');
-                    blast.className = "point-blank-blast";
-                    blast.style.left = targetPos.left;
-                    blast.style.top = targetPos.top;
-                    field.appendChild(blast);
-                    setTimeout(() => blast.remove(), 400);
-                }
+                // 2. 0.35초 후 사격 모션 & 사운드
+                setTimeout(() => {
+                    try {
+                        SoundFX.playBrawlShot();
+                        shelly.classList.add('living-shelly-shoot');
+                        setTimeout(() => shelly.classList.remove('living-shelly-shoot'), 350);
 
-                // 모바일 햅틱 진동
-                if (navigator.vibrate) {
-                    navigator.vibrate([40, 30, 80]);
-                }
+                        if (padShelly) {
+                            padShelly.classList.add('living-shelly-shoot');
+                            setTimeout(() => padShelly.classList.remove('living-shelly-shoot'), 350);
+                        }
 
-                if (callback) callback();
-            }, 450);
+                        // 모바일 햅틱 진동
+                        if (navigator.vibrate) navigator.vibrate([40, 30, 80]);
+                    } catch(e) { console.error("사격 연출 오류 무시:", e); }
+                }, 350);
+
+            } catch(err) {
+                console.error("이동 애니메이션 오류 안전 복구:", err);
+            }
         }
 
-        // 라운드 변경 시 쉘리를 홈 베이스로 복귀시키는 함수
+
+        
+        // ⏩ 안전한 다음 문제 전환 함수 (자동 전환 & 수동 넘김 100% 보장)
+        let isTransitioningQuiz = false;
+        function proceedToNextQuiz() {
+            if (isTransitioningQuiz) return;
+            isTransitioningQuiz = true;
+
+            clearInterval(timerInterval);
+
+            setTimeout(() => {
+                try {
+                    resetShellyToHome();
+
+                    if (bossHp <= 0) {
+                        endGame(true);
+                    } else if (currentChapterIdx < textbookLibrary[currentBookKey].chapters.length - 1) {
+                        currentChapterIdx++;
+                        const chapSelect = document.getElementById('chapter-select');
+                        if (chapSelect) chapSelect.value = currentChapterIdx;
+                        activeQuiz = textbookLibrary[currentBookKey].chapters[currentChapterIdx];
+                        loadCurrentQuiz(activeQuiz);
+                    } else {
+                        endGame(bossHp <= 0);
+                    }
+                } catch(e) {
+                    console.error("다음 문제 로드 오류 안전 복구:", e);
+                } finally {
+                    isTransitioningQuiz = false;
+                }
+            }, 300);
+        }
+
+
         function resetShellyToHome() {
             const shelly = document.getElementById('shelly-avatar');
             const padShelly = document.getElementById('pad-shelly-avatar');
@@ -5105,6 +5110,8 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             }
         }
 
+        
+        // 🎯 정답 제출 처리 (먹통 방지 방탄 구조)
         function submitPadAnswer(optionIdx) {
             initAudio();
             const student = students.find(s => s.id === currentStudentId);
@@ -5115,64 +5122,58 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             student.isCorrect = (optionIdx === activeQuiz.answer);
 
             const statusElem = document.getElementById('pad-submit-status');
-            statusElem.innerText = `[${optionIdx + 1}번 선택 완료]`;
-            statusElem.className = "text-[11px] text-emerald-400 font-bold animate-pulse";
+            if (statusElem) {
+                statusElem.innerText = `[${optionIdx + 1}번 선택 완료]`;
+                statusElem.className = "text-[11px] text-emerald-400 font-bold animate-pulse";
+            }
 
             renderStudentGrid();
-
-            // 다른 학생들 1.2초 내 랜덤 응답 시뮬레이션
             simulateOtherStudents();
 
-            // 🏃💨 [실시간 이동 & 영거리 샷건 사격 발동]
-            moveShellyToBoxAndShoot(optionIdx, student.isCorrect, () => {
-                // 상자 도착 후 파쇄 및 HP 증감
-                handleTargetBoxDestruction(optionIdx, student.isCorrect);
+            // 1. 쉘리 이동 & 사격 (실패해도 게임 멈추지 않음)
+            moveShellyToBoxAndShoot(optionIdx, student.isCorrect);
 
-                // 정오답 처리
-                if (student.isCorrect) {
-                    SoundFX.playCorrect();
-                    student.score += 50;
-                    document.getElementById('pad-student-score').innerText = student.score;
-                    addScoreToStudentDB(student.name, 50);
+            // 2. 0.4초 후 상자 파쇄 & HP 증감
+            setTimeout(() => {
+                try {
+                    handleTargetBoxDestruction(optionIdx, student.isCorrect);
+                } catch(e) { console.error("상자 파쇄 오류 무시:", e); }
 
-                    // 파워큐브 흡수 & 궁극기 충전 & 보스 피격
-                    grantPowerCube();
-                    chargeSuperAttack();
-                    triggerBossHitReaction();
-                    applyDamageToBoss(activeQuiz.damage || 35, activeQuiz.dialogue || "크윽! 상자를 깨부수고 파워를 흡수하다니!");
+                // 3. 정오답 처리 & 피드백
+                try {
+                    if (student.isCorrect) {
+                        SoundFX.playCorrect();
+                        student.score += 50;
+                        const scoreElem = document.getElementById('pad-student-score');
+                        if (scoreElem) scoreElem.innerText = student.score;
+                        addScoreToStudentDB(student.name, 50);
 
-                    document.getElementById('pad-explanation-text').innerHTML = `
-                        <strong class="text-emerald-400 font-bold">정답입니다! 🎉 (HP +1000 파밍 성공!)</strong><br>
-                        ${activeQuiz.explanation}
-                    `;
-                } else {
-                    SoundFX.playWrong();
-                    bossCounterAttack();
-                    document.getElementById('pad-explanation-text').innerHTML = `
-                        <strong class="text-rose-400 font-bold">오답 함정 폭발! 😢 (HP -1200 감점!)</strong><br>
-                        정답은 <span class="text-amber-300 font-bold">${activeQuiz.answer + 1}번</span>입니다.<br>
-                        ${activeQuiz.explanation}
-                    `;
-                }
+                        grantPowerCube();
+                        chargeSuperAttack();
+                        triggerBossHitReaction();
+                        applyDamageToBoss(activeQuiz.damage || 35, activeQuiz.dialogue || "크윽! 상자를 깨부수고 파워를 흡수하다니!");
 
-                // 타이머 정지 & 다음 문제 전환 대기
-                clearInterval(timerInterval);
-                setTimeout(() => {
-                    if (bossHp <= 0) {
-                        endGame(true);
+                        const expEl = document.getElementById('pad-explanation-text');
+                        if (expEl) {
+                            expEl.innerHTML = `<strong class="text-emerald-400 font-bold">정답입니다! 🎉 (HP +1000 파밍 성공!)</strong><br>${activeQuiz.explanation}`;
+                        }
                     } else {
-                        if (currentChapterIdx < textbookLibrary[currentBookKey].chapters.length - 1) {
-                            currentChapterIdx++;
-                            document.getElementById('chapter-select').value = currentChapterIdx;
-                            activeQuiz = textbookLibrary[currentBookKey].chapters[currentChapterIdx];
-                            loadCurrentQuiz(activeQuiz);
-                        } else {
-                            endGame(bossHp <= 0);
+                        SoundFX.playWrong();
+                        bossCounterAttack();
+                        const expEl = document.getElementById('pad-explanation-text');
+                        if (expEl) {
+                            expEl.innerHTML = `<strong class="text-rose-400 font-bold">오답 함정 폭발! 😢 (HP -1200 감점!)</strong><br>정답은 <span class="text-amber-300 font-bold">${activeQuiz.answer + 1}번</span>입니다.<br>${activeQuiz.explanation}`;
                         }
                     }
-                }, 3000);
-            });
+                } catch(e) { console.error("피드백 오류 무시:", e); }
+
+                // 4. 타이머 정지 후 2.2초 뒤 100% 확실하게 다음 문제 전환!
+                clearInterval(timerInterval);
+                setTimeout(proceedToNextQuiz, 2200);
+
+            }, 400);
         }
+
 
         function applyDamageToBoss(damage, dialogue) {
             bossHp = Math.max(0, bossHp - damage);
