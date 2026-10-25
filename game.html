@@ -942,6 +942,9 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
             <!-- 글씨 크기 3단 -->
             <div class="hidden lg:flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800">
+                <button onclick="openRankingModal()" class="px-2.5 py-1 text-xs rounded-xl font-black bg-amber-500 text-slate-950 border-2 border-black shadow hover:bg-amber-400 transition-all flex items-center mr-2 cursor-pointer">
+                    <span class="mr-1">🏆</span>랭킹 보드
+                </button>
                 <button onclick="changeAppSize('normal')" id="size-btn-normal" class="px-2 py-1 text-xs rounded-lg font-bold bg-indigo-600 text-white">보통</button>
                 <button onclick="changeAppSize('large')" id="size-btn-large" class="px-2 py-1 text-xs rounded-lg font-bold text-slate-400 hover:text-white">크게</button>
                 <button onclick="changeAppSize('xlarge')" id="size-btn-xlarge" class="px-2 py-1 text-xs rounded-lg font-bold text-slate-400 hover:text-white">아주크게</button>
@@ -4371,6 +4374,225 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             }
         }
 
+        
+        // ====================================================
+        // 🌟 [스마트 원클릭 출석 & 기기 영구 기억 & 누적 DB 엔진]
+        // ====================================================
+        const LOCAL_STORAGE_DEVICE_KEY = "brawl_knights_student_device";
+        const LOCAL_STORAGE_DB_KEY = "brawl_knights_global_db";
+
+        // 전역 학생 누적 점수 DB 초기화 및 로드
+        let studentDB = {};
+        function initStudentDB() {
+            try {
+                const saved = localStorage.getItem(LOCAL_STORAGE_DB_KEY);
+                if (saved) {
+                    studentDB = JSON.parse(saved);
+                } else {
+                    // 기본 DB 씨앗 데이터
+                    studentDB = {
+                        "손연수": { name: "손연수", role: "⚔️ 기사", score: 850, tier: "골드 기사 🏆", solved: 18, correct: 17 },
+                        "이예준": { name: "이예준", role: "🏹 궁수", score: 720, tier: "실버 기사 🛡️", solved: 15, correct: 13 },
+                        "이지성": { name: "이지성", role: "🔮 법사", score: 680, tier: "실버 기사 🛡️", solved: 14, correct: 12 },
+                        "심창현": { name: "심창현", role: "⚔️ 기사", score: 950, tier: "골드 기사 🏆", solved: 20, correct: 19 },
+                        "강태준": { name: "강태준", role: "⚔️ 기사", score: 550, tier: "브론즈 기사 🗡️", solved: 12, correct: 10 },
+                        "강유승": { name: "강유승", role: "🌿 힐러", score: 600, tier: "브론즈 기사 🗡️", solved: 13, correct: 11 },
+                        "정주원": { name: "정주원", role: "🏹 궁수", score: 580, tier: "브론즈 기사 🗡️", solved: 12, correct: 10 },
+                        "하서현": { name: "하서현", role: "🔮 법사", score: 890, tier: "골드 기사 🏆", solved: 19, correct: 18 },
+                        "김나희": { name: "김나희", role: "⚔️ 기사", score: 740, tier: "실버 기사 🛡️", solved: 16, correct: 14 },
+                        "추지후": { name: "추지후", role: "🏹 궁수", score: 710, tier: "실버 기사 🛡️", solved: 15, correct: 13 },
+                        "허유진": { name: "허유진", role: "🌿 힐러", score: 820, tier: "골드 기사 🏆", solved: 17, correct: 15 },
+                        "민우":   { name: "민우", role: "⚔️ 기사", score: 750, tier: "실버 기사 🛡️", solved: 16, correct: 14 },
+                        "서연":   { name: "서연", role: "🏹 궁수", score: 820, tier: "골드 기사 🏆", solved: 17, correct: 16 },
+                        "도윤":   { name: "도윤", role: "🔮 법사", score: 680, tier: "실버 기사 🛡️", solved: 15, correct: 13 },
+                        "지아":   { name: "지아", role: "🌿 힐러", score: 910, tier: "다이아 기사 💎", solved: 20, correct: 19 }
+                    };
+                    saveStudentDB();
+                }
+            } catch(e) {
+                console.error("DB 로드 오류:", e);
+            }
+        }
+
+        function saveStudentDB() {
+            try {
+                localStorage.setItem(LOCAL_STORAGE_DB_KEY, JSON.stringify(studentDB));
+            } catch(e) {}
+        }
+
+        // 📱 기기 자동 로그인 체크 (페이지 로드 시 1회 실행)
+        function checkDeviceAutoLogin() {
+            initStudentDB();
+            try {
+                const savedUser = localStorage.getItem(LOCAL_STORAGE_DEVICE_KEY);
+                if (savedUser) {
+                    const user = JSON.parse(savedUser);
+                    applyUserLogin(user.name, user.role, false);
+                    console.log(`⚡ 기기 자동 로그인 완료: ${user.name} (${user.role})`);
+                } else {
+                    // 첫 접속 기기: 스마트 출석 모달 팝업!
+                    setTimeout(openAttendanceModal, 600);
+                }
+            } catch(e) {
+                setTimeout(openAttendanceModal, 600);
+            }
+        }
+
+        // 출석 모달 열기 (현재 반 학생 명단 버튼 생성)
+        function openAttendanceModal() {
+            const container = document.getElementById('attendance-student-buttons');
+            if (!container) return;
+            container.innerHTML = '';
+
+            // 현재 수업 스케줄의 학생 목록
+            const sch = classSchedules[currentScheduleKey];
+            const currentClassStudents = sch ? sch.students : students;
+
+            currentClassStudents.forEach(s => {
+                const btn = document.createElement('button');
+                btn.className = "w-full py-3 px-4 brawl-btn-3d brawl-btn-orange text-left flex items-center justify-between cursor-pointer";
+                btn.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xl">🤠</span>
+                        <div>
+                            <p class="brawl-text text-white text-base leading-none">${s.name} 기사</p>
+                            <p class="text-[10px] text-amber-200 font-bold">${s.role} · ${sch ? sch.courseCode + '반' : '학생'}</p>
+                        </div>
+                    </div>
+                    <span class="text-xs bg-black/50 text-white font-black px-2 py-1 rounded-lg border border-black/40">이 폰으로 출석! ⚡</span>
+                `;
+                btn.onclick = () => selectStudentAndRemember(s.name, s.role);
+                container.appendChild(btn);
+            });
+
+            document.getElementById('smart-attendance-modal').classList.remove('hidden');
+        }
+
+        // 학생이 자기 이름을 1초 탭했을 때 영구 기억 및 로그인
+        function selectStudentAndRemember(studentName, role) {
+            initAudio();
+            const deviceUser = {
+                name: studentName,
+                role: role,
+                registeredAt: new Date().toISOString()
+            };
+            localStorage.setItem(LOCAL_STORAGE_DEVICE_KEY, JSON.stringify(deviceUser));
+
+            applyUserLogin(studentName, role, true);
+            document.getElementById('smart-attendance-modal').classList.add('hidden');
+
+            SoundFX.playSuperReady();
+            alert(`🎉 환영합니다, ${studentName} 기사님!\n이 핸드폰이 ${studentName} 기사님의 전용 패드로 영구 등록되었습니다! ⚡`);
+        }
+
+        // 게스트 입장
+        function closeAttendanceModalDirect(guestName) {
+            applyUserLogin(guestName, "⚔️ 기사", false);
+            document.getElementById('smart-attendance-modal').classList.add('hidden');
+        }
+
+        // 기기 변경 (로그아웃 후 재선택)
+        function resetDeviceLogin() {
+            if (confirm("이 핸드폰의 기사 등록을 해제하고 다른 이름으로 변경하시겠습니까?")) {
+                localStorage.removeItem(LOCAL_STORAGE_DEVICE_KEY);
+                openAttendanceModal();
+            }
+        }
+
+        // 사용자 로그인 정보 UI 및 DB 반영
+        function applyUserLogin(studentName, role, isFirstTime) {
+            // 1. 학생 객체 찾기 또는 동적 바인딩
+            let targetStudent = students.find(s => s.name === studentName);
+            if (!targetStudent) {
+                targetStudent = students[0]; // fallback
+            }
+            currentStudentId = targetStudent.id;
+
+            // 2. 누적 DB에서 점수 가져오기
+            if (!studentDB[studentName]) {
+                studentDB[studentName] = {
+                    name: studentName,
+                    role: role,
+                    score: 500,
+                    tier: "브론즈 기사 🗡️",
+                    solved: 0,
+                    correct: 0
+                };
+                saveStudentDB();
+            }
+            const record = studentDB[studentName];
+            targetStudent.score = record.score;
+
+            // 3. UI 갱신
+            document.getElementById('pad-student-name').innerText = `${studentName} (내 패드)`;
+            document.getElementById('pad-student-role').innerText = role;
+            document.getElementById('pad-student-score').innerText = record.score;
+
+            renderStudentGrid();
+        }
+
+        // 정답 시 누적 점수 DB 자동 업데이트
+        function addScoreToStudentDB(studentName, earnedPoints) {
+            if (!studentDB[studentName]) {
+                studentDB[studentName] = { name: studentName, role: "⚔️ 기사", score: 0, tier: "브론즈 🗡️", solved: 0, correct: 0 };
+            }
+            const rec = studentDB[studentName];
+            rec.score += earnedPoints;
+            rec.solved += 1;
+            rec.correct += 1;
+
+            // 티어 자동 승급 계산
+            if (rec.score >= 1200) rec.tier = "다이아 기사 💎";
+            else if (rec.score >= 900) rec.tier = "골드 기사 🏆";
+            else if (rec.score >= 650) rec.tier = "실버 기사 🛡️";
+            else rec.tier = "브론즈 기사 🗡️";
+
+            saveStudentDB();
+        }
+
+        // 🏆 [랭킹 보드 모달] 열기 & 렌더링
+        function openRankingModal() {
+            initStudentDB();
+            const container = document.getElementById('ranking-list-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            // 점수 내림차순 정렬
+            const sorted = Object.values(studentDB).sort((a, b) => b.score - a.score);
+
+            sorted.forEach((item, index) => {
+                let medal = `${index + 1}위`;
+                let rankBg = "bg-slate-900 border-slate-700";
+                if (index === 0) { medal = "🥇 1위 (MVP)"; rankBg = "bg-amber-950/80 border-amber-400"; }
+                else if (index === 1) { medal = "🥈 2위"; rankBg = "bg-slate-800 border-slate-400"; }
+                else if (index === 2) { medal = "🥉 3위"; rankBg = "bg-amber-950/40 border-amber-700"; }
+
+                const row = document.createElement('div');
+                row.className = `p-3 rounded-xl border ${rankBg} flex items-center justify-between`;
+                row.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="font-black text-amber-300 text-sm sm:text-base w-20">${medal}</span>
+                        <div>
+                            <p class="brawl-text text-white text-base leading-none">${item.name} (${item.role})</p>
+                            <p class="text-[11px] text-slate-300 font-bold">${item.tier} · 정답률 ${item.solved > 0 ? Math.round((item.correct / item.solved) * 100) : 100}%</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-base font-black text-amber-400 font-mono">${item.score}</span>
+                        <span class="text-xs text-amber-200">점</span>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+
+            document.getElementById('brawl-ranking-modal').classList.remove('hidden');
+        }
+
+        function closeRankingModal() {
+            document.getElementById('brawl-ranking-modal').classList.add('hidden');
+        }
+
+
         function submitPadAnswer(optionIdx) {
             initAudio();
             const student = students.find(s => s.id === currentStudentId);
@@ -4394,6 +4616,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
                 SoundFX.playCorrect();
                 student.score += 50;
                 document.getElementById('pad-student-score').innerText = student.score;
+                addScoreToStudentDB(student.name, 50);
 
                 // 💥 [진짜 브롤 액션 연동] 쉘리 사격 + 파워큐브 획득 + 궁극기 충전
                 triggerPadShellyAttack();
@@ -4988,5 +5211,64 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             loadCurrentQuiz(activeQuiz);
         };
     </script>
+
+    <!-- ============================================== -->
+    <!-- 🌟 [1초 원클릭 스마트 출석 모달 (기기 영구 기억)] -->
+    <!-- ============================================== -->
+    <div id="smart-attendance-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md flex items-center justify-center hidden z-50 p-4">
+        <div class="brawl-panel max-w-sm w-full p-5 text-center relative border-4 border-amber-400 shadow-2xl animate-bounce-in">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-amber-400 to-yellow-500 border-3 border-black mx-auto flex items-center justify-center text-3xl shadow-lg -mt-10 mb-2">
+                👑
+            </div>
+            <h3 class="brawl-text text-xl sm:text-2xl text-white mb-1 drop-shadow">
+                당신은 누구 기사님인가요?
+            </h3>
+            <p class="text-xs text-amber-200/90 font-bold mb-4">
+                이름을 탭하면 이 핸드폰에 영구 기억되어<br>다음부터 0초 만에 자동 출석됩니다!
+            </p>
+
+            <!-- 현재 반 학생 명단 원클릭 3D 버튼 그리드 -->
+            <div id="attendance-student-buttons" class="grid grid-cols-1 gap-2.5 my-2">
+                <!-- 동적 렌더링 -->
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-700/80 flex items-center justify-between text-[11px] text-slate-400 font-bold">
+                <span>단 한 번만 탭하면 끝!</span>
+                <button onclick="closeAttendanceModalDirect('게스트')" class="text-amber-400 underline">체험 게스트로 입장</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 🏆 [브롤 명예의 전당 & 누적 랭킹 모달] -->
+    <!-- ============================================== -->
+    <div id="brawl-ranking-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md flex items-center justify-center hidden z-50 p-4">
+        <div class="brawl-panel max-w-md w-full p-5 relative border-4 border-amber-400 shadow-2xl">
+            <!-- 닫기 버튼 -->
+            <button onclick="closeRankingModal()" class="absolute top-3 right-3 text-slate-400 hover:text-white text-lg p-1.5 rounded-full bg-black/50 border border-slate-700">
+                ✕
+            </button>
+
+            <div class="flex items-center space-x-2 mb-3">
+                <span class="text-3xl filter drop-shadow">🏆</span>
+                <div>
+                    <h3 class="brawl-text text-xl text-white">명예의 전당 (누적 랭킹)</h3>
+                    <p class="text-[11px] text-amber-300 font-bold">개인별 실시간 트로피 누적 DB 연동</p>
+                </div>
+            </div>
+
+            <!-- 랭킹 리스트 컨테이너 -->
+            <div id="ranking-list-container" class="space-y-2 max-h-72 overflow-y-auto pr-1">
+                <!-- 동적 렌더링 -->
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-700 text-center">
+                <button onclick="closeRankingModal()" class="w-full py-2.5 brawl-btn-3d brawl-btn-blue text-sm font-black rounded-xl">
+                    닫기 및 전장으로 복귀
+                </button>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
