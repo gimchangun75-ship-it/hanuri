@@ -836,6 +836,115 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             100% { transform: translateX(0); filter: none; }
         }
 
+    
+        /* ==================================================== */
+        /* 📦 [워드나이츠 2.0 타깃 파밍 상자 & 실시간 HP 증감 CSS] */
+        /* ==================================================== */
+        .target-farm-box {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            z-index: 25;
+            transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            user-select: none;
+        }
+        .target-farm-box:hover {
+            transform: scale(1.08) translateY(-4px);
+            filter: drop-shadow(0 0 15px rgba(250, 204, 21, 0.8));
+        }
+        .target-farm-box:active {
+            transform: scale(0.95);
+        }
+
+        /* 상자 라벨 말풍선 (선명한 Noto Sans KR 볼드) */
+        .box-label-tag {
+            background: rgba(15, 23, 42, 0.95);
+            border: 2px solid #facc15;
+            border-radius: 0.6rem;
+            padding: 2px 8px;
+            color: #fff;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 900;
+            font-size: 0.75rem;
+            line-height: 1.2;
+            white-space: nowrap;
+            max-width: 140px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.6);
+            margin-bottom: 2px;
+        }
+
+        /* 상자 오브젝트 본체 */
+        .box-body-icon {
+            font-size: 2.2rem;
+            filter: drop-shadow(0 6px 6px rgba(0,0,0,0.7));
+            transition: transform 0.1s;
+        }
+
+        /* 상자 파쇄 파편 애니메이션 */
+        .wood-splinter {
+            position: absolute;
+            font-size: 1.2rem;
+            pointer-events: none;
+            z-index: 50;
+            animation: splinter-burst 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        @keyframes splinter-burst {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
+            100% { transform: translate(var(--dx), var(--dy)) scale(0.3) rotate(360deg); opacity: 0; }
+        }
+
+        /* 오답 상자 독가스 트랩 폭발 */
+        .poison-trap-cloud {
+            position: absolute;
+            font-size: 3.5rem;
+            filter: drop-shadow(0 0 25px #a855f7);
+            pointer-events: none;
+            z-index: 55;
+            animation: poison-boom 0.85s ease-out forwards;
+        }
+        @keyframes poison-boom {
+            0% { transform: scale(0.3); opacity: 1; }
+            50% { transform: scale(1.4) rotate(15deg); opacity: 1; filter: drop-shadow(0 0 40px #9333ea); }
+            100% { transform: scale(1.8) translateY(-20px); opacity: 0; }
+        }
+
+        /* 실시간 HP 회복/감점 플로팅 텍스트 */
+        .hp-heal-float {
+            position: absolute;
+            color: #4ade80;
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 1.6rem;
+            text-shadow: 0 2px 0 #000, 0 0 15px #22c55e;
+            pointer-events: none;
+            z-index: 60;
+            animation: heal-up 1.1s ease-out forwards;
+        }
+        @keyframes heal-up {
+            0% { transform: translateY(0) scale(0.7); opacity: 0; }
+            30% { transform: translateY(-15px) scale(1.2); opacity: 1; }
+            100% { transform: translateY(-40px) scale(1); opacity: 0; }
+        }
+
+        .hp-dmg-float {
+            position: absolute;
+            color: #ef4444;
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 1.6rem;
+            text-shadow: 0 2px 0 #000, 0 0 15px #dc2626;
+            pointer-events: none;
+            z-index: 60;
+            animation: dmg-up 1.1s ease-out forwards;
+        }
+        @keyframes dmg-up {
+            0% { transform: translateY(0) scale(0.7); opacity: 0; }
+            30% { transform: translateY(-15px) scale(1.2); opacity: 1; }
+            100% { transform: translateY(-40px) scale(1); opacity: 0; }
+        }
+
     </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1126,12 +1235,14 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
                         <span class="absolute left-6 top-8 text-2xl filter drop-shadow z-20">🪵</span>
 
                         <!-- 👩‍🎤 [살아 숨 쉬는 쉘리 (카드 틀 100% 제거)] -->
+                        <!-- 📦 [타깃 파밍 상자 4대 동적 스폰 컨테이너] -->
+                        <div id="board-target-boxes-container" class="absolute inset-0 z-25 pointer-events-auto"></div>
                         <div id="shelly-avatar" class="living-shelly" onclick="SoundFX.playBrawlShot()">
                             <!-- 원작 체력바 & 닉네임 -->
                             <div class="flex items-center space-x-1 mb-1.5 bg-black/85 px-2.5 py-0.5 rounded-full border border-emerald-500 shadow-lg">
                                 <span class="text-[11px] text-amber-300 font-black">⚡ 3</span>
                                 <span class="text-[11px] font-black text-emerald-300">Brawler</span>
-                                <span class="text-[11px] text-emerald-400 font-bold">5100</span>
+                                <span id="shelly-hp-val" class="text-[11px] text-emerald-400 font-black">5100</span> / 5100 HP
                             </div>
                             <!-- 발밑 초록색 조준 오라 링 -->
                             <div class="brawler-aim-ring"></div>
@@ -1260,6 +1371,8 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
                     </div>
 
                     <!-- 🤠 내 쉘리 (폰 화면에서 실시간 호흡 및 사격 액션) -->
+                    <!-- 📦 [패드용 타깃 파밍 상자 컨테이너] -->
+                    <div id="pad-target-boxes-container" class="absolute inset-0 z-25 pointer-events-auto"></div>
                     <div id="pad-shelly-avatar" class="living-shelly" style="left: 10%; bottom: 15%;">
                         <div class="flex items-center space-x-1 mb-0.5 bg-black/80 px-1.5 py-0.2 rounded-full border border-emerald-500 text-[9px] font-black text-emerald-300">
                             <span>⚡ 내 쉘리</span>
@@ -4255,6 +4368,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             document.getElementById('all-answered-badge').classList.add('hidden');
 
             startTimer();
+            renderTargetBoxes();
         }
 
         function renderStudentGrid() {
@@ -4593,6 +4707,210 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         }
 
 
+        
+        // ====================================================
+        // 📦 [워드나이츠 2.0 타깃 상자 파밍 & HP 증감 배틀 엔진]
+        // ====================================================
+        let playerCurrentHp = 5100;
+        const PLAYER_MAX_HP = 5100;
+
+        // 4대 타깃 오브젝트 스타일 규격 (1번 상자, 2번 항아리, 3번 드럼통, 4번 보물상자)
+        const BOX_STYLES = [
+            { icon: "📦", name: "1번 상자", color: "#38bdf8" },
+            { icon: "🏺", name: "2번 항아리", color: "#f97316" },
+            { icon: "🪵", name: "3번 나무통", color: "#38bdf8" },
+            { icon: "🎁", name: "4번 보물상자", color: "#facc15" }
+        ];
+
+        // 메인 전장(대형) 상자 배치 좌표
+        const BOARD_BOX_POSITIONS = [
+            { left: "34%", top: "18%" },  // 1번 (상단 좌측)
+            { left: "62%", top: "18%" },  // 2번 (상단 우측)
+            { left: "34%", top: "62%" },  // 3번 (하단 좌측)
+            { left: "62%", top: "62%" }   // 4번 (하단 우측)
+        ];
+
+        // 모바일 패드(소형) 상자 배치 좌표
+        const PAD_BOX_POSITIONS = [
+            { left: "36%", top: "12%" },
+            { left: "64%", top: "12%" },
+            { left: "36%", top: "58%" },
+            { left: "64%", top: "58%" }
+        ];
+
+        // 맵 내에 타깃 파밍 상자 렌더링
+        function renderTargetBoxes() {
+            const boardContainer = document.getElementById('board-target-boxes-container');
+            const padContainer = document.getElementById('pad-target-boxes-container');
+
+            if (boardContainer) boardContainer.innerHTML = '';
+            if (padContainer) padContainer.innerHTML = '';
+
+            if (!activeQuiz || !activeQuiz.options) return;
+
+            const opts = activeQuiz.options;
+            const isTwoOptions = (opts.length === 2);
+
+            opts.forEach((opt, idx) => {
+                const style = BOX_STYLES[idx % BOX_STYLES.length];
+
+                // 1. 전자칠판 메인 전장 상자
+                if (boardContainer) {
+                    const pos = isTwoOptions
+                        ? (idx === 0 ? { left: "40%", top: "40%" } : { left: "60%", top: "40%" })
+                        : BOARD_BOX_POSITIONS[idx];
+
+                    const boxEl = document.createElement('div');
+                    boxEl.id = `board-box-${idx}`;
+                    boxEl.className = "target-farm-box";
+                    boxEl.style.left = pos.left;
+                    boxEl.style.top = pos.top;
+                    boxEl.title = `${idx + 1}번 상자 사격!`;
+                    boxEl.innerHTML = `
+                        <div class="box-label-tag" style="border-color: ${style.color};">
+                            <span class="text-amber-300 mr-1">${idx + 1}번</span>${opt}
+                        </div>
+                        <span class="box-body-icon">${style.icon}</span>
+                    `;
+                    boxEl.onclick = () => submitPadAnswer(idx);
+                    boardContainer.appendChild(boxEl);
+                }
+
+                // 2. 학생 스마트폰 패드 전장 상자
+                if (padContainer) {
+                    const pos = isTwoOptions
+                        ? (idx === 0 ? { left: "40%", top: "35%" } : { left: "60%", top: "35%" })
+                        : PAD_BOX_POSITIONS[idx];
+
+                    const padBoxEl = document.createElement('div');
+                    padBoxEl.id = `pad-box-${idx}`;
+                    padBoxEl.className = "target-farm-box";
+                    padBoxEl.style.left = pos.left;
+                    padBoxEl.style.top = pos.top;
+                    padBoxEl.innerHTML = `
+                        <div class="box-label-tag text-[10px] py-0.5 px-1.5" style="border-color: ${style.color};">
+                            ${idx + 1}. ${opt}
+                        </div>
+                        <span class="text-xl filter drop-shadow">${style.icon}</span>
+                    `;
+                    padBoxEl.onclick = () => submitPadAnswer(idx);
+                    padContainer.appendChild(padBoxEl);
+                }
+            });
+        }
+
+        // 💥 타깃 상자 파쇄 & HP 증감 처리 함수
+        function handleTargetBoxDestruction(chosenIdx, isCorrect) {
+            const field = document.getElementById('brawl-arena-field');
+            const padField = document.getElementById('pad-brawl-field');
+            const boardBox = document.getElementById(`board-box-${chosenIdx}`);
+            const padBox = document.getElementById(`pad-box-${chosenIdx}`);
+
+            if (isCorrect) {
+                // ⭕ [정답 상자 파밍 성공!]
+                // 1. 상자 파쇄 애니메이션
+                if (boardBox) {
+                    boardBox.style.transform = "scale(0) rotate(180deg)";
+                    boardBox.style.opacity = "0";
+                    spawnSplinters(boardBox, field, "📦");
+                }
+                if (padBox) {
+                    padBox.style.transform = "scale(0)";
+                    padBox.style.opacity = "0";
+                }
+
+                // 2. HP +1000 회복 (최대 5100)
+                playerCurrentHp = Math.min(PLAYER_MAX_HP, playerCurrentHp + 1000);
+                updateShellyHpUI();
+
+                // 3. 초록색 +1000 HP 회복 플로팅 텍스트
+                if (field) {
+                    const healPop = document.createElement('div');
+                    healPop.className = "hp-heal-float";
+                    healPop.innerText = "💚 +1000 HP RECOVER!";
+                    healPop.style.left = "120px";
+                    healPop.style.top = "30px";
+                    field.appendChild(healPop);
+                    setTimeout(() => healPop.remove(), 1100);
+                }
+
+            } else {
+                // ❌ [오답 함정 상자 폭발!]
+                // 1. 독가스 트랩 폭발 이펙트 펑-!
+                if (boardBox) {
+                    boardBox.style.animation = "shake 0.4s ease-in-out";
+                }
+
+                if (field) {
+                    const trap = document.createElement('div');
+                    trap.className = "poison-trap-cloud";
+                    trap.innerText = "☠️";
+                    trap.style.left = boardBox ? boardBox.style.left : "50%";
+                    trap.style.top = boardBox ? boardBox.style.top : "50%";
+                    field.appendChild(trap);
+                    setTimeout(() => trap.remove(), 850);
+                }
+
+                // 2. HP -1200 감점 (최소 500)
+                playerCurrentHp = Math.max(500, playerCurrentHp - 1200);
+                updateShellyHpUI();
+
+                // 3. 붉은색 -1200 HP 감점 플로팅 텍스트
+                if (field) {
+                    const dmgPop = document.createElement('div');
+                    dmgPop.className = "hp-dmg-float";
+                    dmgPop.innerText = "💔 -1200 HP TRAP!";
+                    dmgPop.style.left = "120px";
+                    dmgPop.style.top = "30px";
+                    field.appendChild(dmgPop);
+                    setTimeout(() => dmgPop.remove(), 1100);
+                }
+
+                // 4. 보스의 조소 대사
+                const dialogueElem = document.getElementById('board-boss-dialogue');
+                if (dialogueElem) {
+                    dialogueElem.innerText = '"크하하! 멍청하게 함정 상자를 건드렸구나!"';
+                }
+
+                // 5. 모바일 강한 햅틱 진동 (피격 충격)
+                if (navigator.vibrate) {
+                    navigator.vibrate([100, 50, 100]);
+                }
+            }
+        }
+
+        // 쉘리 체력바 UI 실시간 갱신
+        function updateShellyHpUI() {
+            const hpElem = document.getElementById('shelly-hp-val');
+            if (hpElem) hpElem.innerText = playerCurrentHp;
+
+            // 체력 낮을 때 경고 색상
+            if (playerCurrentHp <= 1500) {
+                if (hpElem) hpElem.className = "text-[11px] text-red-500 font-black animate-pulse";
+            } else {
+                if (hpElem) hpElem.className = "text-[11px] text-emerald-400 font-black";
+            }
+        }
+
+        // 상자 파편 비산 파티클 생성
+        function spawnSplinters(sourceEl, parentField, icon) {
+            if (!sourceEl || !parentField) return;
+            const rect = sourceEl.getBoundingClientRect();
+            for (let i = 0; i < 6; i++) {
+                const s = document.createElement('div');
+                s.className = "wood-splinter";
+                s.innerText = icon === "🏺" ? "🧱" : "🪵";
+                s.style.left = sourceEl.style.left;
+                s.style.top = sourceEl.style.top;
+                const angle = (i * 60) * (Math.PI / 180);
+                const dist = 45 + Math.random() * 30;
+                s.style.setProperty('--dx', `${Math.cos(angle) * dist}px`);
+                s.style.setProperty('--dy', `${Math.sin(angle) * dist}px`);
+                parentField.appendChild(s);
+                setTimeout(() => s.remove(), 700);
+            }
+        }
+
         function submitPadAnswer(optionIdx) {
             initAudio();
             const student = students.find(s => s.id === currentStudentId);
@@ -4610,6 +4928,9 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
             // 다른 학생들 1.2초 내 랜덤 응답 시뮬레이션
             simulateOtherStudents();
+
+            // 📦 [타깃 상자 파쇄 및 실시간 HP 증감 연동]
+            handleTargetBoxDestruction(optionIdx, student.isCorrect);
 
             // 정오답 처리
             if (student.isCorrect) {
