@@ -998,6 +998,45 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             font-size: 0.95rem !important;
         }
 
+    
+        /* ==================================================== */
+        /* 🏃💨 [쉘리 실시간 맵 이동 & 영거리 샷건 사격 CSS] */
+        /* ==================================================== */
+        .living-shelly {
+            transition: left 0.45s cubic-bezier(0.25, 1, 0.5, 1), top 0.45s cubic-bezier(0.25, 1, 0.5, 1), transform 0.2s !important;
+        }
+
+        /* 달릴 때 발밑 흙먼지 파티클 */
+        .running-dust {
+            position: absolute;
+            font-size: 1.5rem;
+            pointer-events: none;
+            z-index: 25;
+            animation: dust-puff 0.5s ease-out forwards;
+        }
+        @keyframes dust-puff {
+            0% { transform: scale(0.4); opacity: 0.9; }
+            100% { transform: scale(1.6) translateY(-10px); opacity: 0; }
+        }
+
+        /* 영거리 사격 시 총구 화염 초대형 폭발 */
+        .point-blank-blast {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background: radial-gradient(circle, #fff 0%, #facc15 35%, #ea580c 70%, transparent 100%);
+            border-radius: 50%;
+            filter: drop-shadow(0 0 35px #f59e0b);
+            animation: point-blank-flash 0.4s ease-out forwards;
+            z-index: 55;
+            pointer-events: none;
+        }
+        @keyframes point-blank-flash {
+            0% { transform: scale(0.3); opacity: 1; }
+            50% { transform: scale(1.8); opacity: 1; }
+            100% { transform: scale(2.4); opacity: 0; }
+        }
+
     </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -4400,6 +4439,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         }
 
         function loadCurrentQuiz(quiz) {
+            resetShellyToHome();
             activeQuiz = quiz;
             document.getElementById('board-category-tag').innerText = quiz.category;
             document.getElementById('board-question-text').innerText = quiz.question;
@@ -4854,6 +4894,106 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         }
 
         // 💥 타깃 상자 파쇄 & HP 증감 처리 함수
+        
+        // 🏃💨 쉘리가 타깃 상자로 실시간 달려가서 영거리 사격하는 엔진
+        function moveShellyToBoxAndShoot(boxIdx, isCorrect, callback) {
+            const shelly = document.getElementById('shelly-avatar');
+            const padShelly = document.getElementById('pad-shelly-avatar');
+            const field = document.getElementById('brawl-arena-field');
+            const padField = document.getElementById('pad-brawl-field');
+
+            if (!shelly) {
+                if (callback) callback();
+                return;
+            }
+
+            // 상자 위치 가져오기
+            const isTwoOptions = (activeQuiz.options.length === 2);
+            const targetPos = isTwoOptions
+                ? (boxIdx === 0 ? { left: "40%", top: "40%" } : { left: "60%", top: "40%" })
+                : BOARD_BOX_POSITIONS[boxIdx];
+
+            const padTargetPos = isTwoOptions
+                ? (boxIdx === 0 ? { left: "40%", top: "35%" } : { left: "60%", top: "35%" })
+                : PAD_BOX_POSITIONS[boxIdx];
+
+            // 1. 발밑 흙먼지 뿜으며 상자 바로 앞 위치로 고속 이동! (0.45초)
+            const targetLeftNum = parseFloat(targetPos.left);
+            const targetTopNum = parseFloat(targetPos.top);
+
+            // 상자 약간 왼쪽 또는 오른쪽에 도착하도록 오프셋
+            const approachLeft = (targetLeftNum > 50) ? `${targetLeftNum - 14}%` : `${targetLeftNum + 14}%`;
+            const approachTop = `${targetTopNum}%`;
+
+            shelly.style.left = approachLeft;
+            shelly.style.top = approachTop;
+            // 상자 방향 바라보기
+            shelly.style.transform = (targetLeftNum > 50) ? "scaleX(1)" : "scaleX(-1)";
+
+            if (padShelly) {
+                const padLeftNum = parseFloat(padTargetPos.left);
+                padShelly.style.left = (padLeftNum > 50) ? `${padLeftNum - 15}%` : `${padLeftNum + 15}%`;
+                padShelly.style.top = padTargetPos.top;
+                padShelly.style.transform = (padLeftNum > 50) ? "scaleX(1)" : "scaleX(-1)";
+            }
+
+            // 달리기 흙먼지 파티클
+            if (field) {
+                const dust = document.createElement('div');
+                dust.className = "running-dust";
+                dust.innerText = "💨";
+                dust.style.left = approachLeft;
+                dust.style.top = approachTop;
+                field.appendChild(dust);
+                setTimeout(() => dust.remove(), 500);
+            }
+
+            // 2. 0.45초 후 도착 즉시 영거리 샷건 격발!
+            setTimeout(() => {
+                SoundFX.playBrawlShot();
+                shelly.classList.add('living-shelly-shoot');
+                setTimeout(() => shelly.classList.remove('living-shelly-shoot'), 400);
+
+                if (padShelly) {
+                    padShelly.classList.add('living-shelly-shoot');
+                    setTimeout(() => padShelly.classList.remove('living-shelly-shoot'), 400);
+                }
+
+                // 영거리 대형 화염 폭발
+                if (field) {
+                    const blast = document.createElement('div');
+                    blast.className = "point-blank-blast";
+                    blast.style.left = targetPos.left;
+                    blast.style.top = targetPos.top;
+                    field.appendChild(blast);
+                    setTimeout(() => blast.remove(), 400);
+                }
+
+                // 모바일 햅틱 진동
+                if (navigator.vibrate) {
+                    navigator.vibrate([40, 30, 80]);
+                }
+
+                if (callback) callback();
+            }, 450);
+        }
+
+        // 라운드 변경 시 쉘리를 홈 베이스로 복귀시키는 함수
+        function resetShellyToHome() {
+            const shelly = document.getElementById('shelly-avatar');
+            const padShelly = document.getElementById('pad-shelly-avatar');
+            if (shelly) {
+                shelly.style.left = "8%";
+                shelly.style.top = "45%";
+                shelly.style.transform = "scaleX(1)";
+            }
+            if (padShelly) {
+                padShelly.style.left = "10%";
+                padShelly.style.top = "38%";
+                padShelly.style.transform = "scaleX(1)";
+            }
+        }
+
         function handleTargetBoxDestruction(chosenIdx, isCorrect) {
             const field = document.getElementById('brawl-arena-field');
             const padField = document.getElementById('pad-brawl-field');
@@ -4983,66 +5123,44 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             // 다른 학생들 1.2초 내 랜덤 응답 시뮬레이션
             simulateOtherStudents();
 
-            // 📦 [타깃 상자 파쇄 및 실시간 HP 증감 연동]
-            handleTargetBoxDestruction(optionIdx, student.isCorrect);
+            // 🏃💨 [실시간 이동 & 영거리 샷건 사격 발동]
+            moveShellyToBoxAndShoot(optionIdx, student.isCorrect, () => {
+                // 상자 도착 후 파쇄 및 HP 증감
+                handleTargetBoxDestruction(optionIdx, student.isCorrect);
 
-            // 정오답 처리
-            if (student.isCorrect) {
-                SoundFX.playCorrect();
-                student.score += 50;
-                document.getElementById('pad-student-score').innerText = student.score;
-                addScoreToStudentDB(student.name, 50);
+                // 정오답 처리
+                if (student.isCorrect) {
+                    SoundFX.playCorrect();
+                    student.score += 50;
+                    document.getElementById('pad-student-score').innerText = student.score;
+                    addScoreToStudentDB(student.name, 50);
 
-                // 💥 [진짜 브롤 액션 연동] 쉘리 사격 + 파워큐브 획득 + 궁극기 충전
-                triggerPadShellyAttack();
-                triggerShellyAttack(() => {
+                    // 파워큐브 흡수 & 궁극기 충전 & 보스 피격
                     grantPowerCube();
                     chargeSuperAttack();
-                });
-                applyDamageToBoss(activeQuiz.damage, activeQuiz.dialogue);
-                document.getElementById('pad-explanation-text').innerHTML = `
-                    <strong class="text-emerald-400 font-bold">정답입니다! 🎉</strong><br>
-                    ${activeQuiz.explanation}
-                `;
-            } else {
-                SoundFX.playWrong();
-                bossCounterAttack();
-                document.getElementById('pad-explanation-text').innerHTML = `
-                    <strong class="text-rose-400 font-bold">오답입니다! 😢</strong><br>
-                    ${activeQuiz.explanation}
-                `;
-            }
+                    triggerBossHitReaction();
+                    applyDamageToBoss(activeQuiz.damage || 35, activeQuiz.dialogue || "크윽! 상자를 깨부수고 파워를 흡수하다니!");
 
-            checkAllAnsweredAndProceed();
-        }
-
-        function simulateOtherStudents() {
-            students.forEach(s => {
-                if (s.id !== currentStudentId && !s.answered) {
-                    setTimeout(() => {
-                        s.answered = true;
-                        // 80% 확률로 정답 선택
-                        s.answerIdx = (Math.random() < 0.8) ? activeQuiz.answer : Math.floor(Math.random() * 4);
-                        s.isCorrect = (s.answerIdx === activeQuiz.answer);
-                        if (s.isCorrect) s.score += 50;
-                        renderStudentGrid();
-                        checkAllAnsweredAndProceed();
-                    }, Math.random() * 1200 + 300);
+                    document.getElementById('pad-explanation-text').innerHTML = `
+                        <strong class="text-emerald-400 font-bold">정답입니다! 🎉 (HP +1000 파밍 성공!)</strong><br>
+                        ${activeQuiz.explanation}
+                    `;
+                } else {
+                    SoundFX.playWrong();
+                    bossCounterAttack();
+                    document.getElementById('pad-explanation-text').innerHTML = `
+                        <strong class="text-rose-400 font-bold">오답 함정 폭발! 😢 (HP -1200 감점!)</strong><br>
+                        정답은 <span class="text-amber-300 font-bold">${activeQuiz.answer + 1}번</span>입니다.<br>
+                        ${activeQuiz.explanation}
+                    `;
                 }
-            });
-        }
 
-        function checkAllAnsweredAndProceed() {
-            const allAnswered = students.every(s => s.answered);
-            if (allAnswered) {
-                document.getElementById('all-answered-badge').classList.remove('hidden');
+                // 타이머 정지 & 다음 문제 전환 대기
                 clearInterval(timerInterval);
-
                 setTimeout(() => {
                     if (bossHp <= 0) {
                         endGame(true);
                     } else {
-                        // 다음 차시로 자동 이동
                         if (currentChapterIdx < textbookLibrary[currentBookKey].chapters.length - 1) {
                             currentChapterIdx++;
                             document.getElementById('chapter-select').value = currentChapterIdx;
@@ -5052,308 +5170,9 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
                             endGame(bossHp <= 0);
                         }
                     }
-                }, 2800);
-            }
+                }, 3000);
+            });
         }
-
-        
-        // ====================================================
-        // 💥 [진짜 브롤스타즈 쇼다운 배틀 엔진 코어 JS]
-        // ====================================================
-        let playerPowerCubes = 0;
-        let superAttackCharge = 0; // 0, 1, 2, 3 (3=100%)
-        let aliveBrawlers = 10;
-
-        // 브롤 Web Audio 사운드 확장
-        SoundFX.playBrawlShot = function() {
-            if (isMuted || !audioCtx) return;
-            try {
-                const now = audioCtx.currentTime;
-                // 샷건 쾅 폭발 사운드
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = "sawtooth";
-                osc.frequency.setValueAtTime(180, now);
-                osc.frequency.exponentialRampToValueAtTime(30, now + 0.22);
-                gain.gain.setValueAtTime(0.5 * currentMasterVolume, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
-                osc.connect(gain);
-                gain.connect(masterGainNode);
-                osc.start(now);
-                osc.stop(now + 0.25);
-            } catch(e) {}
-        };
-
-        SoundFX.playPowerCube = function() {
-            if (isMuted || !audioCtx) return;
-            try {
-                const now = audioCtx.currentTime;
-                // 초록 큐브 획득 뾰로롱
-                [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    osc.type = "sine";
-                    osc.frequency.value = freq;
-                    gain.gain.setValueAtTime(0.3 * currentMasterVolume, now + i * 0.06);
-                    gain.gain.exponentialRampToValueAtTime(0.01, now + (i + 1) * 0.08);
-                    osc.connect(gain);
-                    gain.connect(masterGainNode);
-                    osc.start(now + i * 0.06);
-                    osc.stop(now + (i + 1) * 0.08);
-                });
-            } catch(e) {}
-        };
-
-        SoundFX.playSuperReady = function() {
-            if (isMuted || !audioCtx) return;
-            try {
-                const now = audioCtx.currentTime;
-                // 궁극기 충전 완료 웅장한 팡파레
-                [440, 554.37, 659.25, 880].forEach((f, i) => {
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    osc.type = "triangle";
-                    osc.frequency.value = f;
-                    gain.gain.setValueAtTime(0.4 * currentMasterVolume, now + i * 0.08);
-                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
-                    osc.connect(gain);
-                    gain.connect(masterGainNode);
-                    osc.start(now + i * 0.08);
-                    osc.stop(now + 0.45);
-                });
-            } catch(e) {}
-        };
-
-        SoundFX.playSuperBlast = function() {
-            if (isMuted || !audioCtx) return;
-            try {
-                const now = audioCtx.currentTime;
-                // 쉘리 궁극기 초대형 폭풍 폭발
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = "square";
-                osc.frequency.setValueAtTime(260, now);
-                osc.frequency.exponentialRampToValueAtTime(20, now + 0.6);
-                gain.gain.setValueAtTime(0.7 * currentMasterVolume, now);
-                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.65);
-                osc.connect(gain);
-                gain.connect(masterGainNode);
-                osc.start(now);
-                osc.stop(now + 0.65);
-            } catch(e) {}
-        };
-
-        // 쉘리 산탄총 사격 애니메이션 & 탄환 발사
-        function triggerShellyAttack(callback) {
-            const shelly = document.getElementById('shelly-avatar');
-            if (shelly) {
-                shelly.classList.add('living-shelly-shoot');
-                setTimeout(() => shelly.classList.remove('living-shelly-shoot'), 500);
-            }
-            SoundFX.playBrawlShot();
-
-            const field = document.getElementById('brawl-arena-field');
-            if (field) {
-                // 1. 총구 화염 번쩍! (Muzzle Flash)
-                const flash = document.createElement('div');
-                flash.className = "shotgun-muzzle-flash";
-                field.appendChild(flash);
-                setTimeout(() => flash.remove(), 350);
-
-                // 2. 3연발 산탄총 탄환 날아가기 (0.35초 동안 확실히 보임)
-                for (let i = -1; i <= 1; i++) {
-                    const bullet = document.createElement('div');
-                    bullet.className = "brawl-bullet";
-                    bullet.style.left = "90px";
-                    bullet.style.top = `${45 + i * 10}%`;
-                    bullet.style.width = "22px";
-                    bullet.style.height = "12px";
-                    field.appendChild(bullet);
-
-                    setTimeout(() => {
-                        bullet.style.left = "calc(100% - 110px)";
-                        bullet.style.transform = `scale(2.4) rotate(${i * 15}deg)`;
-                    }, 30);
-
-                    setTimeout(() => bullet.remove(), 380);
-                }
-
-                // 3. 0.38초 후 보스 피격: 거대 폭발 이펙트 & 화면 진동 & 대미지 팝업
-                setTimeout(() => {
-                    triggerBossHitReaction();
-
-                    // 폭발 마크 💥 (0.75초 동안 확실히 보임!)
-                    const boom = document.createElement('div');
-                    boom.className = "epic-hit-explosion";
-                    boom.innerText = "💥";
-                    field.appendChild(boom);
-                    setTimeout(() => boom.remove(), 750);
-
-                    // 대형 대미지 플로팅 텍스트
-                    const dmg = document.createElement('div');
-                    dmg.className = "epic-floating-dmg";
-                    dmg.innerText = "💥 CRITICAL! -35 HP";
-                    field.appendChild(dmg);
-                    setTimeout(() => dmg.remove(), 1200);
-
-                    // 화면 전체 흔들림
-                    const stage = document.getElementById('brawl-battle-stage');
-                    if (stage) {
-                        stage.classList.add('boss-hit-knockback');
-                        setTimeout(() => stage.classList.remove('boss-hit-knockback'), 450);
-                    }
-
-                    if (callback) callback();
-                }, 380);
-            } else {
-                if (callback) callback();
-            }
-        }
-
-        // 보스 피격 넉백 & 대미지 연출
-        function triggerBossHitReaction() {
-            const bossBox = document.getElementById('boss-sprite-box');
-            if (bossBox) {
-                bossBox.classList.add('living-boss-hit');
-                setTimeout(() => bossBox.classList.remove('living-boss-hit'), 400);
-            }
-            // 쇼다운 생존자 카운트 1명씩 감소 재미 연출
-            if (aliveBrawlers > 2) {
-                aliveBrawlers--;
-                const aliveElem = document.getElementById('brawl-alive-count');
-                if (aliveElem) aliveElem.innerText = aliveBrawlers;
-            }
-        }
-
-        // 파워 큐브 획득 연출
-        function grantPowerCube() {
-            playerPowerCubes++;
-            const cubeElem = document.getElementById('cube-count-val');
-            if (cubeElem) cubeElem.innerText = playerPowerCubes;
-
-            SoundFX.playPowerCube();
-
-            const field = document.getElementById('brawl-arena-field');
-            if (field) {
-                // 1. 포물선 그리며 쉘리에게 날아가는 파워 큐브 ⚡
-                const flyingCube = document.createElement('div');
-                flyingCube.className = "flying-power-cube";
-                flyingCube.innerText = "⚡";
-                field.appendChild(flyingCube);
-                setTimeout(() => flyingCube.remove(), 900);
-
-                // 2. 0.5초 후 쉘리 흡수 텍스트 팝업 (1.2초 동안 지속)
-                setTimeout(() => {
-                    const pop = document.createElement('div');
-                    pop.className = "cube-pop-text";
-                    pop.innerText = `⚡ +1 파워 큐브 획득! (공격력 x${(1 + playerPowerCubes * 0.2).toFixed(1)})`;
-                    pop.style.left = "30px";
-                    pop.style.top = "15px";
-                    field.appendChild(pop);
-                    setTimeout(() => pop.remove(), 1200);
-                }, 450);
-            }
-        }
-
-        // 궁극기 게이지 충전
-        function chargeSuperAttack() {
-            if (superAttackCharge < 3) {
-                superAttackCharge++;
-                const pct = Math.round((superAttackCharge / 3) * 100);
-                document.getElementById('super-gauge-text').innerText = pct + "%";
-
-                if (superAttackCharge === 3) {
-                    // 100% 궁극기 발동 준비 완료!
-                    const btn = document.getElementById('brawl-super-btn');
-                    if (btn) btn.classList.add('ready');
-                    const status = document.getElementById('super-btn-status');
-                    if (status) {
-                        status.innerText = "🔥 궁극기 준비 완료! 지금 터치하세요!";
-                        status.className = "text-[11px] text-amber-300 font-black animate-pulse";
-                    }
-                    const actionBtn = document.getElementById('super-fire-action-btn');
-                    if (actionBtn) actionBtn.classList.remove('hidden');
-
-                    SoundFX.playSuperReady();
-                }
-            }
-        }
-
-        // 💥 궁극기 슈퍼 샷건 폭풍 발사!
-        function fireSuperAttack() {
-            initAudio();
-            if (superAttackCharge < 3) {
-                alert("아직 궁극기 게이지가 부족합니다! 문제를 맞혀 게이지를 100% 모아주세요! ⚡");
-                return;
-            }
-
-            // 게이지 초기화
-            superAttackCharge = 0;
-            document.getElementById('super-gauge-text').innerText = "0%";
-            const btn = document.getElementById('brawl-super-btn');
-            if (btn) btn.classList.remove('ready');
-            const status = document.getElementById('super-btn-status');
-            if (status) {
-                status.innerText = "정답 3회 적중 시 발동 가능!";
-                status.className = "text-[11px] text-slate-400 font-bold";
-            }
-            const actionBtn = document.getElementById('super-fire-action-btn');
-            if (actionBtn) actionBtn.classList.add('hidden');
-
-            SoundFX.playSuperBlast();
-
-            // 화면 전체 황금빛 진동 연출
-            const stage = document.getElementById('brawl-battle-stage');
-            if (stage) {
-                stage.style.filter = "brightness(2) contrast(1.5)";
-                setTimeout(() => stage.style.filter = "none", 300);
-            }
-
-            // 쉘리 난사 모션
-            const shelly = document.getElementById('shelly-avatar');
-            if (shelly) shelly.classList.add('living-shelly-shoot');
-
-            // 5연발 탄환 비행
-            const field = document.getElementById('brawl-arena-field');
-            if (field) {
-                for (let i = 0; i < 5; i++) {
-                    setTimeout(() => {
-                        const bullet = document.createElement('div');
-                        bullet.className = "brawl-bullet";
-                        bullet.style.left = "80px";
-                        bullet.style.top = `${30 + i * 15}%`;
-                        field.appendChild(bullet);
-
-                        setTimeout(() => {
-                            bullet.style.left = "calc(100% - 100px)";
-                            bullet.style.transform = "scale(2.2)";
-                        }, 20);
-
-                        setTimeout(() => bullet.remove(), 250);
-                    }, i * 60);
-                }
-            }
-
-            // 보스에게 초대형 궁극기 대미지 (-60 HP)
-            setTimeout(() => {
-                triggerBossHitReaction();
-                applyDamageToBoss(60, "크아악! 쉘리의 슈퍼 샷건 폭풍에 산산조각 났다...!!");
-            }, 350);
-        }
-
-        // 쇼다운 독가스 실시간 체크 (startTimer 내에서 연동)
-        function checkPoisonGas(remainingSeconds) {
-            const overlay = document.getElementById('poison-gas-overlay');
-            const badge = document.getElementById('poison-warning-badge');
-            if (remainingSeconds <= 10 && remainingSeconds > 0) {
-                if (overlay) overlay.classList.add('danger');
-                if (badge) badge.classList.remove('hidden');
-            } else {
-                if (overlay) overlay.classList.remove('danger');
-                if (badge) badge.classList.add('hidden');
-            }
-        }
-
 
         function applyDamageToBoss(damage, dialogue) {
             bossHp = Math.max(0, bossHp - damage);
