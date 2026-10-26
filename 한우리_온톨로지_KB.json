@@ -3,8 +3,8 @@
     "title": "한우리 독서토론논술 온톨로지 지식 베이스 (Ontology Knowledge Base)",
     "version": "2.2.0",
     "masterRoot": "D:\\한우리",
-    "generatedAt": "2026. 10. 26. AM 10:19:04",
-    "entityCount": 732,
+    "generatedAt": "2026. 10. 26. AM 11:10:55",
+    "entityCount": 740,
     "relationCount": 743,
     "classes": [
       {
@@ -15583,6 +15583,182 @@
         "상세 경로": "D:\\한우리\\워드나이츠_게임\\backup_game\\index_old_game_copy.html",
         "수정일": "2026-10-25",
         "확장자": ".html"
+      }
+    },
+    {
+      "id": "file_30479344",
+      "type": "LocalFile",
+      "label": "00_standby.png",
+      "subtitle": "워드나이츠_게임 | PNG | 2026-10-26",
+      "badge": "PNG",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/shots/00_standby.png",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\shots\\00_standby.png",
+      "screenshotUrl": "",
+      "summary": "워드나이츠_게임 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "00_standby.png",
+        "분류 폴더": "워드나이츠_게임",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\shots\\00_standby.png",
+        "수정일": "2026-10-26",
+        "확장자": ".png"
+      }
+    },
+    {
+      "id": "file_193257458",
+      "type": "LocalFile",
+      "label": "01_correct_hit.png",
+      "subtitle": "워드나이츠_게임 | PNG | 2026-10-26",
+      "badge": "PNG",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/shots/01_correct_hit.png",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\shots\\01_correct_hit.png",
+      "screenshotUrl": "",
+      "summary": "워드나이츠_게임 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "01_correct_hit.png",
+        "분류 폴더": "워드나이츠_게임",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\shots\\01_correct_hit.png",
+        "수정일": "2026-10-26",
+        "확장자": ".png"
+      }
+    },
+    {
+      "id": "file_230223716",
+      "type": "LocalFile",
+      "label": "02_wrong_trap.png",
+      "subtitle": "워드나이츠_게임 | PNG | 2026-10-26",
+      "badge": "PNG",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/shots/02_wrong_trap.png",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\shots\\02_wrong_trap.png",
+      "screenshotUrl": "",
+      "summary": "워드나이츠_게임 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "02_wrong_trap.png",
+        "분류 폴더": "워드나이츠_게임",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\shots\\02_wrong_trap.png",
+        "수정일": "2026-10-26",
+        "확장자": ".png"
+      }
+    },
+    {
+      "id": "file_252567734",
+      "type": "LocalFile",
+      "label": "03_timeout.png",
+      "subtitle": "워드나이츠_게임 | PNG | 2026-10-26",
+      "badge": "PNG",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/shots/03_timeout.png",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\shots\\03_timeout.png",
+      "screenshotUrl": "",
+      "summary": "워드나이츠_게임 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "03_timeout.png",
+        "분류 폴더": "워드나이츠_게임",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\shots\\03_timeout.png",
+        "수정일": "2026-10-26",
+        "확장자": ".png"
+      }
+    },
+    {
+      "id": "file_133114463",
+      "type": "LocalFile",
+      "label": "04_end.png",
+      "subtitle": "워드나이츠_게임 | PNG | 2026-10-26",
+      "badge": "PNG",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/shots/04_end.png",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\shots\\04_end.png",
+      "screenshotUrl": "",
+      "summary": "워드나이츠_게임 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "04_end.png",
+        "분류 폴더": "워드나이츠_게임",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\shots\\04_end.png",
+        "수정일": "2026-10-26",
+        "확장자": ".png"
+      }
+    },
+    {
+      "id": "file_84725083",
+      "type": "LocalFile",
+      "label": "05_reward.png",
+      "subtitle": "워드나이츠_게임 | PNG | 2026-10-26",
+      "badge": "PNG",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/shots/05_reward.png",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\shots\\05_reward.png",
+      "screenshotUrl": "",
+      "summary": "워드나이츠_게임 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "05_reward.png",
+        "분류 폴더": "워드나이츠_게임",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\shots\\05_reward.png",
+        "수정일": "2026-10-26",
+        "확장자": ".png"
+      }
+    },
+    {
+      "id": "file_84928531",
+      "type": "LocalFile",
+      "label": "04b_defeat.png",
+      "subtitle": "워드나이츠_게임 | PNG | 2026-10-26",
+      "badge": "PNG",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/shots/04b_defeat.png",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\shots\\04b_defeat.png",
+      "screenshotUrl": "",
+      "summary": "워드나이츠_게임 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "04b_defeat.png",
+        "분류 폴더": "워드나이츠_게임",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\shots\\04b_defeat.png",
+        "수정일": "2026-10-26",
+        "확장자": ".png"
+      }
+    },
+    {
+      "id": "file_249748564",
+      "type": "LocalFile",
+      "label": "06_student_phone.png",
+      "subtitle": "워드나이츠_게임 | PNG | 2026-10-26",
+      "badge": "PNG",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/shots/06_student_phone.png",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\shots\\06_student_phone.png",
+      "screenshotUrl": "",
+      "summary": "워드나이츠_게임 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "06_student_phone.png",
+        "분류 폴더": "워드나이츠_게임",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\shots\\06_student_phone.png",
+        "수정일": "2026-10-26",
+        "확장자": ".png"
       }
     },
     {
