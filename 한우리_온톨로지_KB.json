@@ -3,8 +3,8 @@
     "title": "한우리 독서토론논술 온톨로지 지식 베이스 (Ontology Knowledge Base)",
     "version": "2.2.0",
     "masterRoot": "D:\\한우리",
-    "generatedAt": "2026. 10. 26. AM 10:02:57",
-    "entityCount": 733,
+    "generatedAt": "2026. 10. 26. AM 10:19:04",
+    "entityCount": 732,
     "relationCount": 743,
     "classes": [
       {
@@ -8832,28 +8832,6 @@
       }
     },
     {
-      "id": "file_76906069",
-      "type": "LocalFile",
-      "label": "hanuri-teacher-assistant_파견팩.zip",
-      "subtitle": "루트(최상위 폴더) | ZIP | 2026-10-23",
-      "badge": "ZIP",
-      "day": "",
-      "courseCode": "",
-      "url": "",
-      "fileUrl": "file:///D:/한우리/hanuri-teacher-assistant_파견팩.zip",
-      "fullPath": "D:\\한우리\\hanuri-teacher-assistant_파견팩.zip",
-      "screenshotUrl": "",
-      "summary": "루트(최상위 폴더) 폴더 내 로컬 문서",
-      "content": "",
-      "props": {
-        "파일명": "hanuri-teacher-assistant_파견팩.zip",
-        "분류 폴더": "루트(최상위 폴더)",
-        "상세 경로": "D:\\한우리\\hanuri-teacher-assistant_파견팩.zip",
-        "수정일": "2026-10-23",
-        "확장자": ".zip"
-      }
-    },
-    {
       "id": "file_63859761",
       "type": "LocalFile",
       "label": "수필 - 1.pdf",
@@ -15264,15 +15242,15 @@
       "day": "",
       "courseCode": "",
       "url": "",
-      "fileUrl": "file:///D:/한우리/워드나이츠_게임_프로토타입.html",
-      "fullPath": "D:\\한우리\\워드나이츠_게임_프로토타입.html",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/워드나이츠_게임_프로토타입.html",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\워드나이츠_게임_프로토타입.html",
       "screenshotUrl": "",
       "summary": "루트(최상위 폴더) 폴더 내 로컬 문서",
       "content": "",
       "props": {
         "파일명": "워드나이츠_게임_프로토타입.html",
         "분류 폴더": "루트(최상위 폴더)",
-        "상세 경로": "D:\\한우리\\워드나이츠_게임_프로토타입.html",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\워드나이츠_게임_프로토타입.html",
         "수정일": "2026-10-26",
         "확장자": ".html"
       }
@@ -15286,15 +15264,15 @@
       "day": "",
       "courseCode": "",
       "url": "",
-      "fileUrl": "file:///D:/한우리/backup_game/워드나이츠_게임_프로토타입_backup.html",
-      "fullPath": "D:\\한우리\\backup_game\\워드나이츠_게임_프로토타입_backup.html",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/backup_game/워드나이츠_게임_프로토타입_backup.html",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_게임_프로토타입_backup.html",
       "screenshotUrl": "",
       "summary": "backup_game 폴더 내 로컬 문서",
       "content": "",
       "props": {
         "파일명": "워드나이츠_게임_프로토타입_backup.html",
         "분류 폴더": "backup_game",
-        "상세 경로": "D:\\한우리\\backup_game\\워드나이츠_게임_프로토타입_backup.html",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_게임_프로토타입_backup.html",
         "수정일": "2026-10-25",
         "확장자": ".html"
       }
@@ -15308,15 +15286,15 @@
       "day": "",
       "courseCode": "",
       "url": "",
-      "fileUrl": "file:///D:/한우리/backup_game/워드나이츠_게임_프로토타입_qr_backup.html",
-      "fullPath": "D:\\한우리\\backup_game\\워드나이츠_게임_프로토타입_qr_backup.html",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/backup_game/워드나이츠_게임_프로토타입_qr_backup.html",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_게임_프로토타입_qr_backup.html",
       "screenshotUrl": "",
       "summary": "backup_game 폴더 내 로컬 문서",
       "content": "",
       "props": {
         "파일명": "워드나이츠_게임_프로토타입_qr_backup.html",
         "분류 폴더": "backup_game",
-        "상세 경로": "D:\\한우리\\backup_game\\워드나이츠_게임_프로토타입_qr_backup.html",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_게임_프로토타입_qr_backup.html",
         "수정일": "2026-10-25",
         "확장자": ".html"
       }
@@ -15330,15 +15308,15 @@
       "day": "",
       "courseCode": "",
       "url": "",
-      "fileUrl": "file:///D:/한우리/backup_game/워드나이츠_게임_프로토타입_dynamic_ip_backup.html",
-      "fullPath": "D:\\한우리\\backup_game\\워드나이츠_게임_프로토타입_dynamic_ip_backup.html",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/backup_game/워드나이츠_게임_프로토타입_dynamic_ip_backup.html",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_게임_프로토타입_dynamic_ip_backup.html",
       "screenshotUrl": "",
       "summary": "backup_game 폴더 내 로컬 문서",
       "content": "",
       "props": {
         "파일명": "워드나이츠_게임_프로토타입_dynamic_ip_backup.html",
         "분류 폴더": "backup_game",
-        "상세 경로": "D:\\한우리\\backup_game\\워드나이츠_게임_프로토타입_dynamic_ip_backup.html",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_게임_프로토타입_dynamic_ip_backup.html",
         "수정일": "2026-10-25",
         "확장자": ".html"
       }
@@ -15352,15 +15330,15 @@
       "day": "",
       "courseCode": "",
       "url": "",
-      "fileUrl": "file:///D:/한우리/backup_game/워드나이츠_게임_프로토타입_qr_reader_fix.html",
-      "fullPath": "D:\\한우리\\backup_game\\워드나이츠_게임_프로토타입_qr_reader_fix.html",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/backup_game/워드나이츠_게임_프로토타입_qr_reader_fix.html",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_게임_프로토타입_qr_reader_fix.html",
       "screenshotUrl": "",
       "summary": "backup_game 폴더 내 로컬 문서",
       "content": "",
       "props": {
         "파일명": "워드나이츠_게임_프로토타입_qr_reader_fix.html",
         "분류 폴더": "backup_game",
-        "상세 경로": "D:\\한우리\\backup_game\\워드나이츠_게임_프로토타입_qr_reader_fix.html",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_게임_프로토타입_qr_reader_fix.html",
         "수정일": "2026-10-25",
         "확장자": ".html"
       }
@@ -15374,37 +15352,15 @@
       "day": "",
       "courseCode": "",
       "url": "",
-      "fileUrl": "file:///D:/한우리/backup_game/워드나이츠_게임_프로토타입_utf8_qr_fix.html",
-      "fullPath": "D:\\한우리\\backup_game\\워드나이츠_게임_프로토타입_utf8_qr_fix.html",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/backup_game/워드나이츠_게임_프로토타입_utf8_qr_fix.html",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_게임_프로토타입_utf8_qr_fix.html",
       "screenshotUrl": "",
       "summary": "backup_game 폴더 내 로컬 문서",
       "content": "",
       "props": {
         "파일명": "워드나이츠_게임_프로토타입_utf8_qr_fix.html",
         "분류 폴더": "backup_game",
-        "상세 경로": "D:\\한우리\\backup_game\\워드나이츠_게임_프로토타입_utf8_qr_fix.html",
-        "수정일": "2026-10-25",
-        "확장자": ".html"
-      }
-    },
-    {
-      "id": "file_186856686",
-      "type": "LocalFile",
-      "label": "index.html",
-      "subtitle": "루트(최상위 폴더) | HTML | 2026-10-25",
-      "badge": "HTML",
-      "day": "",
-      "courseCode": "",
-      "url": "",
-      "fileUrl": "file:///D:/한우리/index.html",
-      "fullPath": "D:\\한우리\\index.html",
-      "screenshotUrl": "",
-      "summary": "루트(최상위 폴더) 폴더 내 로컬 문서",
-      "content": "",
-      "props": {
-        "파일명": "index.html",
-        "분류 폴더": "루트(최상위 폴더)",
-        "상세 경로": "D:\\한우리\\index.html",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_게임_프로토타입_utf8_qr_fix.html",
         "수정일": "2026-10-25",
         "확장자": ".html"
       }
@@ -15418,15 +15374,15 @@
       "day": "",
       "courseCode": "",
       "url": "",
-      "fileUrl": "file:///D:/한우리/backup_game/워드나이츠_select_fix_backup.html",
-      "fullPath": "D:\\한우리\\backup_game\\워드나이츠_select_fix_backup.html",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/backup_game/워드나이츠_select_fix_backup.html",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_select_fix_backup.html",
       "screenshotUrl": "",
       "summary": "backup_game 폴더 내 로컬 문서",
       "content": "",
       "props": {
         "파일명": "워드나이츠_select_fix_backup.html",
         "분류 폴더": "backup_game",
-        "상세 경로": "D:\\한우리\\backup_game\\워드나이츠_select_fix_backup.html",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_select_fix_backup.html",
         "수정일": "2026-10-25",
         "확장자": ".html"
       }
@@ -15440,15 +15396,15 @@
       "day": "",
       "courseCode": "",
       "url": "",
-      "fileUrl": "file:///D:/한우리/backup_game/워드나이츠_stardrop_backup.html",
-      "fullPath": "D:\\한우리\\backup_game\\워드나이츠_stardrop_backup.html",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/backup_game/워드나이츠_stardrop_backup.html",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_stardrop_backup.html",
       "screenshotUrl": "",
       "summary": "backup_game 폴더 내 로컬 문서",
       "content": "",
       "props": {
         "파일명": "워드나이츠_stardrop_backup.html",
         "분류 폴더": "backup_game",
-        "상세 경로": "D:\\한우리\\backup_game\\워드나이츠_stardrop_backup.html",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_stardrop_backup.html",
         "수정일": "2026-10-25",
         "확장자": ".html"
       }
@@ -15462,15 +15418,15 @@
       "day": "",
       "courseCode": "",
       "url": "",
-      "fileUrl": "file:///D:/한우리/backup_game/워드나이츠_word_card_backup.html",
-      "fullPath": "D:\\한우리\\backup_game\\워드나이츠_word_card_backup.html",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/backup_game/워드나이츠_word_card_backup.html",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_word_card_backup.html",
       "screenshotUrl": "",
       "summary": "backup_game 폴더 내 로컬 문서",
       "content": "",
       "props": {
         "파일명": "워드나이츠_word_card_backup.html",
         "분류 폴더": "backup_game",
-        "상세 경로": "D:\\한우리\\backup_game\\워드나이츠_word_card_backup.html",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_word_card_backup.html",
         "수정일": "2026-10-25",
         "확장자": ".html"
       }
@@ -15484,15 +15440,15 @@
       "day": "",
       "courseCode": "",
       "url": "",
-      "fileUrl": "file:///D:/한우리/backup_game/game_auto_detect_backup.html",
-      "fullPath": "D:\\한우리\\backup_game\\game_auto_detect_backup.html",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/backup_game/game_auto_detect_backup.html",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\backup_game\\game_auto_detect_backup.html",
       "screenshotUrl": "",
       "summary": "backup_game 폴더 내 로컬 문서",
       "content": "",
       "props": {
         "파일명": "game_auto_detect_backup.html",
         "분류 폴더": "backup_game",
-        "상세 경로": "D:\\한우리\\backup_game\\game_auto_detect_backup.html",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\backup_game\\game_auto_detect_backup.html",
         "수정일": "2026-10-25",
         "확장자": ".html"
       }
@@ -15506,15 +15462,15 @@
       "day": "",
       "courseCode": "",
       "url": "",
-      "fileUrl": "file:///D:/한우리/backup_game/game_responsive_backup.html",
-      "fullPath": "D:\\한우리\\backup_game\\game_responsive_backup.html",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/backup_game/game_responsive_backup.html",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\backup_game\\game_responsive_backup.html",
       "screenshotUrl": "",
       "summary": "backup_game 폴더 내 로컬 문서",
       "content": "",
       "props": {
         "파일명": "game_responsive_backup.html",
         "분류 폴더": "backup_game",
-        "상세 경로": "D:\\한우리\\backup_game\\game_responsive_backup.html",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\backup_game\\game_responsive_backup.html",
         "수정일": "2026-10-25",
         "확장자": ".html"
       }
@@ -15528,15 +15484,15 @@
       "day": "",
       "courseCode": "",
       "url": "",
-      "fileUrl": "file:///D:/한우리/backup_game/워드나이츠_게임_프로토타입_pre_gamemodes.html",
-      "fullPath": "D:\\한우리\\backup_game\\워드나이츠_게임_프로토타입_pre_gamemodes.html",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/backup_game/워드나이츠_게임_프로토타입_pre_gamemodes.html",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_게임_프로토타입_pre_gamemodes.html",
       "screenshotUrl": "",
       "summary": "backup_game 폴더 내 로컬 문서",
       "content": "",
       "props": {
         "파일명": "워드나이츠_게임_프로토타입_pre_gamemodes.html",
         "분류 폴더": "backup_game",
-        "상세 경로": "D:\\한우리\\backup_game\\워드나이츠_게임_프로토타입_pre_gamemodes.html",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\backup_game\\워드나이츠_게임_프로토타입_pre_gamemodes.html",
         "수정일": "2026-10-25",
         "확장자": ".html"
       }
@@ -15550,15 +15506,15 @@
       "day": "",
       "courseCode": "",
       "url": "",
-      "fileUrl": "file:///D:/한우리/backup_game/대화검색기_backup.html",
-      "fullPath": "D:\\한우리\\backup_game\\대화검색기_backup.html",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/backup_game/대화검색기_backup.html",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\backup_game\\대화검색기_backup.html",
       "screenshotUrl": "",
       "summary": "backup_game 폴더 내 로컬 문서",
       "content": "",
       "props": {
         "파일명": "대화검색기_backup.html",
         "분류 폴더": "backup_game",
-        "상세 경로": "D:\\한우리\\backup_game\\대화검색기_backup.html",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\backup_game\\대화검색기_backup.html",
         "수정일": "2026-10-22",
         "확장자": ".html"
       }
@@ -15572,15 +15528,15 @@
       "day": "",
       "courseCode": "",
       "url": "",
-      "fileUrl": "file:///D:/한우리/backup_game/파일검색_backup.html",
-      "fullPath": "D:\\한우리\\backup_game\\파일검색_backup.html",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/backup_game/파일검색_backup.html",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\backup_game\\파일검색_backup.html",
       "screenshotUrl": "",
       "summary": "backup_game 폴더 내 로컬 문서",
       "content": "",
       "props": {
         "파일명": "파일검색_backup.html",
         "분류 폴더": "backup_game",
-        "상세 경로": "D:\\한우리\\backup_game\\파일검색_backup.html",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\backup_game\\파일검색_backup.html",
         "수정일": "2026-10-25",
         "확장자": ".html"
       }
@@ -15594,15 +15550,37 @@
       "day": "",
       "courseCode": "",
       "url": "",
-      "fileUrl": "file:///D:/한우리/backup_game/대화검색기_pre_onto_form.html",
-      "fullPath": "D:\\한우리\\backup_game\\대화검색기_pre_onto_form.html",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/backup_game/대화검색기_pre_onto_form.html",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\backup_game\\대화검색기_pre_onto_form.html",
       "screenshotUrl": "",
       "summary": "backup_game 폴더 내 로컬 문서",
       "content": "",
       "props": {
         "파일명": "대화검색기_pre_onto_form.html",
         "분류 폴더": "backup_game",
-        "상세 경로": "D:\\한우리\\backup_game\\대화검색기_pre_onto_form.html",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\backup_game\\대화검색기_pre_onto_form.html",
+        "수정일": "2026-10-25",
+        "확장자": ".html"
+      }
+    },
+    {
+      "id": "file_167506501",
+      "type": "LocalFile",
+      "label": "index_old_game_copy.html",
+      "subtitle": "워드나이츠_게임 | HTML | 2026-10-25",
+      "badge": "HTML",
+      "day": "",
+      "courseCode": "",
+      "url": "",
+      "fileUrl": "file:///D:/한우리/워드나이츠_게임/backup_game/index_old_game_copy.html",
+      "fullPath": "D:\\한우리\\워드나이츠_게임\\backup_game\\index_old_game_copy.html",
+      "screenshotUrl": "",
+      "summary": "워드나이츠_게임 폴더 내 로컬 문서",
+      "content": "",
+      "props": {
+        "파일명": "index_old_game_copy.html",
+        "분류 폴더": "워드나이츠_게임",
+        "상세 경로": "D:\\한우리\\워드나이츠_게임\\backup_game\\index_old_game_copy.html",
         "수정일": "2026-10-25",
         "확장자": ".html"
       }

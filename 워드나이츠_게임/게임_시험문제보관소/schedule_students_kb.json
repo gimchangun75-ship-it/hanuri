@@ -1,0 +1,368 @@
+{
+  "sched_mon_1430": {
+    "label": "[월요일 14:30] 독2반 (손연수·이예준·이지성)",
+    "courseCode": "독2",
+    "gradeType": "brawl",
+    "defaultBook": "dada_1",
+    "students": [
+      {
+        "id": 1,
+        "name": "손연수",
+        "role": "⚔️ 기사",
+        "score": 350,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 2,
+        "name": "이예준",
+        "role": "🏹 궁수",
+        "score": 370,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 3,
+        "name": "이지성",
+        "role": "🔮 법사",
+        "score": 390,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      }
+    ]
+  },
+  "sched_mon_1700": {
+    "label": "[월요일 17:00] 소2반 (진시윤·진주)",
+    "courseCode": "소2",
+    "gradeType": "valorant",
+    "defaultBook": "socrates_5min",
+    "students": [
+      {
+        "id": 1,
+        "name": "진시윤",
+        "role": "⚔️ 기사",
+        "score": 350,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 2,
+        "name": "진주",
+        "role": "🏹 궁수",
+        "score": 370,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      }
+    ]
+  },
+  "sched_mon_1930": {
+    "label": "[월요일 19:30] 소1반 (김나현·문민경)",
+    "courseCode": "소1",
+    "gradeType": "valorant",
+    "defaultBook": "socrates_5min",
+    "students": [
+      {
+        "id": 1,
+        "name": "김나현",
+        "role": "⚔️ 기사",
+        "score": 350,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 2,
+        "name": "문민경",
+        "role": "🏹 궁수",
+        "score": 370,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      }
+    ]
+  },
+  "sched_tue_1400": {
+    "label": "[화요일 14:00] 독2반 (심창현)",
+    "courseCode": "독2",
+    "gradeType": "brawl",
+    "defaultBook": "dada_1",
+    "students": [
+      {
+        "id": 1,
+        "name": "심창현",
+        "role": "⚔️ 기사",
+        "score": 350,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      }
+    ]
+  },
+  "sched_wed_1400": {
+    "label": "[수요일 14:00] 독2반 (강태준·강유승·정주원)",
+    "courseCode": "독2",
+    "gradeType": "brawl",
+    "defaultBook": "dada_1",
+    "students": [
+      {
+        "id": 1,
+        "name": "강태준",
+        "role": "⚔️ 기사",
+        "score": 350,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 2,
+        "name": "강유승",
+        "role": "🏹 궁수",
+        "score": 370,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 3,
+        "name": "정주원",
+        "role": "🔮 법사",
+        "score": 390,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      }
+    ]
+  },
+  "sched_wed_1700": {
+    "label": "[수요일 17:00] 별별문학반 (유노아·남연호·임도윤·진해린)",
+    "courseCode": "별별문학",
+    "gradeType": "roblox",
+    "defaultBook": "byulbyul_ox",
+    "students": [
+      {
+        "id": 1,
+        "name": "유노아",
+        "role": "⚔️ 기사",
+        "score": 350,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 2,
+        "name": "남연호",
+        "role": "🏹 궁수",
+        "score": 370,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 3,
+        "name": "임도윤",
+        "role": "🔮 법사",
+        "score": 390,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 4,
+        "name": "진해린",
+        "role": "🌿 힐러",
+        "score": 410,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      }
+    ]
+  },
+  "sched_thu_1340": {
+    "label": "[목요일 13:40] 독1반 (하서현)",
+    "courseCode": "독1",
+    "gradeType": "brawl",
+    "defaultBook": "dada_1",
+    "students": [
+      {
+        "id": 1,
+        "name": "하서현",
+        "role": "⚔️ 기사",
+        "score": 350,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      }
+    ]
+  },
+  "sched_thu_1450": {
+    "label": "[목요일 14:50] 별별문학반 (유승준)",
+    "courseCode": "별별문학",
+    "gradeType": "roblox",
+    "defaultBook": "byulbyul_ox",
+    "students": [
+      {
+        "id": 1,
+        "name": "유승준",
+        "role": "⚔️ 기사",
+        "score": 350,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      }
+    ]
+  },
+  "sched_thu_1700": {
+    "label": "[목요일 17:00] 독2반 (김나희·추지후)",
+    "courseCode": "독2",
+    "gradeType": "brawl",
+    "defaultBook": "dada_1",
+    "students": [
+      {
+        "id": 1,
+        "name": "김나희",
+        "role": "⚔️ 기사",
+        "score": 350,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 2,
+        "name": "추지후",
+        "role": "🏹 궁수",
+        "score": 370,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      }
+    ]
+  },
+  "sched_fri_1440": {
+    "label": "[금요일 14:40] 별별문학반 (윤유림·이민유·김나은·하이주)",
+    "courseCode": "별별문학",
+    "gradeType": "roblox",
+    "defaultBook": "byulbyul_ox",
+    "students": [
+      {
+        "id": 1,
+        "name": "윤유림",
+        "role": "⚔️ 기사",
+        "score": 350,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 2,
+        "name": "이민유",
+        "role": "🏹 궁수",
+        "score": 370,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 3,
+        "name": "김나은",
+        "role": "🔮 법사",
+        "score": 390,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 4,
+        "name": "하이주",
+        "role": "🌿 힐러",
+        "score": 410,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      }
+    ]
+  },
+  "sched_fri_1600": {
+    "label": "[금요일 16:00] 독2반 (허유진)",
+    "courseCode": "독2",
+    "gradeType": "brawl",
+    "defaultBook": "dada_1",
+    "students": [
+      {
+        "id": 1,
+        "name": "허유진",
+        "role": "⚔️ 기사",
+        "score": 350,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      }
+    ]
+  },
+  "sched_fri_1800": {
+    "label": "[금요일 18:00] 별별문학반 (박민건·박민성·최인우·김동욱·하윤서·강내영)",
+    "courseCode": "별별문학",
+    "gradeType": "roblox",
+    "defaultBook": "byulbyul_ox",
+    "students": [
+      {
+        "id": 1,
+        "name": "박민건",
+        "role": "⚔️ 기사",
+        "score": 350,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 2,
+        "name": "박민성",
+        "role": "🏹 궁수",
+        "score": 370,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 3,
+        "name": "최인우",
+        "role": "🔮 법사",
+        "score": 390,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 4,
+        "name": "김동욱",
+        "role": "🌿 힐러",
+        "score": 410,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 5,
+        "name": "하윤서",
+        "role": "🛡️ 수호",
+        "score": 430,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      },
+      {
+        "id": 6,
+        "name": "강내영",
+        "role": "⚡ 도적",
+        "score": 450,
+        "answered": false,
+        "answerIdx": null,
+        "isCorrect": false
+      }
+    ]
+  }
+}
