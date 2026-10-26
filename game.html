@@ -960,7 +960,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             border-radius: 1.5rem !important;
             box-shadow: inset 0 0 60px rgba(0,0,0,0.65), 0 10px 0 #0d1604, 0 20px 30px rgba(0,0,0,0.7) !important;
             overflow: hidden;
-            min-height: 420px sm:min-height: 480px !important;
+            min-height: 430px !important;
         }
 
         /* 맵 안의 타깃 상자 라벨: 글자 잘림 영구 제거 & 크고 선명하게! */
@@ -972,10 +972,10 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             color: #ffffff !important;
             font-family: 'Noto Sans KR', sans-serif !important;
             font-weight: 900 !important;
-            font-size: 0.95rem sm:font-size: 1.1rem !important;
+            font-size: 1.02rem !important;
             line-height: 1.4 !important;
             white-space: normal !important; /* 말줄임표 제거하고 전체 글자 표시 */
-            max-width: 250px sm:max-width: 280px !important;
+            max-width: 220px !important;
             text-align: center !important;
             box-shadow: 0 6px 0 rgba(0,0,0,0.6), 0 10px 15px rgba(0,0,0,0.7) !important;
             margin-bottom: 6px !important;
@@ -985,7 +985,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
         /* 상자 오브젝트 아이콘 초대형 확대 */
         .box-body-icon {
-            font-size: 3.2rem sm:font-size: 3.8rem !important;
+            font-size: 3.4rem !important;
             filter: drop-shadow(0 8px 8px rgba(0,0,0,0.8)) !important;
             transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -1037,6 +1037,21 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             100% { transform: scale(2.4); opacity: 0; }
         }
 
+        /* 타깃 파밍 상자가 보스/쉘리 아바타에 가려지거나 클릭이 가로채이지 않도록 레이어·포인터 보장 */
+        #board-target-boxes-container, #pad-target-boxes-container, .target-farm-box {
+            z-index: 35 !important;
+        }
+        .living-shelly, .living-boss {
+            pointer-events: none !important;
+            z-index: 25 !important;
+        }
+        .living-boss {
+            right: 4% !important;
+        }
+        @keyframes super-pulse {
+            0% { filter: drop-shadow(0 0 8px #f59e0b) brightness(1); }
+            100% { filter: drop-shadow(0 0 22px #ef4444) brightness(1.18); }
+        }
     </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1335,7 +1350,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
                         <div id="shelly-avatar" class="living-shelly" onclick="SoundFX.playBrawlShot()">
                             <!-- 원작 체력바 & 닉네임 -->
                             <div class="flex items-center space-x-1 mb-1.5 bg-black/85 px-2.5 py-0.5 rounded-full border border-emerald-500 shadow-lg">
-                                <span class="text-[11px] text-amber-300 font-black">⚡ 3</span>
+                                <span id="shelly-cube-badge" class="text-[11px] text-amber-300 font-black">⚡ 0</span>
                                 <span class="text-[11px] font-black text-emerald-300">Brawler</span>
                                 <span id="shelly-hp-val" class="text-[11px] text-emerald-400 font-black">5100</span> / 5100 HP
                             </div>
@@ -4424,6 +4439,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         // ----------------------------------------------------
         function changeTextbook(bookKey) {
             currentBookKey = bookKey;
+            resetBattleState();
             currentChapterIdx = 0;
             const chapSelect = document.getElementById('chapter-select');
             if (chapSelect && textbookLibrary[currentBookKey] && textbookLibrary[currentBookKey].chapters) {
@@ -4442,6 +4458,13 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         }
 
         function loadCurrentQuiz(quiz) {
+            // 새 문제 = 새 라운드: 이전 문제에 걸린 예약 작업·입력 잠금 전부 초기화
+            roundToken++;
+            cancelRoundTimers();
+            roundLocked = false;
+            isTransitioningQuiz = false;
+            clearInterval(timerInterval);
+
             resetShellyToHome();
             activeQuiz = quiz;
             document.getElementById('board-category-tag').innerText = quiz.category;
@@ -4655,7 +4678,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             container.innerHTML = '';
 
             // 현재 수업 스케줄의 학생 목록
-            const sch = classSchedules[currentScheduleKey];
+            const sch = ontologySchedules[currentScheduleKey];
             const currentClassStudents = sch ? sch.students : students;
 
             currentClassStudents.forEach(s => {
@@ -4734,8 +4757,10 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             targetStudent.score = record.score;
 
             // 3. UI 갱신
-            document.getElementById('pad-student-name').innerText = `${studentName} (내 패드)`;
-            document.getElementById('pad-student-role').innerText = role;
+            const nameSel = document.getElementById('student-id-select');
+            if (nameSel) nameSel.value = String(targetStudent.id);
+            const avatarElem = document.getElementById('pad-student-avatar');
+            if (avatarElem && role) avatarElem.innerText = role.split(' ')[0];
             document.getElementById('pad-student-score').innerText = record.score;
 
             renderStudentGrid();
@@ -4806,9 +4831,48 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         
         // ====================================================
         // 📦 [워드나이츠 2.0 타깃 상자 파밍 & HP 증감 배틀 엔진]
+        // (2026-10-26 복원·정비: run_and_gun 작업 중 유실된 함수 복원 + 문제 전환 단일화)
         // ====================================================
         let playerCurrentHp = 5100;
         const PLAYER_MAX_HP = 5100;
+
+        // 💥 쇼다운 배틀 상태 (run_and_gun 작업 중 유실 → 복원)
+        let playerPowerCubes = 0;
+        let superAttackCharge = 0; // 0, 1, 2, 3 (3=100%)
+        let aliveBrawlers = 10;
+
+        // 🔒 문제(라운드) 상태 관리: 문제가 바뀌면 이전 문제에 걸린 예약 작업은 전부 무효
+        let roundToken = 0;          // 문제 세대 번호 (loadCurrentQuiz 때마다 +1)
+        let roundLocked = false;     // 답 선택/시간 초과 후 추가 입력 잠금
+        let isTransitioningQuiz = false;
+        let pendingRoundTimers = [];
+
+        // 현재 문제에 묶인 예약 실행 (문제가 바뀌면 자동 취소)
+        function scheduleRound(fn, ms) {
+            const token = roundToken;
+            const id = setTimeout(() => {
+                pendingRoundTimers = pendingRoundTimers.filter(t => t !== id);
+                if (token !== roundToken) return;
+                try { fn(); } catch (e) { console.error("[워드나이츠] 예약 작업 오류:", e); }
+            }, ms);
+            pendingRoundTimers.push(id);
+            return id;
+        }
+
+        function cancelRoundTimers() {
+            pendingRoundTimers.forEach(id => clearTimeout(id));
+            pendingRoundTimers = [];
+        }
+
+        // 연출 단계 하나가 실패해도 다음 단계는 계속 진행 (오류는 콘솔에 그대로 기록)
+        function safeRun(label, fn) {
+            try { return fn(); } catch (e) { console.error(`[워드나이츠] ${label} 오류:`, e); }
+        }
+
+        function setTextById(id, text) {
+            const el = document.getElementById(id);
+            if (el) el.innerText = text;
+        }
 
         // 4대 타깃 오브젝트 스타일 규격 (1번 상자, 2번 항아리, 3번 드럼통, 4번 보물상자)
         const BOX_STYLES = [
@@ -4818,21 +4882,34 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             { icon: "🎁", name: "4번 보물상자", color: "#facc15" }
         ];
 
-        // 메인 전장(대형) 상자 배치 좌표
+        // 메인 전장(대형) 상자 배치 좌표 (좌측 쉘리 6~14%, 우측 보스 82~95%와 겹치지 않는 중앙 전투 구역)
         const BOARD_BOX_POSITIONS = [
-            { left: "26%", top: "12%" },  // 1번 (좌측 상단)
-            { left: "68%", top: "12%" },  // 2번 (우측 상단)
-            { left: "26%", top: "54%" },  // 3번 (좌측 하단)
-            { left: "68%", top: "54%" }   // 4번 (우측 하단)
+            { left: "22%", top: "10%" },  // 1번 (좌측 상단)
+            { left: "54%", top: "10%" },  // 2번 (우측 상단)
+            { left: "22%", top: "54%" },  // 3번 (좌측 하단)
+            { left: "54%", top: "54%" }   // 4번 (우측 하단)
         ];
 
         // 모바일 패드(소형) 상자 배치 좌표
         const PAD_BOX_POSITIONS = [
-            { left: "28%", top: "8%" },
-            { left: "70%", top: "8%" },
-            { left: "28%", top: "52%" },
-            { left: "70%", top: "52%" }
+            { left: "20%", top: "8%" },
+            { left: "54%", top: "8%" },
+            { left: "20%", top: "52%" },
+            { left: "54%", top: "52%" }
         ];
+
+        // 선택지 개수에 맞는 상자 좌표 (2지선다 / 4지선다 / 5개 이상 예외 배치)
+        function getBoxPosition(idx, count, isPad) {
+            if (count === 2) {
+                return isPad
+                    ? (idx === 0 ? { left: "22%", top: "34%" } : { left: "54%", top: "34%" })
+                    : (idx === 0 ? { left: "25%", top: "36%" } : { left: "54%", top: "36%" });
+            }
+            const table = isPad ? PAD_BOX_POSITIONS : BOARD_BOX_POSITIONS;
+            if (idx < table.length) return table[idx];
+            const col = idx % 4, row = Math.floor(idx / 4);
+            return { left: `${18 + col * 18}%`, top: `${10 + row * 30}%` };
+        }
 
         // 맵 내에 타깃 파밍 상자 렌더링
         function renderTargetBoxes() {
@@ -4845,17 +4922,13 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             if (!activeQuiz || !activeQuiz.options) return;
 
             const opts = activeQuiz.options;
-            const isTwoOptions = (opts.length === 2);
 
             opts.forEach((opt, idx) => {
                 const style = BOX_STYLES[idx % BOX_STYLES.length];
 
                 // 1. 전자칠판 메인 전장 상자
                 if (boardContainer) {
-                    const pos = isTwoOptions
-                        ? (idx === 0 ? { left: "40%", top: "40%" } : { left: "60%", top: "40%" })
-                        : BOARD_BOX_POSITIONS[idx];
-
+                    const pos = getBoxPosition(idx, opts.length, false);
                     const boxEl = document.createElement('div');
                     boxEl.id = `board-box-${idx}`;
                     boxEl.className = "target-farm-box";
@@ -4875,10 +4948,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
                 // 2. 학생 스마트폰 패드 전장 상자
                 if (padContainer) {
-                    const pos = isTwoOptions
-                        ? (idx === 0 ? { left: "40%", top: "35%" } : { left: "60%", top: "35%" })
-                        : PAD_BOX_POSITIONS[idx];
-
+                    const pos = getBoxPosition(idx, opts.length, true);
                     const padBoxEl = document.createElement('div');
                     padBoxEl.id = `pad-box-${idx}`;
                     padBoxEl.className = "target-farm-box";
@@ -4896,104 +4966,121 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             });
         }
 
-        // 💥 타깃 상자 파쇄 & HP 증감 처리 함수
-        
-        // 🏃💨 쉘리가 타깃 상자로 실시간 달려가서 영거리 사격하는 엔진
-        
-        // 🏃💨 쉘리 실시간 이동 & 영거리 샷건 사격 (안전 방탄 엔진)
-        function moveShellyToBoxAndShoot(boxIdx, isCorrect) {
-            try {
-                const shelly = document.getElementById('shelly-avatar');
-                const padShelly = document.getElementById('pad-shelly-avatar');
-                const field = document.getElementById('brawl-arena-field');
+        // 🔒 답 선택 후 상자·선택지 버튼 잠금 (chosenIdx는 강조 유지, null이면 전부 흐리게)
+        function setAnswerInputsLocked(chosenIdx) {
+            document.querySelectorAll('#board-target-boxes-container .target-farm-box, #pad-target-boxes-container .target-farm-box')
+                .forEach(el => {
+                    el.style.pointerEvents = 'none';
+                    el.style.cursor = 'default';
+                });
+            const padBtns = document.querySelectorAll('#pad-options-container button');
+            padBtns.forEach((btn, idx) => {
+                btn.disabled = true;
+                btn.style.cursor = 'default';
+                if (idx !== chosenIdx) btn.style.opacity = '0.45';
+            });
+        }
 
-                if (!shelly || !activeQuiz || !activeQuiz.options) return;
-
-                const isTwo = (activeQuiz.options.length === 2);
-                const targetPos = isTwo
-                    ? (boxIdx === 0 ? { left: "38%", top: "42%" } : { left: "62%", top: "42%" })
-                    : (BOARD_BOX_POSITIONS[boxIdx] || { left: "50%", top: "50%" });
-
-                const targetLeft = parseFloat(targetPos.left);
-                const targetTop = parseFloat(targetPos.top);
-                const approachLeft = (targetLeft > 50) ? `${targetLeft - 14}%` : `${targetLeft + 14}%`;
-
-                // 1. 상자 위치로 이동 대시
-                shelly.style.left = approachLeft;
-                shelly.style.top = `${targetTop}%`;
-                shelly.style.transform = (targetLeft > 50) ? "scaleX(1)" : "scaleX(-1)";
-
-                if (padShelly) {
-                    padShelly.style.left = approachLeft;
-                    padShelly.style.top = `${targetTop}%`;
-                }
-
-                // 2. 0.35초 후 사격 모션 & 사운드
-                setTimeout(() => {
-                    try {
-                        SoundFX.playBrawlShot();
-                        shelly.classList.add('living-shelly-shoot');
-                        setTimeout(() => shelly.classList.remove('living-shelly-shoot'), 350);
-
-                        if (padShelly) {
-                            padShelly.classList.add('living-shelly-shoot');
-                            setTimeout(() => padShelly.classList.remove('living-shelly-shoot'), 350);
-                        }
-
-                        // 모바일 햅틱 진동
-                        if (navigator.vibrate) navigator.vibrate([40, 30, 80]);
-                    } catch(e) { console.error("사격 연출 오류 무시:", e); }
-                }, 350);
-
-            } catch(err) {
-                console.error("이동 애니메이션 오류 안전 복구:", err);
+        // ✅ 정답 상자 초록 광채로 공개
+        function revealCorrectBox() {
+            if (!activeQuiz) return;
+            const ans = activeQuiz.answer;
+            [`board-box-${ans}`, `pad-box-${ans}`].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.filter = "drop-shadow(0 0 16px rgba(52, 211, 153, 0.95))";
+            });
+            const padBtns = document.querySelectorAll('#pad-options-container button');
+            if (padBtns[ans]) {
+                padBtns[ans].style.opacity = '1';
+                padBtns[ans].style.outline = '3px solid #34d399';
             }
         }
 
+        // 🏃💨 쉘리 실시간 이동 & 영거리 샷건 사격
+        function moveShellyToBoxAndShoot(boxIdx, isCorrect) {
+            const shelly = document.getElementById('shelly-avatar');
+            const padShelly = document.getElementById('pad-shelly-avatar');
+            if (!activeQuiz || !activeQuiz.options) return;
+            const count = activeQuiz.options.length;
 
-        
-        // ⏩ 안전한 다음 문제 전환 함수 (자동 전환 & 수동 넘김 100% 보장)
-        let isTransitioningQuiz = false;
+            const approach = (pos) => {
+                const l = parseFloat(pos.left), t = parseFloat(pos.top);
+                return { left: (l > 50) ? `${l - 14}%` : `${l + 14}%`, top: `${t}%`, faceRight: l > 50 };
+            };
+
+            // 1. 상자 위치로 이동 대시 (전자칠판 / 학생 폰 각각의 좌표계 사용)
+            if (shelly) {
+                const a = approach(getBoxPosition(boxIdx, count, false));
+                shelly.style.bottom = 'auto';
+                shelly.style.left = a.left;
+                shelly.style.top = a.top;
+                shelly.style.transform = a.faceRight ? "scaleX(1)" : "scaleX(-1)";
+            }
+            if (padShelly) {
+                const a = approach(getBoxPosition(boxIdx, count, true));
+                padShelly.style.bottom = 'auto';
+                padShelly.style.left = a.left;
+                padShelly.style.top = a.top;
+            }
+
+            // 2. 0.35초 후 사격 모션 & 사운드
+            scheduleRound(() => {
+                safeRun('샷건 사운드', () => SoundFX.playBrawlShot());
+                [shelly, padShelly].forEach(el => {
+                    if (!el) return;
+                    el.classList.add('living-shelly-shoot');
+                    setTimeout(() => el.classList.remove('living-shelly-shoot'), 350);
+                });
+                if (navigator.vibrate) navigator.vibrate([40, 30, 80]);
+            }, 350);
+        }
+
+        // ⏩ 다음 문제 전환 (자동 전환·수동 버튼·시간 초과 모두 이 함수 하나만 사용)
         function proceedToNextQuiz() {
             if (isTransitioningQuiz) return;
             isTransitioningQuiz = true;
-
+            roundLocked = true;
+            cancelRoundTimers();          // 남아 있던 자동 전환 예약 취소 → 이중 전환 차단
             clearInterval(timerInterval);
 
-            setTimeout(() => {
+            scheduleRound(() => {
                 try {
                     resetShellyToHome();
-
+                    const chapters = textbookLibrary[currentBookKey].chapters;
                     if (bossHp <= 0) {
                         endGame(true);
-                    } else if (currentChapterIdx < textbookLibrary[currentBookKey].chapters.length - 1) {
+                    } else if (currentChapterIdx < chapters.length - 1) {
                         currentChapterIdx++;
                         const chapSelect = document.getElementById('chapter-select');
                         if (chapSelect) chapSelect.value = currentChapterIdx;
-                        activeQuiz = textbookLibrary[currentBookKey].chapters[currentChapterIdx];
+                        activeQuiz = chapters[currentChapterIdx];
                         loadCurrentQuiz(activeQuiz);
                     } else {
-                        endGame(bossHp <= 0);
+                        endGame(false);
                     }
-                } catch(e) {
-                    console.error("다음 문제 로드 오류 안전 복구:", e);
-                } finally {
+                } catch (e) {
+                    console.error("[워드나이츠] 다음 문제 전환 오류:", e);
+                    // 전환 실패 시에도 버튼으로 다시 시도할 수 있게 잠금 해제
                     isTransitioningQuiz = false;
+                    roundLocked = false;
                 }
             }, 300);
         }
-
 
         function resetShellyToHome() {
             const shelly = document.getElementById('shelly-avatar');
             const padShelly = document.getElementById('pad-shelly-avatar');
             if (shelly) {
-                shelly.style.left = "8%";
+                shelly.style.pointerEvents = 'none';   // 쉘리가 정답 상자 클릭을 가로채지 않도록
+                shelly.style.bottom = 'auto';
+                shelly.style.left = "4%";
                 shelly.style.top = "45%";
                 shelly.style.transform = "scaleX(1)";
             }
             if (padShelly) {
-                padShelly.style.left = "10%";
+                padShelly.style.pointerEvents = 'none';
+                padShelly.style.bottom = 'auto';
+                padShelly.style.left = "4%";
                 padShelly.style.top = "38%";
                 padShelly.style.transform = "scaleX(1)";
             }
@@ -5001,28 +5088,25 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
         function handleTargetBoxDestruction(chosenIdx, isCorrect) {
             const field = document.getElementById('brawl-arena-field');
-            const padField = document.getElementById('pad-brawl-field');
             const boardBox = document.getElementById(`board-box-${chosenIdx}`);
             const padBox = document.getElementById(`pad-box-${chosenIdx}`);
 
             if (isCorrect) {
                 // ⭕ [정답 상자 파밍 성공!]
-                // 1. 상자 파쇄 애니메이션
                 if (boardBox) {
                     boardBox.style.transform = "scale(0) rotate(180deg)";
                     boardBox.style.opacity = "0";
-                    spawnSplinters(boardBox, field, "📦");
+                    spawnSplinters(boardBox, field, BOX_STYLES[chosenIdx % BOX_STYLES.length].icon);
                 }
                 if (padBox) {
                     padBox.style.transform = "scale(0)";
                     padBox.style.opacity = "0";
                 }
 
-                // 2. HP +1000 회복 (최대 5100)
+                // HP +1000 회복 (최대 5100)
                 playerCurrentHp = Math.min(PLAYER_MAX_HP, playerCurrentHp + 1000);
                 updateShellyHpUI();
 
-                // 3. 초록색 +1000 HP 회복 플로팅 텍스트
                 if (field) {
                     const healPop = document.createElement('div');
                     healPop.className = "hp-heal-float";
@@ -5032,13 +5116,9 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
                     field.appendChild(healPop);
                     setTimeout(() => healPop.remove(), 1100);
                 }
-
             } else {
                 // ❌ [오답 함정 상자 폭발!]
-                // 1. 독가스 트랩 폭발 이펙트 펑-!
-                if (boardBox) {
-                    boardBox.style.animation = "shake 0.4s ease-in-out";
-                }
+                if (boardBox) boardBox.style.animation = "shake 0.4s ease-in-out";
 
                 if (field) {
                     const trap = document.createElement('div');
@@ -5050,11 +5130,10 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
                     setTimeout(() => trap.remove(), 850);
                 }
 
-                // 2. HP -1200 감점 (최소 500)
+                // HP -1200 감점 (최소 500)
                 playerCurrentHp = Math.max(500, playerCurrentHp - 1200);
                 updateShellyHpUI();
 
-                // 3. 붉은색 -1200 HP 감점 플로팅 텍스트
                 if (field) {
                     const dmgPop = document.createElement('div');
                     dmgPop.className = "hp-dmg-float";
@@ -5065,36 +5144,24 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
                     setTimeout(() => dmgPop.remove(), 1100);
                 }
 
-                // 4. 보스의 조소 대사
-                const dialogueElem = document.getElementById('board-boss-dialogue');
-                if (dialogueElem) {
-                    dialogueElem.innerText = '"크하하! 멍청하게 함정 상자를 건드렸구나!"';
-                }
-
-                // 5. 모바일 강한 햅틱 진동 (피격 충격)
-                if (navigator.vibrate) {
-                    navigator.vibrate([100, 50, 100]);
-                }
+                setTextById('board-boss-dialogue', '"크하하! 멍청하게 함정 상자를 건드렸구나!"');
+                if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
             }
         }
 
         // 쉘리 체력바 UI 실시간 갱신
         function updateShellyHpUI() {
             const hpElem = document.getElementById('shelly-hp-val');
-            if (hpElem) hpElem.innerText = playerCurrentHp;
-
-            // 체력 낮을 때 경고 색상
-            if (playerCurrentHp <= 1500) {
-                if (hpElem) hpElem.className = "text-[11px] text-red-500 font-black animate-pulse";
-            } else {
-                if (hpElem) hpElem.className = "text-[11px] text-emerald-400 font-black";
-            }
+            if (!hpElem) return;
+            hpElem.innerText = playerCurrentHp;
+            hpElem.className = (playerCurrentHp <= 1500)
+                ? "text-[11px] text-red-500 font-black animate-pulse"
+                : "text-[11px] text-emerald-400 font-black";
         }
 
         // 상자 파편 비산 파티클 생성
         function spawnSplinters(sourceEl, parentField, icon) {
             if (!sourceEl || !parentField) return;
-            const rect = sourceEl.getBoundingClientRect();
             for (let i = 0; i < 6; i++) {
                 const s = document.createElement('div');
                 s.className = "wood-splinter";
@@ -5110,78 +5177,314 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             }
         }
 
-        
-        // 🎯 정답 제출 처리 (먹통 방지 방탄 구조)
+        // 🎯 정답 제출 처리
         function submitPadAnswer(optionIdx) {
-            initAudio();
+            safeRun('오디오 초기화', () => initAudio());
+            if (roundLocked || isTransitioningQuiz || !activeQuiz) return;
             const student = students.find(s => s.id === currentStudentId);
             if (!student || student.answered) return;
+
+            // 1. 즉시 잠금 + 타이머 정지 (연출 도중 시간 초과가 끼어들지 않게)
+            roundLocked = true;
+            clearInterval(timerInterval);
 
             student.answered = true;
             student.answerIdx = optionIdx;
             student.isCorrect = (optionIdx === activeQuiz.answer);
+            const isCorrect = student.isCorrect;
 
-            const statusElem = document.getElementById('pad-submit-status');
-            if (statusElem) {
-                statusElem.innerText = `[${optionIdx + 1}번 선택 완료]`;
-                statusElem.className = "text-[11px] text-emerald-400 font-bold animate-pulse";
-            }
+            safeRun('입력 잠금', () => setAnswerInputsLocked(optionIdx));
+            safeRun('제출 상태 표시', () => {
+                const statusElem = document.getElementById('pad-submit-status');
+                if (statusElem) {
+                    statusElem.innerText = `[${optionIdx + 1}번 선택 완료]`;
+                    statusElem.className = "text-[11px] text-emerald-400 font-bold animate-pulse";
+                }
+            });
+            safeRun('학생 현황판', () => renderStudentGrid());
+            safeRun('다른 학생 응답', () => simulateOtherStudents());
 
-            renderStudentGrid();
-            simulateOtherStudents();
+            // 2. 쉘리 이동 & 사격
+            safeRun('쉘리 이동', () => moveShellyToBoxAndShoot(optionIdx, isCorrect));
 
-            // 1. 쉘리 이동 & 사격 (실패해도 게임 멈추지 않음)
-            moveShellyToBoxAndShoot(optionIdx, student.isCorrect);
-
-            // 2. 0.4초 후 상자 파쇄 & HP 증감
-            setTimeout(() => {
-                try {
-                    handleTargetBoxDestruction(optionIdx, student.isCorrect);
-                } catch(e) { console.error("상자 파쇄 오류 무시:", e); }
-
-                // 3. 정오답 처리 & 피드백
-                try {
-                    if (student.isCorrect) {
-                        SoundFX.playCorrect();
+            // 3. 0.4초 후 상자 파쇄 & HP 증감 & 정오답 피드백
+            scheduleRound(() => {
+                safeRun('상자 파쇄', () => handleTargetBoxDestruction(optionIdx, isCorrect));
+                safeRun('정답 공개', () => revealCorrectBox());
+                if (isCorrect) {
+                    safeRun('정답 사운드', () => SoundFX.playCorrect());
+                    safeRun('점수 반영', () => {
                         student.score += 50;
-                        const scoreElem = document.getElementById('pad-student-score');
-                        if (scoreElem) scoreElem.innerText = student.score;
+                        setTextById('pad-student-score', student.score);
                         addScoreToStudentDB(student.name, 50);
-
-                        grantPowerCube();
-                        chargeSuperAttack();
-                        triggerBossHitReaction();
-                        applyDamageToBoss(activeQuiz.damage || 35, activeQuiz.dialogue || "크윽! 상자를 깨부수고 파워를 흡수하다니!");
-
+                    });
+                    safeRun('파워 큐브', () => grantPowerCube());
+                    safeRun('궁극기 충전', () => chargeSuperAttack());
+                    safeRun('보스 피격 연출', () => triggerBossHitReaction());
+                    safeRun('보스 대미지', () => applyDamageToBoss(activeQuiz.damage || 35, activeQuiz.dialogue || "크윽! 상자를 깨부수고 파워를 흡수하다니!"));
+                    safeRun('해설 표시', () => {
                         const expEl = document.getElementById('pad-explanation-text');
-                        if (expEl) {
-                            expEl.innerHTML = `<strong class="text-emerald-400 font-bold">정답입니다! 🎉 (HP +1000 파밍 성공!)</strong><br>${activeQuiz.explanation}`;
-                        }
-                    } else {
-                        SoundFX.playWrong();
-                        bossCounterAttack();
+                        if (expEl) expEl.innerHTML = `<strong class="text-emerald-400 font-bold">정답입니다! 🎉 (HP +1000 파밍 성공!)</strong><br>${activeQuiz.explanation}`;
+                    });
+                } else {
+                    safeRun('오답 사운드', () => SoundFX.playWrong());
+                    safeRun('보스 반격', () => bossCounterAttack());
+                    safeRun('해설 표시', () => {
                         const expEl = document.getElementById('pad-explanation-text');
-                        if (expEl) {
-                            expEl.innerHTML = `<strong class="text-rose-400 font-bold">오답 함정 폭발! 😢 (HP -1200 감점!)</strong><br>정답은 <span class="text-amber-300 font-bold">${activeQuiz.answer + 1}번</span>입니다.<br>${activeQuiz.explanation}`;
-                        }
-                    }
-                } catch(e) { console.error("피드백 오류 무시:", e); }
-
-                // 4. 타이머 정지 후 2.2초 뒤 100% 확실하게 다음 문제 전환!
-                clearInterval(timerInterval);
-                setTimeout(proceedToNextQuiz, 2200);
-
+                        if (expEl) expEl.innerHTML = `<strong class="text-rose-400 font-bold">오답 함정 폭발! 😢 (HP -1200 감점!)</strong><br>정답은 <span class="text-amber-300 font-bold">${activeQuiz.answer + 1}번</span>입니다.<br>${activeQuiz.explanation}`;
+                    });
+                }
             }, 400);
+
+            // 4. 2.6초 뒤 다음 문제 (문제가 그 사이 바뀌면 자동 무효)
+            scheduleRound(proceedToNextQuiz, 2600);
         }
 
+        // 다른 학생들 랜덤 응답 시뮬레이션 (현재 문제에만 반영)
+        function simulateOtherStudents() {
+            students.forEach(s => {
+                if (s.id !== currentStudentId && !s.answered) {
+                    scheduleRound(() => {
+                        if (s.answered) return;
+                        s.answered = true;
+                        const n = activeQuiz.options.length;
+                        s.answerIdx = (Math.random() < 0.8) ? activeQuiz.answer : Math.floor(Math.random() * n);
+                        s.isCorrect = (s.answerIdx === activeQuiz.answer);
+                        if (s.isCorrect) s.score += 50;
+                        renderStudentGrid();
+                        if (students.every(st => st.answered)) {
+                            const badge = document.getElementById('all-answered-badge');
+                            if (badge) badge.classList.remove('hidden');
+                        }
+                    }, Math.random() * 1200 + 300);
+                }
+            });
+        }
+
+        // 브롤 Web Audio 사운드 확장 (유실 → 복원)
+        SoundFX.playBrawlShot = function() {
+            if (isMuted || !audioCtx) return;
+            try {
+                const now = audioCtx.currentTime;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = "sawtooth";
+                osc.frequency.setValueAtTime(180, now);
+                osc.frequency.exponentialRampToValueAtTime(30, now + 0.22);
+                gain.gain.setValueAtTime(0.5 * currentMasterVolume, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+                osc.connect(gain);
+                gain.connect(masterGainNode);
+                osc.start(now);
+                osc.stop(now + 0.25);
+            } catch(e) {}
+        };
+
+        SoundFX.playPowerCube = function() {
+            if (isMuted || !audioCtx) return;
+            try {
+                const now = audioCtx.currentTime;
+                [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = "sine";
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0.3 * currentMasterVolume, now + i * 0.06);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + (i + 1) * 0.08);
+                    osc.connect(gain);
+                    gain.connect(masterGainNode);
+                    osc.start(now + i * 0.06);
+                    osc.stop(now + (i + 1) * 0.08);
+                });
+            } catch(e) {}
+        };
+
+        SoundFX.playSuperReady = function() {
+            if (isMuted || !audioCtx) return;
+            try {
+                const now = audioCtx.currentTime;
+                [440, 554.37, 659.25, 880].forEach((f, i) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = "triangle";
+                    osc.frequency.value = f;
+                    gain.gain.setValueAtTime(0.4 * currentMasterVolume, now + i * 0.08);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+                    osc.connect(gain);
+                    gain.connect(masterGainNode);
+                    osc.start(now + i * 0.08);
+                    osc.stop(now + 0.45);
+                });
+            } catch(e) {}
+        };
+
+        SoundFX.playSuperBlast = function() {
+            if (isMuted || !audioCtx) return;
+            try {
+                const now = audioCtx.currentTime;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = "square";
+                osc.frequency.setValueAtTime(260, now);
+                osc.frequency.exponentialRampToValueAtTime(20, now + 0.6);
+                gain.gain.setValueAtTime(0.7 * currentMasterVolume, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.65);
+                osc.connect(gain);
+                gain.connect(masterGainNode);
+                osc.start(now);
+                osc.stop(now + 0.65);
+            } catch(e) {}
+        };
+
+        // 상단 HUD(파워 큐브·궁극기·생존 브롤러)를 실제 상태값과 일치시킴
+        function syncBrawlHud() {
+            setTextById('cube-count-val', playerPowerCubes);
+            setTextById('pad-cube-count', playerPowerCubes);
+            setTextById('shelly-cube-badge', `⚡ ${playerPowerCubes}`);
+            setTextById('super-gauge-text', Math.round((superAttackCharge / 3) * 100) + "%");
+            setTextById('brawl-alive-count', aliveBrawlers);
+            setTextById('pad-alive-count', aliveBrawlers);
+            const padSuper = document.getElementById('pad-super-btn');
+            if (padSuper) padSuper.classList.toggle('ready', superAttackCharge >= 3);
+        }
+
+        // 보스 피격 넉백 & 생존자 카운트 연출 (유실 → 복원)
+        function triggerBossHitReaction() {
+            ['boss-sprite-box', 'pad-boss-sprite'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.add('living-boss-hit');
+                    setTimeout(() => el.classList.remove('living-boss-hit'), 400);
+                }
+            });
+            const stage = document.getElementById('brawl-battle-stage');
+            if (stage) {
+                stage.classList.add('boss-hit-knockback');
+                setTimeout(() => stage.classList.remove('boss-hit-knockback'), 450);
+            }
+            if (aliveBrawlers > 2) aliveBrawlers--;
+            syncBrawlHud();
+        }
+
+        // 파워 큐브 획득 연출 (유실 → 복원)
+        function grantPowerCube() {
+            playerPowerCubes++;
+            syncBrawlHud();
+            SoundFX.playPowerCube();
+
+            const field = document.getElementById('brawl-arena-field');
+            if (field) {
+                const flyingCube = document.createElement('div');
+                flyingCube.className = "flying-power-cube";
+                flyingCube.innerText = "⚡";
+                field.appendChild(flyingCube);
+                setTimeout(() => flyingCube.remove(), 900);
+
+                scheduleRound(() => {
+                    const pop = document.createElement('div');
+                    pop.className = "cube-pop-text";
+                    pop.innerText = `⚡ +1 파워 큐브 획득! (공격력 x${(1 + playerPowerCubes * 0.2).toFixed(1)})`;
+                    pop.style.left = "30px";
+                    pop.style.top = "15px";
+                    field.appendChild(pop);
+                    setTimeout(() => pop.remove(), 1200);
+                }, 450);
+            }
+        }
+
+        // 궁극기 게이지 충전 (유실 → 복원)
+        function chargeSuperAttack() {
+            if (superAttackCharge >= 3) return;
+            superAttackCharge++;
+            syncBrawlHud();
+            if (superAttackCharge === 3) {
+                SoundFX.playSuperReady();
+                const statusElem = document.getElementById('pad-submit-status');
+                if (statusElem) statusElem.innerText = "🔥 궁극기 준비 완료! 💀 버튼을 터치하세요!";
+            }
+        }
+
+        // 💥 궁극기 슈퍼 샷건 폭풍 발사! (유실 → 복원, 경고창 대신 화면 안내)
+        function fireSuperAttack() {
+            safeRun('오디오 초기화', () => initAudio());
+            if (superAttackCharge < 3) {
+                const statusElem = document.getElementById('pad-submit-status');
+                if (statusElem) {
+                    statusElem.innerText = `⚡ 궁극기 게이지 ${Math.round((superAttackCharge / 3) * 100)}% — 정답 3번이면 발동!`;
+                    statusElem.className = "text-[11px] text-amber-300 font-bold";
+                }
+                return;
+            }
+            if (isTransitioningQuiz) return;
+
+            superAttackCharge = 0;
+            syncBrawlHud();
+            SoundFX.playSuperBlast();
+
+            const stage = document.getElementById('brawl-battle-stage');
+            if (stage) {
+                stage.style.filter = "brightness(2) contrast(1.5)";
+                setTimeout(() => stage.style.filter = "none", 300);
+            }
+
+            const shelly = document.getElementById('shelly-avatar');
+            if (shelly) {
+                shelly.classList.add('living-shelly-shoot');
+                setTimeout(() => shelly.classList.remove('living-shelly-shoot'), 450);
+            }
+
+            const field = document.getElementById('brawl-arena-field');
+            if (field) {
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        const bullet = document.createElement('div');
+                        bullet.className = "brawl-bullet";
+                        bullet.style.left = "80px";
+                        bullet.style.top = `${30 + i * 15}%`;
+                        field.appendChild(bullet);
+                        setTimeout(() => {
+                            bullet.style.left = "calc(100% - 100px)";
+                            bullet.style.transform = "scale(2.2)";
+                        }, 20);
+                        setTimeout(() => bullet.remove(), 250);
+                    }, i * 60);
+                }
+            }
+
+            // 보스에게 초대형 궁극기 대미지 (-60 HP) — scheduleRound로 라운드 세대 검증 보장
+            scheduleRound(() => {
+                safeRun('궁극기 피격', () => {
+                    triggerBossHitReaction();
+                    applyDamageToBoss(60, "크아악! 쉘리의 슈퍼 샷건 폭풍에 산산조각 났다...!!");
+                });
+                // 궁극기로 보스가 쓰러지면 즉시 승리 처리
+                if (bossHp <= 0 && !isTransitioningQuiz) {
+                    roundLocked = true;
+                    clearInterval(timerInterval);
+                    scheduleRound(proceedToNextQuiz, 1200);
+                }
+            }, 350);
+        }
+
+        // 쇼다운 독가스 경고 (남은 10초부터, 유실 → 복원)
+        function checkPoisonGas(remainingSeconds) {
+            const overlay = document.getElementById('poison-gas-overlay');
+            const badge = document.getElementById('poison-warning-badge');
+            const danger = remainingSeconds <= 10 && remainingSeconds > 0;
+            if (overlay) overlay.classList.toggle('danger', danger);
+            if (badge) badge.classList.toggle('hidden', !danger);
+        }
 
         function applyDamageToBoss(damage, dialogue) {
             bossHp = Math.max(0, bossHp - damage);
-            document.getElementById('board-boss-hp-bar').style.width = bossHp + "%";
-            document.getElementById('board-boss-hp-text').innerText = `${bossHp} / 100 HP`;
-            document.getElementById('board-boss-dialogue').innerText = `"${dialogue}"`;
+            const bar = document.getElementById('board-boss-hp-bar');
+            if (bar) bar.style.width = bossHp + "%";
+            setTextById('board-boss-hp-text', `${bossHp} / 100 HP`);
+            setTextById('brawl-boss-hp-tag', `${bossHp}%`);
+            setTextById('board-boss-dialogue', `"${dialogue}"`);
 
             const dmgElem = document.getElementById('board-floating-damage');
+            if (!dmgElem) return;
             dmgElem.className = "absolute text-4xl text-amber-300 opacity-1 pointer-events-none transition-all duration-700 font-bold";
             dmgElem.innerText = `-${damage} HP!`;
             dmgElem.style.opacity = "1";
@@ -5193,8 +5496,9 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         }
 
         function bossCounterAttack() {
-            document.getElementById('board-boss-dialogue').innerText = '"푸하하! 어림없다! 문맥을 전혀 파악하지 못했구나!"';
+            setTextById('board-boss-dialogue', '"푸하하! 어림없다! 문맥을 전혀 파악하지 못했구나!"');
             const dmgElem = document.getElementById('board-floating-damage');
+            if (!dmgElem) return;
             dmgElem.className = "absolute text-2xl text-rose-400 opacity-1 pointer-events-none transition-all duration-700 font-bold";
             dmgElem.innerText = `🛡️ BLOCK! 0 DMG`;
             dmgElem.style.opacity = "1";
@@ -5208,60 +5512,126 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         function startTimer() {
             clearInterval(timerInterval);
             timer = 20;
+            const token = roundToken;
             updateTimerDisplay();
-            SoundFX.playTick(timer);
+            checkPoisonGas(timer);
+            safeRun('타이머 사운드', () => SoundFX.playTick(timer));
 
-            timerInterval = setInterval(() => {
+            const intervalId = setInterval(() => {
+                if (token !== roundToken) { clearInterval(intervalId); return; }
                 timer--;
-                updateTimerDisplay();
-                SoundFX.playTick(timer);
+                safeRun('타이머 표시', () => updateTimerDisplay());
+                safeRun('독가스 경고', () => checkPoisonGas(timer));
+                safeRun('타이머 사운드', () => SoundFX.playTick(timer));
 
                 if (timer <= 0) {
-                    clearInterval(timerInterval);
+                    clearInterval(intervalId);
                     handleTimeOut();
                 }
             }, 1000);
+            timerInterval = intervalId;
         }
 
         function updateTimerDisplay() {
-            document.getElementById('board-timer-text').innerText = timer;
-            const pct = (timer / 20) * 100;
+            const shown = Math.max(0, timer);
+            const timerText = document.getElementById('board-timer-text');
+            if (timerText) timerText.innerText = shown;
+            const pct = (shown / 20) * 100;
             const bar = document.getElementById('board-timer-bar');
+            if (!bar) return;
             bar.style.width = pct + "%";
 
-            if (timer <= 5) {
+            if (shown <= 5) {
                 bar.className = "bg-rose-500 h-full transition-all duration-1000";
-                document.getElementById('board-timer-text').classList.add('animate-urgent');
+                if (timerText) timerText.classList.add('animate-urgent');
             } else {
                 bar.className = "bg-gradient-to-r from-amber-400 to-yellow-300 h-full transition-all duration-1000";
-                document.getElementById('board-timer-text').classList.remove('animate-urgent');
+                if (timerText) timerText.classList.remove('animate-urgent');
             }
         }
 
+        // ⏰ 시간 초과: 입력 잠금 → 정답 공개 → 자동으로 다음 문제
         function handleTimeOut() {
-            SoundFX.playWrong();
-            bossCounterAttack();
+            if (roundLocked || isTransitioningQuiz || !activeQuiz) return;
+            roundLocked = true;
+            clearInterval(timerInterval);
+
+            safeRun('입력 잠금', () => setAnswerInputsLocked(null));
+            safeRun('시간 초과 연출', () => { SoundFX.playWrong(); bossCounterAttack(); });
+            safeRun('정답 공개', () => revealCorrectBox());
+            safeRun('시간 초과 안내', () => {
+                const statusElem = document.getElementById('pad-submit-status');
+                if (statusElem) {
+                    statusElem.innerText = "⏰ 시간 초과!";
+                    statusElem.className = "text-[11px] text-rose-400 font-bold";
+                }
+                const ans = activeQuiz.answer;
+                const expEl = document.getElementById('pad-explanation-text');
+                if (expEl) expEl.innerHTML = `<strong class="text-rose-400 font-bold">⏰ 시간 초과!</strong><br>정답은 <span class="text-amber-300 font-bold">${ans + 1}번 (${activeQuiz.options[ans]})</span>입니다.<br>${activeQuiz.explanation}`;
+            });
+
+            scheduleRound(proceedToNextQuiz, 2600);
         }
 
         function changeStudentId(id) {
             currentStudentId = parseInt(id);
             const student = students.find(s => s.id === currentStudentId);
             if (student) {
-                document.getElementById('pad-student-score').innerText = student.score;
-                document.getElementById('pad-student-avatar').innerText = student.role.split(' ')[0];
+                setTextById('pad-student-score', student.score);
+                setTextById('pad-student-avatar', student.role.split(' ')[0]);
             }
-            initAudio();
+            safeRun('오디오 초기화', () => initAudio());
+        }
+
+        // 학생 패드 선택 목록을 현재 반 명단으로 갱신 (수업반 변경 시 호출, 유실 → 신규 구현)
+        function renderPadStudentSelector() {
+            const sel = document.getElementById('student-id-select');
+            if (!sel) return;
+            sel.innerHTML = students.map((s, i) => {
+                const roleName = (s.role || '').split(' ').slice(1).join(' ');
+                return `<option value="${s.id}">${roleName} ${s.name} (${i + 1}번 패드)</option>`;
+            }).join('');
+            if (!students.some(s => s.id === currentStudentId) && students[0]) currentStudentId = students[0].id;
+            sel.value = String(currentStudentId);
+            const student = students.find(s => s.id === currentStudentId);
+            if (student) {
+                setTextById('pad-student-score', student.score);
+                setTextById('pad-student-avatar', student.role.split(' ')[0]);
+            }
+        }
+
+        // QR 모달: 로컬 서버 IP 프리셋 / 직접 입력 (유실 → 복원)
+        function setHostIp(type) {
+            const input = document.getElementById('custom-host-ip');
+            if (!input) return;
+            if (type === 'my-pc') {
+                input.value = "192.168.10.223:8080";
+            } else if (type === 'flip') {
+                input.value = "192.168.0.100:8080";
+            }
+            applyCustomIp();
+        }
+
+        function applyCustomIp() {
+            const input = document.getElementById('custom-host-ip');
+            if (input && input.value.trim()) {
+                localStorage.setItem('hanuri_game_host_ip', input.value.trim());
+                updateQrTargetUrl();
+            }
         }
 
         // ----------------------------------------------------
         // 📦 보상 상자 오픈 로직
         // ----------------------------------------------------
         function endGame(isVictory) {
+            cancelRoundTimers();
+            roundLocked = true;
+            isTransitioningQuiz = true;   // 결과 화면에서는 '다음 문제' 버튼 무시 (resetGame 시 해제)
             clearInterval(timerInterval);
             if (isVictory) {
                 triggerBrawlBox();
             } else {
-                SoundFX.playWrong();
+                safeRun('패배 사운드', () => SoundFX.playWrong());
                 document.getElementById('defeat-modal').classList.remove('hidden');
             }
         }
@@ -5318,21 +5688,21 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         }
 
         function openBoxStep() {
+            if (boxTapsRemaining <= 0) return;   // 이미 열린 상자 연타 방지
             boxTapsRemaining--;
-            const boxSprite = document.getElementById('box-sprite');
 
             if (boxTapsRemaining === 2) {
-                SoundFX.playBoxTap(2);
+                safeRun('상자 사운드', () => SoundFX.playBoxTap(2));
                 updateStardropStage(2); // 초희귀 승급!
                 document.getElementById('box-tap-count').innerText = 2;
             } else if (boxTapsRemaining === 1) {
-                SoundFX.playBoxTap(1);
+                safeRun('상자 사운드', () => SoundFX.playBoxTap(1));
                 updateStardropStage(3); // 신화 승급!
                 document.getElementById('box-tap-count').innerText = 1;
-            } else if (boxTapsRemaining <= 0) {
+            } else {
                 // 전설 등급 폭발 & 오픈!
                 updateStardropStage(4);
-                SoundFX.playLegendaryOpen();
+                safeRun('전설 사운드', () => SoundFX.playLegendaryOpen());
 
                 setTimeout(() => {
                     document.getElementById('brawl-box-container').classList.add('hidden');
@@ -5348,7 +5718,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
                                     <span class="w-6 h-6 rounded-full bg-gradient-to-tr from-amber-400 to-yellow-300 text-slate-950 font-black text-xs flex items-center justify-center shadow">
                                         ★
                                     </span>
-                                    <span class="font-black text-amber-300 text-base tracking-wide">${c.word || c.options[c.answer]}</span>
+                                    <span class="font-black text-amber-300 text-base tracking-wide">${formatRewardTitle(c, idx)}</span>
                                     <span class="text-[10px] text-slate-400 font-mono">(${c.hanja || '어휘'})</span>
                                 </div>
                                 <span class="text-[11px] text-indigo-300 font-bold bg-indigo-950/80 px-2 py-0.5 rounded-full border border-indigo-800">
@@ -5357,12 +5727,12 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
                             </div>
                             
                             <!-- 💡 아이들이 빵 터지는 어휘 유래 비법 스토리 & 예문 -->
-                            <div class="mt-2.5 pt-2 border-t border-slate-800 text-xs text-slate-200 space-y-1">
+                            <div id="word-detail-${idx}" class="mt-2.5 pt-2 border-t border-slate-800 text-xs text-slate-200 space-y-1">
                                 <p class="text-amber-200 font-bold leading-relaxed">
-                                    ${c.funOrigin}
+                                    ${c.funOrigin || c.explanation || ''}
                                 </p>
                                 <p class="text-[11px] text-slate-400 italic">
-                                    📝 예문: "${c.example}"
+                                    📝 예문: "${c.example || c.question || ''}"
                                 </p>
                             </div>
                         </div>
@@ -5371,18 +5741,59 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
             }
         }
 
+        // 보상 카드 제목 포맷터 (DADA1_01_01 같은 내부 코드 대신 실제 어휘/문항명 표시)
+        function formatRewardTitle(c, idx) {
+            const w = (c.word || '').trim();
+            if (w && !/^[A-Z0-9_]+$/i.test(w)) return w;
+            const quoted = (c.explanation || '').match(/'([^']{1,12})'/g);
+            if (quoted && quoted.length > 0) {
+                const uniq = [...new Set(quoted.map(q => q.replace(/'/g, '')))];
+                return uniq.slice(0, 3).join(' · ');
+            }
+            return c.workTitle || c.name || (c.options && c.options[c.answer]) || `${idx + 1}번 어휘`;
+        }
+
+        // 보상 단어 카드 탭 → 유래·예문 접기/펼치기 (신규 구현)
+        function toggleWordDetail(idx) {
+            const detail = document.getElementById(`word-detail-${idx}`);
+            if (detail) detail.classList.toggle('hidden');
+        }
+
         function closeBoxAndReset() {
             document.getElementById('brawl-box-modal').classList.add('hidden');
             resetGame();
         }
 
-        function resetGame() {
-            document.getElementById('defeat-modal').classList.add('hidden');
+        // 전투 수치·모달 전체 초기화 (새 게임 / 새 교재 전환 공용)
+        function resetBattleState() {
+            cancelRoundTimers();
+            roundLocked = false;
+            isTransitioningQuiz = false;
+
+            const defeatModal = document.getElementById('defeat-modal');
+            if (defeatModal) defeatModal.classList.add('hidden');
+            const boxModal = document.getElementById('brawl-box-modal');
+            if (boxModal) boxModal.classList.add('hidden');
+
             bossHp = 100;
-            document.getElementById('board-boss-hp-bar').style.width = "100%";
-            document.getElementById('board-boss-hp-text').innerText = "100 / 100 HP";
+            const bar = document.getElementById('board-boss-hp-bar');
+            if (bar) bar.style.width = "100%";
+            setTextById('board-boss-hp-text', "100 / 100 HP");
+            setTextById('brawl-boss-hp-tag', "100%");
+
+            playerCurrentHp = PLAYER_MAX_HP;
+            playerPowerCubes = 0;
+            superAttackCharge = 0;
+            aliveBrawlers = 10;
+            updateShellyHpUI();
+            syncBrawlHud();
+        }
+
+        function resetGame() {
+            resetBattleState();
             currentChapterIdx = 0;
-            document.getElementById('chapter-select').value = "0";
+            const chapSelect = document.getElementById('chapter-select');
+            if (chapSelect) chapSelect.value = "0";
             activeQuiz = textbookLibrary[currentBookKey].chapters[0];
             loadCurrentQuiz(activeQuiz);
         }
@@ -5390,7 +5801,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         // ----------------------------------------------------
         // 🚀 URL 파라미터 감지 및 자동 뷰 모드 설정
         // ----------------------------------------------------
-        window.addEventListener('click', () => { initAudio(); }, { once: true });
+        window.addEventListener('click', () => { safeRun('오디오 초기화', () => initAudio()); }, { once: true });
         window.onload = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const role = urlParams.get('role');
@@ -5403,6 +5814,8 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
                 switchViewMode('twin');
             }
 
+            syncBrawlHud();
+            renderPadStudentSelector();
             loadCurrentQuiz(activeQuiz);
         };
     </script>
