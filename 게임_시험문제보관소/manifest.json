@@ -1,0 +1,61 @@
+{
+  "updatedAt": "2026-10-26",
+  "packs": [
+    {
+      "key": "dada_1",
+      "fileName": "다다어휘_1호_통합_20제.json",
+      "title": "다다어휘 1호 (1·2차시 통합)",
+      "label": "다다어휘 1호 (1·2차시 20제)",
+      "questionCount": 20
+    },
+    {
+      "key": "dada_1_ch1",
+      "fileName": "다다어휘_1호_1차시.json",
+      "title": "다다어휘 1호 · 1차시",
+      "label": "다다어휘 1호 · 1차시 (10제)",
+      "questionCount": 10
+    },
+    {
+      "key": "dada_1_ch2",
+      "fileName": "다다어휘_1호_2차시.json",
+      "title": "다다어휘 1호 · 2차시",
+      "label": "다다어휘 1호 · 2차시 (10제)",
+      "questionCount": 10
+    },
+    {
+      "key": "sci_sound",
+      "fileName": "과학탐탐_소리가궁금해_12제.json",
+      "title": "과학탐탐 (2026년 11월호) · 특집 퀴즈",
+      "label": "과학탐탐 (소리가 궁금해! 12제)",
+      "questionCount": 12
+    },
+    {
+      "key": "dada_2",
+      "fileName": "다다어휘_2호_관용구속담.json",
+      "title": "다다어휘 2호",
+      "label": "다다어휘 2호",
+      "questionCount": 3
+    },
+    {
+      "key": "grade_book",
+      "fileName": "초등_월간_필독서.json",
+      "title": "초등 월간 필독서",
+      "label": "초등 월간 필독서",
+      "questionCount": 3
+    },
+    {
+      "key": "byulbyul_ox",
+      "fileName": "별별문학_수필_OX_100제.json",
+      "title": "별별문학 수필 독해",
+      "label": "별별문학 수필 OX 100제",
+      "questionCount": 10
+    },
+    {
+      "key": "socrates_5min",
+      "fileName": "소크라테스_중등_5분테스트.json",
+      "title": "소크라테스 중등 5분테스트",
+      "label": "소크라테스 중등 5분테스트",
+      "questionCount": 2
+    }
+  ]
+}
