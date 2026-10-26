@@ -2057,3 +2057,493 @@ window.onload = () => {
     renderPadStudentSelector();
     loadCurrentQuiz(activeQuiz);
 };
+
+
+// 🔌 [워드나이츠 WebSocket 실시간 동기화 클라이언트]
+// ====================================================
+
+const WS_CONFIG = {
+    // server.py 실행 포트(8081)와 일치
+    getWsUrl: function() {
+        const base = (window.location.protocol === 'https:') ? 'wss:' : 'ws:';
+        const hostname = window.location.hostname || '127.0.0.1';
+        return base + '//' + hostname + ':8081';
+    },
+    RECONNECT_BASE_MS: 1000,
+    RECONNECT_MAX_MS: 30000,
+    HEARTBEAT_MS: 20000,
+};
+
+const wsState = {
+    socket: null,
+    isConnected: false,
+    isSimMode: true,           // WS 미연결 시 로컬 시뮬레이션 모드 유지
+    reconnectAttempts: 0,
+    reconnectTimer: null,
+    heartbeatTimer: null,
+    // ⚡ 핵심: 서버가 내려준 라운드 ID — roundToken과 크로스 검증용
+    serverRoundId: null,
+};
+
+// ----------------------------------------------------
+// 📡 [1] WS 연결 진입점 (window.onload에서 호출)
+// ----------------------------------------------------
+function initWebSocket() {
+    // file:/// 로컬 파일 실행 시에는 WebSocket 서버가 없으므로 연결 시도 생략 (로컬 시뮬 모드 유지)
+    if (window.location.protocol === 'file:') {
+        return;
+    }
+    // 이미 연결 중이면 중복 연결 차단
+    if (wsState.socket &&
+        (wsState.socket.readyState === WebSocket.CONNECTING ||
+         wsState.socket.readyState === WebSocket.OPEN)) return;
+
+    const url = WS_CONFIG.getWsUrl();
+    console.log(`[WS] 연결 시도: ${url} (재시도 #${wsState.reconnectAttempts})`);
+
+    let ws;
+    try {
+        ws = new WebSocket(url);
+    } catch (e) {
+        console.warn('[WS] WebSocket 생성 실패 — 로컬 시뮬 모드 유지:', e);
+        scheduleReconnect();
+        return;
+    }
+
+    wsState.socket = ws;
+
+    ws.onopen = () => {
+        console.log('[WS] ✅ 연결 성공');
+        wsState.isConnected = true;
+        wsState.isSimMode = false;        // ← 시뮬레이션 비활성화
+        wsState.reconnectAttempts = 0;
+        clearTimeout(wsState.reconnectTimer);
+        startHeartbeat();
+        updateWsStatusBadge(true);
+
+        // 서버에 자신의 역할 + 학생 정보 등록
+        const role = new URLSearchParams(window.location.search).get('role') || 'twin';
+        const savedUser = (() => {
+            try { return JSON.parse(localStorage.getItem(LOCAL_STORAGE_DEVICE_KEY)); }
+            catch { return null; }
+        })();
+        wsSend({
+            type: 'register',
+            role,                          // 'teacher' | 'student' | 'twin'
+            studentName: savedUser?.name ?? null,
+            studentRole: savedUser?.role ?? null,
+        });
+    };
+
+    ws.onmessage = (event) => {
+        let msg;
+        try { msg = JSON.parse(event.data); }
+        catch (e) { console.warn('[WS] JSON 파싱 오류:', event.data); return; }
+        handleWsMessage(msg);
+    };
+
+    ws.onerror = (err) => {
+        console.warn('[WS] 오류 발생:', err);
+    };
+
+    ws.onclose = (event) => {
+        console.warn(`[WS] 연결 끊김 (code=${event.code})`);
+        wsState.isConnected = false;
+        wsState.isSimMode = true;         // ← 연결 끊기면 시뮬 폴백 복귀
+        stopHeartbeat();
+        updateWsStatusBadge(false);
+        scheduleReconnect();
+    };
+}
+
+// Exponential Backoff 재연결 스케줄러
+function scheduleReconnect() {
+    clearTimeout(wsState.reconnectTimer);
+    const delay = Math.min(
+        WS_CONFIG.RECONNECT_BASE_MS * Math.pow(2, wsState.reconnectAttempts),
+        WS_CONFIG.RECONNECT_MAX_MS
+    );
+    wsState.reconnectAttempts++;
+    console.log(`[WS] ${delay}ms 후 재연결 예약 (#${wsState.reconnectAttempts})`);
+    wsState.reconnectTimer = setTimeout(initWebSocket, delay);
+}
+
+// Heartbeat (연결 유지 ping)
+function startHeartbeat() {
+    stopHeartbeat();
+    wsState.heartbeatTimer = setInterval(() => {
+        if (wsState.socket?.readyState === WebSocket.OPEN) {
+            wsSend({ type: 'ping' });
+        }
+    }, WS_CONFIG.HEARTBEAT_MS);
+}
+function stopHeartbeat() {
+    clearInterval(wsState.heartbeatTimer);
+}
+
+// 안전한 WS 전송 (연결 끊김 시 조용히 드롭)
+function wsSend(payload) {
+    if (wsState.socket?.readyState === WebSocket.OPEN) {
+        wsState.socket.send(JSON.stringify(payload));
+    }
+}
+
+// WS 연결 상태 배지 (옵션 — HTML에 id="ws-status-badge" 있을 때만 반영)
+function updateWsStatusBadge(connected) {
+    const badge = document.getElementById('ws-status-badge');
+    if (!badge) return;
+    badge.innerText = connected ? '🟢 실시간 연결됨' : '🔴 오프라인 모드';
+    badge.className = connected
+        ? 'text-[10px] font-bold text-emerald-400'
+        : 'text-[10px] font-bold text-rose-400';
+}
+
+// ----------------------------------------------------
+// 📨 [2] 수신 메시지 라우터
+// ----------------------------------------------------
+function handleWsMessage(msg) {
+    switch (msg.type) {
+
+        // ─── 서버 → 전체 클라이언트: 퀴즈 상태 변경 브로드캐스트 ───────────
+        case 'quiz_state_changed':
+            onRemoteQuizStateChanged(msg);
+            break;
+
+        // ─── 서버 → 전체 클라이언트: 학생 답안 수신 ────────────────────────
+        case 'student_answer_broadcast':
+            onRemoteStudentAnswer(msg);
+            break;
+
+        // ─── 서버 → 신규 접속 클라이언트: 풀 상태 동기화 (Late-Join) ────────
+        case 'full_sync':
+            onFullSync(msg);
+            break;
+
+        // ─── 서버 → 클라이언트: 학생 목록 갱신 (누군가 접속/이탈) ───────────
+        case 'roster_update':
+            onRosterUpdate(msg);
+            break;
+
+        case 'pong':
+            // heartbeat 응답 — 무시
+            break;
+
+        default:
+            console.warn('[WS] 알 수 없는 메시지 타입:', msg.type);
+    }
+}
+
+// ----------------------------------------------------
+// 🏫 [3] 선생님 조작 → 서버 브로드캐스트 송신 훅
+//    기존 함수들을 monkey-patch하여 WS 전송을 끼워 넣음
+// ----------------------------------------------------
+
+// 원본 함수 보관
+const _orig_toggleQuizStartPause = toggleQuizStartPause;
+const _orig_changeTextbook       = changeTextbook;
+const _orig_changeChapter        = changeChapter;
+
+// 선생님 시작/일시정지 → 브로드캐스트
+window.toggleQuizStartPause = function() {
+    _orig_toggleQuizStartPause();
+    const role = new URLSearchParams(window.location.search).get('role') || 'twin';
+    if (role === 'teacher' || role === 'twin') {
+        wsSend({
+            type: 'teacher_quiz_control',
+            action: isQuizPaused ? 'pause' : (isQuizStarted ? 'resume' : 'start'),
+            bookKey: currentBookKey,
+            chapterIdx: currentChapterIdx,
+            timer,
+            roundId: roundToken,   // 서버가 클라이언트 세대 번호를 저장하여 late-join에 제공
+        });
+    }
+};
+
+// 교재 변경 → 브로드캐스트
+window.changeTextbook = function(bookKey) {
+    _orig_changeTextbook(bookKey);
+    const role = new URLSearchParams(window.location.search).get('role') || 'twin';
+    if (role === 'teacher' || role === 'twin') {
+        wsSend({
+            type: 'teacher_quiz_control',
+            action: 'change_textbook',
+            bookKey,
+            chapterIdx: 0,
+            roundId: roundToken,
+        });
+    }
+};
+
+// 챕터 변경 → 브로드캐스트
+window.changeChapter = function(chapIdx) {
+    _orig_changeChapter(chapIdx);
+    const role = new URLSearchParams(window.location.search).get('role') || 'twin';
+    if (role === 'teacher' || role === 'twin') {
+        wsSend({
+            type: 'teacher_quiz_control',
+            action: 'change_chapter',
+            bookKey: currentBookKey,
+            chapterIdx: parseInt(chapIdx),
+            roundId: roundToken,
+        });
+    }
+};
+
+// ----------------------------------------------------
+// 📲 [4] 학생 답안 제출 → 서버 송신
+//    기존 submitPadAnswer를 monkey-patch
+// ----------------------------------------------------
+const _orig_submitPadAnswer = submitPadAnswer;
+
+window.submitPadAnswer = function(optionIdx) {
+    // 로컬 처리는 그대로 수행
+    _orig_submitPadAnswer(optionIdx);
+
+    // WS 연결 중일 때 서버로 답안 전송
+    if (wsState.isConnected) {
+        const savedUser = (() => {
+            try { return JSON.parse(localStorage.getItem(LOCAL_STORAGE_DEVICE_KEY)); }
+            catch { return null; }
+        })();
+        wsSend({
+            type: 'student_answer',
+            studentId: currentStudentId,
+            studentName: savedUser?.name ?? students.find(s => s.id === currentStudentId)?.name,
+            answerIdx: optionIdx,
+            bookKey: currentBookKey,
+            chapterIdx: currentChapterIdx,
+            // ⚡ 서버 측 중복 제출 방지 및 라운드 오염 방지 키
+            roundId: roundToken,
+            serverRoundId: wsState.serverRoundId,
+            timestamp: Date.now(),
+        });
+    }
+};
+
+// ----------------------------------------------------
+// 📥 [5] 수신 핸들러 구현
+// ----------------------------------------------------
+
+/**
+ * 선생님 퀴즈 상태 변경 수신 (학생 클라이언트 반영)
+ * ⚠️ 주의: twin 모드에서는 자기 자신이 보낸 메시지도 수신됨 → 이중 실행 방지
+ */
+function onRemoteQuizStateChanged(msg) {
+    const myRole = new URLSearchParams(window.location.search).get('role') || 'twin';
+
+    // twin 또는 teacher: 자신이 원본 발신자이므로 재실행 차단
+    // (서버가 echo: false 옵션을 지원하면 서버 측에서 처리 권장)
+    if ((myRole === 'teacher' || myRole === 'twin') && msg.fromSelf) return;
+
+    // 서버 roundId 업데이트
+    wsState.serverRoundId = msg.roundId;
+
+    switch (msg.action) {
+        case 'start':
+        case 'resume':
+            // 교재·챕터 먼저 맞추고 세션 시작
+            if (msg.bookKey !== currentBookKey) {
+                // 교재가 다르면 교재 우선 로드 (UI 드롭다운도 동기화)
+                const tbSelect = document.getElementById('textbook-select');
+                if (tbSelect) tbSelect.value = msg.bookKey;
+                _orig_changeTextbook(msg.bookKey);
+            }
+            if (msg.chapterIdx !== currentChapterIdx) {
+                const chapSelect = document.getElementById('chapter-select');
+                if (chapSelect) chapSelect.value = msg.chapterIdx;
+                _orig_changeChapter(msg.chapterIdx);
+            }
+            // 타이머는 서버 기준 남은 시간으로 보정 (드리프트 방지)
+            if (typeof msg.timer === 'number' && msg.timer > 0) {
+                timer = msg.timer;
+            }
+            if (!isQuizStarted || isQuizPaused) {
+                isQuizStarted = true;
+                isQuizPaused = false;
+                updateQuizControlUI();
+                startTimer(timer);
+            }
+            break;
+
+        case 'pause':
+            if (isQuizStarted && !isQuizPaused) {
+                isQuizPaused = true;
+                clearInterval(timerInterval);
+                timerInterval = null;
+                updateQuizControlUI();
+            }
+            break;
+
+        case 'change_textbook':
+            if (msg.bookKey !== currentBookKey) {
+                const tbSelect = document.getElementById('textbook-select');
+                if (tbSelect) tbSelect.value = msg.bookKey;
+                _orig_changeTextbook(msg.bookKey);
+            }
+            break;
+
+        case 'change_chapter':
+            if (msg.chapterIdx !== currentChapterIdx || msg.bookKey !== currentBookKey) {
+                if (msg.bookKey !== currentBookKey) {
+                    const tbSelect = document.getElementById('textbook-select');
+                    if (tbSelect) tbSelect.value = msg.bookKey;
+                    _orig_changeTextbook(msg.bookKey);
+                }
+                const chapSelect = document.getElementById('chapter-select');
+                if (chapSelect) chapSelect.value = msg.chapterIdx;
+                _orig_changeChapter(msg.chapterIdx);
+            }
+            break;
+    }
+}
+
+/**
+ * 원격 학생 답안 수신 (선생님/칠판 화면에서 실시간 현황 표시)
+ * ⚠️ simulateOtherStudents()와 충돌 방지: WS 연결 시 시뮬 비활성화
+ */
+function onRemoteStudentAnswer(msg) {
+    // ─── 서버 roundId ↔ 로컬 roundToken 크로스 검증 ─────────────────────
+    // 이전 라운드 메시지가 네트워크 지연으로 늦게 도착한 경우 폐기
+    if (msg.roundId !== undefined && wsState.serverRoundId !== null) {
+        if (msg.roundId !== wsState.serverRoundId) {
+            console.warn(`[WS] 만료된 라운드 답안 폐기 (수신 roundId=${msg.roundId}, 현재=${wsState.serverRoundId})`);
+            return;
+        }
+    }
+
+    const student = students.find(s => s.name === msg.studentName || s.id === msg.studentId);
+    if (!student) {
+        // 명단에 없는 학생 (동적 게스트) — 동적 추가 정책은 향후 결정
+        console.warn('[WS] 명단에 없는 학생 답안 수신:', msg.studentName);
+        return;
+    }
+    if (student.answered) return;  // 이미 처리된 답안 → 중복 차단
+
+    student.answered = true;
+    student.answerIdx = msg.answerIdx;
+    student.isCorrect = (msg.answerIdx === activeQuiz?.answer);
+    if (student.isCorrect) student.score += 50;
+
+    renderStudentGrid();
+
+    // 전원 응답 완료 배지
+    if (students.every(st => st.answered)) {
+        const badge = document.getElementById('all-answered-badge');
+        if (badge) badge.classList.remove('hidden');
+    }
+}
+
+/**
+ * Late-Join 풀 싱크 수신
+ * 도중에 접속한 학생에게 현재 퀴즈 상태를 한 번에 밀어줌
+ */
+function onFullSync(msg) {
+    console.log('[WS] 🔄 풀 싱크 수신:', msg);
+    wsState.serverRoundId = msg.roundId ?? null;
+
+    // 1. 교재·챕터 동기화
+    if (msg.bookKey && msg.bookKey !== currentBookKey) {
+        const tbSelect = document.getElementById('textbook-select');
+        if (tbSelect) tbSelect.value = msg.bookKey;
+        _orig_changeTextbook(msg.bookKey);
+    }
+    if (typeof msg.chapterIdx === 'number' && msg.chapterIdx !== currentChapterIdx) {
+        const chapSelect = document.getElementById('chapter-select');
+        if (chapSelect) chapSelect.value = msg.chapterIdx;
+        _orig_changeChapter(msg.chapterIdx);
+    }
+
+    // 2. 게임 진행 상태 동기화
+    isQuizStarted = msg.isQuizStarted ?? false;
+    isQuizPaused  = msg.isQuizPaused  ?? false;
+    updateQuizControlUI();
+
+    // 3. 타이머 동기화 (서버 기준 남은 시간으로 보정)
+    if (typeof msg.timer === 'number' && msg.timer > 0) {
+        timer = msg.timer;
+        updateTimerDisplay();
+        checkPoisonGas(timer);
+        if (isQuizStarted && !isQuizPaused) {
+            startTimer(timer);
+        }
+    }
+
+    // 4. 현재 라운드 학생 응답 현황 동기화
+    if (Array.isArray(msg.answers)) {
+        msg.answers.forEach(a => {
+            const student = students.find(s => s.name === a.studentName || s.id === a.studentId);
+            if (student && !student.answered) {
+                student.answered   = true;
+                student.answerIdx  = a.answerIdx;
+                student.isCorrect  = (a.answerIdx === activeQuiz?.answer);
+            }
+        });
+        renderStudentGrid();
+    }
+
+    // 5. 보스 HP 동기화
+    if (typeof msg.bossHp === 'number') {
+        bossHp = msg.bossHp;
+        const bar = document.getElementById('board-boss-hp-bar');
+        if (bar) bar.style.width = bossHp + '%';
+        setTextById('board-boss-hp-text', `${bossHp} / 100 HP`);
+    }
+
+    const myRole = new URLSearchParams(window.location.search).get('role') || 'twin';
+    console.log(`[WS] ✅ 풀 싱크 완료 (role=${myRole}, chapter=${msg.chapterIdx}, timer=${msg.timer})`);
+}
+
+/**
+ * 학생 접속/이탈 명단 갱신
+ * (선택 구현 — 서버가 roster_update를 지원할 때)
+ */
+function onRosterUpdate(msg) {
+    if (!Array.isArray(msg.students)) return;
+    // 기존 점수 보존하며 명단 머지
+    msg.students.forEach(remote => {
+        const local = students.find(s => s.name === remote.name);
+        if (local) {
+            local.role = remote.role ?? local.role;
+        } else {
+            // 신규 접속 학생 동적 추가
+            students.push({
+                id: remote.id ?? (Math.max(...students.map(s => s.id)) + 1),
+                name: remote.name,
+                role: remote.role ?? '⚔️ 기사',
+                score: remote.score ?? 500,
+                answered: false,
+                answerIdx: null,
+                isCorrect: false,
+            });
+        }
+    });
+    renderStudentGrid();
+    renderPadStudentSelector();
+    const countEl = document.getElementById('online-students-count');
+    if (countEl) countEl.innerText = `${msg.students.length}명`;
+}
+
+// ----------------------------------------------------
+// 🔁 [6] simulateOtherStudents 폴백 래퍼
+//    WS 연결 중이면 시뮬레이션 억제, 미연결이면 기존 동작 유지
+// ----------------------------------------------------
+const _orig_simulateOtherStudents = simulateOtherStudents;
+window.simulateOtherStudents = function() {
+    if (!wsState.isSimMode) {
+        // WS 연결 중 — 시뮬레이션 억제 (실제 학생 응답만 반영)
+        return;
+    }
+    _orig_simulateOtherStudents();
+};
+
+// ====================================================
+// 🚀 [7] window.onload 훅 — WS 초기화 진입
+//    기존 window.onload 아래에서 호출하거나,
+//    아래처럼 기존 onload를 감싸는 방식으로 사용
+// ====================================================
+const _orig_onload = window.onload;
+window.onload = () => {
+    if (_orig_onload) _orig_onload();
+    // WS 연결 시도 (실패해도 로컬 시뮬 모드로 게임 가능)
+    initWebSocket();
+};
