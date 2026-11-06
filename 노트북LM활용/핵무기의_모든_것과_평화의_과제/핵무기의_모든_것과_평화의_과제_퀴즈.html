@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>핵무기의 모든 것과 평화의 과제 - 인터랙티브 퀴즈</title>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-hover: #0ea5e9;
+      --accent: #a855f7;
+      --correct: #10b981;
+      --correct-bg: rgba(16, 185, 129, 0.15);
+      --correct-border: #059669;
+      --wrong: #ef4444;
+      --wrong-bg: rgba(239, 68, 68, 0.15);
+      --wrong-border: #dc2626;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 16px 60px;
+    }
+    header {
+      width: 100%;
+      max-width: 800px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #38bdf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p.subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .quiz-container {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .progress-bar-wrap {
+      width: 100%;
+      height: 8px;
+      background: var(--card-bg);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 8px;
+      border: 1px solid var(--card-border);
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #38bdf8, #a855f7);
+      transition: width 0.3s ease;
+    }
+    /* 지시 20261106_02: 효과음 음소거 토글 */
+    .btn-mute {
+      font: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: inherit;
+      background: transparent;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      padding: 3px 12px;
+      cursor: pointer;
+    }
+    @media print { .btn-mute { display: none !important; } }
+    .stats-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .quiz-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .quiz-card:hover {
+      border-color: #475569;
+    }
+    .question-title {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .q-no {
+      background: var(--primary);
+      color: #020617;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 8px;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      padding: 14px 18px;
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      border-radius: 12px;
+      font-size: 14.5px;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s ease;
+      line-height: 1.4;
+    }
+    .option-btn:hover:not(:disabled) {
+      background: #1e293b;
+      border-color: var(--primary);
+      transform: translateX(4px);
+    }
+    .opt-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #334155;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .option-btn.selected-correct {
+      background: var(--correct-bg) !important;
+      border-color: var(--correct) !important;
+      color: #34d399 !important;
+    }
+    .option-btn.selected-correct .opt-num {
+      background: var(--correct) !important;
+      color: #ffffff !important;
+    }
+    .option-btn.selected-wrong {
+      background: var(--wrong-bg) !important;
+      border-color: var(--wrong) !important;
+      color: #f87171 !important;
+    }
+    .option-btn.selected-wrong .opt-num {
+      background: var(--wrong) !important;
+      color: #ffffff !important;
+    }
+    .option-btn.reveal-correct {
+      border-color: var(--correct) !important;
+      background: rgba(16, 185, 129, 0.08) !important;
+    }
+    .explanation-box {
+      margin-top: 16px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: #0f172a;
+      border-left: 4px solid var(--primary);
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #cbd5e1;
+      display: none;
+    }
+    .explanation-box.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    .explanation-title {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .controls-footer {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--card-border);
+    }
+    .btn-action {
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+    .btn-reset {
+      background: transparent;
+      border-color: var(--card-border);
+      color: var(--text-muted);
+    }
+    .btn-reset:hover {
+      background: #1e293b;
+      color: var(--text);
+    }
+    .btn-print {
+      background: var(--primary);
+      color: #020617;
+    }
+    .btn-print:hover {
+      background: var(--primary-hover);
+    }
+    @media print {
+      body { background: #ffffff; color: #000000; padding: 0; }
+      .badge, .progress-bar-wrap, .controls-footer, .btn-action { display: none !important; }
+      .quiz-card { border: 1px solid #ccc; box-shadow: none; break-inside: avoid; margin-bottom: 20px; background: #fff; }
+      .option-btn { background: #fff !important; border: 1px solid #ddd !important; color: #000 !important; }
+      .opt-num { background: #eee !important; color: #000 !important; }
+      .explanation-box { display: block !important; background: #f8fafc !important; color: #333 !important; border-left-color: #0284c7 !important; }
+    }
+
+    /* ── 퀴즈 다크 테마 (기본값 고정) ── */
+    body[data-theme="dark"] {
+      background-color: #0F172A;
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .quiz-card { background: #1E293B; border-color: #334155; }
+    body[data-theme="dark"] .option-btn { background: #1E293B; border-color: #334155; color: #F8FAFC; }
+    body[data-theme="dark"] .option-btn:hover:not(:disabled) { border-color: #38BDF8; }
+    body[data-theme="dark"] .opt-num { background: #334155; color: #94A3B8; }
+    body[data-theme="dark"] .explanation-box { background: rgba(56,189,248,0.08) !important; border-left-color: #38BDF8 !important; color: #CBD5E1 !important; }
+
+    /* ── 퀴즈 웜 테마 ── */
+    body[data-theme="warm"] {
+      background-color: #F5EBE0;
+      color: #3D2B1F;
+    }
+    body[data-theme="warm"] .quiz-card { background: #FAF6F0; border-color: #E5D4C4; }
+    body[data-theme="warm"] .question-title { color: #3D2B1F; }
+    body[data-theme="warm"] .option-btn { background: #FAF6F0; border-color: #C9A88F; color: #3D2B1F; }
+    body[data-theme="warm"] .option-btn:hover:not(:disabled) { border-color: #D95300; background: #EDE0D4; }
+    body[data-theme="warm"] .opt-num { background: #EDE0D4; color: #5A3E32; }
+    body[data-theme="warm"] .explanation-box { background: rgba(255,107,0,0.08) !important; border-left-color: #FF6B00 !important; color: #5A3E32 !important; }
+    body[data-theme="warm"] h1 { background: linear-gradient(135deg, #D95300, #8B4513); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    body[data-theme="warm"] .badge { background: rgba(255,107,0,0.15); color: #D95300; border-color: rgba(255,107,0,0.3); }
+    body[data-theme="warm"] .stats-header { color: #7A5C4A; }
+    /* 지시 10 고대비 보정 (WCAG AA 4.5:1 실측 기준) */
+    body[data-theme="dark"] .opt-num { color: #CBD5E1; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">🎯 한우리 독서 이해도 평가</div>
+    <h1 id="quiz-header-title">핵무기의 모든 것과 평화의 과제 퀴즈</h1>
+    <p class="subtitle">문항을 풀고 정답과 해설을 실시간으로 확인해 보세요. (총 10문항)</p>
+  </header>
+
+  <div class="quiz-container">
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="stats-header">
+      <span id="progressText">진행률: 0 / 10 완료</span>
+      <span id="scoreText">점수: 0점</span>
+      <button type="button" class="btn-mute" id="muteBtn" onclick="toggleMute()">🔊 소리 켜짐</button>
+    </div>
+
+    <div id="quizList"></div>
+  </div>
+
+  <div class="controls-footer">
+    <button class="btn-action btn-reset" onclick="resetQuiz()">🔄 처음부터 다시 풀기</button>
+    <button class="btn-action btn-print" onclick="window.print()">🖨️ 시험지 인쇄하기</button>
+  </div>
+
+  <script>
+    // 순수 JSON 데이터 직통 주입
+    const QUIZ_DATA = [
+  {
+    "no": 1,
+    "question": "핵분열 반응의 과학적 원리에 대한 설명으로 가장 올바른 것은?",
+    "options": [
+      "우라늄-238에 전자를 충돌시켜 인공적으로 파괴하는 반응이다.",
+      "우라늄-235 원자핵에 중성자가 충돌하면 분열하면서 2~3개의 중성자와 거대한 에너지를 방출한다.",
+      "수소 원자핵이 서로 융합하면서 발생하는 에너지를 활용한 화학 반응이다.",
+      "원자핵을 이루는 양성자가 전자로 변환되면서 질량이 늘어나는 현상이다."
+    ],
+    "answer": 2,
+    "explanation": "우라늄-235 원자핵에 열중성자를 충돌시키면 바륨과 크립톤 등으로 분열하며 2~3개의 중성자와 함께 엄청난 에너지가 방출되는 연쇄반응이 일어납니다."
+  },
+  {
+    "no": 2,
+    "question": "아인슈타인의 '특수상대성이론(E=mc²)'이 원자폭탄 개발과 갖는 연관성으로 옳은 것은?",
+    "options": [
+      "원자핵을 방사선 치료에 활용하는 의학적 기술을 최초로 제시했다.",
+      "사라진 미량의 질량이 거대한 에너지로 전환될 수 있음을 이론적으로 증명했다.",
+      "우라늄 광석을 대량으로 정제하는 화학공학 공정을 완성시켰다.",
+      "핵분열 연쇄반응을 억제하여 원자력을 안전하게 제어하는 법칙을 만들었다."
+    ],
+    "answer": 2,
+    "explanation": "아인슈타인의 특수상대성이론은 물체의 사라진 질량(m)이 빛의 속도의 제곱에 비례하는 거대한 에너지(E)로 바뀐다는 사실을 밝혀 원자폭탄의 이론적 근거가 되었습니다."
+  },
+  {
+    "no": 3,
+    "question": "2차 세계대전 당시 미국 정부가 주도한 핵무기 개발 프로젝트의 암호명과 인류 최초 핵실험의 명칭이 올바르게 짝지어진 것은?",
+    "options": [
+      "맨해튼 프로젝트 - 트리니티",
+      "아폴로 프로젝트 - 비키니",
+      "바루크 플랜 - 맥마흔",
+      "퍼그워시 프로젝트 - 히로시마"
+    ],
+    "answer": 1,
+    "explanation": "2차 세계대전 당시 미국은 최고 과학자들을 동원하여 '맨해튼 프로젝트'를 추진하였고, 1945년 7월 최초의 핵실험인 '트리니티(Trinity)'에 성공했습니다."
+  },
+  {
+    "no": 4,
+    "question": "플루토늄-239와 '핵재처리' 기술에 대한 설명으로 올바르지 않은 것은?",
+    "options": [
+      "자연 상태의 우라늄 광석에서 직접 대량으로 채굴하여 얻을 수 있다.",
+      "원자로 속에서 우라늄-238이 중성자를 흡수하면서 플루토늄-239로 변환된다.",
+      "우라늄-235와 마찬가지로 핵분열 연쇄반응을 일으키는 핵무기 원료이다.",
+      "사용후 핵연료에서 플루토늄을 정제·추출하는 기술을 '핵재처리'라고 한다."
+    ],
+    "answer": 1,
+    "explanation": "플루토늄-239는 자연계에는 존재하지 않으며, 사용후 핵연료 속에 남은 핵물질을 분리·추출하는 '핵재처리' 공정을 통해서만 얻을 수 있습니다."
+  },
+  {
+    "no": 5,
+    "question": "2차 세계대전 직후 미국의 '바루크 플랜' 제안과 '맥마흔 법' 제정이 국제사회에 미친 영향은?",
+    "options": [
+      "전 세계의 모든 핵무기가 UN의 통제 아래 완전히 폐기되었다.",
+      "미국의 핵 독점 유지 시도와 기술 통제로 인해 미·소 냉전 군비 경쟁이 촉발되었다.",
+      "소련이 미국의 제안을 전폭 수용하여 즉각적인 핵 개발 중단을 선언했다.",
+      "영국과 프랑스가 독자적인 원자력 발전소 건설을 영구 포기했다."
+    ],
+    "answer": 2,
+    "explanation": "미국은 핵 독점을 유지한 채 통제하려 한 바루크 플랜과 기술 유출을 막은 맥마흔 법을 추진했으나, 이에 위협을 느낀 소련의 반발로 미·소 간 본격적인 핵 군비 경쟁이 격화되었습니다."
+  },
+  {
+    "no": 6,
+    "question": "냉전기 미·소 핵 경쟁에서 형성된 '상호확증파괴(MAD)' 전략의 핵심 의미는?",
+    "options": [
+      "어느 한쪽이 선제 핵공격을 가하더라도 상대방의 보복 핵공격으로 양측 모두 공멸하게 됨.",
+      "재래식 무기만을 사용하여 전면전을 사전에 차단하는 평화 유지 조약.",
+      "핵무기의 위력을 소형화하여 민간인 피해 없이 군사 기지만 정밀 타격하는 전술.",
+      "비동맹 중립국들이 연대하여 강대국의 핵무기를 강제로 압류하는 국제법."
+    ],
+    "answer": 1,
+    "explanation": "상호확증파괴(Mutually Assured Destruction)는 핵공격을 받더라도 살아남은 보복 핵전력으로 상대를 전멸시킬 수 있어, 역설적으로 양측 모두 핵전쟁을 시작하지 못하게 억제하는 전략입니다."
+  },
+  {
+    "no": 7,
+    "question": "1969년 체결된 핵확산금지조약(NPT)의 구조적 한계와 비판점으로 옳은 것은?",
+    "options": [
+      "기존 5대 핵보유국의 기득권만 인정하고 다른 국가들의 핵무장을 금지하는 불평등 조약이다.",
+      "회원국 탈퇴가 법적으로 영구히 불가능하여 주권을 심각하게 침해한다.",
+      "원자력 발전 등 평화적 목적의 원자력 에너지 이용까지 전면 금지하고 있다.",
+      "오직 아시아 국가들에만 적용되어 서양 강대국들은 감시를 받지 않는다."
+    ],
+    "answer": 1,
+    "explanation": "NPT는 1967년 이전 핵실험을 마친 5개국(미·소·영·프·중)의 핵보유 지위만 공인하고 여타 국가들의 핵보유를 금지하여 불평등하다는 비판을 받았습니다."
+  },
+  {
+    "no": 8,
+    "question": "남한과 북한의 핵무기 문제 및 미국의 안보 전략에 대한 설명으로 올바른 것은?",
+    "options": [
+      "남한은 1970년대 독자 핵개발에 성공하여 현재까지 핵무기를 실전 배치하고 있다.",
+      "미국은 남한의 독자 핵무장을 억제하는 대신 자국의 핵전력으로 보호하는 '핵우산'을 제공한다.",
+      "북한은 NPT 체제를 모범적으로 준수하며 국제원자력기구(IAEA)의 사찰을 전면 수용했다.",
+      "한반도 비핵화 공동선언에 따라 현재 남북한은 공동으로 핵무기 보관소를 운영 중이다."
+    ],
+    "answer": 2,
+    "explanation": "남한은 1970년대 박정희 정부 시절 핵개발을 시도했으나 미국의 압박으로 포기하였고, 대신 미국의 핵우산(확장억제) 보호를 받는 안보 체제를 구축했습니다."
+  },
+  {
+    "no": 9,
+    "question": "과학자들과 시민사회가 주도한 국제 반핵 평화 운동의 역사적 사례로 옳지 않은 것은?",
+    "options": [
+      "1955년 아인슈타인과 러셀 등 세계 석학들이 '러셀-아인슈타인 선언'을 발표했다.",
+      "동서 냉전기 과학자들이 모여 핵 군축을 논의한 '퍼그워시 회의'는 노벨 평화상을 수상했다.",
+      "비핵국가들과 시민단체가 연대한 ICAN의 노력으로 2017년 '핵무기금지조약(TPNW)'이 채택되었다.",
+      "맨해튼 프로젝트에 참여했던 오펜하이머는 평생 수소폭탄의 추가 개발을 적극 주도했다."
+    ],
+    "answer": 4,
+    "explanation": "오펜하이머는 원폭 투하 후 핵무기의 참상에 충격을 받고 이후 수소폭탄 개발에 강력히 반대하며 반핵 평화주의자로 돌아섰습니다."
+  },
+  {
+    "no": 10,
+    "question": "핵무기 투하 피해의 비인도성을 고발한 '한국인 원폭 피해자 2세'들의 참상과 관련된 설명은?",
+    "options": [
+      "피폭 피해는 당대에만 그치고 후손들에게는 어떠한 유전적 영향도 미치지 않았다.",
+      "히로시마·나가사키 피폭 2세인 고(故) 김형률 씨 등은 면역 결핍증 등 대를 잇는 고통을 겪었다.",
+      "미국과 일본 정부는 1950년부터 한국인 원폭 피해자 전원에게 완전한 국가 배상을 완료했다.",
+      "한국은 2차 대전 당시 추축국이었기 때문에 국제사회로부터 피폭 피해를 인정받지 못했다."
+    ],
+    "answer": 2,
+    "explanation": "한국인 원폭 2세 환우회를 이끈 고(故) 김형률 씨 등의 사례처럼, 방사능 피폭은 당대에 그치지 않고 후손에게 선천성 면역 질환 등 치명적 유전병의 아픔을 남겼습니다."
+  }
+];
+
+    let userAnswers = {};
+    const quizListEl = document.getElementById("quizList");
+    const progressBarEl = document.getElementById("progressBar");
+    const progressTextEl = document.getElementById("progressText");
+    const scoreTextEl = document.getElementById("scoreText");
+
+    function renderQuiz() {
+      quizListEl.innerHTML = "";
+      QUIZ_DATA.forEach((item, idx) => {
+        const card = document.createElement("div");
+        card.className = "quiz-card";
+        card.id = `qCard_${item.no}`;
+
+        let optsHtml = "";
+        item.options.forEach((opt, optIdx) => {
+          const optNum = optIdx + 1;
+          optsHtml += `
+            <button class="option-btn" id="optBtn_${item.no}_${optNum}" onclick="selectAnswer(${item.no}, ${optNum})">
+              <span class="opt-num">${optNum}</span>
+              <span>${opt}</span>
+            </button>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="question-title">
+            <span class="q-no">Q${item.no}</span>
+            <span>${item.question}</span>
+          </div>
+          <div class="options-list">
+            ${optsHtml}
+          </div>
+          <div class="explanation-box" id="expBox_${item.no}">
+            <div class="explanation-title">💡 정답 및 해설 (정답: ${item.answer}번)</div>
+            <div>${item.explanation}</div>
+          </div>
+        `;
+        quizListEl.appendChild(card);
+      });
+      updateStats();
+    }
+
+    function selectAnswer(qNo, selectedNum) {
+      if (userAnswers[qNo] !== undefined) return; // 이미 푼 문제 중복 클릭 방지
+
+      const q = QUIZ_DATA.find(i => i.no === qNo);
+      userAnswers[qNo] = selectedNum;
+
+      const selectedBtn = document.getElementById(`optBtn_${qNo}_${selectedNum}`);
+      const correctBtn = document.getElementById(`optBtn_${qNo}_${q.answer}`);
+      const expBox = document.getElementById(`expBox_${qNo}`);
+
+      // 모든 보기 비활성화
+      q.options.forEach((_, idx) => {
+        const btn = document.getElementById(`optBtn_${qNo}_${idx + 1}`);
+        btn.disabled = true;
+      });
+
+      if (selectedNum === q.answer) {
+        selectedBtn.classList.add("selected-correct");
+        playSound(true);
+      } else {
+        selectedBtn.classList.add("selected-wrong");
+        correctBtn.classList.add("reveal-correct");
+        playSound(false);
+      }
+
+      expBox.classList.add("show");
+      updateStats();
+    }
+
+    function updateStats() {
+      const answeredCount = Object.keys(userAnswers).length;
+      const total = QUIZ_DATA.length;
+      let correctCount = 0;
+
+      QUIZ_DATA.forEach(q => {
+        if (userAnswers[q.no] === q.answer) correctCount++;
+      });
+
+      const pct = (answeredCount / total) * 100;
+      progressBarEl.style.width = pct + "%";
+      progressTextEl.textContent = `진행률: ${answeredCount} / ${total} 완료`;
+      scoreTextEl.textContent = `점수: ${correctCount * 10}점 (${correctCount}/${total})`;
+    }
+
+    // 지시 20261106_02: Web Audio 합성 효과음 (정답 C5→E5 차임, 오답 A3→G3 저음)
+    let audioCtx = null;
+    let muted = false;
+    try { muted = localStorage.getItem('hanuri_quiz_muted') === '1'; } catch (e) {}
+
+    function playSound(correct) {
+      if (muted) return;
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        audioCtx = audioCtx || new Ctx();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const notes = correct ? [523.25, 659.25] : [220, 196];
+        const type = correct ? 'triangle' : 'sine';
+        const step = correct ? 0.13 : 0.18;
+        notes.forEach((freq, i) => {
+          const t = audioCtx.currentTime + i * step;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, t);
+          gain.gain.setValueAtTime(0.0001, t);
+          gain.gain.exponentialRampToValueAtTime(correct ? 0.25 : 0.18, t + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, t + step + 0.15);
+          osc.connect(gain).connect(audioCtx.destination);
+          osc.start(t);
+          osc.stop(t + step + 0.2);
+        });
+      } catch (e) {}
+    }
+
+    function renderMuteBtn() {
+      document.getElementById('muteBtn').textContent = muted ? '🔇 음소거' : '🔊 소리 켜짐';
+    }
+
+    function toggleMute() {
+      muted = !muted;
+      try { localStorage.setItem('hanuri_quiz_muted', muted ? '1' : '0'); } catch (e) {}
+      renderMuteBtn();
+    }
+
+    function resetQuiz() {
+      userAnswers = {};
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    renderQuiz();
+    renderMuteBtn();
+
+    // 대시보드 postMessage 테마 동기화
+    
+    try {
+      const savedTheme = localStorage.getItem('hanuri_theme') || 'dark';
+      document.body.dataset.theme = savedTheme;
+    } catch(e) {}
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'SET_THEME') {
+        document.body.dataset.theme = e.data.theme;
+      }
+    });
+    try {
+      if (window.parent && window.parent.document && window.parent.document.body.dataset.theme) {
+        document.body.dataset.theme = window.parent.document.body.dataset.theme;
+      }
+    } catch(e) {}
+  </script>
+</body>
+</html>

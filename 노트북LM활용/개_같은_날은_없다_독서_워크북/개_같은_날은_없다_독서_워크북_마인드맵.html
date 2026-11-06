@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>개 같은 날은 없다 독서 워크북 마인드맵 - 인터랙티브 뷰어</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    :root {
+      --bg-canvas: #0B0F19;
+      --header-bg: rgba(15, 23, 42, 0.85);
+      --header-border: #334155;
+      --header-text: #f8fafc;
+      --header-subtext: #94a3b8;
+      --controls-bg: #1e293b;
+      --controls-border: #334155;
+      --btn-bg: #0f172a;
+      --btn-color: #94a3b8;
+      --btn-hover-bg: #38bdf8;
+      --btn-hover-color: #0f172a;
+    }
+    [data-theme="light"] {
+      --bg-canvas: #f8fafc;
+      --header-bg: rgba(255, 255, 255, 0.9);
+      --header-border: #e2e8f0;
+      --header-text: #1e293b;
+      --header-subtext: #64748b;
+      --controls-bg: white;
+      --controls-border: #e2e8f0;
+      --btn-bg: #f1f5f9;
+      --btn-color: #334155;
+      --btn-hover-bg: #3b82f6;
+      --btn-hover-color: white;
+    }
+    [data-theme="warm"] {
+      --bg-canvas: #F5EBE0;
+      --header-bg: rgba(250, 246, 240, 0.92);
+      --header-border: #E5D4C4;
+      --header-text: #3D2B1F;
+      --header-subtext: #7A5C4A;
+      --controls-bg: #FAF6F0;
+      --controls-border: #E5D4C4;
+      --btn-bg: #EDE0D4;
+      --btn-color: #5A3E32;
+      --btn-hover-bg: #D95300;
+      --btn-hover-color: white;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-canvas);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      user-select: none;
+    }
+    header {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+      z-index: 10;
+      background: var(--header-bg);
+      backdrop-filter: blur(8px);
+      padding: 12px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      border: 1px solid var(--header-border);
+    }
+    header h1 {
+      font-size: 18px;
+      color: var(--header-text);
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+    header p {
+      font-size: 13px;
+      color: var(--header-subtext);
+    }
+    .controls {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: var(--controls-bg);
+      padding: 8px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--controls-border);
+    }
+    .btn {
+      width: 38px;
+      height: 38px;
+      border: none;
+      background: var(--btn-bg);
+      color: var(--btn-color);
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .btn:hover {
+      background: var(--btn-hover-bg);
+      color: var(--btn-hover-color);
+    }
+    svg {
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+    }
+    svg:active {
+      cursor: grabbing;
+    }
+    .link {
+      fill: none;
+      stroke: #38bdf8;
+      stroke-width: 2px;
+      stroke-opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+    .node {
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .node rect {
+      rx: 10px;
+      ry: 10px;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+    }
+    /* 고대비 위계별 카드 색상 */
+    .node-level-0 rect {
+      fill: #4338ca;
+      stroke: #818cf8;
+      stroke-width: 2px;
+    }
+    .node-level-1 rect {
+      fill: #0369a1;
+      stroke: #38bdf8;
+      stroke-width: 1.5px;
+    }
+    .node-level-2 rect {
+      fill: #047857;
+      stroke: #34d399;
+      stroke-width: 1.5px;
+    }
+    .node-level-3 rect {
+      fill: #b45309;
+      stroke: #fbbf24;
+      stroke-width: 1.5px;
+    }
+    .node-level-0 text {
+      fill: #ffffff;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .node-level-1 text {
+      fill: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .node-level-2 text {
+      fill: #ffffff;
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .node-level-3 text {
+      fill: #ffffff;
+      font-weight: 700;
+      font-size: 12.5px;
+    }
+    /* 접힘 토글 원형 뱃지 */
+    .toggle-badge {
+      fill: #1e293b;
+      stroke: #38bdf8;
+      stroke-width: 1.5px;
+      transition: transform 0.2s;
+    }
+    .toggle-text {
+      font-size: 10px;
+      font-weight: bold;
+      fill: #38bdf8;
+      text-anchor: middle;
+      dominant-baseline: central;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🗺️ 개 같은 날은 없다 독서 워크북 마인드맵</h1>
+    <p>💡 카드를 클릭하면 하위 가지를 접거나 펼칠 수 있습니다. (마우스 휠: 확대/축소, 드래그: 이동)</p>
+  </header>
+
+  <div class="controls">
+    <button class="btn" id="btn-zoom-in" title="확대">+</button>
+    <button class="btn" id="btn-zoom-out" title="축소">-</button>
+    <button class="btn" id="btn-reset" title="화면 맞춤">⛶</button>
+    <button class="btn" id="btn-expand-all" title="전체 펼치기">▼</button>
+    <button class="btn" id="btn-collapse-all" title="전체 접기">▶</button>
+    <button class="btn" id="btn-theme-toggle" title="테마 전환">🌙</button>
+  </div>
+
+  <svg id="mindmap"></svg>
+
+  <script>
+    const data = {
+  "id": "root",
+  "text": "개 같은 날은 없다 독서 워크북 마인드맵",
+  "children": [
+    {
+      "id": "1",
+      "text": "소설 『개 같은 날은 없다』 줄거리 및 인물",
+      "children": [
+        {
+          "id": "1-1",
+          "text": "가정 내 폭력과 비극적 사건",
+          "children": [
+            {
+              "id": "1-1-1",
+              "text": "엄마 부재 후 아빠·형·강민의 갈등",
+              "children": [
+                {
+                  "id": "1-1-1-1",
+                  "text": "슬픔과 억압을 폭력으로 표출하는 상처 입은 가족",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "1-1-2",
+              "text": "유기견 찡코의 상구와 안타까운 죽음",
+              "children": [
+                {
+                  "id": "1-1-2-1",
+                  "text": "통제 불능 분노에 휩싸여 찡코를 죽이게 된 강민",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1-2",
+          "text": "주요 등장인물의 심리 및 성격 분석",
+          "children": [
+            {
+              "id": "1-2-1",
+              "text": "남강민",
+              "children": [
+                {
+                  "id": "1-2-1-1",
+                  "text": "폭력에 소극적 대응, 마음속 응어리를 찡코에게 발산",
+                  "children": []
+                },
+                {
+                  "id": "1-2-1-2",
+                  "text": "찡코를 그리워하며 피눈물 흘리는 약한 내면의 소유자",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "1-2-2",
+              "text": "강민의 형 및 아빠",
+              "children": [
+                {
+                  "id": "1-2-2-1",
+                  "text": "아빠: 가스 배달 노동의 사회적 좌절을 폭력으로 표출",
+                  "children": []
+                },
+                {
+                  "id": "1-2-2-2",
+                  "text": "형: 아빠에게 맞은 억울함을 동생에게 주먹으로 해소",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "1-2-3",
+              "text": "이웃 미나 및 오빠",
+              "children": [
+                {
+                  "id": "1-2-3-1",
+                  "text": "미나: 오빠의 폭력 트라우마와 거식증으로 마음 절규",
+                  "children": []
+                },
+                {
+                  "id": "1-2-3-2",
+                  "text": "미나 오빠: 가정 내 우월한 서열을 이용해 동생 괴롭힘",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "text": "심리학적 쟁점: 링크 이론과 공격성 전이",
+      "children": [
+        {
+          "id": "2-1",
+          "text": "전이된 공격성 (Displaced Aggression)",
+          "children": [
+            {
+              "id": "2-1-1",
+              "text": "심리 방어기제의 메커니즘",
+              "children": [
+                {
+                  "id": "2-1-1-1",
+                  "text": "원인 제공자 대신 약하고 저항 불가능한 대상에게 쏟음",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "2-1-2",
+              "text": "작품 속 폭력의 연쇄 고리",
+              "children": [
+                {
+                  "id": "2-1-2-1",
+                  "text": "아버지 ➔ 형 ➔ 강민 ➔ 유기견 찡코로 이어지는 연쇄",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2-2",
+          "text": "범죄심리학의 링크 이론 (The LINK Theory)",
+          "children": [
+            {
+              "id": "2-2-1",
+              "text": "학대 유형간 연관성 정립",
+              "children": [
+                {
+                  "id": "2-2-1-1",
+                  "text": "가정폭력·아동학대·동물학대는 하나의 고리로 연결됨",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "2-2-2",
+              "text": "강력범죄의 위험한 전조 증상",
+              "children": [
+                {
+                  "id": "2-2-2-1",
+                  "text": "동물 잔혹 폭력은 향후 인간 대상 강력범죄 예후 지표",
+                  "children": []
+                },
+                {
+                  "id": "2-2-2-2",
+                  "text": "약자 지배 및 통제로 손상된 자존감을 보상받으려는 병리",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "text": "사회학적 쟁점: 형제간 폭력 사각지대",
+      "children": [
+        {
+          "id": "3-1",
+          "text": "형제·남매 간 폭력 (Sibling Abuse)",
+          "children": [
+            {
+              "id": "3-1-1",
+              "text": "가장 안전해야 할 가정의 사각지대",
+              "children": [
+                {
+                  "id": "3-1-1-1",
+                  "text": "'아이들 싸움'이라는 미명 하에 방치되는 일상적 폭력",
+                  "children": []
+                },
+                {
+                  "id": "3-1-1-2",
+                  "text": "완력 차이와 서열 고착화로 만성적 무력감·공포 학습",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3-2",
+          "text": "미나의 거식증과 침묵의 카르텔",
+          "children": [
+            {
+              "id": "3-2-1",
+              "text": "가정 내 묵인과 편애의 비극",
+              "children": [
+                {
+                  "id": "3-2-1-1",
+                  "text": "오빠 폭력에 '참으라'며 감싸는 어머니의 침묵 트라우마",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "3-2-2",
+              "text": "자기파괴적 거식증의 상징성",
+              "children": [
+                {
+                  "id": "3-2-2-1",
+                  "text": "자신의 몸을 파괴하며 불공정에 저항하는 무의식적 절규",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "text": "문학적 은유 및 치유: 찡코와 애니멀 커뮤니케이션",
+      "children": [
+        {
+          "id": "4-1",
+          "text": "희생양 유기견 찡코의 상징성",
+          "children": [
+            {
+              "id": "4-1-1",
+              "text": "내면아이 (Inner Child)의 현신",
+              "children": [
+                {
+                  "id": "4-1-1-1",
+                  "text": "폭력 가정에서 짓밟히고 버림받은 강민·미나의 내면",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "4-1-2",
+              "text": "자기 파괴와 짓눌린 죄책감",
+              "children": [
+                {
+                  "id": "4-1-2-1",
+                  "text": "사랑하는 존재를 스스로 해친 것에 대한 자책과 성찰",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4-2",
+          "text": "애니멀 커뮤니케이터와 상처 치유",
+          "children": [
+            {
+              "id": "4-2-1",
+              "text": "영혼과의 깊은 교감",
+              "children": [
+                {
+                  "id": "4-2-1-1",
+                  "text": "말할 수 없는 상처를 지닌 존재와의 영적 소통 과정",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "4-2-2",
+              "text": "찡코 눈동자의 위로와 고백",
+              "children": [
+                {
+                  "id": "4-2-2-1",
+                  "text": "원망 대신 따뜻한 위로를 통해 자신의 상처를 고백함",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "text": "대안 및 해법: 회복적 정의 (Restorative Justice)",
+      "children": [
+        {
+          "id": "5-1",
+          "text": "응보적 사법(Punitive Justice)의 한계",
+          "children": [
+            {
+              "id": "5-1-1",
+              "text": "처벌과 규율 중심 방식의 한계",
+              "children": [
+                {
+                  "id": "5-1-1-1",
+                  "text": "피해자 치유 불가, 가해자의 낙인 및 더 큰 폭력 유발",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5-2",
+          "text": "회복적 서클 4대 핵심 질문",
+          "children": [
+            {
+              "id": "5-2-1",
+              "text": "1질문: 무슨 일이 일어났는가?",
+              "children": [
+                {
+                  "id": "5-2-1-1",
+                  "text": "사건의 객관적 진실에 직면하고 상황을 명확히 함",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "5-2-2",
+              "text": "2질문: 누구 어떤 고통·상처 받았는가?",
+              "children": [
+                {
+                  "id": "5-2-2-1",
+                  "text": "피해의 고통에 깊이 공감하며 자신의 책임 자각",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "5-2-3",
+              "text": "3질문: 관계와 피해 복구에 무엇 필요한가?",
+              "children": [
+                {
+                  "id": "5-2-3-1",
+                  "text": "깨어진 관계를 바로잡기 위한 자발적 행동과 배상",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "5-2-4",
+              "text": "4질문: 평화로운 공존 위해 무슨 약속할까?",
+              "children": [
+                {
+                  "id": "5-2-4-1",
+                  "text": "재발 방지와 지속 가능한 평화 공동체 형성 약속",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5-3",
+          "text": "관계 중심의 치유 메커니즘",
+          "children": [
+            {
+              "id": "5-3-1",
+              "text": "회복적 대화 모임의 중요성",
+              "children": [
+                {
+                  "id": "5-3-1-1",
+                  "text": "상처받은 주먹의 고통을 고백하고 진심으로 용서 구함",
+                  "children": []
+                },
+                {
+                  "id": "5-3-1-2",
+                  "text": "사람은 관계 속에서 상처받지만 관계 속에서 치유됨",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "text": "독서 워크북 독후 활동 및 수업 적용",
+      "children": [
+        {
+          "id": "6-1",
+          "text": "내용 파악 및 인물 성격 탐색",
+          "children": [
+            {
+              "id": "6-1-1",
+              "text": "질문 카드놀이 및 핵심 질문지 만들기",
+              "children": [
+                {
+                  "id": "6-1-1-1",
+                  "text": "모둠별 카드 토의 및 중심 내용 파악 베스트 질문 선정",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "6-1-2",
+              "text": "인물 구절 분석 및 그리기 활동",
+              "children": [
+                {
+                  "id": "6-1-2-1",
+                  "text": "구절을 통해 성격 추측 후 인물 모습 그리고 소감 공유",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6-2",
+          "text": "회복적 대화 역할극 및 라운딩 토론",
+          "children": [
+            {
+              "id": "6-2-1",
+              "text": "회복적 생활교육 중심 갈등 해결 역할극",
+              "children": [
+                {
+                  "id": "6-2-1-1",
+                  "text": "가해자와 피해자 역할 교대하며 솔직한 사과 대화",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "6-2-2",
+              "text": "토너먼트 주제 선정 및 라운딩 토론",
+              "children": [
+                {
+                  "id": "6-2-2-1",
+                  "text": "입론·교차질의·반론·최종발언 단계별 모둠 토론 진행",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6-3",
+          "text": "독후 글쓰기 및 모둠 합평회",
+          "children": [
+            {
+              "id": "6-3-1",
+              "text": "단계별 글쓰기 활동",
+              "children": [
+                {
+                  "id": "6-3-1-1",
+                  "text": "주제문 작성, 문단 구상 후 수필·시·논술문 등 작성",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "6-3-2",
+              "text": "모둠 돌려 읽기 합평회",
+              "children": [
+                {
+                  "id": "6-3-2-1",
+                  "text": "칭찬과 보완점 메모 전달 후 고쳐 쓰기 및 재칭찬",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    const svg = d3.select("#mindmap");
+    const g = svg.append("g").attr("transform", "translate(" + width / 2 + ", 80)");
+
+    const zoom = d3.zoom()
+      .scaleExtent([0.15, 3])
+      .on("zoom", (event) => g.attr("transform", event.transform));
+
+    svg.call(zoom);
+
+    // 트리 레이아웃 설정 (탑다운: 가로 간격 180, 세로 레벨 간격 120)
+    // 지시 12: 카드 실제 너비만큼만 띄우는 간격 (같은 부모 24px, 다른 부모 48px)
+    const _measure = document.createElement("canvas").getContext("2d");
+    const LEVEL_FONT = [15, 14, 13, 12.5];
+    function cardW(d) {
+      if (d._w === undefined) {
+        _measure.font = `700 ${LEVEL_FONT[Math.min(d.depth, 3)]}px ${getComputedStyle(document.body).fontFamily}`;
+        d._w = Math.max(_measure.measureText(d.data.text).width + 48, 120);
+      }
+      return d._w;
+    }
+    const tree = d3.tree().nodeSize([1, 140])
+      .separation((a, b) => (cardW(a) + cardW(b)) / 2 + (a.parent === b.parent ? 24 : 48));
+    let root = d3.hierarchy(data, d => d.children);
+
+    root.x0 = 0;
+    root.y0 = 0;
+
+    let i = 0;
+
+    function update(source) {
+      const treeData = tree(root);
+      const nodes = treeData.descendants();
+      const links = treeData.links();
+
+      // 수직 레벨 간격 (탑다운)
+      nodes.forEach(d => {
+        d.y = d.depth * 130;
+      });
+
+      // --- 노드 업데이트 ---
+      const node = g.selectAll("g.node")
+        .data(nodes, d => d.id || (d.id = ++i));
+
+      const nodeEnter = node.enter().append("g")
+        .attr("class", d => `node node-level-${Math.min(d.depth, 3)}`)
+        .attr("transform", d => `translate(${source.x0},${source.y0})`)
+        .on("click", (event, d) => {
+          if (d.children) {
+            d._children = d.children;
+            d.children = null;
+          } else if (d._children) {
+            d.children = d._children;
+            d._children = null;
+          }
+          update(d);
+        });
+
+      // 카드 텍스트 (중앙 정렬)
+      nodeEnter.append("text")
+        .attr("dy", "0.35em")
+        .attr("x", 0)
+        .attr("text-anchor", "middle")
+        .text(d => d.data.text);
+
+      // 박스 배경 (중앙 기준)
+      nodeEnter.insert("rect", "text")
+        .attr("height", 42)
+        .attr("y", -21)
+        .attr("x", d => -cardW(d) / 2)
+        .attr("width", d => cardW(d));
+
+      // 접기/펼치기 배지 (카드 하단 중앙)
+      const badge = nodeEnter.append("g")
+        .attr("class", "badge-group")
+        .attr("transform", "translate(0, 21)")
+        .style("display", d => (d.children || d._children) ? "block" : "none");
+
+      badge.append("circle")
+        .attr("class", "toggle-badge")
+        .attr("r", 9);
+
+      badge.append("text")
+        .attr("class", "toggle-text")
+        .text(d => d._children ? "+" : "−");
+
+      // 노드 트랜지션 (탑다운: translate(x, y))
+      const nodeUpdate = node.merge(nodeEnter).transition()
+        .duration(350)
+        .attr("transform", d => `translate(${d.x},${d.y})`);
+
+      nodeUpdate.select("rect")
+        .attr("x", d => -cardW(d) / 2)
+        .attr("width", d => cardW(d));
+
+      nodeUpdate.select(".badge-group")
+        .attr("transform", "translate(0, 21)")
+        .style("display", d => (d.children || d._children) ? "block" : "none")
+        .select(".toggle-text")
+        .text(d => d._children ? "+" : "−");
+
+      // 사라지는 노드
+      const nodeExit = node.exit().transition()
+        .duration(350)
+        .attr("transform", d => `translate(${source.x},${source.y})`)
+        .remove();
+
+      nodeExit.select("rect").attr("width", 0);
+
+      // --- 베지어 곡선 링크 업데이트 (탑다운) ---
+      const link = g.selectAll("path.link")
+        .data(links, d => d.target.id);
+
+      const linkEnter = link.enter().insert("path", "g")
+        .attr("class", "link")
+        .attr("d", d => {
+          const o = { x: source.x0, y: source.y0 };
+          return diagonal(o, o);
+        });
+
+      link.merge(linkEnter).transition()
+        .duration(350)
+        .attr("d", d => {
+          const s = { x: d.source.x, y: d.source.y + 21 };
+          const t = { x: d.target.x, y: d.target.y - 21 };
+          return diagonal(s, t);
+        });
+
+      link.exit().transition()
+        .duration(350)
+        .attr("d", d => {
+          const o = { x: source.x, y: source.y };
+          return diagonal(o, o);
+        })
+        .remove();
+
+      // 현재 위치 기억
+      nodes.forEach(d => {
+        d.x0 = d.x;
+        d.y0 = d.y;
+      });
+    }
+
+    // 3차 베지어 곡선 공식 (탑다운: 상단→하단)
+    function diagonal(s, t) {
+      return `M ${s.x} ${s.y}
+              C ${s.x} ${(s.y + t.y) / 2},
+                ${t.x} ${(s.y + t.y) / 2},
+                ${t.x} ${t.y}`;
+    }
+
+    // 초기 화면: 루트 상단 중앙
+    // 지시 12: 지금 펼쳐진 노드가 화면에 다 들어오도록 자동 맞춤
+    function resetView() {
+      // 지시 13: 고정값 대신 지금 화면 크기를 잰다 (숨겨진 iframe에서는 0이라 건너뜀)
+      const w = window.innerWidth, h = window.innerHeight;
+      if (!w || !h) return;
+      const ns = root.descendants();
+      const minX = d3.min(ns, d => d.x - cardW(d) / 2), maxX = d3.max(ns, d => d.x + cardW(d) / 2);
+      const maxY = d3.max(ns, d => d.y) + 40;
+      // 검독 13 반영: 왼쪽 위 안내 박스 아래에서 트리가 시작되게 함
+      const hdr = document.querySelector("header");
+      const top = (hdr ? hdr.getBoundingClientRect().bottom : 0) + 20;
+      const scale = Math.min(1, (w - 80) / (maxX - minX), (h - top - 40) / (maxY + 21));
+      svg.transition().duration(600).call(
+        zoom.transform,
+        d3.zoomIdentity.translate(w / 2 - scale * (minX + maxX) / 2, top + 21 * scale).scale(scale)
+      );
+    }
+
+    // 지시 13: 대시보드에서 탭이 보일 때·창 크기가 바뀔 때 다시 맞춤
+    window.addEventListener('message', (e) => {
+      if (e.data && (e.data.type === 'TAB_ACTIVATED' || e.data.type === 'RESET_VIEW')) setTimeout(resetView, 150);
+    });
+    window.addEventListener('resize', () => resetView());
+
+    // 컨트롤 버튼 이벤트
+    document.getElementById("btn-zoom-in").addEventListener("click", () => {
+      svg.transition().duration(300).call(zoom.scaleBy, 1.3);
+    });
+    document.getElementById("btn-zoom-out").addEventListener("click", () => {
+      svg.transition().duration(300).call(zoom.scaleBy, 0.7);
+    });
+    document.getElementById("btn-reset").addEventListener("click", resetView);
+
+    // 전체 펼치기
+    document.getElementById("btn-expand-all").addEventListener("click", () => {
+      function expand(d) {
+        if (d._children) {
+          d.children = d._children;
+          d._children = null;
+        }
+        if (d.children) d.children.forEach(expand);
+      }
+      expand(root);
+      update(root);
+    });
+
+    // 전체 접기 (1단계만 남기기)
+    document.getElementById("btn-collapse-all").addEventListener("click", () => {
+      function collapse(d) {
+        if (d.children) {
+          d._children = d.children;
+          d._children.forEach(collapse);
+          d.children = null;
+        }
+      }
+      if (root.children) {
+        root.children.forEach(collapse);
+      }
+      update(root);
+    });
+
+    // 테마 전환
+    document.getElementById("btn-theme-toggle").addEventListener("click", () => {
+      const current = document.body.dataset.theme;
+      document.body.dataset.theme = (current === 'light' ? 'dark' : 'light');
+      document.getElementById("btn-theme-toggle").textContent = document.body.dataset.theme === 'light' ? '☀️' : '🌙';
+    });
+
+    // 지시 12: 처음에는 루트와 1단계까지만 펼침
+    function collapseAll(d) {
+      if (d.children) { d._children = d.children; d._children.forEach(collapseAll); d.children = null; }
+    }
+    if (root.children) root.children.forEach(collapseAll);
+
+    // 첫 실행
+    update(root);
+    setTimeout(resetView, 100);
+
+    window.addEventListener("resize", () => {
+      // 윈도우 리사이즈 대응
+    });
+
+    // 대시보드 postMessage 테마 동기화
+    
+    try {
+      const savedTheme = localStorage.getItem('hanuri_theme') || 'dark';
+      document.body.dataset.theme = savedTheme;
+    } catch(e) {}
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'SET_THEME') {
+        document.body.dataset.theme = e.data.theme;
+        const btn = document.getElementById('btn-theme-toggle');
+        if (btn) btn.textContent = e.data.theme === 'light' ? '☀️' : '🌙';
+      }
+    });
+  </script>
+</body>
+</html>

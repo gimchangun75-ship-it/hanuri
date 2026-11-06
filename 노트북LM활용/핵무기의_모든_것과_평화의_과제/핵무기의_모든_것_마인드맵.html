@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>핵무기의 모든 것 마인드맵 - 인터랙티브 뷰어</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    :root {
+      --bg-canvas: #0B0F19;
+      --header-bg: rgba(15, 23, 42, 0.85);
+      --header-border: #334155;
+      --header-text: #f8fafc;
+      --header-subtext: #94a3b8;
+      --controls-bg: #1e293b;
+      --controls-border: #334155;
+      --btn-bg: #0f172a;
+      --btn-color: #94a3b8;
+      --btn-hover-bg: #38bdf8;
+      --btn-hover-color: #0f172a;
+    }
+    [data-theme="light"] {
+      --bg-canvas: #f8fafc;
+      --header-bg: rgba(255, 255, 255, 0.9);
+      --header-border: #e2e8f0;
+      --header-text: #1e293b;
+      --header-subtext: #64748b;
+      --controls-bg: white;
+      --controls-border: #e2e8f0;
+      --btn-bg: #f1f5f9;
+      --btn-color: #334155;
+      --btn-hover-bg: #3b82f6;
+      --btn-hover-color: white;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-canvas);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      user-select: none;
+    }
+    header {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+      z-index: 10;
+      background: var(--header-bg);
+      backdrop-filter: blur(8px);
+      padding: 12px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      border: 1px solid var(--header-border);
+    }
+    header h1 {
+      font-size: 18px;
+      color: var(--header-text);
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+    header p {
+      font-size: 13px;
+      color: var(--header-subtext);
+    }
+    .controls {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: var(--controls-bg);
+      padding: 8px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--controls-border);
+    }
+    .btn {
+      width: 38px;
+      height: 38px;
+      border: none;
+      background: var(--btn-bg);
+      color: var(--btn-color);
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .btn:hover {
+      background: var(--btn-hover-bg);
+      color: var(--btn-hover-color);
+    }
+    svg {
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+    }
+    svg:active {
+      cursor: grabbing;
+    }
+    .link {
+      fill: none;
+      stroke: #38bdf8;
+      stroke-width: 2px;
+      stroke-opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+    .node {
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .node rect {
+      rx: 10px;
+      ry: 10px;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+    }
+    /* 고대비 위계별 카드 색상 */
+    .node-level-0 rect {
+      fill: #4338ca;
+      stroke: #818cf8;
+      stroke-width: 2px;
+    }
+    .node-level-1 rect {
+      fill: #0369a1;
+      stroke: #38bdf8;
+      stroke-width: 1.5px;
+    }
+    .node-level-2 rect {
+      fill: #047857;
+      stroke: #34d399;
+      stroke-width: 1.5px;
+    }
+    .node-level-3 rect {
+      fill: #b45309;
+      stroke: #fbbf24;
+      stroke-width: 1.5px;
+    }
+    .node-level-0 text {
+      fill: #ffffff;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .node-level-1 text {
+      fill: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .node-level-2 text {
+      fill: #ffffff;
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .node-level-3 text {
+      fill: #ffffff;
+      font-weight: 700;
+      font-size: 12.5px;
+    }
+    /* 접힘 토글 원형 뱃지 */
+    .toggle-badge {
+      fill: #1e293b;
+      stroke: #38bdf8;
+      stroke-width: 1.5px;
+      transition: transform 0.2s;
+    }
+    .toggle-text {
+      font-size: 10px;
+      font-weight: bold;
+      fill: #38bdf8;
+      text-anchor: middle;
+      dominant-baseline: central;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🗺️ 핵무기의 모든 것 마인드맵</h1>
+    <p>💡 카드를 클릭하면 하위 가지를 접거나 펼칠 수 있습니다. (마우스 휠: 확대/축소, 드래그: 이동)</p>
+  </header>
+
+  <div class="controls">
+    <button class="btn" id="btn-zoom-in" title="확대">+</button>
+    <button class="btn" id="btn-zoom-out" title="축소">-</button>
+    <button class="btn" id="btn-reset" title="화면 맞춤">⛶</button>
+    <button class="btn" id="btn-expand-all" title="전체 펼치기">▼</button>
+    <button class="btn" id="btn-collapse-all" title="전체 접기">▶</button>
+    <button class="btn" id="btn-theme-toggle" title="테마 전환">🌙</button>
+  </div>
+
+  <svg id="mindmap"></svg>
+
+  <script>
+    const data = {
+      "id": "root",
+      "text": "핵무기의 모든 것",
+      "children": [
+        {
+          "id": "1",
+          "text": "1. 핵무기의 과학적 원리와 개발",
+          "children": [
+            {
+              "id": "1-1",
+              "text": "원자 구조와 핵분열 메커니즘",
+              "children": [
+                {
+                  "id": "1-1-1",
+                  "text": "중성자 충돌과 연쇄 핵분열 반응",
+                  "children": [
+                    {
+                      "id": "1-1-1-1",
+                      "text": "우라늄-235의 분열과 열중성자 방출",
+                      "children": []
+                    },
+                    {
+                      "id": "1-1-1-2",
+                      "text": "플루토늄-239 핵재처리 및 추출",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "1-1-2",
+                  "text": "특수상대성이론과 에너지 계산",
+                  "children": [
+                    {
+                      "id": "1-1-2-1",
+                      "text": "질량-에너지 등가원리(E=mc²)의 적용",
+                      "children": []
+                    },
+                    {
+                      "id": "1-1-2-2",
+                      "text": "리제 마이트너의 핵분열 에너지 시뮬레이션",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "1-2",
+              "text": "맨해튼 프로젝트와 최초의 핵폭발",
+              "children": [
+                {
+                  "id": "1-2-1",
+                  "text": "오펜하이머 주도 연구와 트리니티 실험",
+                  "children": []
+                },
+                {
+                  "id": "1-2-2",
+                  "text": "히로시마·나가사키 원자폭탄 투하",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "text": "2. 냉전 시대의 핵 경쟁과 확산",
+          "children": [
+            {
+              "id": "2-1",
+              "text": "초기 핵 통제 시도 실패와 군비 경쟁",
+              "children": [
+                {
+                  "id": "2-1-1",
+                  "text": "바루크 플랜 무산과 맥마혼 법 통과",
+                  "children": []
+                },
+                {
+                  "id": "2-1-2",
+                  "text": "미·소 수소폭탄 개발 및 다수의 핵실험",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "2-2",
+              "text": "국지전에서의 핵무기 사용 위협",
+              "children": [
+                {
+                  "id": "2-2-1",
+                  "text": "한국전쟁과 베트남전 시 핵사용 검토",
+                  "children": []
+                },
+                {
+                  "id": "2-2-2",
+                  "text": "동맹국 반대 및 전황 변화에 따른 철회",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "2-3",
+              "text": "NPT 체제와 지역적 핵 확산",
+              "children": [
+                {
+                  "id": "2-3-1",
+                  "text": "NPT 독점 구조와 합의문 채택 무산",
+                  "children": []
+                },
+                {
+                  "id": "2-3-2",
+                  "text": "인도·파키스탄의 분쟁 및 핵개발 강행",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "2-4",
+              "text": "한반도 핵 문제 및 안보 지형",
+              "children": [
+                {
+                  "id": "2-4-1",
+                  "text": "남한의 핵개발 무산과 미국의 핵우산 제공",
+                  "children": []
+                },
+                {
+                  "id": "2-4-2",
+                  "text": "북한의 핵실험과 국제사회 제재 갈등",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "text": "3. 반핵 평화 운동과 국제 비핵화 노력",
+          "children": [
+            {
+              "id": "3-1",
+              "text": "과학자 및 민간의 반핵 평화 선언",
+              "children": [
+                {
+                  "id": "3-1-1",
+                  "text": "러셀-아인슈타인 선언과 퍼그워시 회의",
+                  "children": []
+                },
+                {
+                  "id": "3-1-2",
+                  "text": "ICAN 활동 및 UN 핵무기금지조약 채택",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "3-2",
+              "text": "비핵화 법제화 및 지역 선언",
+              "children": [
+                {
+                  "id": "3-2-1",
+                  "text": "뉴질랜드의 비핵법 제정 및 평화 외교",
+                  "children": []
+                },
+                {
+                  "id": "3-2-2",
+                  "text": "한반도 비핵화 공동선언과 실천 과제",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4",
+          "text": "4. 핵무기의 위험성과 인류적 교훈",
+          "children": [
+            {
+              "id": "4-1",
+              "text": "피폭 참상과 방사능 피해 고통",
+              "children": [
+                {
+                  "id": "4-1-1",
+                  "text": "히로시마·비키니 환초 피폭 피해 사례",
+                  "children": []
+                },
+                {
+                  "id": "4-1-2",
+                  "text": "한국인 피폭자 2세의 유전병과 인권 문제",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "4-2",
+              "text": "인류 절멸 위기와 윤리적 경각심",
+              "children": [
+                {
+                  "id": "4-2-1",
+                  "text": "핵전쟁 승자 부재와 지구 생태계 파괴",
+                  "children": []
+                },
+                {
+                  "id": "4-2-2",
+                  "text": "국제 정치적 이해관계를 넘어선 평화 실현",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5",
+          "text": "5. 독서 요약 원리 및 탐구 활동",
+          "children": [
+            {
+              "id": "5-1",
+              "text": "설명문 요약의 5가지 핵심 원리",
+              "children": [
+                {
+                  "id": "5-1-1",
+                  "text": "선택·객관화·일반화 원리로 핵심 추출",
+                  "children": []
+                },
+                {
+                  "id": "5-1-2",
+                  "text": "변화·재구성 원리로 전체 구조 재설계",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "5-2",
+              "text": "다큐멘터리 기획서 및 토론 수행평가",
+              "children": [
+                {
+                  "id": "5-2-1",
+                  "text": "핵 없는 세상 주제 기획서 작성",
+                  "children": []
+                },
+                {
+                  "id": "5-2-2",
+                  "text": "도입-전개-심층-결말 장면 및 내레이션 구성",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    };
+
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    const svg = d3.select("#mindmap");
+    const g = svg.append("g").attr("transform", "translate(" + width / 2 + ", 80)");
+
+    const zoom = d3.zoom()
+      .scaleExtent([0.15, 3])
+      .on("zoom", (event) => g.attr("transform", event.transform));
+
+    svg.call(zoom);
+
+    // 트리 레이아웃 설정 (탑다운: 가로 간격 180, 세로 레벨 간격 120)
+    // 지시 12: 카드 실제 너비만큼만 띄우는 간격 (같은 부모 24px, 다른 부모 48px)
+    const _measure = document.createElement("canvas").getContext("2d");
+    const LEVEL_FONT = [15, 14, 13, 12.5];
+    function cardW(d) {
+      if (d._w === undefined) {
+        _measure.font = `700 ${LEVEL_FONT[Math.min(d.depth, 3)]}px ${getComputedStyle(document.body).fontFamily}`;
+        d._w = Math.max(_measure.measureText(d.data.text).width + 48, 120);
+      }
+      return d._w;
+    }
+    const tree = d3.tree().nodeSize([1, 140])
+      .separation((a, b) => (cardW(a) + cardW(b)) / 2 + (a.parent === b.parent ? 24 : 48));
+    let root = d3.hierarchy(data, d => d.children);
+
+    root.x0 = 0;
+    root.y0 = 0;
+
+    let i = 0;
+
+    function update(source) {
+      const treeData = tree(root);
+      const nodes = treeData.descendants();
+      const links = treeData.links();
+
+      // 수직 레벨 간격 (탑다운)
+      nodes.forEach(d => {
+        d.y = d.depth * 130;
+      });
+
+      // --- 노드 업데이트 ---
+      const node = g.selectAll("g.node")
+        .data(nodes, d => d.id || (d.id = ++i));
+
+      const nodeEnter = node.enter().append("g")
+        .attr("class", d => `node node-level-${Math.min(d.depth, 3)}`)
+        .attr("transform", d => `translate(${source.x0},${source.y0})`)
+        .on("click", (event, d) => {
+          if (d.children) {
+            d._children = d.children;
+            d.children = null;
+          } else if (d._children) {
+            d.children = d._children;
+            d._children = null;
+          }
+          update(d);
+        });
+
+      // 카드 텍스트 (중앙 정렬)
+      nodeEnter.append("text")
+        .attr("dy", "0.35em")
+        .attr("x", 0)
+        .attr("text-anchor", "middle")
+        .text(d => d.data.text);
+
+      // 박스 배경 (중앙 기준)
+      nodeEnter.insert("rect", "text")
+        .attr("height", 42)
+        .attr("y", -21)
+        .attr("x", d => -cardW(d) / 2)
+        .attr("width", d => cardW(d));
+
+      // 접기/펼치기 배지 (카드 하단 중앙)
+      const badge = nodeEnter.append("g")
+        .attr("class", "badge-group")
+        .attr("transform", "translate(0, 21)")
+        .style("display", d => (d.children || d._children) ? "block" : "none");
+
+      badge.append("circle")
+        .attr("class", "toggle-badge")
+        .attr("r", 9);
+
+      badge.append("text")
+        .attr("class", "toggle-text")
+        .text(d => d._children ? "+" : "−");
+
+      // 노드 트랜지션 (탑다운: translate(x, y))
+      const nodeUpdate = node.merge(nodeEnter).transition()
+        .duration(350)
+        .attr("transform", d => `translate(${d.x},${d.y})`);
+
+      nodeUpdate.select("rect")
+        .attr("x", d => -cardW(d) / 2)
+        .attr("width", d => cardW(d));
+
+      nodeUpdate.select(".badge-group")
+        .attr("transform", "translate(0, 21)")
+        .style("display", d => (d.children || d._children) ? "block" : "none")
+        .select(".toggle-text")
+        .text(d => d._children ? "+" : "−");
+
+      // 사라지는 노드
+      const nodeExit = node.exit().transition()
+        .duration(350)
+        .attr("transform", d => `translate(${source.x},${source.y})`)
+        .remove();
+
+      nodeExit.select("rect").attr("width", 0);
+
+      // --- 베지어 곡선 링크 업데이트 (탑다운) ---
+      const link = g.selectAll("path.link")
+        .data(links, d => d.target.id);
+
+      const linkEnter = link.enter().insert("path", "g")
+        .attr("class", "link")
+        .attr("d", d => {
+          const o = { x: source.x0, y: source.y0 };
+          return diagonal(o, o);
+        });
+
+      link.merge(linkEnter).transition()
+        .duration(350)
+        .attr("d", d => {
+          const s = { x: d.source.x, y: d.source.y + 21 };
+          const t = { x: d.target.x, y: d.target.y - 21 };
+          return diagonal(s, t);
+        });
+
+      link.exit().transition()
+        .duration(350)
+        .attr("d", d => {
+          const o = { x: source.x, y: source.y };
+          return diagonal(o, o);
+        })
+        .remove();
+
+      // 현재 위치 기억
+      nodes.forEach(d => {
+        d.x0 = d.x;
+        d.y0 = d.y;
+      });
+    }
+
+    // 3차 베지어 곡선 공식 (탑다운: 상단→하단)
+    function diagonal(s, t) {
+      return `M ${s.x} ${s.y}
+              C ${s.x} ${(s.y + t.y) / 2},
+                ${t.x} ${(s.y + t.y) / 2},
+                ${t.x} ${t.y}`;
+    }
+
+    // 초기 화면: 루트 상단 중앙
+    // 지시 12: 지금 펼쳐진 노드가 화면에 다 들어오도록 자동 맞춤
+    function resetView() {
+      // 지시 13: 고정값 대신 지금 화면 크기를 잰다 (숨겨진 iframe에서는 0이라 건너뜀)
+      const w = window.innerWidth, h = window.innerHeight;
+      if (!w || !h) return;
+      const ns = root.descendants();
+      const minX = d3.min(ns, d => d.x - cardW(d) / 2), maxX = d3.max(ns, d => d.x + cardW(d) / 2);
+      const maxY = d3.max(ns, d => d.y) + 40;
+      // 검독 13 반영: 왼쪽 위 안내 박스 아래에서 트리가 시작되게 함
+      const hdr = document.querySelector("header");
+      const top = (hdr ? hdr.getBoundingClientRect().bottom : 0) + 20;
+      const scale = Math.min(1, (w - 80) / (maxX - minX), (h - top - 40) / (maxY + 21));
+      svg.transition().duration(600).call(
+        zoom.transform,
+        d3.zoomIdentity.translate(w / 2 - scale * (minX + maxX) / 2, top + 21 * scale).scale(scale)
+      );
+    }
+
+    // 지시 13: 대시보드에서 탭이 보일 때·창 크기가 바뀔 때 다시 맞춤
+    window.addEventListener('message', (e) => {
+      if (e.data && (e.data.type === 'TAB_ACTIVATED' || e.data.type === 'RESET_VIEW')) setTimeout(resetView, 150);
+    });
+    window.addEventListener('resize', () => resetView());
+
+    // 컨트롤 버튼 이벤트
+    document.getElementById("btn-zoom-in").addEventListener("click", () => {
+      svg.transition().duration(300).call(zoom.scaleBy, 1.3);
+    });
+    document.getElementById("btn-zoom-out").addEventListener("click", () => {
+      svg.transition().duration(300).call(zoom.scaleBy, 0.7);
+    });
+    document.getElementById("btn-reset").addEventListener("click", resetView);
+
+    // 전체 펼치기
+    document.getElementById("btn-expand-all").addEventListener("click", () => {
+      function expand(d) {
+        if (d._children) {
+          d.children = d._children;
+          d._children = null;
+        }
+        if (d.children) d.children.forEach(expand);
+      }
+      expand(root);
+      update(root);
+    });
+
+    // 전체 접기 (1단계만 남기기)
+    document.getElementById("btn-collapse-all").addEventListener("click", () => {
+      function collapse(d) {
+        if (d.children) {
+          d._children = d.children;
+          d._children.forEach(collapse);
+          d.children = null;
+        }
+      }
+      if (root.children) {
+        root.children.forEach(collapse);
+      }
+      update(root);
+    });
+
+    // 테마 전환
+    document.getElementById("btn-theme-toggle").addEventListener("click", () => {
+      const current = document.body.dataset.theme;
+      document.body.dataset.theme = (current === 'light' ? 'dark' : 'light');
+      document.getElementById("btn-theme-toggle").textContent = document.body.dataset.theme === 'light' ? '☀️' : '🌙';
+    });
+
+    // 지시 12: 처음에는 루트와 1단계까지만 펼침
+    function collapseAll(d) {
+      if (d.children) { d._children = d.children; d._children.forEach(collapseAll); d.children = null; }
+    }
+    if (root.children) root.children.forEach(collapseAll);
+
+    // 첫 실행
+    update(root);
+    setTimeout(resetView, 100);
+
+    window.addEventListener("resize", () => {
+      // 윈도우 리사이즈 대응
+    });
+  </script>
+</body>
+</html>

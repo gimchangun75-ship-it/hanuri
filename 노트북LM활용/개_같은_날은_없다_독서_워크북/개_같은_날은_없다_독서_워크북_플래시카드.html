@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>개 같은 날은 없다 독서 워크북 - 인터랙티브 플래시카드</title>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --accent: #f59e0b;
+      --sci-color: #38bdf8;
+      --hist-color: #f59e0b;
+      --pol-color: #ec4899;
+      --peace-color: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      user-select: none;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+      max-width: 640px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+      background: linear-gradient(135deg, #f59e0b, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p.guide {
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    /* 플래시카드 3D 컨테이너 */
+    .flashcard-stage {
+      width: 100%;
+      max-width: 600px;
+      height: 380px;
+      perspective: 1200px;
+      cursor: pointer;
+      margin-bottom: 24px;
+    }
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 24px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+    }
+    .card-inner.flipped {
+      transform: rotateY(180deg);
+    }
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 24px;
+      padding: 36px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid var(--card-border);
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+    }
+
+    /* 앞면 */
+    .card-front {
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .cat-badge {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      letter-spacing: 0.5px;
+    }
+    .card-front .word-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.3;
+      letter-spacing: -0.5px;
+    }
+    .card-front .flip-hint {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    /* 뒷면 */
+    .card-back {
+      transform: rotateY(180deg);
+      text-align: left;
+      background: linear-gradient(145deg, #172554, #0f172a);
+      border-color: #1e3a8a;
+    }
+    .back-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .back-desc {
+      font-size: 17px;
+      line-height: 1.65;
+      color: #e2e8f0;
+      font-weight: 500;
+      word-break: keep-all;
+      margin: auto 0;
+    }
+    .back-hint-box {
+      background: rgba(15, 23, 42, 0.6);
+      border-left: 3px solid var(--accent);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    /* 컨트롤 바 */
+    .controls-wrap {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-nav {
+      flex: 1;
+      padding: 14px;
+      border-radius: 14px;
+      background: #1e293b;
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-nav:hover:not(:disabled) {
+      background: #334155;
+      border-color: var(--primary);
+    }
+    .btn-nav:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .btn-flip-trigger {
+      background: var(--primary);
+      color: #020617;
+      border-color: var(--primary);
+      flex: 1.2;
+    }
+    .btn-flip-trigger:hover {
+      background: #0ea5e9;
+    }
+
+    /* ── 플래시카드 다크 테마 (기본값 고정) ── */
+    body[data-theme="dark"] {
+      background-color: #0B0F19;
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .card-face { background: linear-gradient(145deg, #1e293b, #0f172a); }
+    body[data-theme="dark"] .card-back { background: linear-gradient(145deg, #172554, #0f172a); border-color: #1e3a8a; }
+    body[data-theme="dark"] .card-front .word-title { color: #FFFFFF; }
+    body[data-theme="dark"] .back-desc { color: #E2E8F0; }
+    body[data-theme="dark"] .btn-nav { background: #1e293b; border-color: #334155; color: #F8FAFC; }
+    body[data-theme="dark"] .btn-nav:hover:not(:disabled) { background: #334155; border-color: var(--primary); }
+
+    /* ── 플래시카드 웜 테마 ── */
+    body[data-theme="warm"] {
+      background-color: #F5EBE0;
+      color: #3D2B1F;
+    }
+    body[data-theme="warm"] .card-face { background: linear-gradient(145deg, #FAF6F0, #F5EBE0); border-color: #E5D4C4; }
+    body[data-theme="warm"] .card-back { background: linear-gradient(145deg, #EDE0D4, #DFC9B2); border-color: #C9A88F; }
+    body[data-theme="warm"] .card-front .word-title { color: #3D2B1F; }
+    body[data-theme="warm"] .back-desc { color: #5A3E32; }
+    body[data-theme="warm"] .back-hint-box { background: rgba(61,43,31,0.1); border-left-color: #D95300; color: #7A5C4A; }
+    body[data-theme="warm"] .btn-nav { background: #FAF6F0; border-color: #E5D4C4; color: #3D2B1F; }
+    body[data-theme="warm"] .btn-flip-trigger { background: var(--primary); color: #fff; border-color: var(--primary); }
+    body[data-theme="warm"] h1 { background: linear-gradient(135deg, #D95300, #8B4513); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    body[data-theme="warm"] .badge { background: rgba(255,107,0,0.15); color: #D95300; border-color: rgba(255,107,0,0.3); }
+    body[data-theme="warm"] .back-header { color: #D95300; }
+    body[data-theme="warm"] .cat-badge { background: rgba(61,43,31,0.1); color: #7A5C4A; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">📇 한우리 3D 개념 플래시카드</div>
+    <h1 id="fc-title">개 같은 날은 없다 독서 워크북</h1>
+    <p class="guide">카드를 클릭하거나 스페이스바를 누르면 앞/뒷면이 뒤집힙니다.</p>
+  </header>
+
+  <div class="flashcard-stage" onclick="flipCard()">
+    <div class="card-inner" id="cardInner">
+      <div class="card-face card-front">
+        <span class="cat-badge" id="catBadge">분야</span>
+        <div class="word-title" id="wordTitle">개념 단어</div>
+        <div class="flip-hint">👆 클릭하여 뜻과 해설 확인</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="back-header">
+          <span id="backCategory">분야 해설</span>
+          <span>🔄 다시 클릭 시 앞면</span>
+        </div>
+        <div class="back-desc" id="backDesc">상세 설명이 들어갑니다.</div>
+        <div class="back-hint-box" id="backHintBox">
+          <strong>💡 핵심 힌트:</strong> <span id="backHint">힌트</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls-wrap">
+    <div class="progress-info">
+      <span id="cardCounter">카드 1 / 15</span>
+      <span id="catStats">과학 · 역사 · 국제정치</span>
+    </div>
+    <div class="nav-buttons">
+      <button class="btn-nav" id="btnPrev" onclick="prevCard()">◀ 이전</button>
+      <button class="btn-nav btn-flip-trigger" onclick="flipCard()">🔄 뒤집기</button>
+      <button class="btn-nav" id="btnNext" onclick="nextCard()">다음 ▶</button>
+    </div>
+  </div>
+
+  <script>
+    const FLASHCARDS = [
+  {
+    "id": 1,
+    "category": "심리학 개념",
+    "front": "전이된 공격성 (Displaced Aggression)",
+    "back": "강자나 원인 제공자에게 원한이나 분노를 직접 표출하지 못할 때, 자신보다 약하고 저항 불가능한 대상에게 분노를 돌려 발산하는 심리적 방어기제입니다. 작품 속 아빠의 스트레스가 형, 강민, 그리고 유기견 찡코에게 순차적으로 전이된 폭력의 연쇄가 대표적 예시입니다.",
+    "hint": "강자에게 받은 상처와 분노를 더 약한 대상에게 쏟아붓는 메커니즘"
+  },
+  {
+    "id": 2,
+    "category": "범죄심리학 개념",
+    "front": "링크 이론 (The LINK Theory)",
+    "back": "가정폭력, 아동학대, 동물학대가 독립된 사건이 아니라 하나의 연쇄적인 고리로 긴밀히 연결되어 있다는 이론입니다. 사법 기관에서는 동물을 향한 잔혹한 폭력을 향후 인간을 향한 강력범죄로 이어질 수 있는 위험한 전조 증상으로 간주합니다.",
+    "hint": "가정폭력, 아동학대, 동물학대가 하나로 묶여 있다는 학대 연관성 이론"
+  },
+  {
+    "id": 3,
+    "category": "사회학 개념",
+    "front": "형제간 폭력 사각지대 (Sibling Abuse)",
+    "back": "가정 내 완력 차이와 서열 고착화로 인해 지속적으로 발생하는 형제·남매 간의 일상적 폭력입니다. '아이들끼리 싸우며 크는 것'이라는 사회적 묵인 하에 방치되기 쉬우나, 피해자에게 만성적 공포와 무력감을 유발합니다.",
+    "hint": "가장 안전해야 할 집에서 '아이들 싸움'이라는 미명 하에 방치되는 폭력"
+  },
+  {
+    "id": 4,
+    "category": "인물 분석",
+    "front": "미나의 거식증과 침묵의 카르텔",
+    "back": "어릴 적 오빠의 지속적인 폭력과 이를 감싸고 돈 어머니의 묵인 속에서 생긴 트라우마의 증상입니다. 미나는 자기 몸을 파괴하는 거식증을 통해 가정 내 부당한 폭력과 편애에 무의식적으로 저항했습니다.",
+    "hint": "오빠의 폭력과 어머니의 묵인에 맞서 자기 몸을 파괴하며 벌인 무의식적 절규"
+  },
+  {
+    "id": 5,
+    "category": "문학적 상징",
+    "front": "유기견 '찡코'의 상징성",
+    "back": "소설 속 찡코는 단순한 유기견을 넘어 폭력 가정에서 짓밟히고 버림받은 강민이와 미나의 '내면아이(Inner Child)'를 상징합니다. 사랑하는 존재인 찡코를 파괴함으로써 강민이는 극심한 죄책감과 피눈물을 경험하게 됩니다.",
+    "hint": "폭력에 상처받은 강민이와 미나의 짓밟힌 '내면아이'를 대변하는 동물"
+  },
+  {
+    "id": 6,
+    "category": "심리학 용어",
+    "front": "내면아이 (Inner Child)",
+    "back": "성인이 되거나 자라는 과정에서도 개인의 내면에 남아 있는 어린 시절의 기억, 감정, 상처의 흔적을 의미합니다. 소설에서는 폭력에 노출되어 마음에 깊은 흉터가 남은 아이들의 상처받은 영혼을 뜻합니다.",
+    "hint": "어린 시절의 상처와 감정이 마음속에 그대로 남아 있는 심리적 자아"
+  },
+  {
+    "id": 7,
+    "category": "치유 개념",
+    "front": "애니멀 커뮤니케이션과 영혼의 교감",
+    "back": "죽은 찡코의 사진을 통해 사진 속 영혼과 소통하며 마음의 상처를 치유해 가는 과정입니다. 말로 다할 수 없는 상처를 가진 존재와 교감하며 강민과 미나는 비로소 자신의 죄책감과 아픔을 객관화하여 고백하게 됩니다.",
+    "hint": "말할 수 없는 상처를 지닌 존재와 교감하여 상처를 객관화하고 고백하는 치유 과정"
+  },
+  {
+    "id": 8,
+    "category": "법·사회 개념",
+    "front": "응보적 사법 (Punitive Justice)",
+    "back": "폭력을 법과 규칙의 위반으로 보고, 가해자를 처벌하고 단죄하는 데 집중하는 기존의 사법 패러다임입니다. 피해자의 마음을 치유하지 못하고 가해자에게 낙인을 찍어 더 큰 폭력에 빠지게 만든다는 한계가 있습니다.",
+    "hint": "가해자에 대한 징벌과 처벌만을 중심으로 갈등을 해결하려는 기존 패러다임"
+  },
+  {
+    "id": 9,
+    "category": "대안 교육 개념",
+    "front": "회복적 정의 (Restorative Justice)",
+    "back": "폭력을 법 위반이 아닌 '관계의 파괴'로 규정하고, 피해 복구와 관계 회복을 최우선으로 삼는 대안적 패러다임입니다. 당사자 간의 대화와 자발적 책임을 통해 진정한 사과와 평화로운 공존 대책을 도출합니다.",
+    "hint": "폭력을 관계의 파괴로 보고 피해 회복과 공동체 공존을 지향하는 접근법"
+  },
+  {
+    "id": 10,
+    "category": "회복적 서클 질문",
+    "front": "회복적 서클 1질문: 무슨 일이 일어났는가?",
+    "back": "갈등 당사자들이 둘러앉아 사건의 객관적 진실에 직면하고 상황을 투명하게 확인하는 첫 번째 질문입니다. 감정적 왜곡을 줄이고 무슨 사건이 발생했는지를 명확히 파악하는 토대가 됩니다.",
+    "hint": "사건의 객관적 진실에 직면하도록 돕는 회복적 대화의 첫 번째 질문"
+  },
+  {
+    "id": 11,
+    "category": "회복적 서클 질문",
+    "front": "회복적 서클 2질문: 누구 어떤 고통·상처 받았는가?",
+    "back": "사건으로 인해 영향을 받은 사람들의 아픔과 고통을 확인하는 두 번째 질문입니다. 피해자의 고통에 깊이 공감하고 가해자가 자신의 행동이 미친 영향과 책임을 자각하도록 이끕니다.",
+    "hint": "피해자의 아픔에 공감하고 가해자가 자신의 책임을 자각하도록 돕는 질문"
+  },
+  {
+    "id": 12,
+    "category": "회복적 서클 질문",
+    "front": "회복적 서클 3질문: 피해 복구에 무엇이 필요한가?",
+    "back": "깨어진 관계와 피해를 바로잡기 위해 지금 필요한 행동이 무엇인지 탐색하는 세 번째 질문입니다. 가해자가 강요된 처벌이 아닌 자발적인 책임감으로 배상과 사과의 노력을 기울이게 합니다.",
+    "hint": "깨어진 관계를 바로잡기 위해 필요한 자발적 배상과 노력을 탐색하는 질문"
+  },
+  {
+    "id": 13,
+    "category": "회복적 서클 질문",
+    "front": "회복적 서클 4질문: 평화 공존 위해 무슨 약속할까?",
+    "back": "향후 동일한 폭력이 재발하지 않도록 공동체가 다 함께 실천할 약속을 도출하는 마지막 질문입니다. 지속 가능한 평화 관계를 형성하고 갈등을 근본적으로 예방하는 대책을 마련합니다.",
+    "hint": "재발 방지와 지속 가능한 평화 공동체 형성을 위해 다 함께 도출하는 약속"
+  },
+  {
+    "id": 14,
+    "category": "주요 인물",
+    "front": "남강민",
+    "back": "소설의 주인공으로, 아빠와 형의 폭력 속에서 억눌린 분노를 아끼던 유기견 찡코에게 발산하게 되는 인물입니다. 찡코의 비극적 죽음 이후 피눈물을 흘리며 자신의 죄책감을 성찰하고 미나와 함께 치유의 길로 나아갑니다.",
+    "hint": "폭력의 피해자이자 찡코 학대의 가해자로서 상처와 죄책감을 성찰하는 주인공"
+  },
+  {
+    "id": 15,
+    "category": "주요 인물",
+    "front": "이웃 미나",
+    "back": "강민이의 이웃집 또래 여학생으로, 오빠의 지속적인 폭력 트라우마로 거식증을 앓고 있는 인물입니다. 찡코의 사진을 계기로 애니멀 커뮤니케이터를 찾으며 강민이와 함께 마음속 깊은 상처를 고백하고 소통합니다.",
+    "hint": "오빠의 폭력 트라우마로 거식증을 겪었으나 찡코를 매개로 상처를 고백하는 인물"
+  }
+];
+
+    let currentIndex = 0;
+    const cardInner = document.getElementById("cardInner");
+    const catBadge = document.getElementById("catBadge");
+    const wordTitle = document.getElementById("wordTitle");
+    const backCategory = document.getElementById("backCategory");
+    const backDesc = document.getElementById("backDesc");
+    const backHint = document.getElementById("backHint");
+    const cardCounter = document.getElementById("cardCounter");
+    const btnPrev = document.getElementById("btnPrev");
+    const btnNext = document.getElementById("btnNext");
+
+    function renderCard(idx) {
+      cardInner.classList.remove("flipped");
+      const item = FLASHCARDS[idx];
+
+      setTimeout(() => {
+        catBadge.textContent = item.category;
+        wordTitle.textContent = item.front;
+        backCategory.textContent = `[${item.category}] ${item.front}`;
+        backDesc.textContent = item.back;
+        backHint.textContent = item.hint;
+        cardCounter.textContent = `카드 ${idx + 1} / ${FLASHCARDS.length}`;
+
+        btnPrev.disabled = (idx === 0);
+        btnNext.disabled = (idx === FLASHCARDS.length - 1);
+      }, 150);
+    }
+
+    function flipCard() {
+      cardInner.classList.toggle("flipped");
+    }
+
+    function nextCard() {
+      if (currentIndex < FLASHCARDS.length - 1) {
+        currentIndex++;
+        renderCard(currentIndex);
+      }
+    }
+
+    function prevCard() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderCard(currentIndex);
+      }
+    }
+
+    // 키보드 방향키 및 스페이스바 지원
+    window.addEventListener("keydown", (e) => {
+      if (e.code === "Space") {
+        e.preventDefault();
+        flipCard();
+      } else if (e.code === "ArrowRight") {
+        nextCard();
+      } else if (e.code === "ArrowLeft") {
+        prevCard();
+      }
+    });
+
+    renderCard(0);
+
+    // 대시보드 postMessage 테마 동기화
+    
+    try {
+      const savedTheme = localStorage.getItem('hanuri_theme') || 'dark';
+      document.body.dataset.theme = savedTheme;
+    } catch(e) {}
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'SET_THEME') {
+        document.body.dataset.theme = e.data.theme;
+      }
+    });
+    try {
+      if (window.parent && window.parent.document && window.parent.document.body.dataset.theme) {
+        document.body.dataset.theme = window.parent.document.body.dataset.theme;
+      }
+    } catch(e) {}
+  </script>
+</body>
+</html>

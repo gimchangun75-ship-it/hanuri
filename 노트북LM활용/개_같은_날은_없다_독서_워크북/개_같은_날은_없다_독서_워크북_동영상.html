@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>《개 같은 날은 없다 독서 워크북》 영상 스토리보드 및 대본</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF6B00;
+      --primary-dark: #D95300;
+      --primary-light: #FFF4ED;
+      --navy: #0F172A;
+      --navy-light: #1E293B;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --radius-xl: 20px;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 6px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 16px rgba(15,23,42,0.08);
+      --shadow-lg: 0 12px 30px rgba(15,23,42,0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background: #0F172A;
+      color: #F8FAFC;
+      line-height: 1.6;
+      padding: 30px 20px;
+    }
+
+    .container {
+      max-width: 950px;
+      margin: 0 auto;
+      background: #1E293B;
+      border-radius: var(--radius-xl);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .top-toolbar {
+      background: #0B0F19;
+      color: #fff;
+      padding: 12px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .brand-badge span {
+      background: #10B981;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .video-header {
+      padding: 45px 40px 30px;
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.1) 0%, rgba(30, 41, 59, 0) 100%);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .header-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      color: #34D399;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    .video-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+
+    .synopsis-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      padding: 18px 22px;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #CBD5E1;
+      line-height: 1.6;
+    }
+
+    .synopsis-box strong {
+      color: #34D399;
+    }
+
+    .content-body {
+      padding: 35px 40px;
+    }
+
+    .scenes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .scene-card {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .scene-card:hover {
+      border-color: rgba(52, 211, 153, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .scene-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .scene-num-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .scene-num {
+      background: #10B981;
+      color: #0F172A;
+      font-weight: 900;
+      font-size: 13px;
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+
+    .scene-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #F8FAFC;
+    }
+
+    .scene-duration {
+      font-size: 12.5px;
+      color: #94A3B8;
+      background: rgba(255,255,255,0.06);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .scene-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .scene-box {
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      font-size: 13.5px;
+    }
+
+    .visual-box {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid #38BDF8;
+    }
+
+    .visual-box .box-lbl {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #38BDF8;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .visual-box .box-txt {
+      color: #E2E8F0;
+      line-height: 1.55;
+    }
+
+    .narration-box {
+      background: rgba(16, 185, 129, 0.08);
+      border-left: 3px solid #10B981;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-left-width: 4px;
+    }
+
+    .narration-box .box-lbl {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #34D399;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .narration-box .box-txt {
+      color: #FFFFFF;
+      font-size: 14.5px;
+      font-weight: 500;
+      line-height: 1.65;
+    }
+
+    .bgm-tag {
+      font-size: 12px;
+      color: #F59E0B;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .doc-footer {
+      padding: 24px 40px;
+      background: #0B0F19;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #64748B;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #10B981;
+      color: #0F172A;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @media print {
+      body { background: #FFFFFF !important; color: #000 !important; padding: 0 !important; }
+      .container { background: #FFFFFF !important; color: #000 !important; border: none !important; box-shadow: none !important; }
+      .top-toolbar, .toast, .btn { display: none !important; }
+      .video-header { background: none !important; border-bottom: 2px solid #000 !important; padding: 15px 0 !important; }
+      .video-title { color: #000 !important; font-size: 22px !important; }
+      .synopsis-box { background: #f8f8f8 !important; color: #333 !important; border: 1px solid #ccc !important; }
+      .content-body { padding: 15px 0 !important; }
+      .scene-card { page-break-inside: avoid; background: #fff !important; border: 1px solid #999 !important; margin-bottom: 20px !important; }
+      .scene-title { color: #000 !important; }
+      .visual-box { background: #f9f9f9 !important; color: #333 !important; border-left-color: #555 !important; }
+      .visual-box .box-txt { color: #333 !important; }
+      .narration-box { background: #f4f4f4 !important; color: #000 !important; border: 1px solid #ccc !important; border-left-color: #000 !important; }
+      .narration-box .box-txt { color: #000 !important; font-weight: bold !important; }
+      .doc-footer { border-top: 1px solid #ccc !important; padding: 15px 0 !important; color: #666 !important; background: none !important; }
+    }
+
+    /* ── 동영상 다크 테마 (기본값 고정) ── */
+    body[data-theme="dark"] {
+      background: #0F172A;
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .container { background: #1E293B; border-color: rgba(255,255,255,0.1); }
+    body[data-theme="dark"] .top-toolbar { background: #0B0F19; }
+    body[data-theme="dark"] .scene-card { background: rgba(15,23,42,0.7); border-color: rgba(255,255,255,0.1); }
+    body[data-theme="dark"] .visual-box { background: rgba(15,23,42,0.6); color: #CBD5E1; border-left-color: #38BDF8; }
+    body[data-theme="dark"] .narration-box { background: rgba(255,107,0,0.1); border-left-color: #FF6B00; color: #F8FAFC; }
+    body[data-theme="dark"] .synopsis-box { background: rgba(15,23,42,0.6); color: #CBD5E1; }
+
+    /* ── 동영상 웜 테마 ── */
+    body[data-theme="warm"] {
+      background: #F5EBE0;
+      color: #3D2B1F;
+    }
+    body[data-theme="warm"] .container { background: #FAF6F0; border-color: #E5D4C4; }
+    body[data-theme="warm"] .top-toolbar { background: #3D2B1F; }
+    body[data-theme="warm"] .video-header { background: linear-gradient(180deg, rgba(255,107,0,0.08) 0%, rgba(250,246,240,0) 100%); border-bottom-color: #E5D4C4; }
+    body[data-theme="warm"] .video-title { color: #3D2B1F; }
+    body[data-theme="warm"] .scene-card { background: #FAF6F0; border-color: #E5D4C4; }
+    body[data-theme="warm"] .scene-head { border-bottom-color: #E5D4C4; }
+    body[data-theme="warm"] .visual-box { background: #EDE0D4; color: #5A3E32; border-left-color: #D95300; }
+    body[data-theme="warm"] .narration-box { background: rgba(255,107,0,0.08); color: #3D2B1F; border-left-color: #FF6B00; border-color: #E5D4C4; }
+    body[data-theme="warm"] .synopsis-box { background: rgba(61,43,31,0.08); color: #5A3E32; border-color: #E5D4C4; }
+    body[data-theme="warm"] .synopsis-box strong { color: #D95300; }
+    body[data-theme="warm"] .header-badge { background: rgba(255,107,0,0.15); color: #D95300; border-color: rgba(255,107,0,0.3); }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="top-toolbar">
+      <div class="brand-badge">
+        <span>CINEMATIC</span> 한우리 교육 영상 스토리보드 센터
+      </div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn" onclick="copyAllNarrations()">📋 나레이션 전체 복사</button>
+        <button class="btn" onclick="window.print()">🖨️ 인쇄 / PDF 저장</button>
+      </div>
+    </div>
+
+    <header class="video-header">
+      <div class="header-badge">VIDEO OVERVIEW & STORYBOARD</div>
+      <h1 class="video-title" id="videoTitle">개 같은 날은 없다 독서 워크북</h1>
+      <div class="synopsis-box" id="synopsisBox">
+        <strong>[기획 의도]</strong> <span id="synopsisText">로딩 중...</span>
+      </div>
+    </header>
+
+    <main class="content-body">
+      <div class="scenes-list" id="scenesContainer"></div>
+    </main>
+
+    <footer class="doc-footer">
+      <div>© 2026 한우리독서토론논술 · 지식 팩토리 자동화 시스템</div>
+      <div>영상 규격: 짧은 버전 (9:16 / 16:9 숏폼 & 유튜브 겸용)</div>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast">나레이션 대본이 복사되었습니다! ✨</div>
+
+  <script>
+    const VIDEO_DATA = {
+  "title": "폭력의 연쇄를 끊는 회복적 대화: 『개 같은 날은 없다』 스토리보드",
+  "target_duration": "약 3분 30초",
+  "synopsis": "이 영상은 소설 『개 같은 날은 없다』를 바탕으로 청소년이 일상에서 직면하는 폭력의 구조와 사회적 사각지대를 조명합니다. 링크 이론과 형제간 폭력을 심도 있게 파악하고, 회복적 서클 4대 질문을 통해 진정한 관계 치유로 나아가는 대안을 제시합니다.",
+  "scenes": [
+    {
+      "scene_no": 1,
+      "title": "오프닝: 무거운 폭력의 그늘",
+      "duration": "30초",
+      "visual": "어두운 방 안, 찌그러진 가스통 옆 텅 빈 개집 앞에 피눈물을 흘리며 앉아 있는 강민이의 모습이 클로즈업됩니다. 화면 중앙에 '왜 분노는 항상 약자에게 쏠리는가?'라는 텍스트가 서서히 떠오릅니다.",
+      "narration": "가장 안전해야 할 가정에서조차 폭력과 억압의 그늘에 노출된 청소년들의 현실을 생각해 보신 적이 있나요? 소설 『개 같은 날은 없다』는 일상 속에 숨겨진 폭력의 고리와 그로 인한 심리적 상처를 강렬하게 파헤칩니다.",
+      "bgm_mood": "쓸쓸하고 긴장감이 넘치는 차분한 피아노 선율"
+    },
+    {
+      "scene_no": 2,
+      "title": "배경과 핵심 개념: 전이된 공격성과 링크 이론",
+      "duration": "35초",
+      "visual": "가스 배달 아빠 ➔ 형 ➔ 강민 ➔ 유기견 찡코로 이어지는 붉은 폭력 전이 화살표 인포그래픽이 펼쳐집니다. 이어 '전이된 공격성'과 '링크 이론(The LINK)' 모션 그래픽이 나타납니다.",
+      "narration": "아빠의 사회적 좌절은 형에게, 형의 억울함은 강민이에게, 그리고 강민이의 분노는 힘없는 유기견 찡코에게로 흘러갔습니다. 이는 강자의 스트레스가 약자에게 쏟아지는 '전이된 공격성'이며, 가정폭력과 동물학대가 하나로 묶여 있음을 보여주는 '링크 이론'의 전형적인 모습입니다.",
+      "bgm_mood": "문제의식을 제기하는 묵직하고 신비로운 비트"
+    },
+    {
+      "scene_no": 3,
+      "title": "주요 전개: 찡코의 상구와 짓밟힌 내면아이",
+      "duration": "35초",
+      "visual": "강민이가 찡코를 발로 차고 패대기치는 비극적 사건과, 찡코의 사진을 들고 애니멀 커뮤니케이터를 찾아가는 미나와 강민이의 교감 장면이 연속해서 연출됩니다.",
+      "narration": "강민이가 분노를 이기지 못해 죽음에 이르게 한 찡코는 학대받는 아이들의 짓밟힌 '내면아이'를 상징합니다. 찡코 눈동자가 전하는 위로는 강민이로 하여금 사랑하는 대상을 파괴했다는 피눈물 나는 죄책감을 직면하고 상처를 고백하게 만듭니다.",
+      "bgm_mood": "슬프지만 아련하고 따뜻한 현악 아르페지오"
+    },
+    {
+      "scene_no": 4,
+      "title": "갈등 및 쟁점: 형제간 폭력 사각지대와 거식증",
+      "duration": "35초",
+      "visual": "음식을 거부하며 창백해진 미나의 모습과 오빠의 폭력을 '참으라'며 묵인하는 어머니의 음영 화면이 대비됩니다. 화면에 '형제간 폭력 사각지대(Sibling Abuse)' 문구가 강조됩니다.",
+      "narration": "'아이들 싸움'이라는 이유로 방치되는 형제·남매 간 폭력은 가정 내 가장 은폐된 사각지대입니다. 미나가 겪는 거식증은 오빠의 폭력과 어머니의 침묵 속에서 자기 몸을 파괴함으로써 부당함에 저항하려 했던 무의식적 절규였습니다.",
+      "bgm_mood": "긴박하고 경각심을 불러일으키는 첼로 연주"
+    },
+    {
+      "scene_no": 5,
+      "title": "의미와 과제: 처벌을 넘어선 회복적 서클 4대 질문",
+      "duration": "40초",
+      "visual": "원형으로 모여 앉은 인물들 위로 회복적 서클 4대 질문(1.무슨 일 2.누가 고통 3.피해 복구 4.공존 약속)이 4단계 아이콘으로 차례대로 켜집니다.",
+      "narration": "단순한 처벌 중심의 응보적 접근은 피해자의 마음을 치유하지 못하고 가해자를 더 큰 폭력으로 내몹니다. 당사자들이 둘러앉아 '무슨 일이 일어났는지', '누가 어떤 고통을 받았는지', '피해 복구에 무엇이 필요한지', '어떤 약속을 할 것인지' 묻는 4대 서클 질문을 통해 관계를 회복해야 합니다.",
+      "bgm_mood": "희망차고 밝게 전환되는 오케스트라 사운드"
+    },
+    {
+      "scene_no": 6,
+      "title": "엔딩: 관계 속에서 피어나는 치유",
+      "duration": "30초",
+      "visual": "찡코의 집을 깨끗이 정돈하고 따스한 햇살이 비치는 거실에서 인물들이 서로의 손을 잡는 장면. '사람은 관계 속에서 상처받지만, 관계 속에서만 치유된다' 텍스트로 마무리됩니다.",
+      "narration": "폭력의 연쇄를 끊는 힘은 진솔한 고백과 공감, 그리고 서로를 향한 진심 어린 사과에 있습니다. 오늘 여러분의 교실과 가정에서도 처벌 대신 회복을 향한 첫 번째 질문을 시작해 보는 것은 어떨까요?",
+      "bgm_mood": "따뜻한 여운과 감동을 주는 피아노 및 오케스트라 앙상블"
+    }
+  ]
+};
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderStoryboard(VIDEO_DATA);
+    });
+
+    function renderStoryboard(data) {
+      if (data.title) {
+        document.getElementById('videoTitle').innerText = data.title;
+        document.title = data.title + " - 영상 스토리보드";
+      }
+      if (data.synopsis) {
+        document.getElementById('synopsisText').innerText = `${data.synopsis} (총 예상 소요시간: ${data.target_duration || '약 3분'})`;
+      }
+
+      const container = document.getElementById('scenesContainer');
+      container.innerHTML = '';
+
+      (data.scenes || []).forEach(sc => {
+        const div = document.createElement('div');
+        div.className = 'scene-card';
+        div.innerHTML = `
+          <div class="scene-head">
+            <div class="scene-num-title">
+              <span class="scene-num">SCENE ${sc.scene_no}</span>
+              <span class="scene-title">${sc.title}</span>
+            </div>
+            <span class="scene-duration">⏱️ ${sc.duration}</span>
+          </div>
+          <div class="scene-grid">
+            <div class="scene-box visual-box">
+              <div class="box-lbl">🎬 화면 연출 (Visual Prompt & Camera)</div>
+              <div class="box-txt">${sc.visual}</div>
+            </div>
+            <div class="scene-box narration-box">
+              <div class="box-lbl">
+                <span>🎙️ 나레이션 대본 (Narration Script)</span>
+                <button class="btn" style="padding:2px 8px; font-size:11px;" onclick="copyText('${escapeQuote(sc.narration)}')">복사</button>
+              </div>
+              <div class="box-txt">${sc.narration}</div>
+              <div class="bgm-tag">🎵 BGM : ${sc.bgm_mood}</div>
+            </div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function escapeQuote(str) {
+      return (str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    function copyText(txt) {
+      navigator.clipboard.writeText(txt).then(() => {
+        showToast("씬 나레이션이 복사되었습니다!");
+      });
+    }
+
+    function copyAllNarrations() {
+      const allText = (VIDEO_DATA.scenes || []).map(s => `[SCENE ${s.scene_no} - ${s.title}]\n${s.narration}`).join('\n\n');
+      navigator.clipboard.writeText(allText).then(() => {
+        showToast("전체 나레이션 대본이 복사되었습니다!");
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => { toast.classList.remove('show'); }, 2500);
+    }
+
+    // 대시보드 postMessage 테마 동기화
+    
+    try {
+      const savedTheme = localStorage.getItem('hanuri_theme') || 'dark';
+      document.body.dataset.theme = savedTheme;
+    } catch(e) {}
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'SET_THEME') {
+        document.body.dataset.theme = e.data.theme;
+      }
+    });
+    try {
+      if (window.parent && window.parent.document && window.parent.document.body.dataset.theme) {
+        document.body.dataset.theme = window.parent.document.body.dataset.theme;
+      }
+    } catch(e) {}
+  </script>
+</body>
+</html>

@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>《핵무기의 모든 것》 시각 인포그래픽 브리프</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF6B00;
+      --primary-dark: #D95300;
+      --primary-light: #FFF4ED;
+      --navy: #0F172A;
+      --navy-light: #1E293B;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --radius-xl: 20px;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 6px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 16px rgba(15,23,42,0.08);
+      --shadow-lg: 0 12px 30px rgba(15,23,42,0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background: #F1F5F9;
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 30px 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .top-toolbar {
+      background: var(--navy);
+      color: #fff;
+      padding: 12px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .brand-badge span {
+      background: var(--primary);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    .btn {
+      background: var(--primary);
+      border: 1px solid var(--primary);
+      color: #fff;
+      padding: 6px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    .infographic-header {
+      padding: 50px 45px 35px;
+      background: radial-gradient(circle at top right, #FFF4ED 0%, #FFFFFF 60%);
+      border-bottom: 2px solid var(--slate-100);
+      text-align: center;
+    }
+
+    .header-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--primary);
+      background: #FFE8D6;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      letter-spacing: 0.05em;
+    }
+
+    .header-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+
+    .header-subtitle {
+      font-size: 16px;
+      color: var(--slate-600);
+      font-weight: 500;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .content-body {
+      padding: 40px 45px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .stat-card {
+      background: linear-gradient(145deg, #FFFFFF 0%, var(--slate-50) 100%);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 22px 20px;
+      text-align: center;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--primary);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .stat-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--slate-600);
+      margin-bottom: 8px;
+    }
+
+    .stat-val-wrap {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 38px;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .stat-unit {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-desc {
+      font-size: 12px;
+      color: var(--slate-600);
+      line-height: 1.45;
+    }
+
+    .section-heading {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-heading::before {
+      content: "";
+      display: inline-block;
+      width: 5px;
+      height: 20px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 45px;
+    }
+
+    .topic-card {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .topic-card:hover {
+      border-color: var(--slate-300);
+      box-shadow: var(--shadow-md);
+    }
+
+    .topic-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+
+    .topic-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 14px;
+    }
+
+    .topic-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-grow: 1;
+    }
+
+    .topic-points li {
+      font-size: 13.5px;
+      color: var(--slate-700);
+      line-height: 1.55;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .topic-points li::before {
+      content: "•";
+      position: absolute;
+      left: 4px;
+      top: 0;
+      color: var(--primary);
+      font-weight: 900;
+      font-size: 16px;
+    }
+
+    .timeline-wrap {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 30px;
+    }
+
+    .timeline-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      position: relative;
+    }
+
+    .timeline-step {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .step-year {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 800;
+      color: #FFFFFF;
+      background: var(--navy);
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .step-event {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: var(--slate-600);
+      line-height: 1.5;
+    }
+
+    .doc-footer {
+      padding: 24px 45px;
+      background: var(--slate-50);
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    @media print {
+      body { background: #FFFFFF !important; padding: 0 !important; color: #000 !important; }
+      .container { max-width: 100% !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; }
+      .top-toolbar { display: none !important; }
+      .infographic-header { padding: 25px 0 15px !important; background: none !important; border-bottom: 2px solid #000 !important; }
+      .header-title { font-size: 26px !important; color: #000 !important; }
+      .content-body { padding: 20px 0 !important; }
+      .stat-card, .topic-card, .timeline-step { page-break-inside: avoid; border: 1px solid #ccc !important; box-shadow: none !important; }
+      .doc-footer { padding: 15px 0 !important; border-top: 1px solid #ccc !important; }
+    }
+
+    /* ── 인포그래픽 다크 테마 ── */
+    body[data-theme="dark"] {
+      background: #0B0F19;
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .container {
+      background: #1E293B;
+      border-color: #334155;
+    }
+    body[data-theme="dark"] .top-toolbar {
+      background: #090D16;
+    }
+    body[data-theme="dark"] .infographic-header {
+      background: radial-gradient(circle at top right, #1a2744 0%, #0F172A 60%);
+      border-bottom-color: #334155;
+    }
+    body[data-theme="dark"] .header-tag {
+      background: rgba(255,107,0,0.2);
+      color: var(--primary);
+    }
+    body[data-theme="dark"] .header-title {
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .header-subtitle {
+      color: #CBD5E1;
+    }
+    body[data-theme="dark"] .stat-card {
+      background: #1E293B;
+      border-color: #334155;
+    }
+    body[data-theme="dark"] .stat-number {
+      color: #FFFFFF !important;
+      text-shadow: 0 0 16px rgba(255,107,0,0.4), 0 2px 6px rgba(0,0,0,0.8);
+    }
+    body[data-theme="dark"] .stat-label {
+      color: #CBD5E1;
+    }
+    body[data-theme="dark"] .section-title {
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .section-subtitle {
+      color: #CBD5E1;
+    }
+    body[data-theme="dark"] .timeline-step {
+      background: #1E293B;
+      border-color: #334155;
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .step-year {
+      color: var(--primary);
+    }
+    body[data-theme="dark"] .step-event {
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .step-desc {
+      color: #CBD5E1;
+    }
+    body[data-theme='dark'] .timeline-wrap { background: #0F172A; border-color: #334155; }
+    body[data-theme='dark'] .doc-footer { background: #090D16; border-top-color: #334155; color: #CBD5E1; }
+    body[data-theme='dark'] .stat-number { color: #38BDF8 !important; text-shadow: 0 0 12px rgba(56, 189, 248, 0.4); }
+    body[data-theme='dark'] .stat-value { color: #38BDF8 !important; text-shadow: 0 0 16px rgba(56, 189, 248, 0.4), 0 2px 6px rgba(0,0,0,0.8); }
+    body[data-theme='dark'] .stat-desc { color: #CBD5E1 !important; }
+    body[data-theme='dark'] .stat-unit { color: #F8FAFC !important; }
+    body[data-theme='dark'] .section-heading { color: #F8FAFC !important; }
+    body[data-theme='dark'] .topic-card {
+      background: #1E293B;
+      border-color: #334155;
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .topic-card h3,
+    body[data-theme="dark"] .topic-card .topic-title {
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .topic-card li,
+    body[data-theme="dark"] .topic-card p {
+      color: #CBD5E1;
+    }
+    body[data-theme="dark"] .topic-icon-wrap {
+      background: rgba(255, 107, 0, 0.15);
+      color: #FF6B00;
+    }
+
+    /* ── 인포그래픽 웜 테마 ── */
+    body[data-theme="warm"] {
+      background: #F5EBE0;
+      color: #3D2B1F;
+    }
+    body[data-theme="warm"] .container {
+      background: #FAF6F0;
+      border-color: #E5D4C4;
+    }
+    body[data-theme="warm"] .top-toolbar {
+      background: #3D2B1F;
+    }
+    body[data-theme="warm"] .infographic-header {
+      background: radial-gradient(circle at top right, #FFF4ED 0%, #FAF6F0 60%);
+      border-bottom-color: #E5D4C4;
+    }
+    body[data-theme="warm"] .stat-card {
+      background: linear-gradient(145deg, #FAF6F0 0%, #F5EBE0 100%);
+      border-color: #E5D4C4;
+    }
+    body[data-theme="warm"] .topic-card {
+      background: #FAF6F0;
+      border-color: #E5D4C4;
+      color: #3D2B1F;
+    }
+    body[data-theme="warm"] .topic-card h3,
+    body[data-theme="warm"] .topic-card .topic-title {
+      color: #3D2B1F;
+    }
+    body[data-theme="warm"] .topic-card li,
+    body[data-theme="warm"] .topic-card p {
+      color: #5A3E32;
+    }
+    body[data-theme="warm"] .topic-icon-wrap {
+      background: rgba(255, 107, 0, 0.1);
+      color: #D95300;
+    }
+    /* 지시 10 고대비 보정 (WCAG AA 4.5:1 실측 기준) */
+    body[data-theme="dark"] .brand-badge span,
+    body[data-theme="dark"] .btn { background: #C2410C; border-color: #C2410C; }
+    body[data-theme="dark"] .header-tag,
+    body[data-theme="dark"] .topic-icon-wrap { color: #FDBA74; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="top-toolbar">
+      <div class="brand-badge">
+        <span>HANURI</span> 한우리 독서토론논술 수업용 시각 브리프
+      </div>
+      <button class="btn" onclick="window.print()">🖨️ 인쇄 / PDF 저장</button>
+    </div>
+
+    <header class="infographic-header">
+      <div class="header-tag">VISUAL INFOGRAPHIC BRIEF</div>
+      <h1 class="header-title" id="infoTitle">핵무기의 모든 것과 인류 평화의 과제</h1>
+      <p class="header-subtitle" id="infoSubtitle">한눈에 보는 핵무기의 과학적 원리, 냉전의 역사, 그리고 비핵화를 위한 여정</p>
+    </header>
+
+    <main class="content-body">
+      <div class="section-heading">한눈에 보는 핵심 수치 (Key Metrics)</div>
+      <div class="stats-grid" id="statsGrid"></div>
+
+      <div class="section-heading">핵심 주제 3대 포커스 (Core Focus)</div>
+      <div class="cards-grid" id="sectionsGrid"></div>
+
+      <div class="section-heading">결정적 역사 마일스톤 (Milestones)</div>
+      <div class="timeline-wrap">
+        <div class="timeline-steps" id="timelineGrid"></div>
+      </div>
+    </main>
+
+    <footer class="doc-footer">
+      <div>© 2026 한우리독서토론논술 · 지식 팩토리 자동화 시스템</div>
+      <div>문서 코드: HNR-INFO-202610-01 · 교육용 시각 인포그래픽</div>
+    </footer>
+  </div>
+
+  <script>
+    const INFOGRAPHIC_DATA = {
+  "title": "핵무기의 모든 것과 인류 평화의 과제",
+  "subtitle": "한눈에 보는 핵무기의 과학적 원리, 냉전의 역사, 그리고 비핵화를 위한 여정",
+  "hero_stats": [
+    {
+      "label": "핵분열 방출 에너지",
+      "value": "2억",
+      "unit": "eV",
+      "desc": "우라늄-235 원자핵 1개가 분열할 때 발생하는 무시무시한 에너지"
+    },
+    {
+      "label": "한국인 피폭자 수",
+      "value": "7만",
+      "unit": "명",
+      "desc": "1945년 히로시마 원폭 투하 당시 피폭된 한국인(사망자 약 4만 명)"
+    },
+    {
+      "label": "공인 핵보유국 수",
+      "value": "5",
+      "unit": "개국",
+      "desc": "NPT(핵확산금지조약) 체제가 기득권을 보장한 기존 보유국(미·러·영·프·중)"
+    },
+    {
+      "label": "ICAN 노벨평화상",
+      "value": "2017",
+      "unit": "년",
+      "desc": "UN 핵무기금지조약(TPNW) 채택을 주도하여 노벨평화상을 수상한 연도"
+    }
+  ],
+  "key_sections": [
+    {
+      "title": "과학적 원리와 탄생",
+      "icon": "atom",
+      "points": [
+        "우라늄-235의 중성자 충돌 및 핵분열 연쇄반응 원리",
+        "아인슈타인의 상대성이론(E=mc²)과 질량-에너지 등가성",
+        "오펜하이머 주도 맨해튼 프로젝트와 트리니티 최초 핵실험"
+      ]
+    },
+    {
+      "title": "냉전 군비경쟁과 NPT",
+      "icon": "shield-alert",
+      "points": [
+        "미·소 수소폭탄 개발 및 상호확증파괴(MAD) 공포 체제",
+        "기존 5개국 지위 인정과 타국 금지로 인한 NPT 불평등성 논란",
+        "인도·파키스탄의 핵보유와 자국 안보 실리 중심의 힘의 논리"
+      ]
+    },
+    {
+      "title": "반핵 평화운동과 과제",
+      "icon": "peace",
+      "points": [
+        "1955년 러셀-아인슈타인 선언과 퍼그워시 회의의 평화 호소",
+        "시민사회 주도 UN 핵무기금지조약(TPNW) 채택과 노벨평화상",
+        "한반도 비핵화와 인류 생존을 위한 보편적 평화 체제 구축"
+      ]
+    }
+  ],
+  "timeline_milestones": [
+    {
+      "year": "1945년",
+      "event": "맨해튼 프로젝트 성공 & 히로시마·나가사키 원폭 투하",
+      "desc": "최초의 원폭 실험 '트리니티' 성공 후 일본 투하로 제2차 세계대전 종식 및 대규모 방사능 피해 발생"
+    },
+    {
+      "year": "1969년",
+      "event": "핵확산금지조약(NPT) 채택",
+      "desc": "미·소·영·프·중 5개국의 핵 기득권을 인정하되 신규 국가의 핵확산을 금지하는 국제 조약 성립"
+    },
+    {
+      "year": "2017년",
+      "event": "UN 핵무기금지조약(TPNW) 채택 & ICAN 노벨평화상",
+      "desc": "시민사회의 노력으로 핵무기의 개발·보유·사용을 전면 금지하는 조약 채택 및 국제적 공로 인정"
+    }
+  ]
+};
+
+    const ICON_MAP = {
+      'atom': '⚛️',
+      'shield-alert': '🛡️',
+      'shield': '🛡️',
+      'peace': '🕊️',
+      'rocket': '🚀',
+      'globe': '🌐'
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderInfographic(INFOGRAPHIC_DATA);
+    });
+
+    function renderInfographic(data) {
+      if (data.title) {
+        document.getElementById('infoTitle').innerText = data.title;
+        document.title = data.title + " - 인포그래픽 브리프";
+      }
+      if (data.subtitle) {
+        document.getElementById('infoSubtitle').innerText = data.subtitle;
+      }
+
+      const statsGrid = document.getElementById('statsGrid');
+      statsGrid.innerHTML = '';
+      (data.hero_stats || []).forEach(s => {
+        const div = document.createElement('div');
+        div.className = 'stat-card';
+        div.innerHTML = `
+          <div class="stat-label">${s.label}</div>
+          <div class="stat-val-wrap">
+            <span class="stat-value">${s.value}</span>
+            <span class="stat-unit">${s.unit}</span>
+          </div>
+          <div class="stat-desc">${s.desc}</div>
+        `;
+        statsGrid.appendChild(div);
+      });
+
+      const sectionsGrid = document.getElementById('sectionsGrid');
+      sectionsGrid.innerHTML = '';
+      (data.key_sections || []).forEach(sec => {
+        const iconEmoji = ICON_MAP[sec.icon] || '📌';
+        const div = document.createElement('div');
+        div.className = 'topic-card';
+        const lis = (sec.points || []).map(p => `<li>${p}</li>`).join('');
+        div.innerHTML = `
+          <div class="topic-icon-wrap">${iconEmoji}</div>
+          <div class="topic-title">${sec.title}</div>
+          <ul class="topic-points">${lis}</ul>
+        `;
+        sectionsGrid.appendChild(div);
+      });
+
+      const timelineGrid = document.getElementById('timelineGrid');
+      timelineGrid.innerHTML = '';
+      (data.timeline_milestones || []).forEach(m => {
+        const div = document.createElement('div');
+        div.className = 'timeline-step';
+        div.innerHTML = `
+          <div class="step-year">${m.year}</div>
+          <div class="step-event">${m.event}</div>
+          <div class="step-desc">${m.desc}</div>
+        `;
+        timelineGrid.appendChild(div);
+      });
+    }
+  </script>
+  <script>
+    // 대시보드 postMessage 테마 동기화
+    
+    // 초기 로컬스토리지 복원
+    try {
+      const savedTheme = localStorage.getItem('hanuri_theme') || 'dark';
+      document.body.dataset.theme = savedTheme;
+    } catch(e) {}
+
+    window.addEventListener('message', (e) => {
+
+      if (e.data && e.data.type === 'SET_THEME') {
+        document.body.dataset.theme = e.data.theme;
+      }
+    });
+  </script>
+</body>
+</html>

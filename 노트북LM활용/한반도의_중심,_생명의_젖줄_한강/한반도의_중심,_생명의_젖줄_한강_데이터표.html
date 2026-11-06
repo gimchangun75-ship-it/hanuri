@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>《한반도의 중심, 생명의 젖줄 한강》 핵심 데이터 비교 분석표</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF6B00;
+      --primary-dark: #D95300;
+      --primary-light: #FFF4ED;
+      --navy: #0F172A;
+      --navy-light: #1E293B;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --radius-sm: 6px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(15,23,42,0.08);
+      --shadow-lg: 0 10px 25px rgba(15,23,42,0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background: var(--slate-100);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 30px 20px;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .top-toolbar {
+      background: var(--navy);
+      color: #fff;
+      padding: 12px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .brand-badge span {
+      background: var(--primary);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
+    }
+
+    .doc-header {
+      padding: 35px 40px 25px;
+      background: linear-gradient(180deg, var(--slate-50) 0%, #FFFFFF 100%);
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .doc-category {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .doc-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .doc-subtitle {
+      font-size: 14.5px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    /* 탭 내비게이션 & 검색 바 */
+    .controls-bar {
+      padding: 16px 40px;
+      background: var(--slate-50);
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .tab-group {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      padding: 8px 16px;
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--slate-700);
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #FFFFFF;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: #FFFFFF;
+      border: 1px solid var(--slate-300);
+      border-radius: 20px;
+      padding: 4px 12px;
+      width: 220px;
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      font-size: 13px;
+      width: 100%;
+      padding: 4px 6px;
+      font-family: inherit;
+    }
+
+    /* 테이블 영역 */
+    .content-body {
+      padding: 35px 40px;
+    }
+
+    .table-section {
+      margin-bottom: 45px;
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .table-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .table-header-box {
+      padding: 18px 24px;
+      background: var(--slate-50);
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .table-desc {
+      padding: 10px 24px;
+      font-size: 13px;
+      color: var(--slate-600);
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--slate-100);
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    table.data-table th {
+      background: #F8FAFC;
+      color: var(--navy);
+      font-weight: 700;
+      padding: 12px 18px;
+      border-bottom: 2px solid var(--slate-200);
+      white-space: nowrap;
+    }
+
+    table.data-table td {
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      line-height: 1.5;
+    }
+
+    table.data-table tr:hover td {
+      background: var(--primary-light);
+    }
+
+    table.data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .badge-p5 {
+      background: #EFF6FF;
+      color: #1D4ED8;
+      font-weight: 700;
+      font-size: 11.5px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .badge-warn {
+      background: #FEF2F2;
+      color: #B91C1C;
+      font-weight: 700;
+      font-size: 11.5px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .badge-year {
+      background: var(--navy);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 11.5px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .doc-footer {
+      padding: 20px 40px;
+      background: var(--slate-50);
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    @media print {
+      body { background: #FFFFFF !important; padding: 0 !important; color: #000 !important; }
+      .container { max-width: 100% !important; border: none !important; box-shadow: none !important; }
+      .top-toolbar, .controls-bar { display: none !important; }
+      .doc-header { padding: 15px 0 !important; border-bottom: 2px solid #000 !important; }
+      .content-body { padding: 15px 0 !important; }
+      .table-section { page-break-inside: avoid; border: 1px solid #ccc !important; margin-bottom: 25px !important; }
+      table.data-table th { background: #eee !important; color: #000 !important; border-bottom: 1px solid #000 !important; }
+      table.data-table td { color: #000 !important; border-bottom: 1px solid #ddd !important; }
+    }
+
+    /* ── 데이터표 다크 테마 ── */
+    body[data-theme="dark"] {
+      background: #0B0F19;
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .container { background: #1E293B; border-color: #334155; }
+    body[data-theme="dark"] .top-toolbar { background: #090D16; }
+    body[data-theme="dark"] .doc-header { background: #0F172A; border-bottom-color: #334155; }
+    body[data-theme="dark"] .doc-title { color: #F8FAFC; }
+    body[data-theme="dark"] .doc-subtitle { color: #94A3B8; }
+    body[data-theme="dark"] .table-section { background: #1E293B; border-color: #334155; }
+    body[data-theme="dark"] .table-section-title { color: #F8FAFC; }
+    body[data-theme="dark"] .table-section-subtitle { color: #94A3B8; }
+    body[data-theme="dark"] table.data-table th { background: #0F172A; color: #F8FAFC; border-bottom-color: #334155; }
+    body[data-theme="dark"] table.data-table td { color: #CBD5E1; border-bottom-color: #334155; }
+    body[data-theme="dark"] table.data-table tr:hover td { background: rgba(255,255,255,0.04); }
+
+    /* ── 데이터표 웜 테마 ── */
+    body[data-theme="warm"] {
+      background: #F5EBE0;
+      color: #3D2B1F;
+    }
+    body[data-theme="warm"] .container { background: #FAF6F0; border-color: #E5D4C4; }
+    body[data-theme="warm"] .top-toolbar { background: #3D2B1F; }
+    body[data-theme="warm"] .doc-header { background: #FAF6F0; border-bottom-color: #E5D4C4; }
+    body[data-theme="warm"] .table-section { background: #FAF6F0; border-color: #E5D4C4; }
+    body[data-theme="warm"] table.data-table th { background: #EDE0D4; color: #3D2B1F; border-bottom-color: #C9A88F; }
+    body[data-theme="warm"] table.data-table td { color: #5A3E32; border-bottom-color: #E5D4C4; }
+    body[data-theme="warm"] table.data-table tr:hover td { background: rgba(0,0,0,0.04); }
+    /* 지시 10 고대비 보정 (WCAG AA 4.5:1 실측 기준) */
+    body[data-theme="dark"] .brand-badge span,
+    body[data-theme="dark"] .btn-primary { background: #C2410C; border-color: #C2410C; }
+    body[data-theme="dark"] .doc-category { background: rgba(255, 107, 0, 0.15); color: #FDBA74; }
+    body[data-theme="dark"] .controls-bar,
+    body[data-theme="dark"] .table-header-box,
+    body[data-theme="dark"] .doc-footer { background: #0F172A; border-color: #334155; color: #CBD5E1; }
+    body[data-theme="dark"] .search-box,
+    body[data-theme="dark"] .search-box input,
+    body[data-theme="dark"] .table-desc { background: #1E293B; border-color: #334155; color: #E2E8F0; }
+    body[data-theme="dark"] .search-box input::placeholder { color: #94A3B8; }
+    body[data-theme="dark"] .table-title { color: #F8FAFC; }
+    body[data-theme="dark"] .table-header-box .btn { background: #1E293B; color: #F8FAFC !important; border-color: #475569 !important; }
+    body[data-theme="dark"] .badge-warn { background: rgba(239, 68, 68, 0.15); color: #FCA5A5; border-color: rgba(239, 68, 68, 0.4); }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="top-toolbar">
+      <div class="brand-badge">
+        <span>HANURI</span> 한우리 독서토론논술 수업용 데이터 분석 센터
+      </div>
+      <div class="action-btns">
+        <button class="btn" onclick="exportAllCSV()">📥 CSV 다운로드</button>
+        <button class="btn btn-primary" onclick="window.print()">🖨️ 인쇄 / PDF 저장</button>
+      </div>
+    </div>
+
+    <header class="doc-header">
+      <div class="doc-category">핵심 통계 & 비교 분석 센터</div>
+      <h1 class="doc-title" id="pageTitle">《한반도의 중심, 생명의 젖줄 한강》 핵심 데이터 비교 분석표</h1>
+      <div class="doc-subtitle">수업에 바로 쓰는 핵심 비교 데이터</div>
+    </header>
+
+    <div class="controls-bar">
+      <div class="tab-group" id="tabGroup">
+        <button class="tab-btn active" onclick="filterTab('all', this)">전체 표 보기 (4종)</button>
+      </div>
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="표 내용 실시간 검색..." onkeyup="filterSearch()">
+      </div>
+    </div>
+
+    <main class="content-body" id="tablesContainer">
+      <!-- 렌더링 -->
+    </main>
+
+    <footer class="doc-footer">
+      <div>© 2026 한우리독서토론논술 · 지식 팩토리 자동화 시스템</div>
+      <div>데이터 출처: 《한반도의 중심, 생명의 젖줄 한강》 및 NotebookLM 분석</div>
+    </footer>
+  </div>
+
+  <script>
+    const TABLE_DATA = [
+  {
+    "table_id": "hangang_branches_comparison",
+    "title": "북한강과 남한강의 수계 및 지형적 특성 비교",
+    "description": "한반도 중부를 흐르는 한강의 두 핵심 지류인 북한강과 남한강의 발원지, 경유 지역, 주요 특징을 비교한 표입니다.",
+    "headers": [
+      "구분",
+      "발원지",
+      "주요 경유 지역",
+      "합류 지점",
+      "주요 경관 및 관광 자원"
+    ],
+    "rows": [
+      [
+        "북한강",
+        "금강산",
+        "강원도 철원·화천·춘천, 경기도 가평·양평",
+        "경기도 양평군 양수리 (두물머리)",
+        "파로호, 춘천호, 소양호, 청평호 등 아름다운 인공호수 및 관광지"
+      ],
+      [
+        "남한강",
+        "강원도 태백산 검룡소",
+        "강원도 태백·삼척·영월·원주, 경기도 여주·광주·양평·남양주",
+        "경기도 양평군 양수리 (두물머리)",
+        "단양 도담삼봉, 충주 탄금대, 괴산 화양구곡 등 기암괴석 및 명승지"
+      ]
+    ]
+  },
+  {
+    "table_id": "hangang_historical_timeline",
+    "title": "한강 유역의 시대별 역사적 변천 및 역할 연표",
+    "description": "선사 시대부터 현대에 이르기까지 한강 유역에서 펼쳐진 역사적 사건과 주민 삶의 모습 변화를 순서대로 정리한 연표입니다.",
+    "headers": [
+      "시대 및 시기",
+      "역사적 주요 사건 및 특징",
+      "한강의 기능과 주요 삶의 모습"
+    ],
+    "rows": [
+      [
+        "선사 시대",
+        "서울 강동구 암사동 빗살무늬 토기 및 움집터 발견",
+        "인류가 정착하여 삶을 영위한 오래된 생활 터전"
+      ],
+      [
+        "삼한 시대",
+        "한강 유역을 중심으로 마한(馬韓) 연맹체 성장",
+        "농경과 주거에 유리한 중부 지역의 중심지 역할"
+      ],
+      [
+        "삼국 시대",
+        "백제, 고구려, 신라 간 한강 유역 차지 위한 치열한 쟁탈전",
+        "한반도 주도권 확보 및 영토 확장의 핵심 전략 요충지"
+      ],
+      [
+        "조선 시대",
+        "태조 이성계의 한양(서울) 도읍지 선정 (풍수지리 반영)",
+        "국가의 수도이자 정치·경제·문화의 중심지, 생명의 젖줄"
+      ],
+      [
+        "60년 전 (근현대)",
+        "하천 오염 이전의 전통적 강변 생활 양식 유지",
+        "나룻배 이용, 어로 활동, 수영, 빨래터 등 주민들의 일상 공간"
+      ],
+      [
+        "현대",
+        "'한강의 기적' 경제 성장 달성 및 현대적 수변 공간 재개발",
+        "유람선 운항, 고수부지 시민 쉼터, 빌딩·아파트 중심의 도시 경관"
+      ]
+    ]
+  },
+  {
+    "table_id": "river_perspectives_and_erosion_deposition",
+    "title": "한강과 하천을 바라보는 관점 및 상·하류 작용 비교",
+    "description": "한강이 지닌 다각적 가치와 위치별(상류·하류) 지형 형성 작용 및 국내외 도시 발전 관계를 비교한 표입니다.",
+    "headers": [
+      "비교 항목",
+      "상류 / 과거 / 자연적 관점",
+      "하류 / 현대 / 인문적 관점",
+      "주요 사례 및 관련 근거"
+    ],
+    "rows": [
+      [
+        "하천 지형 작용",
+        "상류: 폭이 좁고 물줄기가 세차 바위와 흙을 깎음 (침식 작용)",
+        "하류: 잔잔한 물줄기와 홍수로 흙이 쌓여 평야 형성 (퇴적 작용)",
+        "산지 주변의 기암괴석 형성 vs 한강 하류 김포평야 형성"
+      ],
+      [
+        "한강의 가치 평가",
+        "관광 자원 및 아름다운 자연 경관으로서의 가치",
+        "민족의 역사와 삶을 함께해 온 '대한민국의 젖줄'",
+        "도담삼봉·호수 관광지 vs 암사동 유적·한양 도읍지·한강의 기적"
+      ],
+      [
+        "강 주변 삶의 변화",
+        "생계 및 실용적 터전 (나룻배, 어로, 빨래터, 수영)",
+        "여가 및 휴식 공간 (유람선, 고수부지 쉼터, 도시 경관)",
+        "환경 오염으로 과거의 일상은 사라지고 현대적 휴식처로 변화"
+      ],
+      [
+        "국내외 강과 도시",
+        "대한민국: 태백산맥 영향으로 동에서 서쪽으로 흐르는 하천",
+        "해외: 주요 수도 및 문명의 중심지로 기능하는 강",
+        "서해로 흐르는 한강·낙동강 vs 영국 런던 템즈강, 프랑스 파리 센강"
+      ]
+    ]
+  },
+  {
+    "table_id": "korea_regional_rivers_and_plains",
+    "title": "대한민국 권역별 주요 강과 형성 평야 데이터 비교",
+    "description": "우리나라 중부, 호남, 영남 지방의 대표적인 강과 하류 퇴적 작용으로 형성된 주요 평야를 비교한 표입니다.",
+    "headers": [
+      "권역",
+      "대표 하천(강)",
+      "형성된 주요 평야",
+      "지역적 특징 및 역할"
+    ],
+    "rows": [
+      [
+        "중부 지방",
+        "한강",
+        "김포평야",
+        "수도권을 가로지르는 한강 하류의 대표적인 넓은 평야"
+      ],
+      [
+        "중부 지방",
+        "안성천",
+        "안성평야",
+        "경기도 남부 안성천 하류에 위치한 평야"
+      ],
+      [
+        "중부 지방",
+        "삽교천",
+        "예당평야",
+        "충청남도 삽교천 주변에 형성된 주요 농경지"
+      ],
+      [
+        "전라도 (호남)",
+        "만경강 · 동진강",
+        "호남평야",
+        "대한민국의 대표적 곡식 창고로 불리는 대규모 평야 지대"
+      ],
+      [
+        "전라도 (호남)",
+        "영산강",
+        "나주평야",
+        "전라남도 영산강 하류에 위치한 주요 곡창 지대"
+      ],
+      [
+        "경상도 (영남)",
+        "낙동강",
+        "김해평야",
+        "산지가 많은 영남 지방에서 낙동강 하류에 펼쳐진 넓은 평야"
+      ]
+    ]
+  }
+];
+
+    let currentTab = 'all';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initTabs();
+      renderTables(TABLE_DATA);
+    });
+
+    function initTabs() {
+      const tabGroup = document.getElementById('tabGroup');
+      TABLE_DATA.forEach((t, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'tab-btn';
+        btn.innerText = `${idx + 1}. ${t.title.split(' ')[0]}`;
+        btn.onclick = () => filterTab(t.table_id, btn);
+        tabGroup.appendChild(btn);
+      });
+    }
+
+    function filterTab(tabId, el) {
+      currentTab = tabId;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      filterSearch();
+    }
+
+    function filterSearch() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const container = document.getElementById('tablesContainer');
+      container.innerHTML = '';
+
+      TABLE_DATA.forEach(t => {
+        if (currentTab !== 'all' && t.table_id !== currentTab) return;
+
+        const matchedRows = t.rows.filter(row => {
+          if (!query) return true;
+          return row.some(cell => String(cell).toLowerCase().includes(query)) ||
+                 t.title.toLowerCase().includes(query) ||
+                 t.description.toLowerCase().includes(query);
+        });
+
+        if (matchedRows.length === 0 && query) return;
+
+        const sec = document.createElement('section');
+        sec.className = 'table-section';
+        sec.id = t.table_id;
+
+        let ths = t.headers.map(h => `<th>${h}</th>`).join('');
+        let trs = matchedRows.map(row => {
+          let tds = row.map((cell, idx) => {
+            let val = String(cell);
+            if (val.includes('P5')) {
+              val = `<span class="badge-p5">${val}</span>`;
+            } else if (val.includes('불법') || val.includes('미가입')) {
+              val = `<span class="badge-warn">${val}</span>`;
+            } else if (/^\d{4}년/.test(val)) {
+              val = `<span class="badge-year">${val}</span>`;
+            }
+            return `<td>${val}</td>`;
+          }).join('');
+          return `<tr>${tds}</tr>`;
+        }).join('');
+
+        sec.innerHTML = `
+          <div class="table-header-box">
+            <div class="table-title">📊 ${t.title}</div>
+            <button class="btn" style="color:var(--navy); border-color:var(--slate-300);" onclick="exportSingleCSV('${t.table_id}')">📥 CSV</button>
+          </div>
+          <div class="table-desc">${t.description} (총 ${matchedRows.length}행)</div>
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead><tr>${ths}</tr></thead>
+              <tbody>${trs}</tbody>
+            </table>
+          </div>
+        `;
+        container.appendChild(sec);
+      });
+    }
+
+    function renderTables(tables) {
+      filterSearch();
+    }
+
+    function exportSingleCSV(tableId) {
+      const table = TABLE_DATA.find(t => t.table_id === tableId);
+      if (!table) return;
+      downloadCSV(table.title, [table.headers, ...table.rows]);
+    }
+
+    function exportAllCSV() {
+      TABLE_DATA.forEach(t => {
+        exportSingleCSV(t.table_id);
+      });
+    }
+
+    function downloadCSV(filename, rows) {
+      let csvContent = "\uFEFF";
+      rows.forEach(r => {
+        const line = r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',');
+        csvContent += line + "\r\n";
+      });
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", `${filename}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // 대시보드 postMessage 테마 동기화
+    
+    try {
+      const savedTheme = localStorage.getItem('hanuri_theme') || 'dark';
+      document.body.dataset.theme = savedTheme;
+    } catch(e) {}
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'SET_THEME') {
+        document.body.dataset.theme = e.data.theme;
+      }
+    });
+    try {
+      if (window.parent && window.parent.document && window.parent.document.body.dataset.theme) {
+        document.body.dataset.theme = window.parent.document.body.dataset.theme;
+      }
+    } catch(e) {}
+  </script>
+</body>
+</html>

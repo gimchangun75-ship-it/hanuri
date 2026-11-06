@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>《개 같은 날은 없다 독서 워크북》 핵심 데이터 비교 분석표</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF6B00;
+      --primary-dark: #D95300;
+      --primary-light: #FFF4ED;
+      --navy: #0F172A;
+      --navy-light: #1E293B;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --radius-sm: 6px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(15,23,42,0.08);
+      --shadow-lg: 0 10px 25px rgba(15,23,42,0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background: var(--slate-100);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 30px 20px;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .top-toolbar {
+      background: var(--navy);
+      color: #fff;
+      padding: 12px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .brand-badge span {
+      background: var(--primary);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
+    }
+
+    .doc-header {
+      padding: 35px 40px 25px;
+      background: linear-gradient(180deg, var(--slate-50) 0%, #FFFFFF 100%);
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .doc-category {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .doc-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .doc-subtitle {
+      font-size: 14.5px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    /* 탭 내비게이션 & 검색 바 */
+    .controls-bar {
+      padding: 16px 40px;
+      background: var(--slate-50);
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .tab-group {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      padding: 8px 16px;
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--slate-700);
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #FFFFFF;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: #FFFFFF;
+      border: 1px solid var(--slate-300);
+      border-radius: 20px;
+      padding: 4px 12px;
+      width: 220px;
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      font-size: 13px;
+      width: 100%;
+      padding: 4px 6px;
+      font-family: inherit;
+    }
+
+    /* 테이블 영역 */
+    .content-body {
+      padding: 35px 40px;
+    }
+
+    .table-section {
+      margin-bottom: 45px;
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .table-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .table-header-box {
+      padding: 18px 24px;
+      background: var(--slate-50);
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .table-desc {
+      padding: 10px 24px;
+      font-size: 13px;
+      color: var(--slate-600);
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--slate-100);
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    table.data-table th {
+      background: #F8FAFC;
+      color: var(--navy);
+      font-weight: 700;
+      padding: 12px 18px;
+      border-bottom: 2px solid var(--slate-200);
+      white-space: nowrap;
+    }
+
+    table.data-table td {
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      line-height: 1.5;
+    }
+
+    table.data-table tr:hover td {
+      background: var(--primary-light);
+    }
+
+    table.data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .badge-p5 {
+      background: #EFF6FF;
+      color: #1D4ED8;
+      font-weight: 700;
+      font-size: 11.5px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .badge-warn {
+      background: #FEF2F2;
+      color: #B91C1C;
+      font-weight: 700;
+      font-size: 11.5px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .badge-year {
+      background: var(--navy);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 11.5px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .doc-footer {
+      padding: 20px 40px;
+      background: var(--slate-50);
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    @media print {
+      body { background: #FFFFFF !important; padding: 0 !important; color: #000 !important; }
+      .container { max-width: 100% !important; border: none !important; box-shadow: none !important; }
+      .top-toolbar, .controls-bar { display: none !important; }
+      .doc-header { padding: 15px 0 !important; border-bottom: 2px solid #000 !important; }
+      .content-body { padding: 15px 0 !important; }
+      .table-section { page-break-inside: avoid; border: 1px solid #ccc !important; margin-bottom: 25px !important; }
+      table.data-table th { background: #eee !important; color: #000 !important; border-bottom: 1px solid #000 !important; }
+      table.data-table td { color: #000 !important; border-bottom: 1px solid #ddd !important; }
+    }
+
+    /* ── 데이터표 다크 테마 ── */
+    body[data-theme="dark"] {
+      background: #0B0F19;
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .container { background: #1E293B; border-color: #334155; }
+    body[data-theme="dark"] .top-toolbar { background: #090D16; }
+    body[data-theme="dark"] .doc-header { background: #0F172A; border-bottom-color: #334155; }
+    body[data-theme="dark"] .doc-title { color: #F8FAFC; }
+    body[data-theme="dark"] .doc-subtitle { color: #94A3B8; }
+    body[data-theme="dark"] .table-section { background: #1E293B; border-color: #334155; }
+    body[data-theme="dark"] .table-section-title { color: #F8FAFC; }
+    body[data-theme="dark"] .table-section-subtitle { color: #94A3B8; }
+    body[data-theme="dark"] table.data-table th { background: #0F172A; color: #F8FAFC; border-bottom-color: #334155; }
+    body[data-theme="dark"] table.data-table td { color: #CBD5E1; border-bottom-color: #334155; }
+    body[data-theme="dark"] table.data-table tr:hover td { background: rgba(255,255,255,0.04); }
+
+    /* ── 데이터표 웜 테마 ── */
+    body[data-theme="warm"] {
+      background: #F5EBE0;
+      color: #3D2B1F;
+    }
+    body[data-theme="warm"] .container { background: #FAF6F0; border-color: #E5D4C4; }
+    body[data-theme="warm"] .top-toolbar { background: #3D2B1F; }
+    body[data-theme="warm"] .doc-header { background: #FAF6F0; border-bottom-color: #E5D4C4; }
+    body[data-theme="warm"] .table-section { background: #FAF6F0; border-color: #E5D4C4; }
+    body[data-theme="warm"] table.data-table th { background: #EDE0D4; color: #3D2B1F; border-bottom-color: #C9A88F; }
+    body[data-theme="warm"] table.data-table td { color: #5A3E32; border-bottom-color: #E5D4C4; }
+    body[data-theme="warm"] table.data-table tr:hover td { background: rgba(0,0,0,0.04); }
+    /* 지시 10 고대비 보정 (WCAG AA 4.5:1 실측 기준) */
+    body[data-theme="dark"] .brand-badge span,
+    body[data-theme="dark"] .btn-primary { background: #C2410C; border-color: #C2410C; }
+    body[data-theme="dark"] .doc-category { background: rgba(255, 107, 0, 0.15); color: #FDBA74; }
+    body[data-theme="dark"] .controls-bar,
+    body[data-theme="dark"] .table-header-box,
+    body[data-theme="dark"] .doc-footer { background: #0F172A; border-color: #334155; color: #CBD5E1; }
+    body[data-theme="dark"] .search-box,
+    body[data-theme="dark"] .search-box input,
+    body[data-theme="dark"] .table-desc { background: #1E293B; border-color: #334155; color: #E2E8F0; }
+    body[data-theme="dark"] .search-box input::placeholder { color: #94A3B8; }
+    body[data-theme="dark"] .table-title { color: #F8FAFC; }
+    body[data-theme="dark"] .table-header-box .btn { background: #1E293B; color: #F8FAFC !important; border-color: #475569 !important; }
+    body[data-theme="dark"] .badge-warn { background: rgba(239, 68, 68, 0.15); color: #FCA5A5; border-color: rgba(239, 68, 68, 0.4); }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="top-toolbar">
+      <div class="brand-badge">
+        <span>HANURI</span> 한우리 독서토론논술 수업용 데이터 분석 센터
+      </div>
+      <div class="action-btns">
+        <button class="btn" onclick="exportAllCSV()">📥 CSV 다운로드</button>
+        <button class="btn btn-primary" onclick="window.print()">🖨️ 인쇄 / PDF 저장</button>
+      </div>
+    </div>
+
+    <header class="doc-header">
+      <div class="doc-category">핵심 통계 & 비교 분석 센터</div>
+      <h1 class="doc-title" id="pageTitle">《개 같은 날은 없다 독서 워크북》 핵심 데이터 비교 분석표</h1>
+      <div class="doc-subtitle">수업에 바로 쓰는 핵심 비교 데이터</div>
+    </header>
+
+    <div class="controls-bar">
+      <div class="tab-group" id="tabGroup">
+        <button class="tab-btn active" onclick="filterTab('all', this)">전체 표 보기 (4종)</button>
+      </div>
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="표 내용 실시간 검색..." onkeyup="filterSearch()">
+      </div>
+    </div>
+
+    <main class="content-body" id="tablesContainer">
+      <!-- 렌더링 -->
+    </main>
+
+    <footer class="doc-footer">
+      <div>© 2026 한우리독서토론논술 · 지식 팩토리 자동화 시스템</div>
+      <div>데이터 출처: 《개 같은 날은 없다 독서 워크북》 및 NotebookLM 분석</div>
+    </footer>
+  </div>
+
+  <script>
+    const TABLE_DATA = [
+  {
+    "table_id": "character_concept_comparison",
+    "title": "등장인물별 심리적 상처, 방어기제 및 학술 개념 비교표",
+    "description": "작품 속 핵심 등장인물의 심리적 상처, 분노 표출 방식(방어기제), 그리고 관련 심리학·사회학 개념을 비교 분석한 표입니다.",
+    "headers": [
+      "인물",
+      "심리적 상처 및 원인",
+      "분노 표출 및 행동 양상",
+      "관련 핵심 개념/이론",
+      "상징 및 결과"
+    ],
+    "rows": [
+      [
+        "아빠",
+        "아내(엄마)의 부재, 가스 배달 노동의 사회적 좌절과 경제적 곤궁",
+        "맏아들(형)에게 언어적·신체적 폭력 행사",
+        "사회적 억압과 분노 발산",
+        "가정 내 폭력의 연쇄 고리 시발점"
+      ],
+      [
+        "형",
+        "아빠로부터 당한 부당한 폭력, 수치심과 억울함",
+        "동생 강민에게 주먹을 휘두르며 분노 해소",
+        "전이된 공격성 (Displaced Aggression)",
+        "가정 내 완력 서열에 따른 2차 폭력"
+      ],
+      [
+        "강민",
+        "가정 폭력 공포, 엄마 부재의 슬픔, 형의 폭력",
+        "아끼던 유기견 찡코를 발로 차고 패대기쳐 죽임",
+        "링크 이론 (The LINK) / 약자 공격",
+        "희생양 파괴로 인한 피눈물과 죄책감"
+      ],
+      [
+        "미나",
+        "오빠의 지속적 폭력 및 어머니의 묵인('참으라')",
+        "자기 몸을 파괴하는 거식증(섭식장애) 및 우울증",
+        "형제간 폭력 사각지대 / 침묵의 카르텔",
+        "무의식적 저항 및 무력감 학습"
+      ]
+    ]
+  },
+  {
+    "table_id": "narrative_chronology_flow",
+    "title": "작품 속 사건 전개 및 폭력 연쇄 메커니즘 흐름표",
+    "description": "엄마의 부재부터 비극적 사건, 내면의 고백 및 회복적 대화로 이어지는 작품의 주요 사건 전개를 순서대로 정리한 흐름표입니다.",
+    "headers": [
+      "단계",
+      "주요 사건 및 상황",
+      "발생 원인 및 주체",
+      "심리·사회적 메커니즘",
+      "영향 및 결과"
+    ],
+    "rows": [
+      [
+        "1단계: 발단",
+        "엄마의 부재 및 아빠의 사회적 좌절",
+        "경제적 곤궁 및 노동 스트레스 (아빠)",
+        "가정 내 신체적·정서적 안전망 해체",
+        "가정 폭력의 씨앗 형성"
+      ],
+      [
+        "2단계: 전개",
+        "아빠 ➔ 형 ➔ 강민 ➔ 찡코 폭력 전이",
+        "강자에게 받은 스트레스를 약자에게 발산",
+        "전이된 공격성 및 형제간 폭력 사각지대",
+        "유기견 찡코의 상구 및 희생"
+      ],
+      [
+        "3단계: 절정",
+        "통제 불능 분노로 찡코 사망 및 비극",
+        "가족 다툼 후 강민의 분노 폭발",
+        "범죄심리학 '링크 이론' (동물학대 연쇄)",
+        "강민의 극심한 죄책감과 피눈물"
+      ],
+      [
+        "4단계: 위기",
+        "이웃 미나의 거식증과 오빠 폭력 폭로",
+        "형제 폭력 묵인 및 침묵의 카르텔",
+        "자해적 거식증을 통한 무의식적 절규",
+        "영혼의 구조 신호(SOS) 발산"
+      ],
+      [
+        "5단계: 결말/회복",
+        "애니멀 커뮤니케이션 및 회복적 대화 모임",
+        "찡코 눈동자의 위로와 솔직한 상처 고백",
+        "회복적 정의 (Restorative Justice)",
+        "관계 속 치유 및 폭력 고리 단절"
+      ]
+    ]
+  },
+  {
+    "table_id": "key_issues_perspectives_comparison",
+    "title": "갈등 해결 및 폭력 대응 관점 비교표 (응보적 사법 vs 회복적 정의)",
+    "description": "학교 및 사회 현장에서 폭력과 갈등 문제에 접근하는 두 가지 상충되는 패러다임을 항목별로 비교 분석한 표입니다.",
+    "headers": [
+      "비교 항목",
+      "전통적 응보적 사법 (Punitive Justice)",
+      "대안적 회복적 정의 (Restorative Justice)",
+      "작품 및 현실 적용 시 시사점"
+    ],
+    "rows": [
+      [
+        "기본 정의",
+        "폭력을 법·규칙 위반 및 범죄로 규정",
+        "폭력을 관계의 파괴 및 공동체 상처로 규정",
+        "가정폭력·형제폭력을 단순 처벌로 해결할 수 없음을 시사"
+      ],
+      [
+        "핵심 질문",
+        "누가 규칙을 어겼는가? 처벌 수준은?",
+        "무슨 일 일어났나? 누가 어떤 고통 받았나?",
+        "회복적 서클 4대 질문을 통해 본질적 진실 직면"
+      ],
+      [
+        "주요 목표",
+        "가해자에 대한 징벌, 정학, 소년원 수감",
+        "피해자 상처 회복, 가해자 책임 자각, 관계 복구",
+        "아빠·형에 대한 처벌을 넘어 가족 간 관계 회복 지향"
+      ],
+      [
+        "당사자 역할",
+        "가해자는 처벌 수동 수용, 피해자는 소외됨",
+        "당사자 전원 직면, 피해 복구 위한 자발적 배상",
+        "피해 고통 공감 및 재발 방지 약속으로 평화 공존"
+      ],
+      [
+        "한계 및 효과",
+        "가해자의 낙인감·반발심 및 2차 강력범죄 위험",
+        "진솔한 고백과 진심 어린 용서를 통한 진정한 치유",
+        "사람은 관계 속에서 상처받지만 관계 속에서만 치유됨"
+      ]
+    ]
+  },
+  {
+    "table_id": "restorative_circle_questions_matrix",
+    "title": "회복적 서클 4대 질문 단계별 개념, 목적 및 작품 적용 비교표",
+    "description": "갈등 해결을 위한 회복적 서클의 4가지 핵심 질문 구조와 질문별 탐구 목적, 작품 속 구체적 적용 방안을 정리한 표입니다.",
+    "headers": [
+      "단계 및 질문",
+      "질문 내용",
+      "탐구 목적 및 심리적 효과",
+      "작품 『개 같은 날은 없다』 적용 예시"
+    ],
+    "rows": [
+      [
+        "1단계 (사건 직면)",
+        "무슨 일이 일어났는가?",
+        "사건의 객관적 진실 직면 및 감정 과장 방지",
+        "아빠의 사회적 좌절부터 강민의 찡코 학대까지 사실 관계 확정"
+      ],
+      [
+        "2단계 (공감과 자각)",
+        "그 일로 누가 어떤 고통과 상처를 받았는가?",
+        "피해자의 아픔 공감 및 가해자의 책임성 자각",
+        "강민·미나의 무력감, 찡코의 희생, 형·아빠의 내면 상처 공감"
+      ],
+      [
+        "3단계 (자발적 배상)",
+        "깨어진 관계와 피해 복구를 위해 무엇이 필요한가?",
+        "피해 회복을 위한 가해자의 자발적 배상 및 노력",
+        "서로에게 휘둘렀던 폭력 고백, 찡코에 대한 죄책감 인정 및 진심 어린 사과"
+      ],
+      [
+        "4단계 (공존과 약속)",
+        "앞으로 평화롭게 공존하기 위해 어떤 약속을 할까?",
+        "재발 방지 대책 수립 및 공동체 회복 약속",
+        "가정 내 형제간 폭력 중단, 대화 모임 정례화, 재발 방지 약속"
+      ]
+    ]
+  }
+];
+
+    let currentTab = 'all';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initTabs();
+      renderTables(TABLE_DATA);
+    });
+
+    function initTabs() {
+      const tabGroup = document.getElementById('tabGroup');
+      TABLE_DATA.forEach((t, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'tab-btn';
+        btn.innerText = `${idx + 1}. ${t.title.split(' ')[0]}`;
+        btn.onclick = () => filterTab(t.table_id, btn);
+        tabGroup.appendChild(btn);
+      });
+    }
+
+    function filterTab(tabId, el) {
+      currentTab = tabId;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      filterSearch();
+    }
+
+    function filterSearch() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const container = document.getElementById('tablesContainer');
+      container.innerHTML = '';
+
+      TABLE_DATA.forEach(t => {
+        if (currentTab !== 'all' && t.table_id !== currentTab) return;
+
+        const matchedRows = t.rows.filter(row => {
+          if (!query) return true;
+          return row.some(cell => String(cell).toLowerCase().includes(query)) ||
+                 t.title.toLowerCase().includes(query) ||
+                 t.description.toLowerCase().includes(query);
+        });
+
+        if (matchedRows.length === 0 && query) return;
+
+        const sec = document.createElement('section');
+        sec.className = 'table-section';
+        sec.id = t.table_id;
+
+        let ths = t.headers.map(h => `<th>${h}</th>`).join('');
+        let trs = matchedRows.map(row => {
+          let tds = row.map((cell, idx) => {
+            let val = String(cell);
+            if (val.includes('P5')) {
+              val = `<span class="badge-p5">${val}</span>`;
+            } else if (val.includes('불법') || val.includes('미가입')) {
+              val = `<span class="badge-warn">${val}</span>`;
+            } else if (/^\d{4}년/.test(val)) {
+              val = `<span class="badge-year">${val}</span>`;
+            }
+            return `<td>${val}</td>`;
+          }).join('');
+          return `<tr>${tds}</tr>`;
+        }).join('');
+
+        sec.innerHTML = `
+          <div class="table-header-box">
+            <div class="table-title">📊 ${t.title}</div>
+            <button class="btn" style="color:var(--navy); border-color:var(--slate-300);" onclick="exportSingleCSV('${t.table_id}')">📥 CSV</button>
+          </div>
+          <div class="table-desc">${t.description} (총 ${matchedRows.length}행)</div>
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead><tr>${ths}</tr></thead>
+              <tbody>${trs}</tbody>
+            </table>
+          </div>
+        `;
+        container.appendChild(sec);
+      });
+    }
+
+    function renderTables(tables) {
+      filterSearch();
+    }
+
+    function exportSingleCSV(tableId) {
+      const table = TABLE_DATA.find(t => t.table_id === tableId);
+      if (!table) return;
+      downloadCSV(table.title, [table.headers, ...table.rows]);
+    }
+
+    function exportAllCSV() {
+      TABLE_DATA.forEach(t => {
+        exportSingleCSV(t.table_id);
+      });
+    }
+
+    function downloadCSV(filename, rows) {
+      let csvContent = "\uFEFF";
+      rows.forEach(r => {
+        const line = r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',');
+        csvContent += line + "\r\n";
+      });
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", `${filename}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // 대시보드 postMessage 테마 동기화
+    
+    try {
+      const savedTheme = localStorage.getItem('hanuri_theme') || 'dark';
+      document.body.dataset.theme = savedTheme;
+    } catch(e) {}
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'SET_THEME') {
+        document.body.dataset.theme = e.data.theme;
+      }
+    });
+    try {
+      if (window.parent && window.parent.document && window.parent.document.body.dataset.theme) {
+        document.body.dataset.theme = window.parent.document.body.dataset.theme;
+      }
+    } catch(e) {}
+  </script>
+</body>
+</html>

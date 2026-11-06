@@ -198,11 +198,13 @@ let boxTapsRemaining = 3;
 let audioCtx = null;
 let masterGainNode = null;
 let currentMasterVolume = 0.6;
+let currentViewMode = 'twin';
 
 // ----------------------------------------------------
 // 🔄 뷰 모드 스위처 (교실 트윈 뷰 / 플립 65인치 / 학생 폰 패드)
 // ----------------------------------------------------
 function switchViewMode(mode) {
+    currentViewMode = mode;
     const root = document.getElementById('app-root');
     const secBoard = document.getElementById('section-board');
     const secPad = document.getElementById('section-pad');
@@ -511,6 +513,41 @@ const SoundFX = {
                 osc.stop(cur + delay + 0.8);
             });
         });
+    },
+    playCombo: (combo) => {
+        if (isMuted || !audioCtx) return;
+        try {
+            const now = audioCtx.currentTime;
+            const freq = 440 + Math.min(combo, 8) * 90;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now);
+            gain.gain.setValueAtTime(0.25, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+            osc.connect(gain);
+            gain.connect(masterGainNode);
+            osc.start(now);
+            osc.stop(now + 0.25);
+        } catch(e) {}
+    },
+    playFever: () => {
+        if (isMuted || !audioCtx) return;
+        try {
+            const now = audioCtx.currentTime;
+            [523.25, 659.25, 783.99, 1046.5].forEach((f, idx) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(f, now + idx * 0.08);
+                gain.gain.setValueAtTime(0.3, now + idx * 0.08);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.35);
+                osc.connect(gain);
+                gain.connect(masterGainNode);
+                osc.start(now + idx * 0.08);
+                osc.stop(now + idx * 0.08 + 0.35);
+            });
+        } catch(e) {}
     }
 };
 
@@ -638,34 +675,47 @@ function renderStudentGrid() {
 function renderPadOptions() {
     const container = document.getElementById('pad-options-container');
     container.innerHTML = '';
+    const opts = activeQuiz.options;
+    const isTwoChoice = (opts.length === 2);
 
-    activeQuiz.options.forEach((opt, idx) => {
+    if (isTwoChoice) {
+        container.className = 'grid grid-cols-1 gap-2.5';
+    } else {
+        container.className = 'grid grid-cols-2 gap-2 sm:gap-3';
+    }
+
+    opts.forEach((opt, idx) => {
         const btn = document.createElement('button');
-        // 브롤 컬러: 1번 청록, 2번 파랑, 3번 주황, 4번 노랑
         const colorClasses = [
-            "brawl-btn-blue",
-            "brawl-btn-orange",
-            "brawl-btn-blue",
-            "brawl-btn-orange"
+            'brawl-btn-blue',
+            'brawl-btn-orange',
+            'brawl-btn-blue',
+            'brawl-btn-orange'
         ];
         const bgClass = colorClasses[idx % colorClasses.length];
 
-        btn.className = `w-full brawl-btn-3d ${bgClass} py-2 px-3 text-center slim-action-btn font-black cursor-pointer`;
-        btn.innerHTML = `
-            <div class="flex flex-col items-center justify-center py-1 px-2 text-center">
-                <span class="text-xs font-black text-amber-200 bg-black/50 px-2.5 py-0.5 rounded-full mb-1 border border-black/30">
-                    선택지 ${idx + 1}
-                </span>
-                <span class="text-base sm:text-xl font-black text-white tracking-tight leading-snug drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]" style="font-family: 'Noto Sans KR', sans-serif;">
-                    ${opt}
-                </span>
-            </div>
-        `;
+        const textLen = (opt || '').length;
+        let textSizeClass = 'text-base sm:text-lg';
+        if (isTwoChoice) {
+            textSizeClass = (textLen > 20) ? 'text-sm sm:text-base' : 'text-base sm:text-xl';
+        } else {
+            if (textLen > 15) textSizeClass = 'text-xs sm:text-sm';
+            else if (textLen > 9) textSizeClass = 'text-sm sm:text-base';
+            else textSizeClass = 'text-base sm:text-lg';
+        }
+
+        const paddingClass = isTwoChoice ? 'py-3 px-4' : 'py-2 px-2.5';
+        btn.className = `w-full brawl-btn-3d ${bgClass} ${paddingClass} text-center slim-action-btn font-black cursor-pointer`;
+
+        if (isTwoChoice) {
+            btn.innerHTML = `<div class="flex items-center justify-between w-full px-2"><span class="text-xs font-black text-amber-200 bg-black/50 px-2.5 py-1 rounded-full border border-black/30 shrink-0 mr-2">선택지 ${idx + 1}</span><span class="${textSizeClass} font-black text-white tracking-tight leading-snug drop-shadow-[0_2p_4px_rgba(0,0,0,0.9)] flex-1 text-center truncate" style="font-family: 'Noto Sans KR', sans-serif;">${opt}</span></div>`;
+        } else {
+            btn.innerHTML = `<div class="flex flex-col items-center justify-center py-1 px-1 text-center"><span class="text-[11px] font-black text-amber-200 bg-black/50 px-2 py-0.5 rounded-full mb-1 border border-black/30">선택지 ${idx + 1}</span><span class="${textSizeClass} font-black text-white tracking-tight leading-snug drop-shadow-[0_2p_4px_rgba(0,0,0,0.9)] break-keep line-clamp-2" style="font-family: 'Noto Sans KR', sans-serif;">${opt}</span></div>`;
+        }
         btn.onclick = () => submitPadAnswer(idx);
         container.appendChild(btn);
     });
 }
-
 
 // 📱 학생 폰 화면 쉘리 사격 & 보스 피격 애니메이션 트리거
 function triggerPadShellyAttack() {
@@ -1025,6 +1075,31 @@ function updateQuizControlUI() {
         }
         if (arenaBanner) arenaBanner.classList.add('hidden');
     }
+
+    const isStudent = (currentViewMode === 'student' || (new URLSearchParams(window.location.search).get('role') || '').toLowerCase() === 'student');
+    if (isStudent) {
+        const padBoxes = document.querySelectorAll('#pad-target-boxes-container .target-farm-box, #pad-options-container button');
+        const padStatus = document.getElementById('pad-submit-status');
+        if (!isQuizStarted || isQuizPaused) {
+            padBoxes.forEach(el => {
+                el.style.pointerEvents = 'none';
+                el.style.opacity = '0.6';
+            });
+            if (padStatus && !roundLocked) {
+                padStatus.innerText = isQuizPaused ? '⏸ 선생님 일시정지 중...' : '⏸ 선생님 출제 대기 중...';
+                padStatus.className = 'text-[11px] text-slate-400';
+            }
+        } else if (!roundLocked && !isTransitioningQuiz) {
+            padBoxes.forEach(el => {
+                el.style.pointerEvents = 'auto';
+                el.style.opacity = '1';
+            });
+            if (padStatus) {
+                padStatus.innerText = '🔥 배틀 진행 중! 정답 상자를 타격하세요!';
+                padStatus.className = 'text-[11px] text-amber-300 font-bold';
+            }
+        }
+    }
 }
 
 function startQuizSession() {
@@ -1110,18 +1185,18 @@ const BOARD_BOX_POSITIONS = [
 
 // 모바일 패드(소형) 상자 배치 좌표
 const PAD_BOX_POSITIONS = [
-    { left: "20%", top: "8%" },
-    { left: "54%", top: "8%" },
-    { left: "20%", top: "52%" },
-    { left: "54%", top: "52%" }
+    { left: "8%", top: "12%" },
+    { left: "52%", top: "12%" },
+    { left: "8%", top: "54%" },
+    { left: "52%", top: "54%" }
 ];
 
 // 선택지 개수에 맞는 상자 좌표 (2지선다 / 4지선다 / 5개 이상 예외 배치)
 function getBoxPosition(idx, count, isPad) {
     if (count === 2) {
         return isPad
-            ? (idx === 0 ? { left: "22%", top: "34%" } : { left: "54%", top: "34%" })
-            : (idx === 0 ? { left: "25%", top: "36%" } : { left: "54%", top: "36%" });
+            ? (idx === 0 ? { left: "25%", top: "16%" } : { left: "25%", top: "54%" })
+            : (idx === 0 ? { left: "22%", top: "36%" } : { left: "56%", top: "36%" });
     }
     const table = isPad ? PAD_BOX_POSITIONS : BOARD_BOX_POSITIONS;
     if (idx < table.length) return table[idx];
@@ -1173,11 +1248,11 @@ function renderTargetBoxes() {
             padBoxEl.style.left = pos.left;
             padBoxEl.style.top = pos.top;
             padBoxEl.innerHTML = `
-                <div class="box-label-tag text-xs sm:text-sm py-1 px-2.5" style="border-color: ${style.color}; max-width: 160px !important;">
+                <div class="box-label-tag py-0.5 px-2 text-[11px] sm:text-xs" style="border-color: ${style.color}; max-width: ${(opts.length === 2 ? 180 : 130)}px !important;">
                     <span class="text-amber-300 font-black mr-0.5">${idx + 1}.</span>${opt}
                 </div>
-                <span class="text-2xl sm:text-3xl filter drop-shadow">${style.icon}</span>
-            `;
+                <span class="text-2l filter drop-shadow">${style.icon}</span>
+`;
             padBoxEl.onclick = () => submitPadAnswer(idx);
             padContainer.appendChild(padBoxEl);
         }
@@ -1203,7 +1278,8 @@ function setAnswerInputsLocked(chosenIdx) {
 function revealCorrectBox() {
     if (!activeQuiz) return;
     const ans = activeQuiz.answer;
-    [`board-box-${ans}`, `pad-box-${ans}`].forEach(id => {
+    const boxIds = ["board-box-" + ans, "pad-box-" + ans];
+    boxIds.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.filter = "drop-shadow(0 0 16px rgba(52, 211, 153, 0.95))";
     });
@@ -1223,7 +1299,7 @@ function moveShellyToBoxAndShoot(boxIdx, isCorrect) {
 
     const approach = (pos) => {
         const l = parseFloat(pos.left), t = parseFloat(pos.top);
-        return { left: (l > 50) ? `${l - 14}%` : `${l + 14}%`, top: `${t}%`, faceRight: l > 50 };
+        return { left: ((l > 50) ? (l - 14) : (l + 14)) + "%", top: t + "%", faceRight: l > 50 };
     };
 
     // 1. 상자 위치로 이동 대시 (전자칠판 / 학생 폰 각각의 좌표계 사용)
@@ -1403,7 +1479,18 @@ function submitPadAnswer(optionIdx) {
     if (!student || student.answered) return;
 
     // 대기 상태에서 상자를 직접 클릭한 경우에도 세션을 즉시 활성화하여 다음 문제부터 연속 진행 보장
+    const roleParam = (new URLSearchParams(window.location.search).get('role') || '').toLowerCase();
+    const isStudentController = (currentViewMode === 'student' || roleParam === 'student');
+
     if (!isQuizStarted || isQuizPaused) {
+        if (isStudentController) {
+            const statusElem = document.getElementById('pad-submit-status');
+            if (statusElem) {
+                statusElem.innerText = isQuizPaused ? '⏸ 일시정지 중입니다! 잠시 대기하세요!' : '⏸ 선생님이 문제를 시작할 때까지 대기하세요!';
+                statusElem.className = 'text-[11px] text-amber-400 font-bold animate-pulse';
+            }
+            return;
+        }
         isQuizStarted = true;
         isQuizPaused = false;
         updateQuizControlUI();
@@ -1446,6 +1533,7 @@ function submitPadAnswer(optionIdx) {
             safeRun('파워 큐브', () => grantPowerCube());
             safeRun('궁극기 충전', () => chargeSuperAttack());
             safeRun('보스 피격 연출', () => triggerBossHitReaction());
+            safeRun('콤보 시스템', () => triggerComboSystem(true));
             safeRun('보스 대미지', () => applyDamageToBoss(activeQuiz.damage || 35, activeQuiz.dialogue || "크윽! 상자를 깨부수고 파워를 흡수하다니!"));
             safeRun('해설 표시', () => {
                 const expEl = document.getElementById('pad-explanation-text');
@@ -1454,6 +1542,7 @@ function submitPadAnswer(optionIdx) {
         } else {
             safeRun('오답 사운드', () => SoundFX.playWrong());
             safeRun('보스 반격', () => bossCounterAttack());
+            safeRun('콤보 리셋', () => triggerComboSystem(false));
             safeRun('해설 표시', () => {
                 const expEl = document.getElementById('pad-explanation-text');
                 if (expEl) expEl.innerHTML = `<strong class="text-rose-400 font-bold">오답 함정 폭발! 😢 (HP -1200 감점!)</strong><br>정답은 <span class="text-amber-300 font-bold">${activeQuiz.answer + 1}번</span>입니다.<br>${activeQuiz.explanation}`;
@@ -1582,15 +1671,79 @@ function triggerBossHitReaction() {
             setTimeout(() => el.classList.remove('living-boss-hit'), 400);
         }
     });
-    const stage = document.getElementById('brawl-battle-stage');
-    if (stage) {
-        stage.classList.add('boss-hit-knockback');
-        setTimeout(() => stage.classList.remove('boss-hit-knockback'), 450);
-    }
+    ['brawl-battle-stage', 'pad-brawl-field'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.classList.add('boss-hit-knockback');
+            el.classList.add('screen-shake-hit');
+            setTimeout(() => {
+                el.classList.remove('boss-hit-knockback');
+                el.classList.remove('screen-shake-hit');
+            }, 450);
+        }
+    });
     if (aliveBrawlers > 2) aliveBrawlers--;
     syncBrawlHud();
 }
 
+let currentCombo = 0;
+let isFeverMode = false;
+
+function triggerComboSystem(isCorrect) {
+    const stageIds = ['brawl-battle-stage', 'pad-brawl-field'];
+    const dmgElemIds = ['board-floating-damage', 'pad-floating-damage'];
+    const statusElem = document.getElementById('pad-submit-status');
+
+    if (isCorrect) {
+        currentCombo++;
+        if (currentCombo >= 2) {
+            SoundFX.playCombo(currentCombo);
+            if (navigator.vibrate) navigator.vibrate([30, 20, 60]);
+
+            let comboLabel = currentCombo + ' COMBO! 🔥';
+            if (currentCombo === 2) comboLabel = 'DOUBLE HIT! ⚡';
+            else if (currentCombo === 3) comboLabel = 'TRIPLE COMBO! 🔥🔥';
+            else if (currentCombo === 4) comboLabel = 'MEGA STRIKE! 💥💥';
+            else if (currentCombo >= 5) comboLabel = 'UNSTOPPABLE! (' + currentCombo + '연속) 👑';
+
+            dmgElemIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    const sub = document.createElement('div');
+                    sub.className = 'text-xl sm:text-2xl font-black text-amber-400 combo-badge-pop mt-1 drop-shadow-[0_2px_10px_rgba(245,158,11,0.8)]';
+                    sub.innerText = comboLabel;
+                    el.appendChild(sub);
+                }
+            });
+
+            if (statusElem) {
+                statusElem.innerText = '[' + comboLabel + ']';
+                statusElem.className = 'text-[12px] text-amber-300 font-black animate-bounce';
+            }
+        }
+        if (currentCombo >= 3 && !isFeverMode) {
+            isFeverMode = true;
+            SoundFX.playFever();
+            stageIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add('fever-mode-active');
+            });
+            if (statusElem) {
+                statusElem.innerText = '[🔥 FEVER TIME 발동! 🔥]';
+                statusElem.className = 'text-[12px] text-rose-400 font-black animate-pulse';
+            }
+        }
+    } else {
+        currentCombo = 0;
+        if (isFeverMode) {
+            isFeverMode = false;
+            stageIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('fever-mode-active');
+            });
+        }
+    }
+}
 // 파워 큐브 획득 연출 (유실 → 복원)
 function grantPowerCube() {
     playerPowerCubes++;
@@ -1708,16 +1861,18 @@ function applyDamageToBoss(damage, dialogue) {
     setTextById('brawl-boss-hp-tag', `${bossHp}%`);
     setTextById('board-boss-dialogue', `"${dialogue}"`);
 
-    const dmgElem = document.getElementById('board-floating-damage');
-    if (!dmgElem) return;
-    dmgElem.className = "absolute text-4xl text-amber-300 opacity-1 pointer-events-none transition-all duration-700 font-bold";
-    dmgElem.innerText = `-${damage} HP!`;
-    dmgElem.style.opacity = "1";
-    dmgElem.style.transform = "translateY(-30px)";
-    setTimeout(() => {
-        dmgElem.style.opacity = "0";
-        dmgElem.style.transform = "translateY(0)";
-    }, 800);
+    ['board-floating-damage', 'pad-floating-damage'].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.className = 'absolute text-3xl sm:text-4xl text-amber-300 opacity-1 pointer-events-none transition-all duration-700 font-bold';
+        el.innerText = '-' + damage + ' HP!';
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(-25px)';
+        setTimeout(() => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(0)';
+        }, 800);
+    });
 }
 
 function bossCounterAttack() {
@@ -1997,6 +2152,10 @@ function closeBoxAndReset() {
 
 // 전투 수치·모달 전체 초기화 (새 게임 / 새 교재 전환 공용)
 function resetBattleState() {
+    currentCombo = 0;
+    isFeverMode = false;
+    const stageFever = document.getElementById('brawl-battle-stage');
+    if (stageFever) stageFever.classList.remove('fever-mode-active');
     cancelRoundTimers();
     clearInterval(timerInterval);
     timerInterval = null;

@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">한반도의 중심, 생명의 젖줄 한강 - 종합 독서 분석 보고서</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF6B00;
+      --primary-dark: #D95300;
+      --primary-light: #FFF4ED;
+      --navy: #0F172A;
+      --navy-light: #1E293B;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --radius-sm: 6px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(15,23,42,0.08);
+      --shadow-lg: 0 10px 25px rgba(15,23,42,0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background: var(--slate-100);
+      color: var(--text-main);
+      line-height: 1.7;
+      letter-spacing: -0.015em;
+      padding: 30px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .top-toolbar {
+      background: var(--navy);
+      color: #fff;
+      padding: 12px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .brand-badge span {
+      background: var(--primary);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
+    }
+
+    .doc-header {
+      padding: 45px 45px 30px;
+      background: linear-gradient(180deg, var(--slate-50) 0%, #FFFFFF 100%);
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .doc-category {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    .doc-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .doc-subtitle {
+      font-size: 15px;
+      color: var(--slate-600);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .doc-subtitle::before {
+      content: "";
+      display: inline-block;
+      width: 16px;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    .content-body {
+      padding: 40px 45px;
+    }
+
+    .section-block {
+      margin-bottom: 45px;
+    }
+
+    .section-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .section-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--navy);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .sub-section {
+      margin-bottom: 24px;
+    }
+
+    .sub-section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy-light);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sub-section-title::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, var(--primary-light) 0%, #FFFFFF 100%);
+      border: 1px solid #FFD8BE;
+      border-left: 4px solid var(--primary);
+      padding: 20px 24px;
+      border-radius: var(--radius-md);
+      margin: 16px 0;
+    }
+
+    .highlight-box .box-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+    }
+
+    .highlight-box .box-text {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.5;
+    }
+
+    .desc-text {
+      font-size: 14.5px;
+      color: var(--slate-700);
+      line-height: 1.75;
+      text-align: justify;
+      margin-bottom: 12px;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tag-item {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    .tag-item strong {
+      color: var(--navy);
+    }
+
+    .knowledge-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .knowledge-item {
+      background: var(--slate-50);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      border: 1px solid var(--slate-200);
+    }
+
+    .knowledge-head {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .knowledge-body {
+      font-size: 14px;
+      color: var(--slate-700);
+      line-height: 1.65;
+      padding-left: 12px;
+      border-left: 2px solid var(--slate-300);
+    }
+
+    .discussion-card {
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .discussion-header {
+      background: var(--slate-50);
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .discussion-badge {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+
+    .badge-interpret { background: #E0E7FF; color: #3730A3; }
+    .badge-evaluate { background: #FEF3C7; color: #92400E; }
+    .badge-action { background: #DCFCE7; color: #166534; }
+
+    .discussion-q {
+      padding: 20px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.6;
+      background: #FCFDFD;
+    }
+
+    .discussion-guide {
+      padding: 16px 20px;
+      background: #FFFFFF;
+      border-top: 1px dashed var(--slate-200);
+      font-size: 13.5px;
+      color: var(--slate-700);
+    }
+
+    .guide-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .guide-row:last-child { margin-bottom: 0; }
+    .guide-label {
+      font-weight: 700;
+      color: var(--primary-dark);
+      flex-shrink: 0;
+      min-width: 75px;
+    }
+
+    .parent-message-card {
+      background: linear-gradient(145deg, #1E293B 0%, #0F172A 100%);
+      color: #FFFFFF;
+      border-radius: var(--radius-lg);
+      padding: 28px 30px;
+      margin-top: 20px;
+      position: relative;
+      box-shadow: var(--shadow-md);
+    }
+
+    .parent-message-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .parent-message-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #F8FAFC;
+    }
+
+    .copy-btn {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .parent-message-body {
+      font-size: 14.5px;
+      line-height: 1.8;
+      color: #E2E8F0;
+      white-space: pre-line;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .doc-footer {
+      padding: 24px 45px;
+      background: var(--slate-50);
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(15, 23, 42, 0.95);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @media print {
+      body { background: #FFFFFF !important; padding: 0 !important; color: #000 !important; }
+      .container { max-width: 100% !important; border: none !important; box-shadow: none !important; }
+      .top-toolbar, .toast, .copy-btn { display: none !important; }
+      .doc-header { padding: 20px 0 15px !important; background: none !important; border-bottom: 2px solid #000 !important; }
+      .doc-title { font-size: 24px !important; color: #000 !important; }
+      .content-body { padding: 20px 0 !important; }
+      .section-block, .discussion-card, .parent-message-card { page-break-inside: avoid; }
+      .parent-message-card { background: #F8FAFC !important; color: #000 !important; border: 1px solid #999 !important; }
+      .parent-message-title { color: #000 !important; }
+      .parent-message-body { background: #FFFFFF !important; color: #333 !important; border: 1px solid #ddd !important; }
+      .doc-footer { padding: 15px 0 !important; border-top: 1px solid #ccc !important; }
+    }
+
+    /* ── 보고서 다크 테마 ── */
+    body[data-theme="dark"] {
+      background: #0B0F19;
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .container { background: #1E293B; border-color: #334155; }
+    body[data-theme="dark"] .top-toolbar { background: #090D16; }
+    body[data-theme="dark"] .doc-header { background: #0F172A; border-bottom-color: #334155; }
+    body[data-theme="dark"] .doc-title { color: #F8FAFC; }
+    body[data-theme="dark"] .doc-subtitle { color: #94A3B8; }
+    body[data-theme="dark"] .section-block { background: #1E293B; border-color: #334155; }
+    body[data-theme="dark"] .section-title { color: #F8FAFC; }
+    body[data-theme="dark"] .section-subtitle { color: #94A3B8; }
+    body[data-theme="dark"] .sub-section-title { color: #CBD5E1; }
+    body[data-theme="dark"] .highlight-box { background: rgba(255,107,0,0.1); border-color: rgba(255,107,0,0.3); border-left-color: #FF6B00; }
+    body[data-theme="dark"] .highlight-box .box-label { color: #FF6B00; }
+    body[data-theme="dark"] .highlight-box .box-text { color: #F8FAFC; }
+    body[data-theme="dark"] .desc-text { color: #CBD5E1; }
+    body[data-theme="dark"] .tag-item { background: #0F172A; border-color: #334155; color: #CBD5E1; }
+    body[data-theme="dark"] .tag-item strong { color: #F8FAFC; }
+    body[data-theme="dark"] .knowledge-item { background: #0F172A; border-color: #334155; }
+    body[data-theme="dark"] .knowledge-head { color: #F8FAFC; }
+    body[data-theme="dark"] .knowledge-body { color: #CBD5E1; }
+    body[data-theme="dark"] .discussion-card { background: #1E293B; border-color: #334155; }
+    body[data-theme="dark"] .parent-message-card { background: #0F172A; border-color: #334155; }
+    body[data-theme="dark"] .parent-message-title { color: #F8FAFC; }
+    body[data-theme="dark"] .parent-message-body { background: #1E293B !important; color: #CBD5E1 !important; border-color: #334155 !important; }
+
+    /* ── 보고서 웜 테마 ── */
+    body[data-theme="warm"] {
+      background: #F5EBE0;
+      color: #3D2B1F;
+    }
+    body[data-theme="warm"] .container { background: #FAF6F0; border-color: #E5D4C4; }
+    body[data-theme="warm"] .top-toolbar { background: #3D2B1F; }
+    body[data-theme="warm"] .doc-header { background: #FAF6F0; border-bottom-color: #E5D4C4; }
+    body[data-theme="warm"] .section-block { background: #FAF6F0; border-color: #E5D4C4; }
+    body[data-theme="warm"] .highlight-box { background: linear-gradient(135deg, #FFF4ED, #FAF6F0); border-color: #E5D4C4; border-left-color: #D95300; }
+    body[data-theme="warm"] .tag-item { background: #FAF6F0; border-color: #E5D4C4; color: #5A3E32; }
+    body[data-theme="warm"] .knowledge-item { background: #EDE0D4; border-color: #C9A88F; }
+    body[data-theme="warm"] .desc-text { color: #5A3E32; }
+    body[data-theme="warm"] .discussion-card { background: #FAF6F0; border-color: #E5D4C4; }
+    body[data-theme="warm"] .parent-message-card { background: #EDE0D4; border-color: #C9A88F; }
+    body[data-theme="warm"] .parent-message-body { background: #FAF6F0 !important; color: #5A3E32 !important; border-color: #E5D4C4 !important; }
+    /* 지시 10 고대비 보정 (WCAG AA 4.5:1 실측 기준) */
+    body[data-theme="dark"] .brand-badge span,
+    body[data-theme="dark"] .btn-primary { background: #C2410C; border-color: #C2410C; }
+    body[data-theme="dark"] .doc-category { background: rgba(255, 107, 0, 0.15); color: #FDBA74; }
+    body[data-theme="dark"] .guide-label { color: #FDBA74; }
+    body[data-theme="dark"] .discussion-q { background: #0F172A; color: #F8FAFC; }
+    body[data-theme="dark"] .discussion-guide { background: #1E293B; color: #CBD5E1; border-top-color: #334155; }
+    body[data-theme="dark"] .discussion-header,
+    body[data-theme="dark"] .doc-footer { background: #0F172A; border-color: #334155; color: #CBD5E1; }
+    body[data-theme="dark"] .discussion-header > span:first-child { color: #F8FAFC !important; }
+    body[data-theme="dark"] .badge-interpret { background: rgba(99, 102, 241, 0.2); color: #C7D2FE; }
+    body[data-theme="dark"] .badge-evaluate { background: rgba(245, 158, 11, 0.18); color: #FCD34D; }
+    body[data-theme="dark"] .badge-action { background: rgba(34, 197, 94, 0.18); color: #86EFAC; }
+  </style>
+</head>
+<body>
+
+  <!-- 원본 마크다운 데이터 저장소 (파이썬 치환 대상) -->
+  <script type="text/plain" id="rawMarkdown"># 종합 독서 분석 보고서: 한반도의 중심, 생명의 젖줄 한강
+
+## 1. 도서 개요 및 핵심 주제
+
+* **분석 대상 지문**: <한반도의 중심을 흐르는 한강>
+* **권장 대상**: 중고등학생 독서 지도, 사회/지리/역사 교과 융합 수업 및 학부모 독서 상담용
+* **핵심 주제**: 
+  * 한강의 지리적 수계 구조(북한강과 남한강의 발원 및 두물머리 합류)와 하천 작용(침식 및 퇴적 작용)
+  * 역사적 터전이자 국가 발전의 중심축으로서의 한강(선사시대부터 삼국 시대 쟁탈전, 조선 한양 도읍 지정, 현대 한강의 기적)
+  * 국내외 주요 강과 평야, 그리고 도시 성장의 밀접한 상호작용(동고서저 지형 특성, 해외 주요 수도와의 비교)
+
+---
+
+## 2. 주요 내용과 전개 요약
+
+### 가. 한강의 발원과 수계 지형
+* **북한강**: 금강산에서 발원하여 강원도 철원, 화천, 춘천을 지나 경기도 가평과 양평으로 흐릅니다. 수계 주변에 파로호, 춘천호, 소양호, 청평호 등 아름다운 인공호수와 관광 자원이 형성되어 있습니다.
+* **남한강**: 강원도 태백산 '검룡소'에서 발원하여 강원도 태백, 삼척, 영월, 원주를 거쳐 경기도 여주, 광주, 양평, 남양주로 흐릅니다. 단양 도담삼봉, 충주 탄금대, 괴산 화양구곡 등 기암괴석과 명승지가 잘 가꾸어져 있습니다.
+* **두물머리(양수리) 합류**: 북한강과 남한강은 경기도 양평군 양수리에서 만나 하나의 한강을 이룹니다. '두물머리'는 두 물줄기가 만난다는 뜻의 순우리말 지명입니다.
+
+### 나. 한강 유역의 역사적 변천과 삶의 모습
+* **선사 및 삼한 시대**: 서울 강동구 암사동의 빗살무늬 토기와 움집터가 증명하듯 오래전부터 인류의 주거 터전이었으며, 삼한 시대에는 마한 연맹체가 한강 유역을 중심으로 성장하였습니다.
+* **삼국 및 조선 시대**: 한반도의 교통과 농경, 주도권 확보의 요충지로서 백제, 고구려, 신라가 치열한 영토 쟁탈전을 벌였습니다. 조선을 세운 태조 이성계는 풍수지리가들의 명당 자문을 반영하여 한강이 흐르는 서울(한양)을 도읍지로 지정하였습니다.
+* **근현대 변천**: 60년 전에는 나룻배 이동, 어로, 수영, 강가 빨래터 등 주민들의 실용적 삶의 공간이었으나 하천 오염을 겪었습니다. 이후 현대의 '한강의 기적'을 거치며 유람선이 운항되고 현대적 빌딩과 아파트, 시민들의 대표 휴식처인 고수부지가 조성되었습니다.
+
+### 다. 하천 지형 작용과 평야 및 도시의 형성
+* **상류 지형 작용 (침식)**: 산지를 흐르는 하천 상류는 폭이 좁고 물줄기가 세차 바위와 흙을 깎아내는 침식 작용을 일으키며 기암괴석과 뛰어난 풍경을 만듭니다.
+* **하류 지형 작용 (퇴적)**: 평지로 나온 하류에서는 물줄기가 잔잔해지며 상류에서 실려 온 흙이 쌓이는 퇴적 작용이 일어납니다. 홍수 등이 반복되며 한강 하류에는 비옥한 김포평야가 형성되었습니다.
+* **국내외 주요 강과 도시**: 
+  * 중부 지방: 한강(김포평야), 안성천(안성평야), 삽교천(예당평야)
+  * 남부 지방: 호남의 만경강·동진강(호남평야 - 곡식 창고), 영산강(나주평야), 영남의 낙동강(김해평야)
+  * 한반도 지형 특성: 태백산맥이 동쪽에 높게 솟아 있는 동고서저 지형으로 인해 주요 강들이 동에서 서쪽 서해로 흐릅니다.
+  * 해외 주요 도시: 영국의 템즈강(런던), 프랑스의 센강(파리) 등 세계적 대도시들은 모두 강을 끼고 성장하였습니다.
+
+---
+
+## 3. 핵심 쟁점과 생각해 볼 문제
+
+1. **자연 생태와 도시 개발 간의 균형 문제**
+   * 과거 빨래터와 수영장으로 쓰이던 친근한 자연 하천이 산업화 과정에서 오염되었다가, 현대의 고수부지 쉼터와 유람선 등 문화 공간으로 재탄생하였습니다. 인공적 수변 개발과 자연 생태 보전 사이에서 바람직한 한강 활용 방안은 무엇인지 생각해보게 합니다.
+2. **지리적 요충지가 지닌 역사·정치적 가치**
+   * 삼국 시대의 치열한 영토 분쟁 지역이자 조선 도읍지, 현대 대한민국의 수도로 기능해 온 한강 유역의 지리적 조건(용수 공급, 물류 수송, 풍수지리적 안정성)이 국가 발전과 역사적 흥망성쇠에 미친 영향에 대해 고찰합니다.
+3. **자연환경과 인간 삶의 상호작용**
+   * 상류의 침식 작용이 관광 경관을 형성하고, 하류의 퇴적 작용이 농경지(김포평야, 호남평야)를 형성하는 것처럼 자연 지형 형성과 인간의 경제·산업 활동이 어떻게 연결되어 있는지 탐구합니다.
+
+---
+
+## 4. 심층 독서토론 질문 3선과 지도 가이드
+
+### [질문 1] 하천의 지형 작용과 산업적 가치 (지리·환경 분야)
+* **토론 질문**: 하천 상류의 침식 작용과 하류의 퇴적 작용은 각각 인간 삶과 산업(관광업, 농업 등)에 어떤 서로 다른 유익함을 제공합니까?
+* **지도 가이드**: 지리학적 개념(침식/퇴적)을 자연경관 감상 및 농업 생산성(김포평야, 호남평야 등)과 연결하도록 안내합니다. 지리적 환경이 인간의 생계 방식과 일자리, 문화 형성에 미친 영향을 체계적으로 정리하도록 지도합니다.
+
+### [질문 2] 강과 도시 발전의 상관관계 (역사·인문 분야)
+* **토론 질문**: 조선 태조 이성계가 한양을 도읍으로 선정한 지리적 이유와 영국 런던(템즈강), 프랑스 파리(센강)의 공통점을 바탕으로, 강이 도시의 성장에 필수적인 이유는 무엇이라고 생각합니까?
+* **지도 가이드**: 식수 및 농업용수 확보, 물자 수송, 치수와 방어적 유리함 등 강이 도시 형성에 제공하는 종합적 기능에 주목하게 합니다. 과거의 도읍 선정 기준과 현대 대도시의 성장 요인을 비교·분석하도록 유도합니다.
+
+### [질문 3] 하천과의 관계 변화와 환경 윤리 (사회·생태 분야)
+* **토론 질문**: 60년 전 한강변의 생활 방식(나룻배, 어로, 빨래터)과 현대의 생활 방식(유람선, 고수부지 쉼터, 아파트 단지)을 비교해 볼 때, 우리가 한강과 같은 하천 자원을 미래 세대를 위해 어떻게 보존하고 이용해야 합니까?
+* **지도 가이드**: 경제 발전 과정에서 발생했던 하천 오염의 문제점을 되짚어보고, 현대의 수변 휴식 공간 이용이 갖는 이점과 과제를 함께 논의하도록 합니다. 단순한 소비적 개발을 넘어 지속 가능한 환경 보전 방안을 도출하도록 지도합니다.
+
+---
+
+## 5. 수업 후 핵심 교훈 및 학부모 전달 메시지
+
+### 가. 수업 후 핵심 교훈
+* **지리와 역사의 융합적 이해**: 한강은 단순한 물줄기가 아니라, 동고서저 지형 구조와 하천 작용이라는 지리적 기초 위에 삼국 시대 쟁탈전과 조선의 도읍 지정, 현대 '한강의 기적'이라는 역사가 켜켜이 쌓인 젖줄임을 이해할 수 있습니다.
+* **인간과 자연의 상호 의존성 깨달음**: 강이 제공하는 평야와 용수가 농업과 도시를 키워냈듯이, 인간의 삶과 문명이 자연환경에 깊이 의존하고 있음을 깨닫고 환경 보전의 중요성을 인지하게 됩니다.
+
+### 나. 학부모 전달 메시지
+> "안녕하십니까, 학부모님. 이번 독서 지도 수업에서는 <한반도의 중심을 흐르는 한강>을 통해 한강의 지리적 수계 및 지형 형성 작용부터 선사 시대 및 삼국·조선 시대를 거쳐 현대에 이르는 역사적 변천 과정을 폭넓게 탐구하였습니다. 
+> 
+> 학생들은 한강이 우리 민족의 생활 터전이자 세계적 대도시 서울을 있게 한 '생명의 젖줄'임을 배우고, 국내외 강과 도시의 관계를 융합적인 시각에서 분석해 보았습니다. 주말에 자녀와 함께 한강 고수부지나 양평 두물머리 등 관련 명승지를 방문하시어, 책에서 배운 지리적·역사적 이야기들을 함께 나누어 보신다면 자녀의 인문학적 소양과 탐구력 향상에 큰 도움이 될 것입니다."
+</script>
+
+  <div class="container">
+    <div class="top-toolbar">
+      <div class="brand-badge">
+        <span>HANURI</span> 한우리 독서토론논술 수업 & 상담 브리프
+      </div>
+      <div class="action-btns">
+        <button class="btn" onclick="copyParentMessage()">📋 학부모 알림장 복사</button>
+        <button class="btn btn-primary" onclick="window.print()">🖨️ 인쇄 / PDF 저장</button>
+      </div>
+    </div>
+
+    <header class="doc-header">
+      <div class="doc-category" id="headerCategory">중등 비문학 융합 독서 · 교사용 브리프</div>
+      <h1 class="doc-title" id="headerTitle">종합 독서 분석 보고서</h1>
+      <div class="doc-subtitle" id="headerSubtitle">수업 지도 가이드, 심층 토론 문항 및 학부모 상담용 통합 포트폴리오</div>
+    </header>
+
+    <main class="content-body" id="reportContent">
+      <!-- 자바스크립트로 섹션 1~5 자동 렌더링 -->
+    </main>
+
+    <footer class="doc-footer">
+      <div>© 2026 한우리독서토론논술 · 지식 팩토리 자동화 시스템</div>
+      <div>문서 등급: 교사용 브리프 및 학부모 상담용</div>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast">알림장 메시지가 클립보드에 복사되었습니다! ✨</div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const rawText = document.getElementById('rawMarkdown').textContent.trim();
+      if (!rawText || rawText === '{{RAW_MARKDOWN}}') {
+        // 템플릿 기본 프리뷰 상태일 때 안내 표시
+        return;
+      }
+      renderReport(rawText);
+    });
+
+    function renderReport(md) {
+      const lines = md.split('\n');
+      let title = "";
+      let subtitle = "";
+      const sections = [];
+      let currentSec = null;
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (line.startsWith('# ') && !title) {
+          title = line.replace('# ', '').trim();
+          continue;
+        }
+        if (line.startsWith('**—') || line.startsWith('**-')) {
+          subtitle = line.replace(/\*\*/g, '').replace(/^[—\-]\s*/, '').replace(/\s*[—\-]$/, '').trim();
+          continue;
+        }
+        if (line.startsWith('## ')) {
+          if (currentSec) sections.push(currentSec);
+          currentSec = {
+            title: line.replace('## ', '').trim(),
+            content: []
+          };
+          continue;
+        }
+        if (currentSec) {
+          currentSec.content.push(line);
+        }
+      }
+      if (currentSec) sections.push(currentSec);
+
+      if (title) {
+        document.getElementById('headerTitle').innerText = title;
+        document.title = title + " - 종합 독서 분석 보고서";
+      }
+      if (subtitle) {
+        document.getElementById('headerSubtitle').innerText = subtitle;
+      }
+
+      const container = document.getElementById('reportContent');
+      container.innerHTML = '';
+
+      sections.forEach((sec, idx) => {
+        const secBlock = document.createElement('section');
+        secBlock.className = 'section-block';
+
+        const titleMatch = sec.title.match(/^(\d+)\.\s*(.*)$/);
+        const secNum = titleMatch ? titleMatch[1] : (idx + 1);
+        const secTitleText = titleMatch ? titleMatch[2] : sec.title;
+
+        secBlock.innerHTML = `
+          <div class="section-title-wrap">
+            <div class="section-num">${secNum}</div>
+            <h2 class="section-title">${secTitleText}</h2>
+          </div>
+          <div class="section-body">${renderSectionBody(secNum, sec.content.join('\n'))}</div>
+        `;
+        container.appendChild(secBlock);
+      });
+    }
+
+    function renderSectionBody(num, text) {
+      if (String(num) === '4') {
+        return renderDiscussionSection(text);
+      }
+      if (String(num) === '5') {
+        return renderLessonAndParentSection(text);
+      }
+      return renderGeneralSection(text);
+    }
+
+    function renderDiscussionSection(text) {
+      const blocks = text.split(/###\s+/).filter(b => b.trim());
+      let html = '';
+      blocks.forEach(block => {
+        const lines = block.split('\n');
+        const head = lines[0].trim();
+        const bodyLines = lines.slice(1);
+        
+        let badgeClass = 'badge-interpret';
+        let badgeText = '해석적 질문';
+        if (head.includes('평가')) { badgeClass = 'badge-evaluate'; badgeText = '평가적 질문'; }
+        if (head.includes('실천')) { badgeClass = 'badge-action'; badgeText = '실천적 질문'; }
+
+        let questionText = '';
+        let guideHtml = '';
+
+        bodyLines.forEach(l => {
+          const trimmed = l.trim();
+          if (trimmed.startsWith('>')) {
+            questionText += trimmed.replace(/^>\s*/, '').replace(/\*\*/g, '') + ' ';
+          } else if (trimmed.startsWith('- **탐구 방향**') || trimmed.startsWith('- **토의 포인트**')) {
+            const parts = trimmed.split(/:\s*/);
+            const label = parts[0].replace(/[-*]/g, '').trim();
+            const val = parts.slice(1).join(': ').trim();
+            guideHtml += `
+              <div class="guide-row">
+                <span class="guide-label">${label} :</span>
+                <span>${val}</span>
+              </div>
+            `;
+          }
+        });
+
+        html += `
+          <div class="discussion-card">
+            <div class="discussion-header">
+              <span style="font-weight:700; color:var(--navy);">${head}</span>
+              <span class="discussion-badge ${badgeClass}">${badgeText}</span>
+            </div>
+            <div class="discussion-q">${questionText}</div>
+            <div class="discussion-guide">${guideHtml}</div>
+          </div>
+        `;
+      });
+      return html;
+    }
+
+    function renderLessonAndParentSection(text) {
+      const parts = text.split(/###\s+나\.\s*학부모/);
+      const lessonPart = parts[0] || '';
+      const parentPart = parts[1] || '';
+
+      let html = renderGeneralSection(lessonPart);
+
+      if (parentPart) {
+        let msg = parentPart.replace(/^.*\[학부모 상담용 메시지 예시\]/s, '').replace(/>/g, '').trim();
+        html += `
+          <div class="parent-message-card">
+            <div class="parent-message-head">
+              <div class="parent-message-title">💌 학부모 상담 및 알림장 전달 메시지</div>
+              <button class="copy-btn" onclick="copyParentMessage()">📋 메시지 전체 복사</button>
+            </div>
+            <div class="parent-message-body" id="parentMessageText">${msg}</div>
+          </div>
+        `;
+      }
+      return html;
+    }
+
+    function renderGeneralSection(text) {
+      let html = '';
+      const subBlocks = text.split(/###\s+/).filter(b => b.trim());
+
+      subBlocks.forEach(sub => {
+        const lines = sub.split('\n');
+        const subTitle = lines[0].trim();
+        const contentLines = lines.slice(1);
+
+        html += `<div class="sub-section">`;
+        if (subTitle) {
+          html += `<h3 class="sub-section-title">${subTitle}</h3>`;
+        }
+
+        let inList = false;
+        let listHtml = '';
+
+        contentLines.forEach(line => {
+          const l = line.trim();
+          if (!l || l === '---') return;
+
+          if (l.startsWith('- **핵심 탐구 질문**:')) {
+            const q = l.replace('- **핵심 탐구 질문**:', '').replace(/\*\*/g, '').trim();
+            html += `
+              <div class="highlight-box">
+                <div class="box-label">핵심 탐구 질문 (Core Question)</div>
+                <div class="box-text">${q}</div>
+              </div>
+            `;
+          } else if (l.startsWith('- **') || l.startsWith('- ')) {
+            const content = l.replace(/^-\s*/, '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            html += `<div class="tag-item">${content}</div>`;
+          } else if (/^\d+\.\s+\*\*/.test(l)) {
+            const match = l.match(/^\d+\.\s+\*\*(.*?)\*\*:\s*(.*)$/);
+            if (match) {
+              html += `
+                <div class="knowledge-item" style="margin-bottom:12px;">
+                  <div class="knowledge-head">${match[1]}</div>
+                  <div class="knowledge-body">${match[2]}</div>
+                </div>
+              `;
+            } else {
+              html += `<p class="desc-text">${l.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>`;
+            }
+          } else {
+            html += `<p class="desc-text">${l.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>`;
+          }
+        });
+
+        html += `</div>`;
+      });
+      return html;
+    }
+
+    function copyParentMessage() {
+      const el = document.getElementById('parentMessageText');
+      if (!el) return;
+      const text = el.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast();
+      }).catch(() => {
+        const t = document.createElement('textarea');
+        t.value = text;
+        document.body.appendChild(t);
+        t.select();
+        document.execCommand('copy');
+        document.body.removeChild(t);
+        showToast();
+      });
+    }
+
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // 대시보드 postMessage 테마 동기화
+    
+    try {
+      const savedTheme = localStorage.getItem('hanuri_theme') || 'dark';
+      document.body.dataset.theme = savedTheme;
+    } catch(e) {}
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'SET_THEME') {
+        document.body.dataset.theme = e.data.theme;
+      }
+    });
+  </script>
+</body>
+</html>

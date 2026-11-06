@@ -114,21 +114,23 @@ select option:checked {
     margin: 0 !important;
 }
 .student-mobile-layout #pad-options-container {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 0.5rem !important;
-    flex-grow: 1 !important;
-    margin-bottom: 0.5rem !important;
+    display: none !important;
 }
-.student-mobile-layout .dynamic-opt-btn {
-    height: 100% !important;
-    min-height: 80px !important;
-    font-size: 1.15rem !important;
-    padding: 0.5rem !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
+.student-mobile-layout #pad-brawl-field {
+    flex: 1 1 0% !important;
+    min-height: 380px !important;
+    height: auto !important;
+    margin: 0.25rem 0 !important;
+    border-radius: 1.25rem !important;
+}
+.student-mobile-layout #pad-target-boxes-container .box-label-tag {
+    max-width: 170px !important;
+    font-size: 0.85rem !important;
+    padding: 4px 10px !important;
+    line-height: 1.35 !important;
+    white-space: normal !important;
+    text-align: center !important;
+    border-width: 2.5px !important;
 }
 
 /* 🌟 [브롤스타즈 5단계 스타드롭 도파민 연출] */
@@ -1036,4 +1038,35 @@ body::before {
 @keyframes super-pulse {
     0% { filter: drop-shadow(0 0 8px #f59e0b) brightness(1); }
     100% { filter: drop-shadow(0 0 22px #ef4444) brightness(1.18); }
+}
+
+/* ========================================================================== */
+/* 🔥 [도파민 1단계] 콤보 & 피버 타임 & 화면 쉐이크 & 타격 이펙트 */
+/* ========================================================================== */
+.screen-shake-hit {
+    animation: screen-shake 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97) both !important;
+}
+@keyframes screen-shake {
+    10%, 90% { transform: translate3d(-2px, 0, 0); }
+    20%, 80% { transform: translate3d(4px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+    40%, 60% { transform: translate3d(6px, 0, 0); }
+}
+
+.fever-mode-active {
+    box-shadow: inset 0 0 60px rgba(245, 158, 11, 0.35), 0 0 40px rgba(239, 68, 68, 0.4) !important;
+    animation: fever-pulse 1.2s infinite alternate !important;
+}
+@keyframes fever-pulse {
+    0% { filter: drop-shadow(0 0 8px #f59e0b) brightness(1); }
+    100% { filter: drop-shadow(0 0 25px #ef4444) brightness(1.15); }
+}
+
+.combo-badge-pop {
+    animation: combo-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+@keyframes combo-pop {
+    0% { transform: scale(0.3) rotate(-15deg); opacity: 0; }
+    50% { transform: scale(1.3) rotate(5deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
 }

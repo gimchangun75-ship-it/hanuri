@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>《핵무기의 모든 것》 핵심 데이터 비교 분석표</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF6B00;
+      --primary-dark: #D95300;
+      --primary-light: #FFF4ED;
+      --navy: #0F172A;
+      --navy-light: #1E293B;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --radius-sm: 6px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(15,23,42,0.08);
+      --shadow-lg: 0 10px 25px rgba(15,23,42,0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background: var(--slate-100);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 30px 20px;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .top-toolbar {
+      background: var(--navy);
+      color: #fff;
+      padding: 12px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .brand-badge span {
+      background: var(--primary);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
+    }
+
+    .doc-header {
+      padding: 35px 40px 25px;
+      background: linear-gradient(180deg, var(--slate-50) 0%, #FFFFFF 100%);
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .doc-category {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .doc-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .doc-subtitle {
+      font-size: 14.5px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    /* 탭 내비게이션 & 검색 바 */
+    .controls-bar {
+      padding: 16px 40px;
+      background: var(--slate-50);
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .tab-group {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      padding: 8px 16px;
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--slate-700);
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #FFFFFF;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: #FFFFFF;
+      border: 1px solid var(--slate-300);
+      border-radius: 20px;
+      padding: 4px 12px;
+      width: 220px;
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      font-size: 13px;
+      width: 100%;
+      padding: 4px 6px;
+      font-family: inherit;
+    }
+
+    /* 테이블 영역 */
+    .content-body {
+      padding: 35px 40px;
+    }
+
+    .table-section {
+      margin-bottom: 45px;
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .table-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .table-header-box {
+      padding: 18px 24px;
+      background: var(--slate-50);
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .table-desc {
+      padding: 10px 24px;
+      font-size: 13px;
+      color: var(--slate-600);
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--slate-100);
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    table.data-table th {
+      background: #F8FAFC;
+      color: var(--navy);
+      font-weight: 700;
+      padding: 12px 18px;
+      border-bottom: 2px solid var(--slate-200);
+      white-space: nowrap;
+    }
+
+    table.data-table td {
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      line-height: 1.5;
+    }
+
+    table.data-table tr:hover td {
+      background: var(--primary-light);
+    }
+
+    table.data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .badge-p5 {
+      background: #EFF6FF;
+      color: #1D4ED8;
+      font-weight: 700;
+      font-size: 11.5px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .badge-warn {
+      background: #FEF2F2;
+      color: #B91C1C;
+      font-weight: 700;
+      font-size: 11.5px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .badge-year {
+      background: var(--navy);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 11.5px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .doc-footer {
+      padding: 20px 40px;
+      background: var(--slate-50);
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    @media print {
+      body { background: #FFFFFF !important; padding: 0 !important; color: #000 !important; }
+      .container { max-width: 100% !important; border: none !important; box-shadow: none !important; }
+      .top-toolbar, .controls-bar { display: none !important; }
+      .doc-header { padding: 15px 0 !important; border-bottom: 2px solid #000 !important; }
+      .content-body { padding: 15px 0 !important; }
+      .table-section { page-break-inside: avoid; border: 1px solid #ccc !important; margin-bottom: 25px !important; }
+      table.data-table th { background: #eee !important; color: #000 !important; border-bottom: 1px solid #000 !important; }
+      table.data-table td { color: #000 !important; border-bottom: 1px solid #ddd !important; }
+    }
+
+    /* ── 데이터표 다크 테마 ── */
+    body[data-theme="dark"] {
+      background: #0B0F19;
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .container { background: #1E293B; border-color: #334155; }
+    body[data-theme="dark"] .top-toolbar { background: #090D16; }
+    body[data-theme="dark"] .doc-header { background: #0F172A; border-bottom-color: #334155; }
+    body[data-theme="dark"] .doc-title { color: #F8FAFC; }
+    body[data-theme="dark"] .doc-subtitle { color: #94A3B8; }
+    body[data-theme="dark"] .table-section { background: #1E293B; border-color: #334155; }
+    body[data-theme="dark"] .table-section-title { color: #F8FAFC; }
+    body[data-theme="dark"] .table-section-subtitle { color: #94A3B8; }
+    body[data-theme="dark"] table.data-table th { background: #0F172A; color: #F8FAFC; border-bottom-color: #334155; }
+    body[data-theme="dark"] table.data-table td { color: #CBD5E1; border-bottom-color: #334155; }
+    body[data-theme="dark"] table.data-table tr:hover td { background: rgba(255,255,255,0.04); }
+
+    /* ── 데이터표 웜 테마 ── */
+    body[data-theme="warm"] {
+      background: #F5EBE0;
+      color: #3D2B1F;
+    }
+    body[data-theme="warm"] .container { background: #FAF6F0; border-color: #E5D4C4; }
+    body[data-theme="warm"] .top-toolbar { background: #3D2B1F; }
+    body[data-theme="warm"] .doc-header { background: #FAF6F0; border-bottom-color: #E5D4C4; }
+    body[data-theme="warm"] .table-section { background: #FAF6F0; border-color: #E5D4C4; }
+    body[data-theme="warm"] table.data-table th { background: #EDE0D4; color: #3D2B1F; border-bottom-color: #C9A88F; }
+    body[data-theme="warm"] table.data-table td { color: #5A3E32; border-bottom-color: #E5D4C4; }
+    body[data-theme="warm"] table.data-table tr:hover td { background: rgba(0,0,0,0.04); }
+    /* 지시 10 고대비 보정 (WCAG AA 4.5:1 실측 기준) */
+    body[data-theme="dark"] .brand-badge span,
+    body[data-theme="dark"] .btn-primary { background: #C2410C; border-color: #C2410C; }
+    body[data-theme="dark"] .doc-category { background: rgba(255, 107, 0, 0.15); color: #FDBA74; }
+    body[data-theme="dark"] .controls-bar,
+    body[data-theme="dark"] .table-header-box,
+    body[data-theme="dark"] .doc-footer { background: #0F172A; border-color: #334155; color: #CBD5E1; }
+    body[data-theme="dark"] .search-box,
+    body[data-theme="dark"] .search-box input,
+    body[data-theme="dark"] .table-desc { background: #1E293B; border-color: #334155; color: #E2E8F0; }
+    body[data-theme="dark"] .search-box input::placeholder { color: #94A3B8; }
+    body[data-theme="dark"] .table-title { color: #F8FAFC; }
+    body[data-theme="dark"] .table-header-box .btn { background: #1E293B; color: #F8FAFC !important; border-color: #475569 !important; }
+    body[data-theme="dark"] .badge-warn { background: rgba(239, 68, 68, 0.15); color: #FCA5A5; border-color: rgba(239, 68, 68, 0.4); }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="top-toolbar">
+      <div class="brand-badge">
+        <span>HANURI</span> 한우리 독서토론논술 수업용 데이터 분석 센터
+      </div>
+      <div class="action-btns">
+        <button class="btn" onclick="exportAllCSV()">📥 CSV 다운로드</button>
+        <button class="btn btn-primary" onclick="window.print()">🖨️ 인쇄 / PDF 저장</button>
+      </div>
+    </div>
+
+    <header class="doc-header">
+      <div class="doc-category">핵심 통계 & 비교 분석 센터</div>
+      <h1 class="doc-title" id="pageTitle">《핵무기의 모든 것》 핵심 데이터 비교 분석표</h1>
+      <div class="doc-subtitle">국제정치 핵보유국 현황, 비핵화 역사 연표, 과학적 메커니즘 4대 비교 데이터</div>
+    </header>
+
+    <div class="controls-bar">
+      <div class="tab-group" id="tabGroup">
+        <button class="tab-btn active" onclick="filterTab('all', this)">전체 표 보기 (4종)</button>
+      </div>
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="표 내용 실시간 검색..." onkeyup="filterSearch()">
+      </div>
+    </div>
+
+    <main class="content-body" id="tablesContainer">
+      <!-- 렌더링 -->
+    </main>
+
+    <footer class="doc-footer">
+      <div>© 2026 한우리독서토론논술 · 지식 팩토리 자동화 시스템</div>
+      <div>데이터 출처: 《핵무기의 모든 것》 (풀빛) 및 국제 평화 연구소 공인 통계</div>
+    </footer>
+  </div>
+
+  <script>
+    const TABLE_DATA = [
+  {
+    "table_id": "table_1",
+    "title": "주요국 핵무기 보유 현황 및 NPT 지위 비교",
+    "description": "2026년 기준 세계 주요국의 핵탄두 보유 수와 NPT 체제 내 지위 및 역사적 배경을 비교한 데이터 표입니다.",
+    "headers": [
+      "국가",
+      "핵탄두 보유 수 (실전배치)",
+      "NPT 체제 지위",
+      "핵개발 배경 및 국제정치적 특징"
+    ],
+    "rows": [
+      [
+        "러시아",
+        "5,420개 (1,796개)",
+        "공인 5개 핵보유국 (P5)",
+        "1949년 핵실험 성공, 미·소 냉전기 최대 핵보유국이자 MAD 전략 유지"
+      ],
+      [
+        "미국",
+        "5,042개 (1,770개)",
+        "공인 5개 핵보유국 (P5)",
+        "1945년 최초 원폭 개발, 한국 등 동맹국에 핵우산(확장억제) 제공"
+      ],
+      [
+        "중국",
+        "620개 (34개)",
+        "공인 5개 핵보유국 (P5)",
+        "1964년 핵실험 성공, 파키스탄 핵개발 지원 및 대인도 견제 전략"
+      ],
+      [
+        "프랑스",
+        "370개 (280개)",
+        "공인 5개 핵보유국 (P5)",
+        "1960년 독자 핵실험 성공, 독자적 안보 전력 및 비동맹 지향"
+      ],
+      [
+        "영국",
+        "225개 (120개)",
+        "공인 5개 핵보유국 (P5)",
+        "1952년 독자 핵실험 성공, 미국과의 긴밀한 기술 협력 체계 유지"
+      ],
+      [
+        "인도",
+        "190개 (12개)",
+        "NPT 미가입 (비공인 보유국)",
+        "1974/1998년 핵실험, 2007년 미-인도 핵협정으로 대중국 견제용 제재 완화"
+      ],
+      [
+        "파키스탄",
+        "170개 (미배치)",
+        "NPT 미가입 (비공인 보유국)",
+        "1998년 핵실험, 인도의 안보 위협에 대응하여 중국의 지원 속에 핵무장"
+      ],
+      [
+        "이스라엘",
+        "90개 (미배치)",
+        "NPT 미가입 (비공식 보유국)",
+        "비공식 핵보유 전략 유지, 중동 안보 환경 및 미국의 전술적 묵인"
+      ],
+      [
+        "북한",
+        "60개 (미배치)",
+        "NPT 탈퇴 (불법 핵보유 선언)",
+        "NPT 탈퇴 후 2006년부터 6차례 연쇄 핵실험 강행으로 동북아 불안 심화"
+      ]
+    ]
+  },
+  {
+    "table_id": "table_2",
+    "title": "핵무기 발전과 반핵 운동의 역사 연표",
+    "description": "원자폭탄의 과학적 개발부터 냉전기 수소폭탄 군비경쟁, 그리고 국제 비핵화 조약의 전개 과정을 정해진 연도순으로 정리한 연표입니다.",
+    "headers": [
+      "연도",
+      "사건/계기",
+      "주요 내용 및 역사적 의의"
+    ],
+    "rows": [
+      [
+        "1939년",
+        "아인슈타인의 루스벨트 서한",
+        "나치 독일의 핵개발 위험을 경고하며 미국 정부의 대규모 핵연구 착수를 촉구함."
+      ],
+      [
+        "1942년",
+        "맨해튼 프로젝트 본격화",
+        "오펜하이머 지도 하에 최고 과학자들과 천문학적 자금을 투입하여 비밀 원폭 개발 추진."
+      ],
+      [
+        "1945년 7월",
+        "트리니티(Trinity) 핵실험",
+        "미국 뉴멕시코주 알라모고도 사막에서 인류 최초의 원자폭탄 폭발 실험 성공."
+      ],
+      [
+        "1945년 8월",
+        "히로시마·나가사키 원폭 투하",
+        "일본 항복으로 제2차 세계대전 종식, 한국인 7만 명 포함 대규모 방사능 피폭 참사 발생."
+      ],
+      [
+        "1946년",
+        "바루크 플랜 및 맥마흔 법",
+        "UN 원자력 통제안(소련 반대로 결렬) 제안 및 미국의 독점적 핵기술 유출 금지법 제정."
+      ],
+      [
+        "1949년",
+        "소련의 첫 핵실험 성공",
+        "미국의 핵독점 체제 종식 및 미·소 냉전기 양대 진영 간 군비경쟁 과열."
+      ],
+      [
+        "1952년~1953년",
+        "미·소 수소폭탄 개발",
+        "원폭 파괴력의 40배가 넘는 수소폭탄 개발 성공으로 상호확증파괴(MAD) 시대 진입."
+      ],
+      [
+        "1955년",
+        "러셀-아인슈타인 선언",
+        "세계적 과학자 11명이 수소폭탄의 인류 절멸 위험을 경고하고 분쟁의 평화적 해결 촉구."
+      ],
+      [
+        "1957년",
+        "제1회 퍼그워시 회의",
+        "동서 냉전 진영 과학자들이 캐나다 퍼그워시에 모여 핵감축과 세계 평화 논의 시작."
+      ],
+      [
+        "1969년",
+        "핵확산금지조약(NPT) 채택",
+        "기존 5개 핵보유국 기득권 인정 및 타국의 신규 핵보유를 금지하는 국제 조약 성립(1970년 발효)."
+      ],
+      [
+        "1987년",
+        "뉴질랜드 비핵법 제정",
+        "미 핵함선 입항 금지 등 강대국 압력에 굴하지 않고 주권적 비핵 평화 국가 선언."
+      ],
+      [
+        "2017년",
+        "UN 핵무기금지조약(TPNW) 채택",
+        "ICAN 주도로 핵무기 개발·보유·사용을 전면 금지하는 조약 채택 (ICAN 노벨평화상 수상)."
+      ]
+    ]
+  },
+  {
+    "table_id": "table_3",
+    "title": "핵분열 vs 핵융합 과학적 특징 비교",
+    "description": "원자폭탄과 수소폭탄의 기초 과학 원리인 핵분열과 핵융합 반응의 주요 차이점을 비교한 데이터 표입니다.",
+    "headers": [
+      "비교 항목",
+      "핵분열 (Nuclear Fission)",
+      "핵융합 (Nuclear Fusion)"
+    ],
+    "rows": [
+      [
+        "기본 반응 원리",
+        "무거운 원자핵에 중성자가 충돌하여 가벼운 두 개의 원자핵으로 쪼개지는 현상",
+        "가벼운 원자핵들이 초고온·초고압 상태에서 합쳐져 더 무거운 원자핵이 되는 현상"
+      ],
+      [
+        "주요 반응 원료",
+        "우라늄-235, 플루토늄-239 (자연 광석 또는 사용후 핵연료 재처리)",
+        "중수소, 삼중수소 (수소의 동위원소)"
+      ],
+      [
+        "반응 개시 조건",
+        "상온에서 열중성자 충돌 시 연속적인 연쇄반응 유발 가능",
+        "억 단위의 초고온·초고압 필요 (원자폭탄 폭발 에너지를 기폭제로 사용)"
+      ],
+      [
+        "에너지 방출량",
+        "질량 결손($E=mc^2$)에 의해 화학 반응의 수백만 배 에너지 방출",
+        "핵분열 반응 대비 수십~수백 배 이상의 가공할 에너지 방출"
+      ],
+      [
+        "대표 무기 및 응용",
+        "원자폭탄(Atomic Bomb), 원자력 발전소",
+        "수소폭탄(Hydrogen Bomb), 차세대 미래 에너지 인공태양(KSTAR 등)"
+      ],
+      [
+        "환경 및 폐기물",
+        "사용후 핵연료 등 치명적인 고준위 방사성 폐기물 및 방사능 낙진 유발",
+        "반응 부산물로 무해한 헬륨이 주로 발생하여 고준위 방사성 폐기물이 발생하지 않음"
+      ]
+    ]
+  },
+  {
+    "table_id": "table_4",
+    "title": "비핵화 및 평화를 위한 주요 국제 규범·운동 비교",
+    "description": "핵무기 억제 및 전멸을 목표로 추진된 대표적인 국제 조약과 반핵 시민운동의 성격을 비교한 표입니다.",
+    "headers": [
+      "구분",
+      "주체 및 성격",
+      "핵심 내용 및 목표",
+      "역사적 의의 및 한계"
+    ],
+    "rows": [
+      [
+        "NPT (핵확산금지조약)",
+        "UN 및 기존 5개 핵보유국 주도 국제 조약",
+        "기존 5개국 외 타국의 신규 핵보유 및 개발 금지",
+        "핵확산 억제 기여 vs 기존 보유국 독점 인정의 불평등성 논란"
+      ],
+      [
+        "러셀-아인슈타인 선언",
+        "세계적 과학자 11명의 반핵 평화 선언",
+        "수소폭탄의 인류 멸종 위기 경고 및 평화적 해결 호소",
+        "과학자의 사회적 책임 강조 및 퍼그워시 회의 성립의 계기"
+      ],
+      [
+        "뉴질랜드 비핵법",
+        "단일 국가(뉴질랜드) 주권 법률",
+        "자국 영토·영해 내 핵함선 입항 및 핵무기 배치 전면 금지",
+        "강대국(미국) 압력에 굴하지 않은 주권적 비핵화 모범 사례"
+      ],
+      [
+        "TPNW (핵무기금지조약)",
+        "UN 총회 및 ICAN(시민사회 연대) 주도 조약",
+        "핵무기 개발·시험·생산·보유·사용 및 위협의 전면 금지",
+        "기존 핵보유국 불참 한계 vs 인도주의적 폐기 법적 명분 확립"
+      ]
+    ]
+  }
+];
+
+    let currentTab = 'all';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initTabs();
+      renderTables(TABLE_DATA);
+    });
+
+    function initTabs() {
+      const tabGroup = document.getElementById('tabGroup');
+      TABLE_DATA.forEach((t, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'tab-btn';
+        btn.innerText = `${idx + 1}. ${t.title.split(' ')[0]}`;
+        btn.onclick = () => filterTab(t.table_id, btn);
+        tabGroup.appendChild(btn);
+      });
+    }
+
+    function filterTab(tabId, el) {
+      currentTab = tabId;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      filterSearch();
+    }
+
+    function filterSearch() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const container = document.getElementById('tablesContainer');
+      container.innerHTML = '';
+
+      TABLE_DATA.forEach(t => {
+        if (currentTab !== 'all' && t.table_id !== currentTab) return;
+
+        const matchedRows = t.rows.filter(row => {
+          if (!query) return true;
+          return row.some(cell => String(cell).toLowerCase().includes(query)) ||
+                 t.title.toLowerCase().includes(query) ||
+                 t.description.toLowerCase().includes(query);
+        });
+
+        if (matchedRows.length === 0 && query) return;
+
+        const sec = document.createElement('section');
+        sec.className = 'table-section';
+        sec.id = t.table_id;
+
+        let ths = t.headers.map(h => `<th>${h}</th>`).join('');
+        let trs = matchedRows.map(row => {
+          let tds = row.map((cell, idx) => {
+            let val = String(cell);
+            if (val.includes('P5')) {
+              val = `<span class="badge-p5">${val}</span>`;
+            } else if (val.includes('불법') || val.includes('미가입')) {
+              val = `<span class="badge-warn">${val}</span>`;
+            } else if (/^\d{4}년/.test(val)) {
+              val = `<span class="badge-year">${val}</span>`;
+            }
+            return `<td>${val}</td>`;
+          }).join('');
+          return `<tr>${tds}</tr>`;
+        }).join('');
+
+        sec.innerHTML = `
+          <div class="table-header-box">
+            <div class="table-title">📊 ${t.title}</div>
+            <button class="btn" style="color:var(--navy); border-color:var(--slate-300);" onclick="exportSingleCSV('${t.table_id}')">📥 CSV</button>
+          </div>
+          <div class="table-desc">${t.description} (총 ${matchedRows.length}행)</div>
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead><tr>${ths}</tr></thead>
+              <tbody>${trs}</tbody>
+            </table>
+          </div>
+        `;
+        container.appendChild(sec);
+      });
+    }
+
+    function renderTables(tables) {
+      filterSearch();
+    }
+
+    function exportSingleCSV(tableId) {
+      const table = TABLE_DATA.find(t => t.table_id === tableId);
+      if (!table) return;
+      downloadCSV(table.title, [table.headers, ...table.rows]);
+    }
+
+    function exportAllCSV() {
+      TABLE_DATA.forEach(t => {
+        exportSingleCSV(t.table_id);
+      });
+    }
+
+    function downloadCSV(filename, rows) {
+      let csvContent = "\uFEFF";
+      rows.forEach(r => {
+        const line = r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',');
+        csvContent += line + "\r\n";
+      });
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", `${filename}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // 대시보드 postMessage 테마 동기화
+    
+    try {
+      const savedTheme = localStorage.getItem('hanuri_theme') || 'dark';
+      document.body.dataset.theme = savedTheme;
+    } catch(e) {}
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'SET_THEME') {
+        document.body.dataset.theme = e.data.theme;
+      }
+    });
+    try {
+      if (window.parent && window.parent.document && window.parent.document.body.dataset.theme) {
+        document.body.dataset.theme = window.parent.document.body.dataset.theme;
+      }
+    } catch(e) {}
+  </script>
+</body>
+</html>

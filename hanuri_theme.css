@@ -842,18 +842,24 @@ html[data-theme="dark"] .ext-chip.active {
 html[data-theme="dark"] .btn-primary:hover {
   color: #020617;
 }
-.btn-gdrive {
+.btn-gdrive,
+.btn-notebooklm {
   background: var(--secondary-soft);
   border-color: var(--secondary-border);
   color: var(--secondary);
   font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
-.btn-gdrive:hover {
+.btn-gdrive:hover,
+.btn-notebooklm:hover {
   background: var(--secondary);
   border-color: var(--secondary);
   color: #ffffff;
 }
-html[data-theme="dark"] .btn-gdrive:hover {
+html[data-theme="dark"] .btn-gdrive:hover,
+html[data-theme="dark"] .btn-notebooklm:hover {
   color: #020617;
 }
 .btn-ghost {
