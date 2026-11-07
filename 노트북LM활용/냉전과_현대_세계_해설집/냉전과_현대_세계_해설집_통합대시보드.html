@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>《냉전과 현대 세계 해설집》 통합 학습관 - 한우리 지식 팩토리</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF6B00;
+      --primary-dark: #D95300;
+      --primary-light: #FFF4ED;
+      --navy-900: #090D16;
+      --navy-800: #0F172A;
+      --navy-700: #1E293B;
+      --navy-600: #334155;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-400: #94A3B8;
+      --slate-600: #475569;
+      --text-main: #0F172A;
+      --sidebar-width: 280px;
+      --text-color: #F8FAFC;
+      --glass-border: rgba(255,255,255,0.08);
+      --glass-border-mid: rgba(255,255,255,0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background: var(--navy-900);
+      color: var(--text-color, #F8FAFC);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 1. 최상단 마스터 헤더 */
+    .master-header {
+      height: 60px;
+      background: var(--navy-800);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      flex-shrink: 0;
+      z-index: 100;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-logo .logo-badge {
+      background: var(--primary);
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .book-title-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14.5px;
+      color: #E2E8F0;
+      font-weight: 600;
+      padding-left: 16px;
+      border-left: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-header {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #E2E8F0;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-header:hover {
+      background: rgba(255,255,255,0.18);
+      color: #fff;
+    }
+
+    .btn-fullscreen {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+    .btn-fullscreen:hover {
+      background: var(--primary-dark);
+    }
+
+    /* 2. 메인 워크스페이스 (사이드바 + 뷰포트) */
+    .workspace {
+      display: flex;
+      flex-grow: 1;
+      height: calc(100vh - 60px);
+      overflow: hidden;
+    }
+
+    /* 사이드바 */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: #0B0F19;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+
+    .sidebar-section-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--slate-400);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 16px 20px 8px;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 0 10px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: #94A3B8;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+      user-select: none;
+    }
+
+    .nav-item:hover {
+      background: rgba(255,255,255,0.05);
+      color: #F8FAFC;
+    }
+
+    .nav-item.active {
+      background: linear-gradient(90deg, rgba(255, 107, 0, 0.18) 0%, rgba(255, 107, 0, 0.05) 100%);
+      border-color: rgba(255, 107, 0, 0.4);
+      color: #FFFFFF;
+      font-weight: 700;
+    }
+
+    .nav-item-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-icon {
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .nav-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.08);
+      color: var(--slate-300);
+    }
+
+    .nav-item.active .nav-badge {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    /* 사이드바 하단 정보 */
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 16px 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 11.5px;
+      color: var(--slate-400);
+      background: rgba(0,0,0,0.2);
+    }
+
+    /* 뷰포트 메인 컨테이너 */
+    .viewport-container {
+      flex-grow: 1;
+      height: 100%;
+      background: #0F172A;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* 뷰포트 내부 iframe 및 플레이어 */
+    .content-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #FFFFFF;
+      display: none;
+    }
+
+    .content-frame.active {
+      display: block;
+    }
+
+    /* 홈(지휘 통제실) 화면 */
+    .home-view {
+      padding: 24px 32px 20px;
+      overflow-y: auto;
+      height: 100%;
+      display: none;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .home-view.active {
+      display: flex;
+    }
+
+    /* ── 브리핑 박스 ── */
+    .briefing-box {
+      background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-left: 4px solid var(--primary);
+      border-radius: 14px;
+      padding: 22px 26px;
+      flex-shrink: 0;
+    }
+
+    .briefing-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .briefing-tag {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--primary);
+      background: rgba(255, 107, 0, 0.12);
+      padding: 4px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.03em;
+    }
+
+    .briefing-badges {
+      display: flex;
+      gap: 8px;
+    }
+
+    .time-badge {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.07);
+      color: var(--slate-300);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .time-badge.deep {
+      background: rgba(99, 102, 241, 0.15);
+      color: #a5b4fc;
+      border-color: rgba(99,102,241,0.3);
+    }
+
+    .briefing-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 13px;
+    }
+
+    .objectives-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .objectives-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13.5px;
+      color: var(--slate-200);
+      line-height: 1.55;
+    }
+
+    .obj-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── 4단계 로드맵 ── */
+    .roadmap-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--slate-400);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      flex-shrink: 0;
+      margin-bottom: -6px;
+    }
+
+    .roadmap-grid {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      flex-shrink: 0;
+    }
+
+    .roadmap-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 16px;
+      padding: 0 5px;
+      flex-shrink: 0;
+      opacity: 0.65;
+    }
+
+    .roadmap-card {
+      flex: 1;
+      background: #1E293B;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      min-width: 0;
+    }
+
+    .roadmap-card:hover {
+      border-color: rgba(255,107,0,0.5);
+      box-shadow: 0 4px 18px rgba(255, 107, 0, 0.12);
+    }
+
+    .stage-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .stage-num {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .stage-1 .stage-num { background: #FF6B00; }
+    .stage-2 .stage-num { background: #7C3AED; }
+    .stage-3 .stage-num { background: #0891B2; }
+    .stage-4 .stage-num { background: #059669; }
+
+    .stage-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #F8FAFC;
+      line-height: 1.3;
+    }
+
+    .stage-time {
+      font-size: 11px;
+      color: var(--slate-400);
+      margin-top: 2px;
+    }
+
+    .stage-desc {
+      font-size: 12px;
+      color: var(--slate-400);
+      line-height: 1.55;
+      flex-grow: 1;
+    }
+
+    .roadmap-buttons {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .roadmap-btn {
+      flex: 1;
+      min-width: 0;
+      padding: 7px 6px;
+      border-radius: 7px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: #E2E8F0;
+      font-family: inherit;
+      transition: all 0.15s;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .roadmap-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* ── 키워드 칩 바 ── */
+    .keyword-chips {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .chip-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--slate-400);
+      flex-shrink: 0;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 12px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--slate-300);
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .chip:hover {
+      background: rgba(255,107,0,0.14);
+      border-color: rgba(255,107,0,0.5);
+      color: var(--primary);
+    }
+
+    /* 오디오 뷰 */
+    .audio-view-container {
+      display: none;
+      height: 100%;
+      background: #090D16;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      overflow-y: auto;
+    }
+    .audio-view-container.active {
+      display: flex;
+    }
+
+    /* 비디오 뷰 (지시 20261106_03: 중복 선언 두 벌을 하나로 병합, 최종 적용값 유지) */
+    .video-view-container {
+      display: none;
+      height: 100%;
+      background: #090D16;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+    .video-view-container.active {
+      display: flex;
+    }
+    .video-player-wrap {
+      width: 100%;
+      height: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.85);
+      position: relative;
+    }
+    .video-player-wrap video {
+      width: 100%;
+      height: 100%;
+      max-height: calc(100vh - 120px);
+      object-fit: contain;
+      display: block;
+    }
+
+    /* 극장 모드: 전자칠판 화면 100% 꽉 채우기 (헤더/사이드바 숨김) */
+    body.theater-mode .master-header,
+    body.theater-mode .sidebar {
+      display: none !important;
+    }
+    body.theater-mode .workspace {
+      height: 100vh !important;
+    }
+    body.theater-mode .video-view-container {
+      padding: 0 !important;
+      background: #000 !important;
+    }
+    body.theater-mode .video-player-wrap {
+      border: none !important;
+      border-radius: 0 !important;
+      max-width: 100% !important;
+      height: 100% !important;
+      box-shadow: none !important;
+    }
+    body.theater-mode .video-player-wrap video {
+      max-height: 100vh !important;
+      height: 100vh !important;
+    }
+
+    /* 플로팅 극장 모드 토글 버튼 */
+    .btn-theater-toggle {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-theater-toggle:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: scale(1.05);
+    }
+
+    /* 지시 20261106_02: 영상 듀얼 뷰포트 (좌 영상 · 우 장면별 대본) */
+    .video-dual {
+      display: flex;
+      gap: 20px;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      padding-top: 52px; /* 우상단 '전체 채우기' 버튼 자리 */
+      box-sizing: border-box;
+    }
+    .video-dual .video-player-wrap {
+      flex: 1 1 50%;
+      max-width: none;
+      height: 100%;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .video-dual .video-player-wrap video {
+      height: 100%;
+      max-height: calc(100vh - 160px);
+    }
+    .video-storyboard-panel {
+      flex: 1 1 50%;
+      min-width: 0;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 4px 6px 4px 0;
+    }
+    .storyboard-head {
+      font-size: 17px;
+      font-weight: 800;
+      color: #F1F5F9;
+      margin: 0 0 4px;
+    }
+    .scene-card {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-left: 4px solid var(--primary);
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: #E2E8F0;
+    }
+    .scene-card-head {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .scene-no {
+      flex: none;
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      background: #C2410C;
+      border-radius: 6px;
+      padding: 2px 8px;
+    }
+    .scene-title { font-size: 15.5px; font-weight: 800; color: #F8FAFC; }
+    .scene-label { font-size: 12px; font-weight: 800; color: #FDBA74; margin: 6px 0 2px; }
+    .scene-visual { font-size: 13.5px; line-height: 1.6; color: #CBD5E1; margin: 0; }
+    .scene-narration { font-size: 15px; line-height: 1.7; color: #F1F5F9; margin: 0; }
+    /* 지시 20261106_08: 가로(16:9) 영상이면 위 영상 · 아래 현재 장면 대본 한 장 */
+    .scene-chips { display: none; gap: 8px; flex-wrap: wrap; }
+    .scene-chip {
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(30, 41, 59, 0.9);
+      color: #E2E8F0;
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .scene-chip.active { background: #C2410C; border-color: #FDBA74; color: #FFFFFF; }
+    .storyboard-note { font-size: 12px; color: #94A3B8; margin: -2px 0 2px; }
+    .video-dual.layout-landscape { flex-direction: column; gap: 14px; }
+    .video-dual.layout-landscape .video-player-wrap { flex: 0 0 66%; height: auto; min-height: 0; }
+    .video-dual.layout-landscape .video-player-wrap video { height: 100%; max-height: none; }
+    .video-dual.layout-landscape .video-storyboard-panel { flex: 1 1 auto; min-height: 0; padding: 0; }
+    .video-dual.layout-landscape .scene-chips { display: flex; }
+    .video-dual.layout-landscape .scene-card { display: none; }
+    .video-dual.layout-landscape .scene-card.active { display: block; overflow-y: auto; }
+    .video-dual.layout-landscape .storyboard-head { display: none; }
+    body.theater-mode .video-dual { padding-top: 0; gap: 0; }
+    body.theater-mode .video-dual.layout-landscape .video-player-wrap { flex: 1 1 100%; height: 100% !important; }
+    body.theater-mode .video-storyboard-panel { display: none; }
+    body.theater-mode .video-dual .video-player-wrap video { max-height: 100vh; }
+    @media (max-width: 900px) {
+      .video-dual { flex-direction: column; }
+      .video-dual .video-player-wrap { flex: none; height: 55vh; }
+    }
+
+    /* 지시 20261106_02: 오디오 파일이 없을 때 안내 카드 */
+    .audio-pending {
+      max-width: 560px;
+      margin: 12px auto;
+      padding: 20px 24px;
+      border-radius: 14px;
+      border: 1px dashed rgba(253, 186, 116, 0.6);
+      background: rgba(30, 41, 59, 0.85);
+      color: #E2E8F0;
+      text-align: left;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+    .audio-pending[hidden] { display: none; }
+    .audio-pending h3 { margin: 0 0 8px; font-size: 17px; color: #FDBA74; }
+    .audio-pending ol { margin: 8px 0 0; padding-left: 20px; }
+    .audio-pending code { color: #FDE68A; word-break: break-all; }
+
+    /* 지시 11 ①: 상단 4단계 수업 흐름 바 */
+    .flow-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .flow-current {
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 107, 0, 0.4);
+      background: rgba(255, 107, 0, 0.12);
+    }
+    .flow-next {
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: none;
+      background: #C2410C;
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .flow-next:hover { background: #9A3412; }
+
+    /* 지시 11 ②: 극장 모드에서 화면(iframe) 원위치 버튼 */
+    .btn-theater-exit {
+      display: none;
+      position: fixed;
+      top: 16px;
+      right: 20px;
+      z-index: 200;
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(15, 23, 42, 0.85);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    body.theater-mode:not([data-tab="video"]) .btn-theater-exit { display: block; }
+  
+    .video-style-selector {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding: 6px 12px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+    .style-btn {
+      padding: 6px 12px;
+      font-size: 12.5px;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.05);
+      color: #CBD5E1;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .style-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #FFFFFF;
+    }
+    .style-btn.active {
+      background: var(--primary, #FF6B00);
+      color: #FFFFFF;
+      border-color: var(--primary, #FF6B00);
+      box-shadow: 0 0 10px rgba(255, 107, 0, 0.4);
+    }
+
+</style>
+</head>
+<body>
+
+  <!-- 1. 최상단 마스터 헤더 -->
+  <header class="master-header">
+    <div class="header-left">
+      <div class="brand-logo" onclick="switchTab('home')">
+        <span class="logo-badge">HANURI</span> 지식 팩토리
+      </div>
+      <div class="theme-switch-container">
+        <label for="theme-select" class="theme-label">🎨 테마:</label>
+        <select id="theme-select" class="theme-select" onchange="changeGlobalTheme(this.value)">
+          <option value="dark" selected>🌙 시네마 다크</option>
+          <option value="light">☀️ 클래식 라이트</option>
+          <option value="warm">📜 서재 웜아이보리</option>
+        </select>
+      </div>
+      <div class="book-title-badge">
+        📚 《냉전과 현대 세계 해설집》 통합 학습관
+      </div>
+    </div>
+    <div class="flow-bar">
+      <span id="flow-current" class="flow-current">수업 시작 전</span>
+      <button id="flow-next" class="flow-next" onclick="goNextStage()">1단계 도입 ▶</button>
+    </div>
+    <div class="header-right">
+      <button class="btn-header" onclick="openCurrentTabNewWindow()">↗️ 새 창으로 열기</button>
+      <button class="btn-header btn-fullscreen" onclick="toggleFullscreen()">⛶ 전체 화면</button>
+    </div>
+  </header>
+
+  <!-- 극장 모드 원위치 버튼 (영상 탭은 자체 버튼이 있어 제외) -->
+  <button class="btn-theater-exit" onclick="toggleFullscreen()">↩️ 원위치 (메뉴 복원)</button>
+
+  <!-- 2. 워크스페이스 -->
+  <div class="workspace">
+    <!-- 사이드바 -->
+    <nav class="sidebar">
+      <div class="sidebar-section-title">학습 허브 홈</div>
+      <ul class="nav-list">
+        <li class="nav-item active" id="nav-home" onclick="switchTab('home')">
+          <div class="nav-item-left">
+            <span class="nav-icon">🏠</span>
+            <span>수업 지휘 통제실</span>
+          </div>
+          <span class="nav-badge">HUB</span>
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">도입 & 개요 (Intro)</div>
+      <ul class="nav-list">
+        <li class="nav-item" id="nav-audio" onclick="switchTab('audio')">
+          <div class="nav-item-left">
+            <span class="nav-icon">🎧</span>
+            <span>AI 오디오 팟캐스트</span>
+          </div>
+          <span class="nav-badge">M4A</span>
+        </li>
+        <li class="nav-item" id="nav-video" onclick="switchTab('video')">
+          <div class="nav-item-left">
+            <span class="nav-icon">🎬</span>
+            <span>공식 영상</span>
+          </div>
+          <span class="nav-badge">MP4</span>
+        </li>
+        <li class="nav-item" id="nav-infographic" onclick="switchTab('infographic')">
+          <div class="nav-item-left">
+            <span class="nav-icon">🎨</span>
+            <span>시각 인포그래픽</span>
+          </div>
+          <span class="nav-badge">빅넘버</span>
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">심층 전개 & 분석 (Deep Dive)</div>
+      <ul class="nav-list">
+        <li class="nav-item" id="nav-mindmap" onclick="switchTab('mindmap')">
+          <div class="nav-item-left">
+            <span class="nav-icon">🧠</span>
+            <span>인터랙티브 마인드맵</span>
+          </div>
+          <span class="nav-badge">D3.js</span>
+        </li>
+        <li class="nav-item" id="nav-slides" onclick="switchTab('slides')">
+          <div class="nav-item-left">
+            <span class="nav-icon">📊</span>
+            <span>수업용 슬라이드 덱</span>
+          </div>
+          <span class="nav-badge">PDF</span>
+        </li>
+        <li class="nav-item" id="nav-table" onclick="switchTab('table')">
+          <div class="nav-item-left">
+            <span class="nav-icon">📋</span>
+            <span>데이터 센터 (비교표)</span>
+          </div>
+          <span class="nav-badge">4대 표</span>
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">평가 & 포트폴리오 (Assessment)</div>
+      <ul class="nav-list">
+        <li class="nav-item" id="nav-quiz" onclick="switchTab('quiz')">
+          <div class="nav-item-left">
+            <span class="nav-icon">❓</span>
+            <span>실시간 채점 퀴즈</span>
+          </div>
+          <span class="nav-badge">10문항</span>
+        </li>
+        <li class="nav-item" id="nav-flashcard" onclick="switchTab('flashcard')">
+          <div class="nav-item-left">
+            <span class="nav-icon">📇</span>
+            <span>3D 플래시카드</span>
+          </div>
+          <span class="nav-badge">15개 개념</span>
+        </li>
+        <li class="nav-item" id="nav-report" onclick="switchTab('report')">
+          <div class="nav-item-left">
+            <span class="nav-icon">📑</span>
+            <span>교사용 브리프 보고서</span>
+          </div>
+          <span class="nav-badge">A4 인쇄</span>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div><strong>주식회사 완좋아 V3</strong></div>
+        <div style="margin-top:4px; opacity:0.8;">자동화 지식 팩토리 파이프라인</div>
+      </div>
+    </nav>
+
+    <!-- 뷰포트 메인 컨테이너 -->
+    <main class="viewport-container">
+
+      <!-- 1. 홈 뷰 (수업 지휘 통제실) -->
+      <div class="home-view active" id="view-home">
+
+        <!-- ① 오늘의 수업 마스터 브리핑 -->
+        <div class="briefing-box">
+          <div class="briefing-header">
+            <span class="briefing-tag">📋 오늘의 수업 마스터 브리핑</span>
+            <div class="briefing-badges">
+              <span class="time-badge">⏱️ 45분 기본</span>
+              <span class="time-badge deep">🔬 90분 심화</span>
+            </div>
+          </div>
+          <h2 class="briefing-title">《냉전과 현대 세계 해설집》</h2>
+          <ul class="objectives-list">
+            <li>
+              <span class="obj-num">①</span>
+              《냉전과 현대 세계 해설집》의 핵심 개념과 배경 이해
+            </li>
+            <li>
+              <span class="obj-num">②</span>
+              《냉전과 현대 세계 해설집》의 주요 쟁점 분석과 토론
+            </li>
+            <li>
+              <span class="obj-num">③</span>
+              배운 내용을 우리 삶과 연결해 실천 과제 탐색
+            </li>
+          </ul>
+        </div>
+
+        <!-- ② 4단계 원클릭 수업 플로우 -->
+        <div class="roadmap-label">🗺️ 4단계 원클릭 수업 플로우 — 코스웨어 로드맵</div>
+        <div class="roadmap-grid">
+
+          <!-- 1단계: 도입 -->
+          <div class="roadmap-card stage-1">
+            <div class="stage-header">
+              <span class="stage-num">1</span>
+              <div>
+                <div class="stage-title">도입 (Intro)</div>
+                <div class="stage-time">⏱️ 5분</div>
+              </div>
+            </div>
+            <p class="stage-desc">AI 팟캐스트 &amp; 숏폼 영상으로 흥미 유발 및 화두 던지기</p>
+            <div class="roadmap-buttons">
+              <button class="roadmap-btn" onclick="switchTab('audio')">🎧 팟캐스트 시작</button>
+              <button class="roadmap-btn" onclick="switchTab('video')">🎬 영상 시청</button>
+            </div>
+          </div>
+
+          <div class="roadmap-arrow">▶</div>
+
+          <!-- 2단계: 심층 전개 -->
+          <div class="roadmap-card stage-2">
+            <div class="stage-header">
+              <span class="stage-num">2</span>
+              <div>
+                <div class="stage-title">심층 전개 (Deep Dive)</div>
+                <div class="stage-time">⏱️ 20분</div>
+              </div>
+            </div>
+            <p class="stage-desc">76개 노드 마인드맵과 시네마틱 슬라이드로 개념 구조화</p>
+            <div class="roadmap-buttons">
+              <button class="roadmap-btn" onclick="switchTab('mindmap')">🧠 마인드맵 열기</button>
+              <button class="roadmap-btn" onclick="switchTab('slides')">📊 슬라이드 덱</button>
+            </div>
+          </div>
+
+          <div class="roadmap-arrow">▶</div>
+
+          <!-- 3단계: 활동 & 탐구 -->
+          <div class="roadmap-card stage-3">
+            <div class="stage-header">
+              <span class="stage-num">3</span>
+              <div>
+                <div class="stage-title">활동 &amp; 탐구 (Activity)</div>
+                <div class="stage-time">⏱️ 15분</div>
+              </div>
+            </div>
+            <p class="stage-desc">3D 플래시카드 핵심 개념 암기 및 10문항 실시간 객관식 퀴즈 풀이</p>
+            <div class="roadmap-buttons">
+              <button class="roadmap-btn" onclick="switchTab('flashcard')">📇 플래시카드</button>
+              <button class="roadmap-btn" onclick="switchTab('quiz')">❓ 실시간 퀴즈</button>
+            </div>
+          </div>
+
+          <div class="roadmap-arrow">▶</div>
+
+          <!-- 4단계: 정리 & 상담 -->
+          <div class="roadmap-card stage-4">
+            <div class="stage-header">
+              <span class="stage-num">4</span>
+              <div>
+                <div class="stage-title">정리 &amp; 상담 (Closing)</div>
+                <div class="stage-time">⏱️ 5분</div>
+              </div>
+            </div>
+            <p class="stage-desc">A4 종합 학습 보고서 및 학부모 알림장 복사, 통계 데이터 확인</p>
+            <div class="roadmap-buttons">
+              <button class="roadmap-btn" onclick="switchTab('report')">📑 종합 보고서</button>
+              <button class="roadmap-btn" onclick="switchTab('table')">📋 데이터 센터</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ③ 핵심 키워드 칩 바 -->
+        <div class="keyword-chips">
+          <span class="chip-label">📌 핵심 키워드</span>
+          <span class="chip" onclick="switchTab('mindmap')">#1.냉전의형성(1940년대후반)</span>
+          <span class="chip" onclick="switchTab('mindmap')">#2.냉전의확산과열전(1950~1960년대)</span>
+          <span class="chip" onclick="switchTab('mindmap')">#3.다극화와완화(1970년대)</span>
+          <span class="chip" onclick="switchTab('mindmap')">#4.냉전의해체와종식(1980년대말~1991년)</span>
+          <span class="chip" onclick="switchTab('mindmap')">#5.현대사회의발전과당면과제</span>
+        </div>
+
+      </div>
+
+      <!-- 2. 오디오 뷰 -->
+      <div class="audio-view-container" id="view-audio">
+        <div class="audio-card">
+          <div class="audio-icon-pulse">🎧</div>
+          <h2 class="audio-title">냉전과 현대 세계 해설집 오디오 브리프</h2>
+          <div class="audio-meta">NotebookLM AI 오디오 오버뷰</div>
+          <audio id="audioPlayer" controls preload="metadata" src="냉전과_현대_세계_해설집_오디오오버뷰.m4a">
+            브라우저가 오디오 재생을 지원하지 않습니다.
+          </audio>
+          <p id="audioDesc" style="font-size:13.5px; color:#94A3B8; line-height:1.6;">
+            NotebookLM의 두 진행자가 이 책의 핵심을 대화로 풀어 주는 오디오 브리프입니다.
+          </p>
+          <div class="audio-pending" id="audioPending" hidden>
+            <h3>🎧 AI 오디오 팟캐스트 준비 중</h3>
+            이 교재의 오디오 팟캐스트 파일이 아직 없습니다. 아래 순서로 만들면 이 화면에서 바로 재생됩니다.
+            <ol>
+              <li>노트북LM에서 이 교재 노트북을 열고 스튜디오의 <b>AI 오디오 오버뷰</b>를 생성합니다.</li>
+              <li>완성된 오디오를 내려받아 이름을 <code>냉전과_현대_세계_해설집_오디오오버뷰.m4a</code>로 바꿉니다.</li>
+              <li>이 대시보드와 같은 폴더에 넣고 새로고침합니다.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 비디오 뷰 (MP4 플레이어 + 스토리보드 HTML 동시 탑재) -->
+      <div class="video-view-container" id="view-video">
+        <button class="btn-theater-toggle" id="btnTheater" onclick="toggleTheaterMode()">
+          <span id="theaterIcon">📺</span> <span id="theaterText">전자칠판 전체 채우기</span>
+        </button>
+        
+        <!-- 지시 20261107_24: 16:9 듀얼 화풍 선택 스위처 -->
+        <div class="video-style-selector">
+          <span style="font-size:12.5px; font-weight:800; color:#FDBA74;">🎨 화풍 선택:</span>
+          <button class="style-btn active" onclick="switchVideoStyle('냉전과_현대_세계_해설집_동영상_레트로.mp4', this)">🎞️ 레트로풍 (16:9 · 7:41) ★추천</button>
+          <button class="style-btn" onclick="switchVideoStyle('냉전과_현대_세계_해설집_동영상_화이트보드.mp4', this)">✏️ 화이트보드 (16:9 · 8:00)</button>
+          <button class="style-btn" onclick="switchVideoStyle('냉전과_현대_세계_해설집_동영상_숏츠.mp4', this)">📱 세로 숏폼 (9:16 · 2:11)</button>
+        </div>
+
+        <div class="video-dual">
+          <div class="video-player-wrap">
+            <video controls id="lessonVideo" src="냉전과_현대_세계_해설집_동영상.mp4">
+              브라우저가 비디오 재생을 지원하지 않습니다.
+            </video>
+          </div>
+          <aside class="video-storyboard-panel" id="videoStoryboard">
+            <h3 class="storyboard-head">🎬 장면별 대본</h3>
+            <div class="scene-chips" id="sceneChips"></div>
+            <p class="storyboard-note">참고 대본 — 영상의 실제 장면·시점과 다를 수 있습니다</p>
+            <div class="scene-card" data-dur="35">
+              <div class="scene-card-head"><span class="scene-no">씬 1</span><span class="scene-title">오프닝: 베를린 장벽과 나누어진 세계</span></div>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">1961년 베를린 장벽이 세워지는 흑백 아카이브 영상과 장벽을 사이에 두고 대립하는 동서 양 진영의 3D 모션 그래픽 연출. 이어 1989년 장벽이 무너지며 환호하는 시민들의 장면으로 빠르게 전환됨.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">총성 없는 전쟁이라 불렸던 냉전, 세계는 왜 반으로 갈라져 대립해야 했을까요? 2차 세계대전 직후부터 베를린 장벽이 무너지기까지, 냉전이 남긴 역사의 흔적과 오늘날 지구촌의 과제를 함께 살펴봅니다.</p>
+            </div>
+            <div class="scene-card" data-dur="45">
+              <div class="scene-card-head"><span class="scene-no">씬 2</span><span class="scene-title">배경과 핵심 개념: 트루먼 독트린과 양극 대립 체제</span></div>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">1947년 트루먼 독트린 선언과 마설 플랜 원조, NATO 창설 지도. 이에 맞선 소련의 코민포름, COMECON, 바르샤바 조약 기구(WTO)가 지도 상에서 푸른색과 붉은색으로 대치하는 모션 인포그래픽.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">2차 세계대전이 끝난 후 세계는 미국 중심의 자본주의 진영과 소련 중심의 공산주의 진영으로 팽팽히 갈라졌습니다. 마설 플랜과 NATO, 그리고 COMECON과 바르샤바 조약 기구가 맞서며 인류는 본격적인 냉전의 시대에 들어서게 됩니다.</p>
+            </div>
+            <div class="scene-card" data-dur="50">
+              <div class="scene-card-head"><span class="scene-no">씬 3</span><span class="scene-title">주요 전개: 아시아의 열전과 제3세계의 부상</span></div>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">한반도의 6.25 전쟁과 베트남 전쟁 아카이브 영상 분할 화면. 이어 1955년 반둥 회의와 1960년 &#x27;아프리카의 해&#x27; 17개국 독립 인포그래픽이 펼쳐지며 비동맹 중립 노선의 깃발들이 일어서는 연출.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">냉전은 유럽을 넘어 아시아의 6.25 전쟁과 베트남 전쟁 같은 뜨거운 국지적 열전으로 확산되었습니다. 하지만 양 대 진영 어디에도 속하지 않고 평화를 선언한 제3세계 비동맹 운동이 등장하면서 세계 질서는 다극화의 길로 접어듭니다.</p>
+            </div>
+            <div class="scene-card" data-dur="45">
+              <div class="scene-card-head"><span class="scene-no">씬 4</span><span class="scene-title">갈등 또는 쟁점: 핵위기와 체제 개혁의 바람</span></div>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">1962년 쿠바 미사일 위기 당시 미·소 해상 봉쇄 그래픽. 이어 덩샤오핑의 흑묘백묘론 개혁개방 및 고르바초프의 글라스노스트·페레스트로이카 선언 장면이 연속 교차 편집됨.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">쿠바 미사일 위기로 인류는 핵전쟁 직전의 절체절명 위기를 겪기도 했습니다. 이후 체제 위기에 직면한 공산권은 개혁과 개방을 선택했고, 긴장 완화의 바람 속에 변화의 물결이 몰아치기 시작했습니다.</p>
+            </div>
+            <div class="scene-card" data-dur="45">
+              <div class="scene-card-head"><span class="scene-no">씬 5</span><span class="scene-title">의미와 과제: 냉전의 종식과 현대 지구촌의 도전</span></div>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">1989년 몰타 회담 및 1991년 12월 소련 해체 아카이브 뉴스 화면. 이어 현대의 신자유주의 양극화, 몽골 사막화 현장과 지구촌 시민들의 비폭력 연대 행진 모습이 대조 연출됨.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">1989년 몰타 회담과 1991년 소련 해체로 장기간의 냉전은 공식 종식되었습니다. 그러나 오늘날 우리는 기후 위기, 빈부격차, 난민 등 새로운 지구촌 문제에 직면해 있습니다.</p>
+            </div>
+            <div class="scene-card" data-dur="30">
+              <div class="scene-card-head"><span class="scene-no">씬 6</span><span class="scene-title">엔딩: 공존과 연대의 미래를 향해</span></div>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">다양한 인종의 청소년들이 함께 손을 잡고 지구본을 바라보는 3D 일러스트 그래픽. &#x27;이념의 대립을 넘어 공존과 연대의 세계로&#x27;라는 타이틀 텍스트가 떠오르며 화면이 채워짐.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">역사 속 냉전이 우리에게 준 가장 큰 교훈은 바로 &#x27;공존과 연대&#x27;입니다. 국경을 넘어 서로 협력하는 지구촌 시민으로서, 더 나은 미래를 함께 만들어갈 준비가 되셨나요?</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <!-- 4. iframe 기반 단독 웹앱 뷰들 -->
+      <iframe class="content-frame" id="frame-mindmap" src="냉전과_현대_세계_해설집_마인드맵.html"></iframe>
+      <iframe class="content-frame" id="frame-slides" src="냉전과_현대_세계_해설집_슬라이드.pdf"></iframe>
+      <iframe class="content-frame" id="frame-quiz" src="냉전과_현대_세계_해설집_퀴즈.html"></iframe>
+      <iframe class="content-frame" id="frame-flashcard" src="냉전과_현대_세계_해설집_플래시카드.html"></iframe>
+      <iframe class="content-frame" id="frame-report" src="냉전과_현대_세계_해설집_보고서.html"></iframe>
+      <iframe class="content-frame" id="frame-table" src="냉전과_현대_세계_해설집_데이터표.html"></iframe>
+      <iframe class="content-frame" id="frame-infographic" src="냉전과_현대_세계_해설집_인포그래픽.html"></iframe>
+
+    </main>
+  </div>
+
+  <script>
+    let currentActiveTab = 'home';
+
+    function changeGlobalTheme(theme) {
+      document.body.dataset.theme = theme;
+      localStorage.setItem('hanuri_theme', theme);
+      document.querySelectorAll('iframe.content-frame, iframe').forEach(frame => {
+        try {
+          if (frame.contentDocument && frame.contentDocument.body) {
+            frame.contentDocument.body.dataset.theme = theme;
+          }
+          frame.contentWindow.postMessage({ type: 'SET_THEME', theme: theme }, '*');
+        } catch(e) {
+          console.log('iframe theme sync:', e);
+        }
+      });
+    }
+
+    function applyThemeToFrame(frame) {
+      const currentTheme = document.body.dataset.theme || 'dark';
+      try {
+        if (frame.contentDocument && frame.contentDocument.body) {
+          frame.contentDocument.body.dataset.theme = currentTheme;
+        }
+        frame.contentWindow.postMessage({ type: 'SET_THEME', theme: currentTheme }, '*');
+      } catch(e) {}
+    }
+
+    // 저장된 테마 복원
+    (function() {
+      const saved = localStorage.getItem('hanuri_theme') || 'dark';
+      document.body.dataset.theme = saved;
+      const sel = document.getElementById('theme-select');
+      if (sel) sel.value = saved;
+    })();
+
+    // 지시 11 ③: 화면이 처음 열릴 때(로드 완료 시)에도 현재 테마를 넘겨 준다
+    document.querySelectorAll('iframe.content-frame').forEach(f => {
+      f.addEventListener('load', () => applyThemeToFrame(f));
+      applyThemeToFrame(f);
+    });
+
+    const TAB_URLS = {
+      'home': '냉전과_현대_세계_해설집_통합대시보드.html',
+      'mindmap': '냉전과_현대_세계_해설집_마인드맵.html',
+      'audio': '냉전과_현대_세계_해설집_오디오오버뷰.m4a',
+      'video': '냉전과_현대_세계_해설집_동영상.mp4',
+      'slides': '냉전과_현대_세계_해설집_슬라이드.pdf',
+      'quiz': '냉전과_현대_세계_해설집_퀴즈.html',
+      'flashcard': '냉전과_현대_세계_해설집_플래시카드.html',
+      'report': '냉전과_현대_세계_해설집_보고서.html',
+      'table': '냉전과_현대_세계_해설집_데이터표.html',
+      'infographic': '냉전과_현대_세계_해설집_인포그래픽.html'
+    };
+
+    function switchTab(tabId) {
+      currentActiveTab = tabId;
+      document.body.dataset.tab = tabId;
+      updateFlowBar(tabId);
+
+      // 1. 사이드바 활성화
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      const targetNav = document.getElementById(`nav-${tabId}`);
+      if (targetNav) targetNav.classList.add('active');
+
+      // 2. 홈 뷰 토글
+      const homeView = document.getElementById('view-home');
+      if (tabId === 'home') {
+        homeView.classList.add('active');
+      } else {
+        homeView.classList.remove('active');
+      }
+
+      // 3. 오디오 뷰 토글
+      const audioView = document.getElementById('view-audio');
+      if (tabId === 'audio') {
+        audioView.classList.add('active');
+      } else {
+        audioView.classList.remove('active');
+      }
+
+      // 4. 비디오 뷰 토글
+      const videoView = document.getElementById('view-video');
+      if (tabId === 'video') {
+        videoView.classList.add('active');
+      } else {
+        videoView.classList.remove('active');
+      }
+
+      // 5. 프레임들 토글
+      document.querySelectorAll('.content-frame').forEach(f => f.classList.remove('active'));
+      const targetFrame = document.getElementById(`frame-${tabId}`);
+      if (targetFrame) {
+        targetFrame.classList.add('active');
+        applyThemeToFrame(targetFrame);
+        // 지시 13: 숨어 있다 보이게 된 화면에 다시 맞추라고 알림 (마인드맵 등)
+        try { targetFrame.contentWindow.postMessage({ type: 'TAB_ACTIVATED' }, '*'); } catch (e) {}
+      }
+    }
+
+    function openCurrentTabNewWindow() {
+      const url = TAB_URLS[currentActiveTab];
+      if (url) {
+        window.open(url, '_blank');
+      }
+    }
+
+    // 지시 11 ②: 어느 탭이든 극장 모드(헤더·사이드바 숨김) + OS 전체화면을 함께 켜고 끈다
+    function toggleFullscreen() {
+      const entering = !document.body.classList.contains('theater-mode');
+      toggleTheaterMode();
+      if (entering && !document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else if (!entering && document.fullscreenElement) {
+        document.exitFullscreen();
+      }
+    }
+
+    // 브라우저 ESC로 OS 전체화면이 풀리면 극장 모드도 함께 원위치
+    document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement && document.body.classList.contains('theater-mode')) {
+        toggleTheaterMode();
+      }
+    });
+
+    // 지시 11 ①: 상단 4단계 수업 흐름 바
+    const STAGES = [
+      { name: '1단계 도입', tabs: ['audio', 'video'] },
+      { name: '2단계 심층 전개', tabs: ['mindmap', 'slides', 'infographic'] },
+      { name: '3단계 활동 & 탐구', tabs: ['flashcard', 'quiz'] },
+      { name: '4단계 정리 & 상담', tabs: ['report', 'table'] }
+    ];
+
+    function updateFlowBar(tabId) {
+      const idx = STAGES.findIndex(s => s.tabs.includes(tabId));
+      const cur = document.getElementById('flow-current');
+      const next = document.getElementById('flow-next');
+      if (!cur || !next) return;
+      cur.textContent = idx >= 0 ? `현재: ${STAGES[idx].name}` : '수업 시작 전';
+      next.textContent = idx < STAGES.length - 1 ? `${STAGES[idx + 1].name} ▶` : '홈으로 ↺';
+    }
+
+    function goNextStage() {
+      const idx = STAGES.findIndex(s => s.tabs.includes(currentActiveTab));
+      switchTab(idx < STAGES.length - 1 ? STAGES[idx + 1].tabs[0] : 'home');
+    }
+
+    function toggleTheaterMode() {
+      const isTheater = document.body.classList.toggle('theater-mode');
+      const textEl = document.getElementById('theaterText');
+      const iconEl = document.getElementById('theaterIcon');
+      if (textEl && iconEl) {
+        if (isTheater) {
+          iconEl.textContent = '↩️';
+          textEl.textContent = '원위치 (메뉴 복원)';
+        } else {
+          iconEl.textContent = '📺';
+          textEl.textContent = '전자칠판 전체 채우기';
+        }
+      }
+    }
+
+    // ESC 누르면 극장 모드 원위치
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.body.classList.contains('theater-mode')) {
+        toggleTheaterMode();
+      }
+    });
+
+    // 지시 20261106_08: 가로 영상이면 위아래 배치 + 재생 위치에 따라 장면 대본 자동 전환.
+    // 대본은 채팅으로 받은 계획 대본이라 실제 영상과 길이가 다르다 → 장면별 계획 길이(data-dur) 비율로 실제 길이를 나눈 근사치.
+    (function () {
+      const video = document.getElementById('lessonVideo');
+      const dual = video && video.closest('.video-dual');
+      const cards = [...document.querySelectorAll('#videoStoryboard .scene-card')];
+      const chipsBox = document.getElementById('sceneChips');
+      if (!video || !dual || cards.length === 0 || !chipsBox) return;
+      let starts = [];
+      let current = -1;
+
+      function setActive(i) {
+        if (i === current) return;
+        current = i;
+        cards.forEach((c, k) => c.classList.toggle('active', k === i));
+        chipsBox.querySelectorAll('.scene-chip').forEach((b, k) => b.classList.toggle('active', k === i));
+      }
+
+      cards.forEach((card, i) => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'scene-chip';
+        chip.textContent = (card.querySelector('.scene-no') || {}).textContent || `씬 ${i + 1}`;
+        chip.addEventListener('click', () => {
+          setActive(i);
+          if (starts.length && isFinite(video.duration)) video.currentTime = starts[i] + 0.05;
+        });
+        chipsBox.appendChild(chip);
+      });
+
+      function layout() {
+        const landscape = video.videoWidth > video.videoHeight;
+        dual.classList.toggle('layout-landscape', landscape);
+        dual.classList.toggle('layout-portrait', !landscape);
+        const w = cards.map(c => Math.max(1, parseFloat(c.dataset.dur) || 1));
+        const total = w.reduce((a, b) => a + b, 0);
+        let acc = 0;
+        starts = w.map(x => { const s = acc / total * video.duration; acc += x; return s; });
+        setActive(0);
+      }
+
+      video.addEventListener('loadedmetadata', layout);
+      if (video.readyState >= 1) layout();
+      video.addEventListener('timeupdate', () => {
+        if (!starts.length) return;
+        let i = 0;
+        while (i + 1 < starts.length && video.currentTime >= starts[i + 1]) i++;
+        setActive(i);
+      });
+    })();
+
+    // 지시 20261106_02: 장면 대본이 없으면 영상만 크게, 오디오 파일이 없으면 안내 카드
+    (function () {
+      const board = document.getElementById('videoStoryboard');
+      if (board && !board.querySelector('.scene-card')) board.style.display = 'none';
+
+      const audio = document.getElementById('audioPlayer');
+      function showAudioPending() {
+        audio.style.display = 'none';
+        document.getElementById('audioDesc').style.display = 'none';
+        document.getElementById('audioPending').hidden = false;
+      }
+      if (audio) {
+        audio.addEventListener('error', showAudioPending);
+        if (audio.error || audio.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) showAudioPending();
+      }
+    })();
+  </script>
+</body>
+</html>

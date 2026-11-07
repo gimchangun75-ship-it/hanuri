@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>냉전과 현대 세계 해설집 동영상</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF6B00;
+      --primary-dark: #D95300;
+      --primary-light: #FFF4ED;
+      --navy: #0F172A;
+      --navy-light: #1E293B;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --radius-xl: 20px;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 6px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 16px rgba(15,23,42,0.08);
+      --shadow-lg: 0 12px 30px rgba(15,23,42,0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background: #0F172A;
+      color: #F8FAFC;
+      line-height: 1.6;
+      padding: 30px 20px;
+    }
+
+    .container {
+      max-width: 950px;
+      margin: 0 auto;
+      background: #1E293B;
+      border-radius: var(--radius-xl);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .top-toolbar {
+      background: #0B0F19;
+      color: #fff;
+      padding: 12px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .brand-badge span {
+      background: #10B981;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .video-header {
+      padding: 45px 40px 30px;
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.1) 0%, rgba(30, 41, 59, 0) 100%);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .header-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 800;
+      color: #34D399;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    .video-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.35;
+      margin-bottom: 10px;
+    }
+
+    .synopsis-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      padding: 18px 22px;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #CBD5E1;
+      line-height: 1.6;
+    }
+
+    .synopsis-box strong {
+      color: #34D399;
+    }
+
+    .content-body {
+      padding: 35px 40px;
+    }
+
+    .scenes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .scene-card {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      position: relative;
+      transition: all 0.2s;
+    }
+
+    .scene-card:hover {
+      border-color: rgba(52, 211, 153, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .scene-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .scene-num-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .scene-num {
+      background: #10B981;
+      color: #0F172A;
+      font-weight: 900;
+      font-size: 13px;
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+
+    .scene-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #F8FAFC;
+    }
+
+    .scene-duration {
+      font-size: 12.5px;
+      color: #94A3B8;
+      background: rgba(255,255,255,0.06);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .scene-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .scene-box {
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      font-size: 13.5px;
+    }
+
+    .visual-box {
+      background: rgba(255,255,255,0.03);
+      border-left: 3px solid #38BDF8;
+    }
+
+    .visual-box .box-lbl {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #38BDF8;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .visual-box .box-txt {
+      color: #E2E8F0;
+      line-height: 1.55;
+    }
+
+    .narration-box {
+      background: rgba(16, 185, 129, 0.08);
+      border-left: 3px solid #10B981;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-left-width: 4px;
+    }
+
+    .narration-box .box-lbl {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #34D399;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .narration-box .box-txt {
+      color: #FFFFFF;
+      font-size: 14.5px;
+      font-weight: 500;
+      line-height: 1.65;
+    }
+
+    .bgm-tag {
+      font-size: 12px;
+      color: #F59E0B;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .doc-footer {
+      padding: 24px 40px;
+      background: #0B0F19;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #64748B;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #10B981;
+      color: #0F172A;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @media print {
+      body { background: #FFFFFF !important; color: #000 !important; padding: 0 !important; }
+      .container { background: #FFFFFF !important; color: #000 !important; border: none !important; box-shadow: none !important; }
+      .top-toolbar, .toast, .btn { display: none !important; }
+      .video-header { background: none !important; border-bottom: 2px solid #000 !important; padding: 15px 0 !important; }
+      .video-title { color: #000 !important; font-size: 22px !important; }
+      .synopsis-box { background: #f8f8f8 !important; color: #333 !important; border: 1px solid #ccc !important; }
+      .content-body { padding: 15px 0 !important; }
+      .scene-card { page-break-inside: avoid; background: #fff !important; border: 1px solid #999 !important; margin-bottom: 20px !important; }
+      .scene-title { color: #000 !important; }
+      .visual-box { background: #f9f9f9 !important; color: #333 !important; border-left-color: #555 !important; }
+      .visual-box .box-txt { color: #333 !important; }
+      .narration-box { background: #f4f4f4 !important; color: #000 !important; border: 1px solid #ccc !important; border-left-color: #000 !important; }
+      .narration-box .box-txt { color: #000 !important; font-weight: bold !important; }
+      .doc-footer { border-top: 1px solid #ccc !important; padding: 15px 0 !important; color: #666 !important; background: none !important; }
+    }
+
+    /* ── 동영상 다크 테마 (기본값 고정) ── */
+    body[data-theme="dark"] {
+      background: #0F172A;
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .container { background: #1E293B; border-color: rgba(255,255,255,0.1); }
+    body[data-theme="dark"] .top-toolbar { background: #0B0F19; }
+    body[data-theme="dark"] .scene-card { background: rgba(15,23,42,0.7); border-color: rgba(255,255,255,0.1); }
+    body[data-theme="dark"] .visual-box { background: rgba(15,23,42,0.6); color: #CBD5E1; border-left-color: #38BDF8; }
+    body[data-theme="dark"] .narration-box { background: rgba(255,107,0,0.1); border-left-color: #FF6B00; color: #F8FAFC; }
+    body[data-theme="dark"] .synopsis-box { background: rgba(15,23,42,0.6); color: #CBD5E1; }
+
+    /* ── 동영상 웜 테마 ── */
+    body[data-theme="warm"] {
+      background: #F5EBE0;
+      color: #3D2B1F;
+    }
+    body[data-theme="warm"] .container { background: #FAF6F0; border-color: #E5D4C4; }
+    body[data-theme="warm"] .top-toolbar { background: #3D2B1F; }
+    body[data-theme="warm"] .video-header { background: linear-gradient(180deg, rgba(255,107,0,0.08) 0%, rgba(250,246,240,0) 100%); border-bottom-color: #E5D4C4; }
+    body[data-theme="warm"] .video-title { color: #3D2B1F; }
+    body[data-theme="warm"] .scene-card { background: #FAF6F0; border-color: #E5D4C4; }
+    body[data-theme="warm"] .scene-head { border-bottom-color: #E5D4C4; }
+    body[data-theme="warm"] .visual-box { background: #EDE0D4; color: #5A3E32; border-left-color: #D95300; }
+    body[data-theme="warm"] .narration-box { background: rgba(255,107,0,0.08); color: #3D2B1F; border-left-color: #FF6B00; border-color: #E5D4C4; }
+    body[data-theme="warm"] .synopsis-box { background: rgba(61,43,31,0.08); color: #5A3E32; border-color: #E5D4C4; }
+    body[data-theme="warm"] .synopsis-box strong { color: #D95300; }
+    body[data-theme="warm"] .header-badge { background: rgba(255,107,0,0.15); color: #D95300; border-color: rgba(255,107,0,0.3); }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="top-toolbar">
+      <div class="brand-badge">
+        <span>CINEMATIC</span> 한우리 교육 영상 스토리보드 센터
+      </div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn" onclick="copyAllNarrations()">📋 나레이션 전체 복사</button>
+        <button class="btn" onclick="window.print()">🖨️ 인쇄 / PDF 저장</button>
+      </div>
+    </div>
+
+    <header class="video-header">
+      <div class="header-badge">VIDEO OVERVIEW & STORYBOARD</div>
+      <h1 class="video-title" id="videoTitle">냉전과 현대 세계 해설집 동영상</h1>
+      <div class="synopsis-box" id="synopsisBox">
+        <strong>[기획 의도]</strong> <span id="synopsisText">로딩 중...</span>
+      </div>
+    </header>
+
+    <main class="content-body">
+      <div class="scenes-list" id="scenesContainer"></div>
+    </main>
+
+    <footer class="doc-footer">
+      <div>© 2026 한우리독서토론논술 · 지식 팩토리 자동화 시스템</div>
+      <div>영상 규격: 짧은 버전 (9:16 / 16:9 숏폼 & 유튜브 겸용)</div>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast">나레이션 대본이 복사되었습니다! ✨</div>
+
+  <script>
+    const VIDEO_DATA = {
+  "title": "냉전과 현대 세계: 양극 대립에서 탈냉전 다극화 시대의 평화 과제까지",
+  "target_duration": "5분 30초",
+  "synopsis": "중·고등학생 독서논술 수업용 16:9 가로형 교육 다큐멘터리 동영상 기획안입니다. 제2차 세계대전 종전부터 미·소 양극 체제, 이념 대립과 위기, 데탕트를 거쳐 소련 해체와 탈냉전 다극화 시대의 평화 과제까지 역사적 인과관계를 시각적 도표와 함께 명확히 전달합니다.",
+  "scenes": [
+    {
+      "scene_no": 1,
+      "title": "도입: 제2차 세계대전 종전과 얄타 회담, 미·소 양극 체제의 출범",
+      "duration": "1분 00초",
+      "visual": "16:9 가로형 화면. 1945년 제2차 세계대전 종전 직전 열린 얄타 회담의 역사적 인포그래픽과 아카이브 사진 연출. 세계 지도 위로 미국 중심의 서방 진영(푸른색)과 소련 중심의 공산 진영(붉은색)이 나뉘며 양극 대립 체제가 출범하는 과정을 보여주는 시각적 인과관계 그래픽.",
+      "narration": "제2차 세계대전의 종전과 얄타 회담은 전후 세계 질서의 커다란 전환점이 되었습니다. 나치 독일의 붕괴 이후 세계는 미국과 소련이라는 두 거대 강대국을 중심으로 한 양극 대립 체제의 출범을 맞이하게 됩니다.",
+      "bgm_mood": "웅장하고 무거운 느낌의 오케스트라 사운드"
+    },
+    {
+      "scene_no": 2,
+      "title": "대립: 트루먼 독트린, 마셜 플랜, 베를린 봉쇄와 나토(NATO) 창설",
+      "duration": "1분 10초",
+      "visual": "1947년 트루먼 독트린과 마셜 플랜의 서유럽 경제 원조 구도를 보여주는 동적 도표. 이어서 1948년 소련의 베를린 봉쇄와 서방의 대규모 공중 수송 작전, 1949년 북대서양 조약 기구(NATO) 결성으로 이어지는 연쇄적 인과관계 인포그래픽 연출.",
+      "narration": "미국은 공산주의 확산을 저지하기 위해 트루먼 독트린을 선언하고 마셜 플랜으로 서유럽을 지원했습니다. 이에 대응하여 소련이 베를린을 봉쇄하고 서방이 나토(NATO)를 창설하면서, 동서 진영 간의 경제적·군사적 대립은 가파르게 격화되었습니다.",
+      "bgm_mood": "긴장감이 고조되는 다큐멘터리 텐션 타악기 비트"
+    },
+    {
+      "scene_no": 3,
+      "title": "위기: 한반도 6·25 전쟁과 쿠바 미사일 위기, 핵 군비 경쟁",
+      "duration": "1분 10초",
+      "visual": "1950년 한반도 6·25 전쟁의 대리전 양상을 나타내는 지도와 사건 연표. 1962년 쿠바 미사일 위기 당시 미·소 해상 봉쇄 대립 구도 및 양국의 핵 미사일 보유량 수치가 급격히 상승하는 시각 다이어그램 연출.",
+      "narration": "냉전의 대립은 한반도 6·25 전쟁이라는 비극적인 국지적 열전으로 폭발했습니다. 나아가 1962년 쿠바 미사일 위기와 미·소 간의 무분별한 핵 군비 경쟁은 인류를 직전의 핵전쟁 위협 속으로 몰아넣었습니다.",
+      "bgm_mood": "긴박하고 서스펜스가 최고조에 달하는 파공음과 묵직한 베이스"
+    },
+    {
+      "scene_no": 4,
+      "title": "데탕트: 닉슨 독트린과 미·소 데탕트, 화해와 군축 협상",
+      "duration": "1분 00초",
+      "visual": "1969년 닉슨 독트린 발표와 미·중 관계 개선, 미·소 전략무기제한협정(SALT) 체결 과정을 정리한 단계별 흐름도. 무력 대립 그래픽이 화해와 군축 협상 테이블의 이소메트릭 디자인으로 전환되는 연출.",
+      "narration": "지속되는 군비 부담과 아시아 개입의 한계 속에서 미국은 닉슨 독트린을 발표하며 안보 자립을 요구했습니다. 이는 미·소 간 긴장 완화인 데탕트 시대를 열었고, 양국은 군축 협상을 통해 화해와 모멘텀을 모색하기 시작했습니다.",
+      "bgm_mood": "차분하고 절제된 피아노 중심의 분위기 전환 음악"
+    },
+    {
+      "scene_no": 5,
+      "title": "해체와 오늘: 베를린 장벽 붕괴, 소련 해체와 탈냉전 다극화 시대의 평화 과제",
+      "duration": "1분 10초",
+      "visual": "1989년 베를린 장벽 붕괴 및 1991년 12월 소련 해체 과정을 담은 역사적 모션 인포그래픽. 탈냉전 다극화 시대를 맞아 부상한 기후 위기, 빈부격차, 지역 분쟁 문제와 이를 극복하기 위한 지구촌 시민 연대의 3D 다이어그램 및 엔딩 메시지 화면 연출.",
+      "narration": "1989년 베를린 장벽의 붕괴와 1991년 소련의 해체로 반세기에 걸친 냉전 체제는 막을 내렸습니다. 탈냉전 다극화 시대를 살아가는 오늘날, 우리는 과거의 대립을 넘어 기후 위기와 지구촌 평화 정착이라는 공동의 과제를 향해 연대해야 합니다.",
+      "bgm_mood": "밝고 웅장하며 감동을 주는 클라이맥스 오케스트라 사운드"
+    }
+  ]
+};
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderStoryboard(VIDEO_DATA);
+    });
+
+    function renderStoryboard(data) {
+      if (data.title) {
+        document.getElementById('videoTitle').innerText = data.title;
+        document.title = data.title + " - 영상 스토리보드";
+      }
+      if (data.synopsis) {
+        document.getElementById('synopsisText').innerText = `${data.synopsis} (총 예상 소요시간: ${data.target_duration || '약 3분'})`;
+      }
+
+      const container = document.getElementById('scenesContainer');
+      container.innerHTML = '';
+
+      (data.scenes || []).forEach(sc => {
+        const div = document.createElement('div');
+        div.className = 'scene-card';
+        div.innerHTML = `
+          <div class="scene-head">
+            <div class="scene-num-title">
+              <span class="scene-num">SCENE ${sc.scene_no}</span>
+              <span class="scene-title">${sc.title}</span>
+            </div>
+            <span class="scene-duration">⏱️ ${sc.duration}</span>
+          </div>
+          <div class="scene-grid">
+            <div class="scene-box visual-box">
+              <div class="box-lbl">🎬 화면 연출 (Visual Prompt & Camera)</div>
+              <div class="box-txt">${sc.visual}</div>
+            </div>
+            <div class="scene-box narration-box">
+              <div class="box-lbl">
+                <span>🎙️ 나레이션 대본 (Narration Script)</span>
+                <button class="btn" style="padding:2px 8px; font-size:11px;" onclick="copyText('${escapeQuote(sc.narration)}')">복사</button>
+              </div>
+              <div class="box-txt">${sc.narration}</div>
+              <div class="bgm-tag">🎵 BGM : ${sc.bgm_mood}</div>
+            </div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function escapeQuote(str) {
+      return (str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    function copyText(txt) {
+      navigator.clipboard.writeText(txt).then(() => {
+        showToast("씬 나레이션이 복사되었습니다!");
+      });
+    }
+
+    function copyAllNarrations() {
+      const allText = (VIDEO_DATA.scenes || []).map(s => `[SCENE ${s.scene_no} - ${s.title}]\n${s.narration}`).join('\n\n');
+      navigator.clipboard.writeText(allText).then(() => {
+        showToast("전체 나레이션 대본이 복사되었습니다!");
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => { toast.classList.remove('show'); }, 2500);
+    }
+
+    // 대시보드 postMessage 테마 동기화
+    
+    try {
+      const savedTheme = localStorage.getItem('hanuri_theme') || 'dark';
+      document.body.dataset.theme = savedTheme;
+    } catch(e) {}
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'SET_THEME') {
+        document.body.dataset.theme = e.data.theme;
+      }
+    });
+    try {
+      if (window.parent && window.parent.document && window.parent.document.body.dataset.theme) {
+        document.body.dataset.theme = window.parent.document.body.dataset.theme;
+      }
+    } catch(e) {}
+  </script>
+</body>
+</html>

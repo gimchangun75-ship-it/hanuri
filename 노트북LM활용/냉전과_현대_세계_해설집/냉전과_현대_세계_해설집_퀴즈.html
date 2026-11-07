@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>냉전과 현대 세계 해설집 - 인터랙티브 퀴즈</title>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-hover: #0ea5e9;
+      --accent: #a855f7;
+      --correct: #10b981;
+      --correct-bg: rgba(16, 185, 129, 0.15);
+      --correct-border: #059669;
+      --wrong: #ef4444;
+      --wrong-bg: rgba(239, 68, 68, 0.15);
+      --wrong-border: #dc2626;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 16px 60px;
+    }
+    header {
+      width: 100%;
+      max-width: 800px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #38bdf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p.subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .quiz-container {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .progress-bar-wrap {
+      width: 100%;
+      height: 8px;
+      background: var(--card-bg);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 8px;
+      border: 1px solid var(--card-border);
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #38bdf8, #a855f7);
+      transition: width 0.3s ease;
+    }
+    /* 지시 20261106_02: 효과음 음소거 토글 */
+    .btn-mute {
+      font: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: inherit;
+      background: transparent;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      padding: 3px 12px;
+      cursor: pointer;
+    }
+    @media print { .btn-mute { display: none !important; } }
+    .stats-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .quiz-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .quiz-card:hover {
+      border-color: #475569;
+    }
+    .question-title {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .q-no {
+      background: var(--primary);
+      color: #020617;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 8px;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      padding: 14px 18px;
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      border-radius: 12px;
+      font-size: 14.5px;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s ease;
+      line-height: 1.4;
+    }
+    .option-btn:hover:not(:disabled) {
+      background: #1e293b;
+      border-color: var(--primary);
+      transform: translateX(4px);
+    }
+    .opt-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #334155;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .option-btn.selected-correct {
+      background: var(--correct-bg) !important;
+      border-color: var(--correct) !important;
+      color: #34d399 !important;
+    }
+    .option-btn.selected-correct .opt-num {
+      background: var(--correct) !important;
+      color: #ffffff !important;
+    }
+    .option-btn.selected-wrong {
+      background: var(--wrong-bg) !important;
+      border-color: var(--wrong) !important;
+      color: #f87171 !important;
+    }
+    .option-btn.selected-wrong .opt-num {
+      background: var(--wrong) !important;
+      color: #ffffff !important;
+    }
+    .option-btn.reveal-correct {
+      border-color: var(--correct) !important;
+      background: rgba(16, 185, 129, 0.08) !important;
+    }
+    .explanation-box {
+      margin-top: 16px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: #0f172a;
+      border-left: 4px solid var(--primary);
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #cbd5e1;
+      display: none;
+    }
+    .explanation-box.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    .explanation-title {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .controls-footer {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--card-border);
+    }
+    .btn-action {
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+    .btn-reset {
+      background: transparent;
+      border-color: var(--card-border);
+      color: var(--text-muted);
+    }
+    .btn-reset:hover {
+      background: #1e293b;
+      color: var(--text);
+    }
+    .btn-print {
+      background: var(--primary);
+      color: #020617;
+    }
+    .btn-print:hover {
+      background: var(--primary-hover);
+    }
+    @media print {
+      body { background: #ffffff; color: #000000; padding: 0; }
+      .badge, .progress-bar-wrap, .controls-footer, .btn-action { display: none !important; }
+      .quiz-card { border: 1px solid #ccc; box-shadow: none; break-inside: avoid; margin-bottom: 20px; background: #fff; }
+      .option-btn { background: #fff !important; border: 1px solid #ddd !important; color: #000 !important; }
+      .opt-num { background: #eee !important; color: #000 !important; }
+      .explanation-box { display: block !important; background: #f8fafc !important; color: #333 !important; border-left-color: #0284c7 !important; }
+    }
+
+    /* ── 퀴즈 다크 테마 (기본값 고정) ── */
+    body[data-theme="dark"] {
+      background-color: #0F172A;
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .quiz-card { background: #1E293B; border-color: #334155; }
+    body[data-theme="dark"] .option-btn { background: #1E293B; border-color: #334155; color: #F8FAFC; }
+    body[data-theme="dark"] .option-btn:hover:not(:disabled) { border-color: #38BDF8; }
+    body[data-theme="dark"] .opt-num { background: #334155; color: #94A3B8; }
+    body[data-theme="dark"] .explanation-box { background: rgba(56,189,248,0.08) !important; border-left-color: #38BDF8 !important; color: #CBD5E1 !important; }
+
+    /* ── 퀴즈 웜 테마 ── */
+    body[data-theme="warm"] {
+      background-color: #F5EBE0;
+      color: #3D2B1F;
+    }
+    body[data-theme="warm"] .quiz-card { background: #FAF6F0; border-color: #E5D4C4; }
+    body[data-theme="warm"] .question-title { color: #3D2B1F; }
+    body[data-theme="warm"] .option-btn { background: #FAF6F0; border-color: #C9A88F; color: #3D2B1F; }
+    body[data-theme="warm"] .option-btn:hover:not(:disabled) { border-color: #D95300; background: #EDE0D4; }
+    body[data-theme="warm"] .opt-num { background: #EDE0D4; color: #5A3E32; }
+    body[data-theme="warm"] .explanation-box { background: rgba(255,107,0,0.08) !important; border-left-color: #FF6B00 !important; color: #5A3E32 !important; }
+    body[data-theme="warm"] h1 { background: linear-gradient(135deg, #D95300, #8B4513); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    body[data-theme="warm"] .badge { background: rgba(255,107,0,0.15); color: #D95300; border-color: rgba(255,107,0,0.3); }
+    body[data-theme="warm"] .stats-header { color: #7A5C4A; }
+    /* 지시 10 고대비 보정 (WCAG AA 4.5:1 실측 기준) */
+    body[data-theme="dark"] .opt-num { color: #CBD5E1; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">🎯 한우리 독서 이해도 평가</div>
+    <h1 id="quiz-header-title">냉전과 현대 세계 해설집 퀴즈</h1>
+    <p class="subtitle">문항을 풀고 정답과 해설을 실시간으로 확인해 보세요. (총 10문항)</p>
+  </header>
+
+  <div class="quiz-container">
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="stats-header">
+      <span id="progressText">진행률: 0 / 10 완료</span>
+      <span id="scoreText">점수: 0점</span>
+      <button type="button" class="btn-mute" id="muteBtn" onclick="toggleMute()">🔊 소리 켜짐</button>
+    </div>
+
+    <div id="quizList"></div>
+  </div>
+
+  <div class="controls-footer">
+    <button class="btn-action btn-reset" onclick="resetQuiz()">🔄 처음부터 다시 풀기</button>
+    <button class="btn-action btn-print" onclick="window.print()">🖨️ 시험지 인쇄하기</button>
+  </div>
+
+  <script>
+    // 순수 JSON 데이터 직통 주입
+    const QUIZ_DATA = [
+  {
+    "no": 1,
+    "question": "제2차 세계대전 직후 미국이 공산주의의 팽창을 막고 봉쇄하기 위해 발표한 대외 외교 원칙 선언은 무엇인가요?",
+    "options": [
+      "1. 트루먼 독트린",
+      "2. 마설 플랜",
+      "3. 닉슨 독트린",
+      "4. 페레스트로이카"
+    ],
+    "answer": 1,
+    "explanation": "1947년 발표된 트루먼 독트린은 공산주의 팽창을 저지하기 위한 미국의 대외 외교 원칙 선언입니다."
+  },
+  {
+    "no": 2,
+    "question": "제2차 세계대전 패전국인 독일을 분할 점령한 강대국의 수는 모두 몇 개국인가요?",
+    "options": [
+      "1. 2개국",
+      "2. 3개국",
+      "3. 4개국",
+      "4. 5개국"
+    ],
+    "answer": 3,
+    "explanation": "제2차 세계대전 승전국인 미국, 영국, 프랑스, 소련 4개국이 독일을 분할 점령하였습니다."
+  },
+  {
+    "no": 3,
+    "question": "1947년 서유럽의 경제적 부흥과 재건을 위해 미국이 추진한 대규모 무상 원조 계획은 무엇인가요?",
+    "options": [
+      "1. 코민포름",
+      "2. 마설 플랜",
+      "3. COMECON",
+      "4. 바르샤바 조약 기구"
+    ],
+    "answer": 2,
+    "explanation": "마설 플랜(1947)은 서유럽의 경제 부흥과 재건을 위해 미국이 제공한 대규모 무상 경제 원조 계획입니다."
+  },
+  {
+    "no": 4,
+    "question": "서방 진영의 군사 동맹인 북대서양 조약 기구(NATO)에 맞서 1955년 동구권 공산 진영이 결성한 군사 동맹은 무엇인가요?",
+    "options": [
+      "1. 바르샤바 조약 기구(WTO)",
+      "2. 경제상호원조회의(COMECON)",
+      "3. 공산당 정보국(코민포름)",
+      "4. 유럽 공동체(EC)"
+    ],
+    "answer": 1,
+    "explanation": "1955년 동구권 공산 진영 8개국은 서독 재무장과 NATO에 대응하여 바르샤바 조약 기구(WTO)를 결성하였습니다."
+  },
+  {
+    "no": 5,
+    "question": "미·소 양 진영 어디에도 속하지 않고 비동맹 중립 노선을 선언한 제3세계 신흥 독립국들이 1955년 반둥 회의에서 채택한 선언은 무엇인가요?",
+    "options": [
+      "1. 평화 10원칙",
+      "2. 닉슨 독트린",
+      "3. 몰타 선언",
+      "4. 트루먼 독트린"
+    ],
+    "answer": 1,
+    "explanation": "1955년 반둥 회의에서 아시아·아프리카 신흥 독립국들은 반식민지, 주권 존중 등을 골자로 한 평화 10원칙을 채택하였습니다."
+  },
+  {
+    "no": 6,
+    "question": "1968년 체코슬로바키아에서 언론·출판의 자유와 민주화를 요구하며 일어났으나 소련군에 의해 무력 진압된 운동은 무엇인가요?",
+    "options": [
+      "1. 헝가리 혁명",
+      "2. 프라하의 봄",
+      "3. 프랑스 5월 혁명",
+      "4. 아프리카의 해"
+    ],
+    "answer": 2,
+    "explanation": "1968년 체코슬로바키아의 민주화 운동은 '프라하의 봄'이라 불리며, 소련군 중심의 무력 진압을 받았습니다."
+  },
+  {
+    "no": 7,
+    "question": "중국의 덩샤오핑이 경제 개혁을 위해 자본主义 시장 경제 요소를 적극 도입하며 제창한 실용주의 노선은 무엇인가요?",
+    "options": [
+      "1. 글라스노스트",
+      "2. 페레스트로이카",
+      "3. 흑묘백묘론",
+      "4. 닉슨 독트린"
+    ],
+    "answer": 3,
+    "explanation": "덩샤오핑은 '검은 고양이든 흰 고양이든 쥐만 잘 잡으면 된다'는 흑묘백묘론을 제창하며 개혁·개방 정책을 추진했습니다."
+  },
+  {
+    "no": 8,
+    "question": "1980년대 후반 소련의 고르바초프가 추진한 정책 중 '정보 공개 및 개방'을 뜻하는 용어는 무엇인가요?",
+    "options": [
+      "1. 페레스트로이카",
+      "2. 글라스노스트",
+      "3. 데탕트",
+      "4. 코민포름"
+    ],
+    "answer": 2,
+    "explanation": "고르바초프의 개혁 정책 중 '글라스노스트'는 정보 공개 및 개방을, '페레스트로이카'는 체제 개혁을 의미합니다."
+  },
+  {
+    "no": 9,
+    "question": "1989년 미·소 정상(부시와 고르바초프)이 만나 냉전의 공식 종식을 선언한 역사적 회담은 무엇인가요?",
+    "options": [
+      "1. 반둥 회의",
+      "2. 몰타 회담",
+      "3. 제네바 회담",
+      "4. 베를린 회담"
+    ],
+    "answer": 2,
+    "explanation": "1989년 몰타 회담에서 미·소 정상은 긴 대립을 끝내고 냉전 종식을 공식 선언하였습니다."
+  },
+  {
+    "no": 10,
+    "question": "냉전 체제의 완전한 해체와 종식을 가져온 1991년 12월의 결정적 사건은 무엇인가요?",
+    "options": [
+      "1. 베를린 장벽 설치",
+      "2. 쿠바 미사일 위기",
+      "3. 베트남 전쟁 발발",
+      "4. 소련(소비에트 연방)의 공식 해체"
+    ],
+    "answer": 4,
+    "explanation": "1991년 12월 소련이 69년 만에 공식 해체되고 독립국가연합(CIS)이 결성되면서 냉전 체제가 완전히 종식되었습니다."
+  }
+];
+
+    let userAnswers = {};
+    const quizListEl = document.getElementById("quizList");
+    const progressBarEl = document.getElementById("progressBar");
+    const progressTextEl = document.getElementById("progressText");
+    const scoreTextEl = document.getElementById("scoreText");
+
+    function renderQuiz() {
+      quizListEl.innerHTML = "";
+      QUIZ_DATA.forEach((item, idx) => {
+        const card = document.createElement("div");
+        card.className = "quiz-card";
+        card.id = `qCard_${item.no}`;
+
+        let optsHtml = "";
+        item.options.forEach((opt, optIdx) => {
+          const optNum = optIdx + 1;
+          optsHtml += `
+            <button class="option-btn" id="optBtn_${item.no}_${optNum}" onclick="selectAnswer(${item.no}, ${optNum})">
+              <span class="opt-num">${optNum}</span>
+              <span>${opt}</span>
+            </button>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="question-title">
+            <span class="q-no">Q${item.no}</span>
+            <span>${item.question}</span>
+          </div>
+          <div class="options-list">
+            ${optsHtml}
+          </div>
+          <div class="explanation-box" id="expBox_${item.no}">
+            <div class="explanation-title">💡 정답 및 해설 (정답: ${item.answer}번)</div>
+            <div>${item.explanation}</div>
+          </div>
+        `;
+        quizListEl.appendChild(card);
+      });
+      updateStats();
+    }
+
+    function selectAnswer(qNo, selectedNum) {
+      if (userAnswers[qNo] !== undefined) return; // 이미 푼 문제 중복 클릭 방지
+
+      const q = QUIZ_DATA.find(i => i.no === qNo);
+      userAnswers[qNo] = selectedNum;
+
+      const selectedBtn = document.getElementById(`optBtn_${qNo}_${selectedNum}`);
+      const correctBtn = document.getElementById(`optBtn_${qNo}_${q.answer}`);
+      const expBox = document.getElementById(`expBox_${qNo}`);
+
+      // 모든 보기 비활성화
+      q.options.forEach((_, idx) => {
+        const btn = document.getElementById(`optBtn_${qNo}_${idx + 1}`);
+        btn.disabled = true;
+      });
+
+      if (selectedNum === q.answer) {
+        selectedBtn.classList.add("selected-correct");
+        playSound(true);
+      } else {
+        selectedBtn.classList.add("selected-wrong");
+        correctBtn.classList.add("reveal-correct");
+        playSound(false);
+      }
+
+      expBox.classList.add("show");
+      updateStats();
+    }
+
+    function updateStats() {
+      const answeredCount = Object.keys(userAnswers).length;
+      const total = QUIZ_DATA.length;
+      let correctCount = 0;
+
+      QUIZ_DATA.forEach(q => {
+        if (userAnswers[q.no] === q.answer) correctCount++;
+      });
+
+      const pct = (answeredCount / total) * 100;
+      progressBarEl.style.width = pct + "%";
+      progressTextEl.textContent = `진행률: ${answeredCount} / ${total} 완료`;
+      scoreTextEl.textContent = `점수: ${correctCount * 10}점 (${correctCount}/${total})`;
+    }
+
+    // 지시 20261106_02: Web Audio 합성 효과음 (정답 C5→E5 차임, 오답 A3→G3 저음)
+    let audioCtx = null;
+    let muted = false;
+    try { muted = localStorage.getItem('hanuri_quiz_muted') === '1'; } catch (e) {}
+
+    function playSound(correct) {
+      if (muted) return;
+      try {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (!Ctx) return;
+        audioCtx = audioCtx || new Ctx();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const notes = correct ? [523.25, 659.25] : [220, 196];
+        const type = correct ? 'triangle' : 'sine';
+        const step = correct ? 0.13 : 0.18;
+        notes.forEach((freq, i) => {
+          const t = audioCtx.currentTime + i * step;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, t);
+          gain.gain.setValueAtTime(0.0001, t);
+          gain.gain.exponentialRampToValueAtTime(correct ? 0.25 : 0.18, t + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.0001, t + step + 0.15);
+          osc.connect(gain).connect(audioCtx.destination);
+          osc.start(t);
+          osc.stop(t + step + 0.2);
+        });
+      } catch (e) {}
+    }
+
+    function renderMuteBtn() {
+      document.getElementById('muteBtn').textContent = muted ? '🔇 음소거' : '🔊 소리 켜짐';
+    }
+
+    function toggleMute() {
+      muted = !muted;
+      try { localStorage.setItem('hanuri_quiz_muted', muted ? '1' : '0'); } catch (e) {}
+      renderMuteBtn();
+    }
+
+    function resetQuiz() {
+      userAnswers = {};
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    renderQuiz();
+    renderMuteBtn();
+
+    // 대시보드 postMessage 테마 동기화
+    
+    try {
+      const savedTheme = localStorage.getItem('hanuri_theme') || 'dark';
+      document.body.dataset.theme = savedTheme;
+    } catch(e) {}
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'SET_THEME') {
+        document.body.dataset.theme = e.data.theme;
+      }
+    });
+    try {
+      if (window.parent && window.parent.document && window.parent.document.body.dataset.theme) {
+        document.body.dataset.theme = window.parent.document.body.dataset.theme;
+      }
+    } catch(e) {}
+  </script>
+</body>
+</html>

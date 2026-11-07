@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>냉전과 현대 세계 해설집 - 인터랙티브 플래시카드</title>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --accent: #f59e0b;
+      --sci-color: #38bdf8;
+      --hist-color: #f59e0b;
+      --pol-color: #ec4899;
+      --peace-color: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      user-select: none;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+      max-width: 640px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+      background: linear-gradient(135deg, #f59e0b, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p.guide {
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    /* 플래시카드 3D 컨테이너 */
+    .flashcard-stage {
+      width: 100%;
+      max-width: 600px;
+      height: 380px;
+      perspective: 1200px;
+      cursor: pointer;
+      margin-bottom: 24px;
+    }
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 24px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+    }
+    .card-inner.flipped {
+      transform: rotateY(180deg);
+    }
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 24px;
+      padding: 36px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid var(--card-border);
+      background: linear-gradient(145deg, #1e293b, #0f172a);
+    }
+
+    /* 앞면 */
+    .card-front {
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .cat-badge {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      letter-spacing: 0.5px;
+    }
+    .card-front .word-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.3;
+      letter-spacing: -0.5px;
+    }
+    .card-front .flip-hint {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    /* 뒷면 */
+    .card-back {
+      transform: rotateY(180deg);
+      text-align: left;
+      background: linear-gradient(145deg, #172554, #0f172a);
+      border-color: #1e3a8a;
+    }
+    .back-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .back-desc {
+      font-size: 17px;
+      line-height: 1.65;
+      color: #e2e8f0;
+      font-weight: 500;
+      word-break: keep-all;
+      margin: auto 0;
+    }
+    .back-hint-box {
+      background: rgba(15, 23, 42, 0.6);
+      border-left: 3px solid var(--accent);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    /* 컨트롤 바 */
+    .controls-wrap {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-nav {
+      flex: 1;
+      padding: 14px;
+      border-radius: 14px;
+      background: #1e293b;
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-nav:hover:not(:disabled) {
+      background: #334155;
+      border-color: var(--primary);
+    }
+    .btn-nav:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .btn-flip-trigger {
+      background: var(--primary);
+      color: #020617;
+      border-color: var(--primary);
+      flex: 1.2;
+    }
+    .btn-flip-trigger:hover {
+      background: #0ea5e9;
+    }
+
+    /* ── 플래시카드 다크 테마 (기본값 고정) ── */
+    body[data-theme="dark"] {
+      background-color: #0B0F19;
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .card-face { background: linear-gradient(145deg, #1e293b, #0f172a); }
+    body[data-theme="dark"] .card-back { background: linear-gradient(145deg, #172554, #0f172a); border-color: #1e3a8a; }
+    body[data-theme="dark"] .card-front .word-title { color: #FFFFFF; }
+    body[data-theme="dark"] .back-desc { color: #E2E8F0; }
+    body[data-theme="dark"] .btn-nav { background: #1e293b; border-color: #334155; color: #F8FAFC; }
+    body[data-theme="dark"] .btn-nav:hover:not(:disabled) { background: #334155; border-color: var(--primary); }
+
+    /* ── 플래시카드 웜 테마 ── */
+    body[data-theme="warm"] {
+      background-color: #F5EBE0;
+      color: #3D2B1F;
+    }
+    body[data-theme="warm"] .card-face { background: linear-gradient(145deg, #FAF6F0, #F5EBE0); border-color: #E5D4C4; }
+    body[data-theme="warm"] .card-back { background: linear-gradient(145deg, #EDE0D4, #DFC9B2); border-color: #C9A88F; }
+    body[data-theme="warm"] .card-front .word-title { color: #3D2B1F; }
+    body[data-theme="warm"] .back-desc { color: #5A3E32; }
+    body[data-theme="warm"] .back-hint-box { background: rgba(61,43,31,0.1); border-left-color: #D95300; color: #7A5C4A; }
+    body[data-theme="warm"] .btn-nav { background: #FAF6F0; border-color: #E5D4C4; color: #3D2B1F; }
+    body[data-theme="warm"] .btn-flip-trigger { background: var(--primary); color: #fff; border-color: var(--primary); }
+    body[data-theme="warm"] h1 { background: linear-gradient(135deg, #D95300, #8B4513); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    body[data-theme="warm"] .badge { background: rgba(255,107,0,0.15); color: #D95300; border-color: rgba(255,107,0,0.3); }
+    body[data-theme="warm"] .back-header { color: #D95300; }
+    body[data-theme="warm"] .cat-badge { background: rgba(61,43,31,0.1); color: #7A5C4A; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">📇 한우리 3D 개념 플래시카드</div>
+    <h1 id="fc-title">냉전과 현대 세계 해설집</h1>
+    <p class="guide">카드를 클릭하거나 스페이스바를 누르면 앞/뒷면이 뒤집힙니다.</p>
+  </header>
+
+  <div class="flashcard-stage" onclick="flipCard()">
+    <div class="card-inner" id="cardInner">
+      <div class="card-face card-front">
+        <span class="cat-badge" id="catBadge">분야</span>
+        <div class="word-title" id="wordTitle">개념 단어</div>
+        <div class="flip-hint">👆 클릭하여 뜻과 해설 확인</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="back-header">
+          <span id="backCategory">분야 해설</span>
+          <span>🔄 다시 클릭 시 앞면</span>
+        </div>
+        <div class="back-desc" id="backDesc">상세 설명이 들어갑니다.</div>
+        <div class="back-hint-box" id="backHintBox">
+          <strong>💡 핵심 힌트:</strong> <span id="backHint">힌트</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls-wrap">
+    <div class="progress-info">
+      <span id="cardCounter">카드 1 / 15</span>
+      <span id="catStats">과학 · 역사 · 국제정치</span>
+    </div>
+    <div class="nav-buttons">
+      <button class="btn-nav" id="btnPrev" onclick="prevCard()">◀ 이전</button>
+      <button class="btn-nav btn-flip-trigger" onclick="flipCard()">🔄 뒤집기</button>
+      <button class="btn-nav" id="btnNext" onclick="nextCard()">다음 ▶</button>
+    </div>
+  </div>
+
+  <script>
+    const FLASHCARDS = [
+  {
+    "id": 1,
+    "category": "개념",
+    "front": "트루먼 독트린",
+    "back": "1947년 미국 트루먼 대통령이 발표한 대외 외교 원칙입니다. 공산주의의 팽창을 저지하고 봉쇄하는 것을 핵심 목표로 삼아 동서 냉전 대립의 구도를 본격화했습니다.",
+    "hint": "공산주의 팽창을 막기 위해 발표된 미국의 봉쇄 정책 선언입니다."
+  },
+  {
+    "id": 2,
+    "category": "개념",
+    "front": "마설 플랜",
+    "back": "1947년 미국이 서유럽의 경제적 부흥과 재건을 위해 추진한 대규모 무상 원조 계획입니다. 서유럽의 경제적 안정을 도모하여 공산주의 확산을 차단하고자 했습니다.",
+    "hint": "서유럽 재건을 지원한 미국의 대규모 무상 경제 원조 사업입니다."
+  },
+  {
+    "id": 3,
+    "category": "사건/상징",
+    "front": "베를린 장벽",
+    "back": "1961년 동독 정부가 동베를린 주민들의 서베를린 탈출을 막기 위해 설치한 155km 길이의 콘크리트 장벽입니다. 동서 냉전과 분단의 상징으로, 1989년에 붕괴되었습니다.",
+    "hint": "동서 냉전의 상징이자 독서 분단을 보여주었던 155km 길이의 차단 구조물입니다."
+  },
+  {
+    "id": 4,
+    "category": "용어/기구",
+    "front": "NATO (북대서양 조약 기구)",
+    "back": "1949년 미국과 서유럽 국가들을 중심으로 결성된 서방 진영의 집단 방위 기구입니다. 소련 중심의 공산권 군사적 위협에 공동으로 대응하기 위해 창설되었습니다.",
+    "hint": "미국과 서유럽 국가들이 결성한 서방 진영의 집단 군사 동맹체입니다."
+  },
+  {
+    "id": 5,
+    "category": "용어/기구",
+    "front": "바르샤바 조약 기구 (WTO)",
+    "back": "1955년 서독의 재무장과 NATO에 대응하여 소련과 동유럽 공산권 8개국이 결성한 군사 동맹 기구입니다. 동구권의 집단 안보를 담당하며 NATO와 대립했습니다.",
+    "hint": "NATO에 대응하여 소련과 동유럽 공산권 국가들이 결성한 군사 동맹입니다."
+  },
+  {
+    "id": 6,
+    "category": "사건",
+    "front": "6.25 전쟁",
+    "back": "1950년부터 1953년까지 한반도에서 벌어진 전쟁으로, 냉전 시기 아시아에서 일어난 대표적인 대규모 열전입니다. 미군과 유엔군, 중국군이 참전하며 국제전 양상을 띠었습니다.",
+    "hint": "한반도 분단 이후 발생한 냉전기 대표적인 국제 대리 열전입니다."
+  },
+  {
+    "id": 7,
+    "category": "사건",
+    "front": "반둥 회의",
+    "back": "1955년 인도네시아 반둥에서 개최된 아시아·아프리카 신흥 독립국들의 국제 회의입니다. 양 대 이념 진영에 속하지 않는 비동맹 중립 노선을 표방하며 평화 10원칙을 채택했습니다.",
+    "hint": "제3세계 신흥 독립국들이 모여 비동맹 중립 노선과 평화 10원칙을 발표한 회의입니다."
+  },
+  {
+    "id": 8,
+    "category": "사건",
+    "front": "쿠바 미사일 위기",
+    "back": "1962년 소련이 쿠바에 미사일 기지 구축을 시도하자 미국이 해상 봉쇄로 맞서며 발생한 사건입니다. 미·소 간 직접적인 핵전쟁 직전까지 치달았던 냉전기 최고조의 위기였습니다.",
+    "hint": "미·소 양국이 직접적인 핵전쟁 위기 직전까지 대립했던 1962년의 일촉즉발 사건입니다."
+  },
+  {
+    "id": 9,
+    "category": "사건",
+    "front": "프라하의 봄",
+    "back": "1968년 체코슬로바키아에서 '인간의 얼굴을 한 사회주의'를掲げ며 일어난 민주화 운동입니다. 언론과 출판의 자유를 요구했으나 소련군 중심의 바르샤바 조약 기구군에 의해 무력 진압되었습니다.",
+    "hint": "1968년 체코슬로바키아에서 일어났으나 소련군에 진압된 민주화 운동입니다."
+  },
+  {
+    "id": 10,
+    "category": "개념",
+    "front": "닉슨 독트린",
+    "back": "1969년 미국 닉슨 대통령이 발표한 대외 정책으로, 아시아 우방국들에게 안보 자립을 요구하고 미국의 군사적 개입을 축소하겠다고 선언했습니다. 이를 계기로 긴장 완화(데탕트) 시대가 열렸습니다.",
+    "hint": "미국의 아시아 군사 개입 축소를 선언하여 데탕트(긴장 완화)를 이끌어낸 정책입니다."
+  },
+  {
+    "id": 11,
+    "category": "개념",
+    "front": "흑묘백묘론",
+    "back": "중국의 덩샤오핑이 제창한 실용주의 경제 노선으로, '검은 고양이든 흰 고양이든 쥐만 잘 잡으면 된다'는 뜻입니다. 이념보다 실리를 중시하여 자본주의 시장 경제 요소를 적극 도입했습니다.",
+    "hint": "검은 고양이든 흰 고양이든 쥐만 잘 잡으면 된다는 덩샤오핑의 실용주의 개혁 노선입니다."
+  },
+  {
+    "id": 12,
+    "category": "인물",
+    "front": "고르바초프",
+    "back": "1980년대 후반 소련의 서기장으로서 개혁과 개방 정책을 추진한 지도자입니다. 미·소 정상 회담을 통해 냉전 종식에 합의하고 동유럽의 자유화 변화를 이끌었습니다.",
+    "hint": "개혁·개방 정책을 추진하고 냉전 종식을 이끈 소련의 마지막 지도자입니다."
+  },
+  {
+    "id": 13,
+    "category": "용어/개념",
+    "front": "글라스노스트 & 페레스트로이카",
+    "back": "고르바초프가 소련의 체제 위기를 극복하기 위해 추진한 핵심 정책입니다. 글라스노스트는 정보 공개와 언론의 자유를, 페레스트로이카는 정치·경제 체제의 개혁을 의미합니다.",
+    "hint": "소련 고르바초프 지도자가 추진한 '정보 공개(개방)'와 '체제 개혁' 정책입니다."
+  },
+  {
+    "id": 14,
+    "category": "사건",
+    "front": "몰타 회담",
+    "back": "1989년 12월 미·소 정상(부시와 고르바초프)이 지중해 몰타에서 가진 정상 회담입니다. 이 회담을 통해 양국 정상은 2차 대전 이후 지속된 냉전의 공식 종식을 선언했습니다.",
+    "hint": "1989년 미국과 소련 정상이 만나 냉전의 공식 종식을 선언한 역사적 회담입니다."
+  },
+  {
+    "id": 15,
+    "category": "개념/사건",
+    "front": "아프리카의 해",
+    "back": "1960년에 아프리카 대륙의 17개 신흥 독립국이 한 해 동안 무더기로 탄생하고 유엔에 가입한 사건입니다. 이를 통해 제3세계 비동맹 세력이 국제 정치 무대에서 주요 세력으로 부상했습니다.",
+    "hint": "1960년 아프리카 17개국이 동시 독립하며 제3세계의 영향력이 커진 해입니다."
+  }
+];
+
+    let currentIndex = 0;
+    const cardInner = document.getElementById("cardInner");
+    const catBadge = document.getElementById("catBadge");
+    const wordTitle = document.getElementById("wordTitle");
+    const backCategory = document.getElementById("backCategory");
+    const backDesc = document.getElementById("backDesc");
+    const backHint = document.getElementById("backHint");
+    const cardCounter = document.getElementById("cardCounter");
+    const btnPrev = document.getElementById("btnPrev");
+    const btnNext = document.getElementById("btnNext");
+
+    function renderCard(idx) {
+      cardInner.classList.remove("flipped");
+      const item = FLASHCARDS[idx];
+
+      setTimeout(() => {
+        catBadge.textContent = item.category;
+        wordTitle.textContent = item.front;
+        backCategory.textContent = `[${item.category}] ${item.front}`;
+        backDesc.textContent = item.back;
+        backHint.textContent = item.hint;
+        cardCounter.textContent = `카드 ${idx + 1} / ${FLASHCARDS.length}`;
+
+        btnPrev.disabled = (idx === 0);
+        btnNext.disabled = (idx === FLASHCARDS.length - 1);
+      }, 150);
+    }
+
+    function flipCard() {
+      cardInner.classList.toggle("flipped");
+    }
+
+    function nextCard() {
+      if (currentIndex < FLASHCARDS.length - 1) {
+        currentIndex++;
+        renderCard(currentIndex);
+      }
+    }
+
+    function prevCard() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderCard(currentIndex);
+      }
+    }
+
+    // 키보드 방향키 및 스페이스바 지원
+    window.addEventListener("keydown", (e) => {
+      if (e.code === "Space") {
+        e.preventDefault();
+        flipCard();
+      } else if (e.code === "ArrowRight") {
+        nextCard();
+      } else if (e.code === "ArrowLeft") {
+        prevCard();
+      }
+    });
+
+    renderCard(0);
+
+    // 대시보드 postMessage 테마 동기화
+    
+    try {
+      const savedTheme = localStorage.getItem('hanuri_theme') || 'dark';
+      document.body.dataset.theme = savedTheme;
+    } catch(e) {}
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'SET_THEME') {
+        document.body.dataset.theme = e.data.theme;
+      }
+    });
+    try {
+      if (window.parent && window.parent.document && window.parent.document.body.dataset.theme) {
+        document.body.dataset.theme = window.parent.document.body.dataset.theme;
+      }
+    } catch(e) {}
+  </script>
+</body>
+</html>

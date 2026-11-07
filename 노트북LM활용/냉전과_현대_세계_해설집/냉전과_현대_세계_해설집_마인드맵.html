@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>냉전과 현대 세계 해설집 마인드맵 - 인터랙티브 뷰어</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    :root {
+      --bg-canvas: #0B0F19;
+      --header-bg: rgba(15, 23, 42, 0.85);
+      --header-border: #334155;
+      --header-text: #f8fafc;
+      --header-subtext: #94a3b8;
+      --controls-bg: #1e293b;
+      --controls-border: #334155;
+      --btn-bg: #0f172a;
+      --btn-color: #94a3b8;
+      --btn-hover-bg: #38bdf8;
+      --btn-hover-color: #0f172a;
+    }
+    [data-theme="light"] {
+      --bg-canvas: #f8fafc;
+      --header-bg: rgba(255, 255, 255, 0.9);
+      --header-border: #e2e8f0;
+      --header-text: #1e293b;
+      --header-subtext: #64748b;
+      --controls-bg: white;
+      --controls-border: #e2e8f0;
+      --btn-bg: #f1f5f9;
+      --btn-color: #334155;
+      --btn-hover-bg: #3b82f6;
+      --btn-hover-color: white;
+    }
+    [data-theme="warm"] {
+      --bg-canvas: #F5EBE0;
+      --header-bg: rgba(250, 246, 240, 0.92);
+      --header-border: #E5D4C4;
+      --header-text: #3D2B1F;
+      --header-subtext: #7A5C4A;
+      --controls-bg: #FAF6F0;
+      --controls-border: #E5D4C4;
+      --btn-bg: #EDE0D4;
+      --btn-color: #5A3E32;
+      --btn-hover-bg: #D95300;
+      --btn-hover-color: white;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-canvas);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      user-select: none;
+    }
+    header {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+      z-index: 10;
+      background: var(--header-bg);
+      backdrop-filter: blur(8px);
+      padding: 12px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      border: 1px solid var(--header-border);
+    }
+    header h1 {
+      font-size: 18px;
+      color: var(--header-text);
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+    header p {
+      font-size: 13px;
+      color: var(--header-subtext);
+    }
+    .controls {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: var(--controls-bg);
+      padding: 8px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--controls-border);
+    }
+    .btn {
+      width: 38px;
+      height: 38px;
+      border: none;
+      background: var(--btn-bg);
+      color: var(--btn-color);
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .btn:hover {
+      background: var(--btn-hover-bg);
+      color: var(--btn-hover-color);
+    }
+    svg {
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+    }
+    svg:active {
+      cursor: grabbing;
+    }
+    .link {
+      fill: none;
+      stroke: #38bdf8;
+      stroke-width: 2px;
+      stroke-opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+    .node {
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .node rect {
+      rx: 10px;
+      ry: 10px;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+    }
+    /* 고대비 위계별 카드 색상 */
+    .node-level-0 rect {
+      fill: #4338ca;
+      stroke: #818cf8;
+      stroke-width: 2px;
+    }
+    .node-level-1 rect {
+      fill: #0369a1;
+      stroke: #38bdf8;
+      stroke-width: 1.5px;
+    }
+    .node-level-2 rect {
+      fill: #047857;
+      stroke: #34d399;
+      stroke-width: 1.5px;
+    }
+    .node-level-3 rect {
+      fill: #b45309;
+      stroke: #fbbf24;
+      stroke-width: 1.5px;
+    }
+    .node-level-0 text {
+      fill: #ffffff;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .node-level-1 text {
+      fill: #ffffff;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .node-level-2 text {
+      fill: #ffffff;
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .node-level-3 text {
+      fill: #ffffff;
+      font-weight: 700;
+      font-size: 12.5px;
+    }
+    /* 접힘 토글 원형 뱃지 */
+    .toggle-badge {
+      fill: #1e293b;
+      stroke: #38bdf8;
+      stroke-width: 1.5px;
+      transition: transform 0.2s;
+    }
+    .toggle-text {
+      font-size: 10px;
+      font-weight: bold;
+      fill: #38bdf8;
+      text-anchor: middle;
+      dominant-baseline: central;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🗺️ 냉전과 현대 세계 해설집 마인드맵</h1>
+    <p>💡 카드를 클릭하면 하위 가지를 접거나 펼칠 수 있습니다. (마우스 휠: 확대/축소, 드래그: 이동)</p>
+  </header>
+
+  <div class="controls">
+    <button class="btn" id="btn-zoom-in" title="확대">+</button>
+    <button class="btn" id="btn-zoom-out" title="축소">-</button>
+    <button class="btn" id="btn-reset" title="화면 맞춤">⛶</button>
+    <button class="btn" id="btn-expand-all" title="전체 펼치기">▼</button>
+    <button class="btn" id="btn-collapse-all" title="전체 접기">▶</button>
+    <button class="btn" id="btn-theme-toggle" title="테마 전환">🌙</button>
+  </div>
+
+  <svg id="mindmap"></svg>
+
+  <script>
+    const data = {
+  "id": "root",
+  "text": "냉전의 시작과 현대 세계",
+  "children": [
+    {
+      "id": "1",
+      "text": "1. 냉전의 형성 (1940년대 후반)",
+      "children": [
+        {
+          "id": "1-1",
+          "text": "이념 선언 및 외교 원칙",
+          "children": [
+            {
+              "id": "1-1-1",
+              "text": "트루먼 독트린 (1947)",
+              "children": [
+                {
+                  "id": "1-1-1-1",
+                  "text": "미국의 공산주의 팽창 봉쇄 대외 외교 원칙 선언",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "1-1-2",
+              "text": "코민포름 창설 (1947)",
+              "children": [
+                {
+                  "id": "1-1-2-1",
+                  "text": "소련 주도의 공산당 정보국 창설 및 반제국주의 연대",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1-2",
+          "text": "경제 원조 및 동맹 기구",
+          "children": [
+            {
+              "id": "1-2-1",
+              "text": "마설 플랜 (1947)",
+              "children": [
+                {
+                  "id": "1-2-1-1",
+                  "text": "서유럽 경제 재건을 위한 미국의 대규모 무상 원조",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "1-2-2",
+              "text": "COMECON 결성 (1949)",
+              "children": [
+                {
+                  "id": "1-2-2-1",
+                  "text": "소련과 동유럽 간 경제상호원조회의 결성",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1-3",
+          "text": "군사 동맹 체제 구축",
+          "children": [
+            {
+              "id": "1-3-1",
+              "text": "NATO 창설 (1949)",
+              "children": [
+                {
+                  "id": "1-3-1-1",
+                  "text": "북대서양 조약 기구 중심 서방 진영 집단방위체제",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "1-3-2",
+              "text": "바르샤바 조약 기구 (1955)",
+              "children": [
+                {
+                  "id": "1-3-2-1",
+                  "text": "WTO 결성으로 동구권 공산 진영 군사동맹 구축",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1-4",
+          "text": "독일 분단과 베를린 위기",
+          "children": [
+            {
+              "id": "1-4-1",
+              "text": "독일 4개국 분할 점령",
+              "children": [
+                {
+                  "id": "1-4-1-1",
+                  "text": "2차 대전 패전 후 미·영·프·소 4개국 분할 통치",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "1-4-2",
+              "text": "베를린 봉쇄 (1948)",
+              "children": [
+                {
+                  "id": "1-4-2-1",
+                  "text": "소련의 육로 차단과 서방의 대규모 공중수송 맞대응",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "1-4-3",
+              "text": "베를린 장벽 설치 (1961)",
+              "children": [
+                {
+                  "id": "1-4-3-1",
+                  "text": "동독 주민 이탈 방지 목적 155km 장벽 구축 및 분단 상징",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "text": "2. 냉전의 확산과 열전 (1950~1960년대)",
+      "children": [
+        {
+          "id": "2-1",
+          "text": "아시아의 냉전 격화",
+          "children": [
+            {
+              "id": "2-1-1",
+              "text": "중국 국공 내전과 공산화 (1949)",
+              "children": [
+                {
+                  "id": "2-1-1-1",
+                  "text": "중화인민공화국 수립 및 장제스 국민당 정부 대만 이전",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "2-1-2",
+              "text": "6.25 전쟁 발발 (1950~1953)",
+              "children": [
+                {
+                  "id": "2-1-2-1",
+                  "text": "38선 분단 후 동족상잔의 비극이자 최초의 대규모 국제 열전",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "2-1-3",
+              "text": "베트남 전쟁 (1955~1975)",
+              "children": [
+                {
+                  "id": "2-1-3-1",
+                  "text": "이념 대립 장기전 미군 참전 후 1975년 북베트남 주도 통일",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2-2",
+          "text": "아메리카의 핵위기",
+          "children": [
+            {
+              "id": "2-2-1",
+              "text": "쿠바 미사일 위기 (1962)",
+              "children": [
+                {
+                  "id": "2-2-1-1",
+                  "text": "미·소 간 직접적 핵전쟁 위기까지 치달은 최고조 대립",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "text": "3. 다극화와 완화 (1970년대)",
+      "children": [
+        {
+          "id": "3-1",
+          "text": "제3세계 등장과 비동맹 운동",
+          "children": [
+            {
+              "id": "3-1-1",
+              "text": "반둥 회의 (1955)",
+              "children": [
+                {
+                  "id": "3-1-1-1",
+                  "text": "아시아·아프리카 신흥 독립국 평화 10원칙 채택",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "3-1-2",
+              "text": "아프리카의 해 (1960)",
+              "children": [
+                {
+                  "id": "3-1-2-1",
+                  "text": "17개국 동시 독립 및 유엔 가입 비동맹 중립 노선 확립",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "3-1-3",
+              "text": "인도·파키스탄 분리 독립 (1947)",
+              "children": [
+                {
+                  "id": "3-1-3-1",
+                  "text": "종교적 대립으로 분리 독립 및 카슈미르 유혈 분쟁 지속",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3-2",
+          "text": "서유럽 자립과 이념 진영의 변화",
+          "children": [
+            {
+              "id": "3-2-1",
+              "text": "유럽 통합 체제 발전",
+              "children": [
+                {
+                  "id": "3-2-1-1",
+                  "text": "EEC(1957)에서 EC(1967)를 거쳐 EU로 경제 통합 진전",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "3-2-2",
+              "text": "닉슨 독트린 발표 (1969)",
+              "children": [
+                {
+                  "id": "3-2-2-1",
+                  "text": "미국의 아시아 군사개입 축소 선언 및 데탕트 시대 개막",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "3-2-3",
+              "text": "동유럽 자유화 운동과 진압",
+              "children": [
+                {
+                  "id": "3-2-3-1",
+                  "text": "헝가리 혁명(1956) 및 프라하의 봄(1968) 소련 무력 진압",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "text": "4. 냉전의 해체와 종식 (1980년대 말~1991년)",
+      "children": [
+        {
+          "id": "4-1",
+          "text": "공산권 개혁·개방 정책",
+          "children": [
+            {
+              "id": "4-1-1",
+              "text": "중국 덩샤오핑 개혁개방",
+              "children": [
+                {
+                  "id": "4-1-1-1",
+                  "text": "흑묘백묘론 제창하며 자본주의 시장 경제 요소 도입",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "4-1-2",
+              "text": "소련 고르바초프 개혁",
+              "children": [
+                {
+                  "id": "4-1-2-1",
+                  "text": "글라스노스트(정보 공개)와 페레스트로이카(체제 개혁) 추진",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "4-2",
+          "text": "동서 분단 해체와 종식 선언",
+          "children": [
+            {
+              "id": "4-2-1",
+              "text": "몰타 회담 (1989)",
+              "children": [
+                {
+                  "id": "4-2-1-1",
+                  "text": "미·소 정상 회담을 통해 냉전 종식 공식 선언",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "4-2-2",
+              "text": "베를린 장벽 붕괴 및 독일 통일",
+              "children": [
+                {
+                  "id": "4-2-2-1",
+                  "text": "1989년 장벽 붕괴 후 1990년 독일 통일 완성",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "4-2-3",
+              "text": "소련 공식 해체 (1991.12)",
+              "children": [
+                {
+                  "id": "4-2-3-1",
+                  "text": "독립국가연합(CIS) 결성으로 69년 만에 소련 해체 및 냉전 완결",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "text": "5. 현대 사회의 발전과 당면 과제",
+      "children": [
+        {
+          "id": "5-1",
+          "text": "인권과 연대의 신장",
+          "children": [
+            {
+              "id": "5-1-1",
+              "text": "마틴 루터 킹 민권 운동",
+              "children": [
+                {
+                  "id": "5-1-1-1",
+                  "text": "비폭력 평화 행진 및 미국 흑인 투표권 쟁취",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "5-1-2",
+              "text": "프랑스 5월 혁명 (1968)",
+              "children": [
+                {
+                  "id": "5-1-2-1",
+                  "text": "탈권위주의 지향 청년·학생 중심 연대 운동",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "5-2",
+          "text": "현대 사회의 위기와 과제",
+          "children": [
+            {
+              "id": "5-2-1",
+              "text": "신자유주의와 빈부격차",
+              "children": [
+                {
+                  "id": "5-2-1-1",
+                  "text": "신자유주의 확산으로 심화되는 양극화 문제",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "5-2-2",
+              "text": "글로벌 환경 및 기후 위기",
+              "children": [
+                {
+                  "id": "5-2-2-1",
+                  "text": "국경을 넘나드는 기후 위기와 몽골 사막화 대응",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "5-2-3",
+              "text": "지구촌 시민 연대 및 공존",
+              "children": [
+                {
+                  "id": "5-2-3-1",
+                  "text": "전 지구적 연대와 상호 협력으로 현대 위기 극복",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    const svg = d3.select("#mindmap");
+    const g = svg.append("g").attr("transform", "translate(" + width / 2 + ", 80)");
+
+    const zoom = d3.zoom()
+      .scaleExtent([0.15, 3])
+      .on("zoom", (event) => g.attr("transform", event.transform));
+
+    svg.call(zoom);
+
+    // 트리 레이아웃 설정 (탑다운: 가로 간격 180, 세로 레벨 간격 120)
+    // 지시 12: 카드 실제 너비만큼만 띄우는 간격 (같은 부모 24px, 다른 부모 48px)
+    const _measure = document.createElement("canvas").getContext("2d");
+    const LEVEL_FONT = [15, 14, 13, 12.5];
+    function cardW(d) {
+      if (d._w === undefined) {
+        _measure.font = `700 ${LEVEL_FONT[Math.min(d.depth, 3)]}px ${getComputedStyle(document.body).fontFamily}`;
+        d._w = Math.max(_measure.measureText(d.data.text).width + 48, 120);
+      }
+      return d._w;
+    }
+    const tree = d3.tree().nodeSize([1, 140])
+      .separation((a, b) => (cardW(a) + cardW(b)) / 2 + (a.parent === b.parent ? 24 : 48));
+    let root = d3.hierarchy(data, d => d.children);
+
+    root.x0 = 0;
+    root.y0 = 0;
+
+    let i = 0;
+
+    function update(source) {
+      const treeData = tree(root);
+      const nodes = treeData.descendants();
+      const links = treeData.links();
+
+      // 수직 레벨 간격 (탑다운)
+      nodes.forEach(d => {
+        d.y = d.depth * 130;
+      });
+
+      // --- 노드 업데이트 ---
+      const node = g.selectAll("g.node")
+        .data(nodes, d => d.id || (d.id = ++i));
+
+      const nodeEnter = node.enter().append("g")
+        .attr("class", d => `node node-level-${Math.min(d.depth, 3)}`)
+        .attr("transform", d => `translate(${source.x0},${source.y0})`)
+        .on("click", (event, d) => {
+          if (d.children) {
+            d._children = d.children;
+            d.children = null;
+          } else if (d._children) {
+            d.children = d._children;
+            d._children = null;
+          }
+          update(d);
+        });
+
+      // 카드 텍스트 (중앙 정렬)
+      nodeEnter.append("text")
+        .attr("dy", "0.35em")
+        .attr("x", 0)
+        .attr("text-anchor", "middle")
+        .text(d => d.data.text);
+
+      // 박스 배경 (중앙 기준)
+      nodeEnter.insert("rect", "text")
+        .attr("height", 42)
+        .attr("y", -21)
+        .attr("x", d => -cardW(d) / 2)
+        .attr("width", d => cardW(d));
+
+      // 접기/펼치기 배지 (카드 하단 중앙)
+      const badge = nodeEnter.append("g")
+        .attr("class", "badge-group")
+        .attr("transform", "translate(0, 21)")
+        .style("display", d => (d.children || d._children) ? "block" : "none");
+
+      badge.append("circle")
+        .attr("class", "toggle-badge")
+        .attr("r", 9);
+
+      badge.append("text")
+        .attr("class", "toggle-text")
+        .text(d => d._children ? "+" : "−");
+
+      // 노드 트랜지션 (탑다운: translate(x, y))
+      const nodeUpdate = node.merge(nodeEnter).transition()
+        .duration(350)
+        .attr("transform", d => `translate(${d.x},${d.y})`);
+
+      nodeUpdate.select("rect")
+        .attr("x", d => -cardW(d) / 2)
+        .attr("width", d => cardW(d));
+
+      nodeUpdate.select(".badge-group")
+        .attr("transform", "translate(0, 21)")
+        .style("display", d => (d.children || d._children) ? "block" : "none")
+        .select(".toggle-text")
+        .text(d => d._children ? "+" : "−");
+
+      // 사라지는 노드
+      const nodeExit = node.exit().transition()
+        .duration(350)
+        .attr("transform", d => `translate(${source.x},${source.y})`)
+        .remove();
+
+      nodeExit.select("rect").attr("width", 0);
+
+      // --- 베지어 곡선 링크 업데이트 (탑다운) ---
+      const link = g.selectAll("path.link")
+        .data(links, d => d.target.id);
+
+      const linkEnter = link.enter().insert("path", "g")
+        .attr("class", "link")
+        .attr("d", d => {
+          const o = { x: source.x0, y: source.y0 };
+          return diagonal(o, o);
+        });
+
+      link.merge(linkEnter).transition()
+        .duration(350)
+        .attr("d", d => {
+          const s = { x: d.source.x, y: d.source.y + 21 };
+          const t = { x: d.target.x, y: d.target.y - 21 };
+          return diagonal(s, t);
+        });
+
+      link.exit().transition()
+        .duration(350)
+        .attr("d", d => {
+          const o = { x: source.x, y: source.y };
+          return diagonal(o, o);
+        })
+        .remove();
+
+      // 현재 위치 기억
+      nodes.forEach(d => {
+        d.x0 = d.x;
+        d.y0 = d.y;
+      });
+    }
+
+    // 3차 베지어 곡선 공식 (탑다운: 상단→하단)
+    function diagonal(s, t) {
+      return `M ${s.x} ${s.y}
+              C ${s.x} ${(s.y + t.y) / 2},
+                ${t.x} ${(s.y + t.y) / 2},
+                ${t.x} ${t.y}`;
+    }
+
+    // 초기 화면: 루트 상단 중앙
+    // 지시 12: 지금 펼쳐진 노드가 화면에 다 들어오도록 자동 맞춤
+    function resetView() {
+      // 지시 13: 고정값 대신 지금 화면 크기를 잰다 (숨겨진 iframe에서는 0이라 건너뜀)
+      const w = window.innerWidth, h = window.innerHeight;
+      if (!w || !h) return;
+      const ns = root.descendants();
+      const minX = d3.min(ns, d => d.x - cardW(d) / 2), maxX = d3.max(ns, d => d.x + cardW(d) / 2);
+      const maxY = d3.max(ns, d => d.y) + 40;
+      // 검독 13 반영: 왼쪽 위 안내 박스 아래에서 트리가 시작되게 함
+      const hdr = document.querySelector("header");
+      const top = (hdr ? hdr.getBoundingClientRect().bottom : 0) + 20;
+      const scale = Math.min(1, (w - 80) / (maxX - minX), (h - top - 40) / (maxY + 21));
+      svg.transition().duration(600).call(
+        zoom.transform,
+        d3.zoomIdentity.translate(w / 2 - scale * (minX + maxX) / 2, top + 21 * scale).scale(scale)
+      );
+    }
+
+    // 지시 13: 대시보드에서 탭이 보일 때·창 크기가 바뀔 때 다시 맞춤
+    window.addEventListener('message', (e) => {
+      if (e.data && (e.data.type === 'TAB_ACTIVATED' || e.data.type === 'RESET_VIEW')) setTimeout(resetView, 150);
+    });
+    window.addEventListener('resize', () => resetView());
+
+    // 컨트롤 버튼 이벤트
+    document.getElementById("btn-zoom-in").addEventListener("click", () => {
+      svg.transition().duration(300).call(zoom.scaleBy, 1.3);
+    });
+    document.getElementById("btn-zoom-out").addEventListener("click", () => {
+      svg.transition().duration(300).call(zoom.scaleBy, 0.7);
+    });
+    document.getElementById("btn-reset").addEventListener("click", resetView);
+
+    // 전체 펼치기
+    document.getElementById("btn-expand-all").addEventListener("click", () => {
+      function expand(d) {
+        if (d._children) {
+          d.children = d._children;
+          d._children = null;
+        }
+        if (d.children) d.children.forEach(expand);
+      }
+      expand(root);
+      update(root);
+    });
+
+    // 전체 접기 (1단계만 남기기)
+    document.getElementById("btn-collapse-all").addEventListener("click", () => {
+      function collapse(d) {
+        if (d.children) {
+          d._children = d.children;
+          d._children.forEach(collapse);
+          d.children = null;
+        }
+      }
+      if (root.children) {
+        root.children.forEach(collapse);
+      }
+      update(root);
+    });
+
+    // 테마 전환
+    document.getElementById("btn-theme-toggle").addEventListener("click", () => {
+      const current = document.body.dataset.theme;
+      document.body.dataset.theme = (current === 'light' ? 'dark' : 'light');
+      document.getElementById("btn-theme-toggle").textContent = document.body.dataset.theme === 'light' ? '☀️' : '🌙';
+    });
+
+    // 지시 12: 처음에는 루트와 1단계까지만 펼침
+    function collapseAll(d) {
+      if (d.children) { d._children = d.children; d._children.forEach(collapseAll); d.children = null; }
+    }
+    if (root.children) root.children.forEach(collapseAll);
+
+    // 첫 실행
+    update(root);
+    setTimeout(resetView, 100);
+
+    window.addEventListener("resize", () => {
+      // 윈도우 리사이즈 대응
+    });
+
+    // 대시보드 postMessage 테마 동기화
+    
+    try {
+      const savedTheme = localStorage.getItem('hanuri_theme') || 'dark';
+      document.body.dataset.theme = savedTheme;
+    } catch(e) {}
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'SET_THEME') {
+        document.body.dataset.theme = e.data.theme;
+        const btn = document.getElementById('btn-theme-toggle');
+        if (btn) btn.textContent = e.data.theme === 'light' ? '☀️' : '🌙';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>《냉전과 현대 세계 해설집》 핵심 데이터 비교 분석표</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF6B00;
+      --primary-dark: #D95300;
+      --primary-light: #FFF4ED;
+      --navy: #0F172A;
+      --navy-light: #1E293B;
+      --slate-50: #F8FAFC;
+      --slate-100: #F1F5F9;
+      --slate-200: #E2E8F0;
+      --slate-300: #CBD5E1;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1E293B;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --radius-sm: 6px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(15,23,42,0.08);
+      --shadow-lg: 0 10px 25px rgba(15,23,42,0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background: var(--slate-100);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 30px 20px;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .top-toolbar {
+      background: var(--navy);
+      color: #fff;
+      padding: 12px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .brand-badge span {
+      background: var(--primary);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
+    }
+
+    .doc-header {
+      padding: 35px 40px 25px;
+      background: linear-gradient(180deg, var(--slate-50) 0%, #FFFFFF 100%);
+      border-bottom: 2px solid var(--slate-100);
+    }
+
+    .doc-category {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .doc-title {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.35;
+      margin-bottom: 6px;
+    }
+
+    .doc-subtitle {
+      font-size: 14.5px;
+      color: var(--slate-600);
+      font-weight: 500;
+    }
+
+    /* 탭 내비게이션 & 검색 바 */
+    .controls-bar {
+      padding: 16px 40px;
+      background: var(--slate-50);
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .tab-group {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      padding: 8px 16px;
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--slate-700);
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #FFFFFF;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: #FFFFFF;
+      border: 1px solid var(--slate-300);
+      border-radius: 20px;
+      padding: 4px 12px;
+      width: 220px;
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      font-size: 13px;
+      width: 100%;
+      padding: 4px 6px;
+      font-family: inherit;
+    }
+
+    /* 테이블 영역 */
+    .content-body {
+      padding: 35px 40px;
+    }
+
+    .table-section {
+      margin-bottom: 45px;
+      background: #FFFFFF;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .table-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .table-header-box {
+      padding: 18px 24px;
+      background: var(--slate-50);
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .table-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .table-desc {
+      padding: 10px 24px;
+      font-size: 13px;
+      color: var(--slate-600);
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--slate-100);
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    table.data-table th {
+      background: #F8FAFC;
+      color: var(--navy);
+      font-weight: 700;
+      padding: 12px 18px;
+      border-bottom: 2px solid var(--slate-200);
+      white-space: nowrap;
+    }
+
+    table.data-table td {
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--slate-200);
+      color: var(--slate-700);
+      line-height: 1.5;
+    }
+
+    table.data-table tr:hover td {
+      background: var(--primary-light);
+    }
+
+    table.data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .badge-p5 {
+      background: #EFF6FF;
+      color: #1D4ED8;
+      font-weight: 700;
+      font-size: 11.5px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .badge-warn {
+      background: #FEF2F2;
+      color: #B91C1C;
+      font-weight: 700;
+      font-size: 11.5px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .badge-year {
+      background: var(--navy);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 11.5px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .doc-footer {
+      padding: 20px 40px;
+      background: var(--slate-50);
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    @media print {
+      body { background: #FFFFFF !important; padding: 0 !important; color: #000 !important; }
+      .container { max-width: 100% !important; border: none !important; box-shadow: none !important; }
+      .top-toolbar, .controls-bar { display: none !important; }
+      .doc-header { padding: 15px 0 !important; border-bottom: 2px solid #000 !important; }
+      .content-body { padding: 15px 0 !important; }
+      .table-section { page-break-inside: avoid; border: 1px solid #ccc !important; margin-bottom: 25px !important; }
+      table.data-table th { background: #eee !important; color: #000 !important; border-bottom: 1px solid #000 !important; }
+      table.data-table td { color: #000 !important; border-bottom: 1px solid #ddd !important; }
+    }
+
+    /* ── 데이터표 다크 테마 ── */
+    body[data-theme="dark"] {
+      background: #0B0F19;
+      color: #F8FAFC;
+    }
+    body[data-theme="dark"] .container { background: #1E293B; border-color: #334155; }
+    body[data-theme="dark"] .top-toolbar { background: #090D16; }
+    body[data-theme="dark"] .doc-header { background: #0F172A; border-bottom-color: #334155; }
+    body[data-theme="dark"] .doc-title { color: #F8FAFC; }
+    body[data-theme="dark"] .doc-subtitle { color: #94A3B8; }
+    body[data-theme="dark"] .table-section { background: #1E293B; border-color: #334155; }
+    body[data-theme="dark"] .table-section-title { color: #F8FAFC; }
+    body[data-theme="dark"] .table-section-subtitle { color: #94A3B8; }
+    body[data-theme="dark"] table.data-table th { background: #0F172A; color: #F8FAFC; border-bottom-color: #334155; }
+    body[data-theme="dark"] table.data-table td { color: #CBD5E1; border-bottom-color: #334155; }
+    body[data-theme="dark"] table.data-table tr:hover td { background: rgba(255,255,255,0.04); }
+
+    /* ── 데이터표 웜 테마 ── */
+    body[data-theme="warm"] {
+      background: #F5EBE0;
+      color: #3D2B1F;
+    }
+    body[data-theme="warm"] .container { background: #FAF6F0; border-color: #E5D4C4; }
+    body[data-theme="warm"] .top-toolbar { background: #3D2B1F; }
+    body[data-theme="warm"] .doc-header { background: #FAF6F0; border-bottom-color: #E5D4C4; }
+    body[data-theme="warm"] .table-section { background: #FAF6F0; border-color: #E5D4C4; }
+    body[data-theme="warm"] table.data-table th { background: #EDE0D4; color: #3D2B1F; border-bottom-color: #C9A88F; }
+    body[data-theme="warm"] table.data-table td { color: #5A3E32; border-bottom-color: #E5D4C4; }
+    body[data-theme="warm"] table.data-table tr:hover td { background: rgba(0,0,0,0.04); }
+    /* 지시 10 고대비 보정 (WCAG AA 4.5:1 실측 기준) */
+    body[data-theme="dark"] .brand-badge span,
+    body[data-theme="dark"] .btn-primary { background: #C2410C; border-color: #C2410C; }
+    body[data-theme="dark"] .doc-category { background: rgba(255, 107, 0, 0.15); color: #FDBA74; }
+    body[data-theme="dark"] .controls-bar,
+    body[data-theme="dark"] .table-header-box,
+    body[data-theme="dark"] .doc-footer { background: #0F172A; border-color: #334155; color: #CBD5E1; }
+    body[data-theme="dark"] .search-box,
+    body[data-theme="dark"] .search-box input,
+    body[data-theme="dark"] .table-desc { background: #1E293B; border-color: #334155; color: #E2E8F0; }
+    body[data-theme="dark"] .search-box input::placeholder { color: #94A3B8; }
+    body[data-theme="dark"] .table-title { color: #F8FAFC; }
+    body[data-theme="dark"] .table-header-box .btn { background: #1E293B; color: #F8FAFC !important; border-color: #475569 !important; }
+    body[data-theme="dark"] .badge-warn { background: rgba(239, 68, 68, 0.15); color: #FCA5A5; border-color: rgba(239, 68, 68, 0.4); }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="top-toolbar">
+      <div class="brand-badge">
+        <span>HANURI</span> 한우리 독서토론논술 수업용 데이터 분석 센터
+      </div>
+      <div class="action-btns">
+        <button class="btn" onclick="exportAllCSV()">📥 CSV 다운로드</button>
+        <button class="btn btn-primary" onclick="window.print()">🖨️ 인쇄 / PDF 저장</button>
+      </div>
+    </div>
+
+    <header class="doc-header">
+      <div class="doc-category">핵심 통계 & 비교 분석 센터</div>
+      <h1 class="doc-title" id="pageTitle">《냉전과 현대 세계 해설집》 핵심 데이터 비교 분석표</h1>
+      <div class="doc-subtitle">수업에 바로 쓰는 핵심 비교 데이터</div>
+    </header>
+
+    <div class="controls-bar">
+      <div class="tab-group" id="tabGroup">
+        <button class="tab-btn active" onclick="filterTab('all', this)">전체 표 보기 (4종)</button>
+      </div>
+      <div class="search-box">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="표 내용 실시간 검색..." onkeyup="filterSearch()">
+      </div>
+    </div>
+
+    <main class="content-body" id="tablesContainer">
+      <!-- 렌더링 -->
+    </main>
+
+    <footer class="doc-footer">
+      <div>© 2026 한우리독서토론논술 · 지식 팩토리 자동화 시스템</div>
+      <div>데이터 출처: 《냉전과 현대 세계 해설집》 및 NotebookLM 분석</div>
+    </footer>
+  </div>
+
+  <script>
+    const TABLE_DATA = [
+  {
+    "table_id": "cold_war_bloc_comparison",
+    "title": "냉전기 양 대 진영(서방 자본주의 vs 동구권 공산주의) 핵심 비교",
+    "description": "미국 중심의 서방 진영과 소련 중심의 공산 진영 간 이념 선언, 경제 원조, 군사 동맹 체제 및 핵심 정책을 비교 분석한 표입니다.",
+    "headers": [
+      "비교 구분",
+      "서방 자본주의 진영 (미국 중심)",
+      "동구권 공산주의 진영 (소련 중심)"
+    ],
+    "rows": [
+      [
+        "이념 선언 및 외교 원칙",
+        "트루먼 독트린 (1947): 공산주의 팽창 봉쇄를 위한 미국의 대외 외교 원칙 선언",
+        "코민포름 (1947): 공산당 정보국 창설 및 서방 견제·반제국주의 연대"
+      ],
+      [
+        "경제 원조 및 기구",
+        "마설 플랜 (1947): 서유럽 경제 부흥과 재건을 위한 대규모 무상 원조 계획",
+        "COMECON (1949): 동유럽 경제상호원조회의 결성으로 공산권 경제 협력"
+      ],
+      [
+        "군사 동맹 체제",
+        "NATO (1949): 북대서양 조약 기구 중심 서방 진영 집단방위체제",
+        "WTO / 바르샤바 조약 기구 (1955): 동구권 공산 진영 8개국 군사동맹"
+      ],
+      [
+        "독일 및 베를린 정책",
+        "서베를린 대규모 '공중수송 작전'으로 서베를린 고립 수호 및 지원",
+        "베를린 봉쇄(1948) 강행 및 동독 주민 이탈 방지용 베를린 장벽(1961) 구축"
+      ],
+      [
+        "후기 개혁·개방 노선",
+        "닉슨 독트린 (1969): 아시아 안보 자립 요구 및 미 군사개입 축소(데탕트)",
+        "고르바초프(개혁·개방/글라스노스트·페레스트로이카), 덩샤오핑(흑묘백묘론)"
+      ]
+    ]
+  },
+  {
+    "table_id": "cold_war_chronological_timeline",
+    "title": "냉전의 형성부터 종식 및 현대 세계 전개 연표",
+    "description": "1940년대 후반 냉전의 형성부터 1991년 소련 해체 및 현대 지구촌 과제까지의 주요 역사적 사건을 순서대로 정리한 흐름표입니다.",
+    "headers": [
+      "시기 및 단계",
+      "주요 역사적 사건 및 전개 내용",
+      "역사적 의의 및 성격"
+    ],
+    "rows": [
+      [
+        "1단계: 형성 (1940년대 후반)",
+        "트루먼 독트린·마설 플랜 발표(1947), 코민포름(1947)·COMECON(1949) 결성, 베를린 봉쇄(1948), NATO 창설(1949)",
+        "양 대 이념 진영의 성립 및 정치·경제·군사적 대립 구도 본격 형성"
+      ],
+      [
+        "2단계: 확산·열전 (1950~1960년대)",
+        "중국 국공 내전 승리 및 공산화(1949), 6.25 전쟁(1950~1953), 베트남 전쟁, 베를린 장벽 설치(1961), 쿠바 미사일 위기(1962)",
+        "아시아 및 아메리카로의 냉전 확산, 최초의 대규모 국제 열전 및 핵위기 발생"
+      ],
+      [
+        "3단계: 다극화·완화 (1970년대)",
+        "인도·파키스탄 분리 독립(1947), 반둥 회의(1955), 아프리카 17개국 독립(1960), EC 출범, 닉슨 독트린(1969)",
+        "제3세계 비동맹 중립 노선 등장, 서유럽 자립, 긴장 완화(데탕트) 분위기 조성"
+      ],
+      [
+        "4단계: 해체·종식 (1980년대 말~1991년)",
+        "덩샤오핑 개혁개방, 고르바초프 개혁, 베를린 장벽 붕괴(1989), 몰타 회담(1989), 독일 통일(1990), 소련 해체(1991.12)",
+        "이념 대립 체제의 완결, 독립국가연합(CIS) 결성 및 냉전의 공식적 종식"
+      ],
+      [
+        "5단계: 현대 사회 (1990년대 이후)",
+        "마틴 루터 킹 민권 운동 및 5월 혁명 유산, 신자유주의 양극화, 기후 위기·사막화, 분쟁 및 난민 문제",
+        "인권과 연대의 신장과 함께 다극화된 현대 사회의 복잡한 위기 대응 과제 부상"
+      ]
+    ]
+  },
+  {
+    "table_id": "perspectives_on_cold_war_and_global_issues",
+    "title": "냉전 및 현대 세계 주요 쟁점에 대한 관점 비교",
+    "description": "냉전기 양 대 강국의 주도권 대립 관점과 제3세계·개혁세력 및 현대 지구촌 시민의 다극화·공존 관점을 비교한 표입니다.",
+    "headers": [
+      "쟁점 분야",
+      "냉전기 대립적 관점 (양극 대립 체제)",
+      "완화·개혁 및 공존 관점 (다극 체제 / 현대)"
+    ],
+    "rows": [
+      [
+        "국제 질서 주도권",
+        "미·소 중심의 집단 안보 및 이념적 봉쇄·확장 정책 (NATO vs WTO)",
+        "양 진영 어디에도 속하지 않는 제3세계 비동맹 중립 노선 (반둥 회의 평화 10원칙)"
+      ],
+      [
+        "분단 및 갈등 해결 방식",
+        "무력 봉쇄, 베를린 장벽 설치 및 국지적 대리전·열전 수행 (6.25 전쟁, 베트남 전쟁)",
+        "외교적 데탕트(닉슨 독트린), 몰타 회담의 평화적 선언 및 베를린 장벽 붕괴"
+      ],
+      [
+        "사회·경제 체제 운용",
+        "경직된 이념적 자본주의 vs 사회주의 계획 경제의 전면적 대립",
+        "실용주의 시장 요소를 도입한 사회주의 개혁·개방 (흑묘백묘론, 페레스트로이카)"
+      ],
+      [
+        "현대 지구촌 위기 대응",
+        "개별 국가 및 이념 진영 중심의 주권 대립과 경쟁",
+        "공존의 가치를 바탕으로 한 전 지구적 연대와 상호 협력 (지구촌 시민 연대)"
+      ]
+    ]
+  },
+  {
+    "table_id": "key_numerical_data_comparison",
+    "title": "소재 자료 속 주요 역사적 수치 및 데이터 비교",
+    "description": "해설집에 제시된 냉전 및 현대 세계 관련 주요 역사적 숫자와 통계 데이터를 비교 정리한 표입니다.",
+    "headers": [
+      "데이터 구분",
+      "역사적 사건 / 지표",
+      "수치 및 데이터 내용",
+      "역사적 의미 및 특징"
+    ],
+    "rows": [
+      [
+        "독일 분단 관할국 수",
+        "제2차 세계대전 패전 후 독일 점령",
+        "4개국 (미국·영국·프랑스·소련)",
+        "패전국 독일의 분할 통치가 동서 분단 구도로 고착화됨"
+      ],
+      [
+        "베를린 장벽 규모",
+        "동독의 주민 탈출 방지용 구조물",
+        "총 길이 155km (1961년 설치)",
+        "동서 냉전 대립과 독서 분단을 상징하는 대표적 콘크리트 장벽"
+      ],
+      [
+        "아프리카 독립국의 해",
+        "1960년 아프리카 민족 독립 운동",
+        "17개국 동시 독립 및 유엔 가입",
+        "제3세계 비동맹 세력의 급격한 확대와 국제 무대에서의 영향력 증대"
+      ],
+      [
+        "소비에트 연방 존속 기간",
+        "소련(소비에트 사회주의 공화국 연방)",
+        "69년 만에 공식 해체 (1991년 12월)",
+        "독립국가연합(CIS) 결성으로 냉전 체제가 완전히 완결됨"
+      ]
+    ]
+  }
+];
+
+    let currentTab = 'all';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initTabs();
+      renderTables(TABLE_DATA);
+    });
+
+    function initTabs() {
+      const tabGroup = document.getElementById('tabGroup');
+      TABLE_DATA.forEach((t, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'tab-btn';
+        btn.innerText = `${idx + 1}. ${t.title.split(' ')[0]}`;
+        btn.onclick = () => filterTab(t.table_id, btn);
+        tabGroup.appendChild(btn);
+      });
+    }
+
+    function filterTab(tabId, el) {
+      currentTab = tabId;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      filterSearch();
+    }
+
+    function filterSearch() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const container = document.getElementById('tablesContainer');
+      container.innerHTML = '';
+
+      TABLE_DATA.forEach(t => {
+        if (currentTab !== 'all' && t.table_id !== currentTab) return;
+
+        const matchedRows = t.rows.filter(row => {
+          if (!query) return true;
+          return row.some(cell => String(cell).toLowerCase().includes(query)) ||
+                 t.title.toLowerCase().includes(query) ||
+                 t.description.toLowerCase().includes(query);
+        });
+
+        if (matchedRows.length === 0 && query) return;
+
+        const sec = document.createElement('section');
+        sec.className = 'table-section';
+        sec.id = t.table_id;
+
+        let ths = t.headers.map(h => `<th>${h}</th>`).join('');
+        let trs = matchedRows.map(row => {
+          let tds = row.map((cell, idx) => {
+            let val = String(cell);
+            if (val.includes('P5')) {
+              val = `<span class="badge-p5">${val}</span>`;
+            } else if (val.includes('불법') || val.includes('미가입')) {
+              val = `<span class="badge-warn">${val}</span>`;
+            } else if (/^\d{4}년/.test(val)) {
+              val = `<span class="badge-year">${val}</span>`;
+            }
+            return `<td>${val}</td>`;
+          }).join('');
+          return `<tr>${tds}</tr>`;
+        }).join('');
+
+        sec.innerHTML = `
+          <div class="table-header-box">
+            <div class="table-title">📊 ${t.title}</div>
+            <button class="btn" style="color:var(--navy); border-color:var(--slate-300);" onclick="exportSingleCSV('${t.table_id}')">📥 CSV</button>
+          </div>
+          <div class="table-desc">${t.description} (총 ${matchedRows.length}행)</div>
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead><tr>${ths}</tr></thead>
+              <tbody>${trs}</tbody>
+            </table>
+          </div>
+        `;
+        container.appendChild(sec);
+      });
+    }
+
+    function renderTables(tables) {
+      filterSearch();
+    }
+
+    function exportSingleCSV(tableId) {
+      const table = TABLE_DATA.find(t => t.table_id === tableId);
+      if (!table) return;
+      downloadCSV(table.title, [table.headers, ...table.rows]);
+    }
+
+    function exportAllCSV() {
+      TABLE_DATA.forEach(t => {
+        exportSingleCSV(t.table_id);
+      });
+    }
+
+    function downloadCSV(filename, rows) {
+      let csvContent = "\uFEFF";
+      rows.forEach(r => {
+        const line = r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',');
+        csvContent += line + "\r\n";
+      });
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", `${filename}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // 대시보드 postMessage 테마 동기화
+    
+    try {
+      const savedTheme = localStorage.getItem('hanuri_theme') || 'dark';
+      document.body.dataset.theme = savedTheme;
+    } catch(e) {}
+
+    window.addEventListener('message', (e) => {
+      if (e.data && e.data.type === 'SET_THEME') {
+        document.body.dataset.theme = e.data.theme;
+      }
+    });
+    try {
+      if (window.parent && window.parent.document && window.parent.document.body.dataset.theme) {
+        document.body.dataset.theme = window.parent.document.body.dataset.theme;
+      }
+    } catch(e) {}
+  </script>
+</body>
+</html>
