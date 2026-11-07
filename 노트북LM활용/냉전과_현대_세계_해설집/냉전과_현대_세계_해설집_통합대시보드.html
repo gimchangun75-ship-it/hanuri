@@ -1337,7 +1337,7 @@
 
     // 지시 20261107_24 후속: 화풍 전환 — 영상 src만 바꾸면 위 layout()이 loadedmetadata에서 가로/세로 배치를 다시 잡는다.
     (function () {
-      const VIDEO_VARIANTS = [{"file": "냉전과_현대_세계_해설집_동영상_레트로.mp4", "label": "🎞️ 레트로", "default": true}, {"file": "냉전과_현대_세계_해설집_동영상_숏츠.mp4", "label": "📱 세로 숏폼", "default": false}, {"file": "냉전과_현대_세계_해설집_동영상_화이트보드.mp4", "label": "✏️ 화이트보드", "default": false}];
+      const VIDEO_VARIANTS = [{"file": "냉전과_현대_세계_해설집_동영상_레트로.mp4", "label": "🎞️ 레트로", "default": true}, {"file": "냉전과_현대_세계_해설집_동영상_화이트보드.mp4", "label": "✏️ 화이트보드", "default": false}, {"file": "냉전과_현대_세계_해설집_동영상_숏츠.mp4", "label": "📱 세로 숏폼", "default": false}];
       const box = document.getElementById('videoStyleSelector');
       const video = document.getElementById('lessonVideo');
       if (!box || !video || !Array.isArray(VIDEO_VARIANTS) || VIDEO_VARIANTS.length < 2) return;

@@ -613,6 +613,19 @@
       transform: scale(1.05);
     }
 
+    /* 지시 20261107_24 후속: 화풍 전환 버튼 (빌더가 <접두어>동영상_<화풍>.mp4 를 2개 이상 찾았을 때만 표시) */
+    .video-style-selector { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .video-style-selector[hidden] { display: none; }
+    .video-style-selector .style-label { font-size: 13px; font-weight: 800; color: var(--text-sub, #94A3B8); }
+    .video-style-selector .style-btn {
+      padding: 6px 14px; font-size: 13px; font-weight: 700; border-radius: 999px; cursor: pointer;
+      border: 1px solid var(--border, rgba(148, 163, 184, 0.35)); background: transparent; color: inherit;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .video-style-selector .style-btn:hover { border-color: var(--primary); }
+    .video-style-selector .style-btn.active { background: var(--primary); border-color: var(--primary); color: #FFFFFF; }
+    body.theater-mode .video-style-selector { display: none; }
+
     /* 지시 20261106_02: 영상 듀얼 뷰포트 (좌 영상 · 우 장면별 대본) */
     .video-dual {
       display: flex;
@@ -1049,6 +1062,7 @@
         <button class="btn-theater-toggle" id="btnTheater" onclick="toggleTheaterMode()">
           <span id="theaterIcon">📺</span> <span id="theaterText">전자칠판 전체 채우기</span>
         </button>
+        <div class="video-style-selector" id="videoStyleSelector" hidden></div>
         <div class="video-dual">
           <div class="video-player-wrap">
             <video controls id="lessonVideo" src="한반도의_중심,_생명의_젖줄_한강_동영상.mp4">
@@ -1059,35 +1073,30 @@
             <h3 class="storyboard-head">🎬 장면별 대본</h3>
             <div class="scene-chips" id="sceneChips"></div>
             <p class="storyboard-note">참고 대본 — 영상의 실제 장면·시점과 다를 수 있습니다</p>
-            <div class="scene-card" data-dur="30">
-              <div class="scene-card-head"><span class="scene-no">씬 1</span><span class="scene-title">두물머리와 검룡소, 생명의 발원</span></div>
-              <div class="scene-label">🎥 화면</div><p class="scene-visual">태백산 깊은 숲속 검룡소에서 맑은 샘물이 솟아나는 장면과 금강산에서 시작된 북한강의 장엄한 물길. 이어 경기도 양평 양수리 두물머리에서 두 물줄기가 합쳐져 웅장한 한강을 이루는 항공 촬영 영상.</p>
-              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">태백산 검룡소의 아담한 샘물과 금강산의 강렬한 물줄기가 숲과 들판을 지나 양평 두물머리에서 하나로 만납니다. 이렇게 합쳐진 한강은 한반도의 허리를 가로지르며 수많은 생명을 보살피는 젖줄이 됩니다.</p>
-            </div>
             <div class="scene-card" data-dur="35">
-              <div class="scene-card-head"><span class="scene-no">씬 2</span><span class="scene-title">삼국시대 영토 쟁탈과 조선의 도읍</span></div>
-              <div class="scene-label">🎥 화면</div><p class="scene-visual">암사동 움집 유적지와 고구려·백제·신라가 한강 유역을 두고 펼친 치열한 영토 지도 애니메이션. 이어 태조 이성계가 풍수지리상 명당으로 선정한 한양 도읍지와 한강변 나룻배, 어로, 빨래터의 일상 모습 묘사.</p>
-              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">한강은 선사 시대부터 삶의 터전이었으며, 삼국 시대에는 한반도의 주도권을 쥔 백제, 고구려, 신라가 치열하게 다툰 핵심 요충지였습니다. 조선을 세운 태조 이성계 역시 풍수지리를 고려해 한강이 흐르는 한양을 새 수도로 삼았습니다.</p>
-            </div>
-            <div class="scene-card" data-dur="35">
-              <div class="scene-card-head"><span class="scene-no">씬 3</span><span class="scene-title">산업화와 한강의 기적, 콘크리트의 그늘</span></div>
-              <div class="scene-label">🎥 화면</div><p class="scene-visual">전쟁의 폐허를 딛고 일어선 &#x27;한강의 기적&#x27;과 1980년대 한강종합개발 모습. 강변을 빼곡히 메운 콘크리트 제방과 직강화된 물길, 올림픽대로를 메운 차들, 그리고 용존산소량 0ppm으로 상실되어 가는 모래톱과 습지의 대비.</p>
-              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">급속한 경제 성장 속에서 한강은 &#x27;한강의 기적&#x27;이라는 화려한 이름 뒤에 깊은 생태적 상처를 입었습니다. 콘크리트 제방과 직강화 공사로 물고기들의 산란장이던 얕은 여울과 자연 필터인 모래톱이 사라졌습니다.</p>
-            </div>
-            <div class="scene-card" data-dur="35">
-              <div class="scene-card-head"><span class="scene-no">씬 4</span><span class="scene-title">폭파되었던 밤섬의 부활</span></div>
-              <div class="scene-label">🎥 화면</div><p class="scene-visual">1968년 여의도 윤중제를 쌓기 위해 다이너마이트 폭파로 사라지던 밤섬의 흑백 사료 화면. 이어서 자연적인 퇴적 작용으로 물밑에서 스스로 살아나 푸른 숲과 람사르 습지로 변모한 밤섬의 경이로운 현재 드론 영상.</p>
-              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">1968년 여의도를 개발하는 과정에서 윤중제를 쌓기 위해 밤섬은 폭파되어 지도에서 자취를 감추었습니다. 하지만 자연은 스스로의 퇴적 작용으로 밤섬을 다시 부활시켰고, 오늘날 수많은 철새가 찾아오는 람사르 습지가 되었습니다.</p>
-            </div>
-            <div class="scene-card" data-dur="35">
-              <div class="scene-card-head"><span class="scene-no">씬 5</span><span class="scene-title">수달의 귀환과 자연성 회복</span></div>
-              <div class="scene-label">🎥 화면</div><p class="scene-visual">콘크리트를 걷어내고 흙과 자갈을 깔아 조성한 자연형 호안의 모습. 1급수 맑은 물이 흐르는 중랑천과 여의도 샛강에서 헤엄치는 천연기념물 제330호 수달의 사랑스러운 수중 영상과 야생 동물들의 쉼터 연출.</p>
-              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">콘크리트 벽을 허물고 자연형 호안을 복원하자 멈추었던 한강 생태계의 시계가 다시 돌아가기 시작했습니다. 오염으로 자취를 감추었던 1급수 지표 동물이자 천연기념물 수달이 돌아오며 생명의 온기를 되찾고 있습니다.</p>
+              <div class="scene-card-head"><span class="scene-no">씬 1</span><span class="scene-title">생명의 발원 - 검룡소와 두물머리</span></div>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">16:9 가로형 한지 질감 배경 위로 은은한 먹선이 번지며 태백산 깊은 숲속 검룡소의 맑은 샘물이 솟아오르는 수묵담채화 연출. 금강산에서 내려온 북한강과 남한강이 경기도 양평 양수리(두물머리)에서 만나 도도한 합류를 이루는 장엄한 산수화 애니메이션.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">태백산 깊은 숲속 검룡소의 맑은 샘물과 금강산에서 흘러내린 푸른 물줄기가 만나는 곳, 바로 양평 두물머리입니다. 이 두 거대한 물길이 합쳐져 한반도의 허리를 가로지르며 수많은 생명을 키워낼 거대한 젖줄 한강이 시작됩니다.</p>
             </div>
             <div class="scene-card" data-dur="40">
-              <div class="scene-card-head"><span class="scene-no">씬 6</span><span class="scene-title">미래를 향한 질문: 개발인가 공존인가</span></div>
-              <div class="scene-label">🎥 화면</div><p class="scene-visual">신곡수중보를 둘러싼 자연성 회복파와 도시 기능 유지파의 대립 구도 그래픽. 노을빛으로 물든 한강 위를 떠다니는 유람선과 수변 공원에서 거니는 시민들, 맑은 한강 물길 위에 뜨는 질문 텍스트 모션 연출.</p>
-              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">신곡수중보 철거 논쟁이 보여주듯, 우리는 도시의 편의성과 자연의 원상 복원 사이에서 중요한 갈림길에 서 있습니다. 한강을 단순한 이용 대상이 아닌 생명의 파트너로 바라보는 시선, 이것이 바로 우리가 미래에 전할 대답입니다.</p>
+              <div class="scene-card-head"><span class="scene-no">씬 2</span><span class="scene-title">역사의 중심 - 쟁탈의 요충지에서 조선의 도읍 한양으로</span></div>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">암사동 움집터와 빗살무늬 토기가 담채화 붓터치로 수놓아지고, 이어 삼국 시대 백제, 고구려, 신라의 기치와 영토 쟁탈전이 수묵 전투화 모션으로 전개됨. 이어서 태조 이성계가 풍수지리상 명당인 한강 유역을 조선의 수도 한양으로 정하고 궁궐을 세우는 진경산수화 연출.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">선사 시대 암사동 움집터부터 인류의 터전이었던 한강은 삼국 시대 한반도의 주도권을 잡기 위해 백제, 고구려, 신라가 치열하게 다툰 핵심 요충지였습니다. 조선을 세운 태조 이성계 역시 물류와 방어가 뛰어난 한강의 한양을 새 도읍으로 삼아 500년 왕조의 기틀을 마련했습니다.</p>
+            </div>
+            <div class="scene-card" data-dur="40">
+              <div class="scene-card-head"><span class="scene-no">씬 3</span><span class="scene-title">산업화와 그늘 - 한강의 기적과 콘크리트 제방</span></div>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">짙은 먹송 톤과 거친 질감으로 표현되는 1970~80년대 한강종합개발 현장. 수변을 꽉 막아선 콘크리트 제방과 직선화된 물길, 잿빛 도로인 올림픽대로와 강변북로 위를 달리는 차들, 그리고 여울과 모래톱이 사라진 아픈 강변의 드로잉.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">전쟁의 폐허를 극복한 &#x27;한강의 기적&#x27; 뒤에는 아픈 생태계의 그늘이 짙게 드리워졌습니다. 강변을 메운 콘크리트 제방과 직강화 공사로 물고기의 산란장인 얕은 여울과 자연 정화 필터인 모래톱이 소멸하며 한강은 생명력을 잃어갔습니다.</p>
+            </div>
+            <div class="scene-card" data-dur="40">
+              <div class="scene-card-head"><span class="scene-no">씬 4</span><span class="scene-title">생태계의 부활 - 밤섬의 기적과 수달의 귀환</span></div>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">1968년 여의도 윤중제 건설을 위해 다이너마이트 폭파로 사라지던 밤섬의 모습. 그 후 자연의 퇴적 작용으로 흙과 모래가 쌓여 기적처럼 부활한 밤섬의 람사르 습지와, 콘크리트를 걷어낸 자연 호안에서 헤엄치는 천연기념물 수달이 따스한 담채화 색조로 물드는 연출.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">1968년 여의도 개발로 폭파되었던 밤섬은 한강의 위대한 퇴적 작용을 통해 스스로 부활하며 철새들의 람사르 습지가 되었습니다. 콘크리트를 허물고 자연형 호안을 복원하자 1급수 지표종인 천연기념물 수달까지 돌아오며 생명의 온기가 다시 피어났습니다.</p>
+            </div>
+            <div class="scene-card" data-dur="35">
+              <div class="scene-card-head"><span class="scene-no">씬 5</span><span class="scene-title">오늘과 미래 - 공존의 젖줄, 우리가 지켜야 할 한강</span></div>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">전통 한지 위로 붉은 노을빛이 물드는 한강의 아름다운 풍경. 수변 공원을 거니는 사람들과 유유히 헤엄치는 수달, 밤섬의 철새들이 한 화면에 어우러지고, 서해로 흘러가는 물길 위로 &#x27;인간과 자연이 공존하는 생명의 한강&#x27; 문구가 먹선으로 은은하게 캘리그라피 처리되는 엔딩.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">신곡수중보 논쟁이 말해주듯, 오늘날 한강은 단순한 도시 개발을 넘어 자연과의 온전한 공존을 우리에게 묻고 있습니다. 지리와 역사를 만들어온 생명의 젖줄 한강을 알고 맑게 보존하는 일, 이것이 바로 우리가 미래 세대에게 전해야 할 소중한 약속입니다.</p>
             </div>
           </aside>
         </div>
@@ -1323,6 +1332,36 @@
         while (i + 1 < starts.length && video.currentTime >= starts[i + 1]) i++;
         setActive(i);
       });
+    })();
+
+    // 지시 20261107_24 후속: 화풍 전환 — 영상 src만 바꾸면 위 layout()이 loadedmetadata에서 가로/세로 배치를 다시 잡는다.
+    (function () {
+      const VIDEO_VARIANTS = [{"file": "한반도의_중심,_생명의_젖줄_한강_동영상_수채화.mp4", "label": "🎨 수채화", "default": true}, {"file": "한반도의_중심,_생명의_젖줄_한강_동영상_전통.mp4", "label": "🏯 전통", "default": false}, {"file": "한반도의_중심,_생명의_젖줄_한강_동영상_숏츠.mp4", "label": "📱 세로 숏폼", "default": false}];
+      const box = document.getElementById('videoStyleSelector');
+      const video = document.getElementById('lessonVideo');
+      if (!box || !video || !Array.isArray(VIDEO_VARIANTS) || VIDEO_VARIANTS.length < 2) return;
+      const label = document.createElement('span');
+      label.className = 'style-label';
+      label.textContent = '🎨 화풍';
+      box.appendChild(label);
+      VIDEO_VARIANTS.forEach((v) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'style-btn' + (v.default ? ' active' : '');
+        b.textContent = v.label;
+        b.addEventListener('click', () => {
+          if (b.classList.contains('active')) return;
+          const playing = !video.paused;
+          video.src = v.file;
+          video.load();
+          if (playing) video.play().catch(() => {});
+          box.querySelectorAll('.style-btn').forEach((x) => x.classList.toggle('active', x === b));
+        });
+        box.appendChild(b);
+      });
+      const def = VIDEO_VARIANTS.find((v) => v.default);
+      if (def && !video.getAttribute('src').endsWith(def.file)) { video.src = def.file; video.load(); }
+      box.hidden = false;
     })();
 
     // 지시 20261106_02: 장면 대본이 없으면 영상만 크게, 오디오 파일이 없으면 안내 카드
