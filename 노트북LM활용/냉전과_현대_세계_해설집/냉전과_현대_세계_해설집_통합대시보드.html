@@ -613,6 +613,19 @@
       transform: scale(1.05);
     }
 
+    /* 지시 20261107_24 후속: 화풍 전환 버튼 (빌더가 <접두어>동영상_<화풍>.mp4 를 2개 이상 찾았을 때만 표시) */
+    .video-style-selector { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .video-style-selector[hidden] { display: none; }
+    .video-style-selector .style-label { font-size: 13px; font-weight: 800; color: var(--text-sub, #94A3B8); }
+    .video-style-selector .style-btn {
+      padding: 6px 14px; font-size: 13px; font-weight: 700; border-radius: 999px; cursor: pointer;
+      border: 1px solid var(--border, rgba(148, 163, 184, 0.35)); background: transparent; color: inherit;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .video-style-selector .style-btn:hover { border-color: var(--primary); }
+    .video-style-selector .style-btn.active { background: var(--primary); border-color: var(--primary); color: #FFFFFF; }
+    body.theater-mode .video-style-selector { display: none; }
+
     /* 지시 20261106_02: 영상 듀얼 뷰포트 (좌 영상 · 우 장면별 대본) */
     .video-dual {
       display: flex;
@@ -770,41 +783,7 @@
       cursor: pointer;
     }
     body.theater-mode:not([data-tab="video"]) .btn-theater-exit { display: block; }
-  
-    .video-style-selector {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-      padding: 6px 12px;
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-    }
-    .style-btn {
-      padding: 6px 12px;
-      font-size: 12.5px;
-      font-weight: 600;
-      border-radius: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      background: rgba(255, 255, 255, 0.05);
-      color: #CBD5E1;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .style-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
-      color: #FFFFFF;
-    }
-    .style-btn.active {
-      background: var(--primary, #FF6B00);
-      color: #FFFFFF;
-      border-color: var(--primary, #FF6B00);
-      box-shadow: 0 0 10px rgba(255, 107, 0, 0.4);
-    }
-
-</style>
+  </style>
 </head>
 <body>
 
@@ -1084,15 +1063,7 @@
         <button class="btn-theater-toggle" id="btnTheater" onclick="toggleTheaterMode()">
           <span id="theaterIcon">📺</span> <span id="theaterText">전자칠판 전체 채우기</span>
         </button>
-        
-        <!-- 지시 20261107_24: 16:9 듀얼 화풍 선택 스위처 -->
-        <div class="video-style-selector">
-          <span style="font-size:12.5px; font-weight:800; color:#FDBA74;">🎨 화풍 선택:</span>
-          <button class="style-btn active" onclick="switchVideoStyle('냉전과_현대_세계_해설집_동영상_레트로.mp4', this)">🎞️ 레트로풍 (16:9 · 7:41) ★추천</button>
-          <button class="style-btn" onclick="switchVideoStyle('냉전과_현대_세계_해설집_동영상_화이트보드.mp4', this)">✏️ 화이트보드 (16:9 · 8:00)</button>
-          <button class="style-btn" onclick="switchVideoStyle('냉전과_현대_세계_해설집_동영상_숏츠.mp4', this)">📱 세로 숏폼 (9:16 · 2:11)</button>
-        </div>
-
+        <div class="video-style-selector" id="videoStyleSelector" hidden></div>
         <div class="video-dual">
           <div class="video-player-wrap">
             <video controls id="lessonVideo" src="냉전과_현대_세계_해설집_동영상.mp4">
@@ -1103,35 +1074,30 @@
             <h3 class="storyboard-head">🎬 장면별 대본</h3>
             <div class="scene-chips" id="sceneChips"></div>
             <p class="storyboard-note">참고 대본 — 영상의 실제 장면·시점과 다를 수 있습니다</p>
-            <div class="scene-card" data-dur="35">
-              <div class="scene-card-head"><span class="scene-no">씬 1</span><span class="scene-title">오프닝: 베를린 장벽과 나누어진 세계</span></div>
-              <div class="scene-label">🎥 화면</div><p class="scene-visual">1961년 베를린 장벽이 세워지는 흑백 아카이브 영상과 장벽을 사이에 두고 대립하는 동서 양 진영의 3D 모션 그래픽 연출. 이어 1989년 장벽이 무너지며 환호하는 시민들의 장면으로 빠르게 전환됨.</p>
-              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">총성 없는 전쟁이라 불렸던 냉전, 세계는 왜 반으로 갈라져 대립해야 했을까요? 2차 세계대전 직후부터 베를린 장벽이 무너지기까지, 냉전이 남긴 역사의 흔적과 오늘날 지구촌의 과제를 함께 살펴봅니다.</p>
+            <div class="scene-card" data-dur="60">
+              <div class="scene-card-head"><span class="scene-no">씬 1</span><span class="scene-title">도입: 제2차 세계대전 종전과 얄타 회담, 미·소 양극 체제의 출범</span></div>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">16:9 가로형 화면. 1945년 제2차 세계대전 종전 직전 열린 얄타 회담의 역사적 인포그래픽과 아카이브 사진 연출. 세계 지도 위로 미국 중심의 서방 진영(푸른색)과 소련 중심의 공산 진영(붉은색)이 나뉘며 양극 대립 체제가 출범하는 과정을 보여주는 시각적 인과관계 그래픽.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">제2차 세계대전의 종전과 얄타 회담은 전후 세계 질서의 커다란 전환점이 되었습니다. 나치 독일의 붕괴 이후 세계는 미국과 소련이라는 두 거대 강대국을 중심으로 한 양극 대립 체제의 출범을 맞이하게 됩니다.</p>
             </div>
-            <div class="scene-card" data-dur="45">
-              <div class="scene-card-head"><span class="scene-no">씬 2</span><span class="scene-title">배경과 핵심 개념: 트루먼 독트린과 양극 대립 체제</span></div>
-              <div class="scene-label">🎥 화면</div><p class="scene-visual">1947년 트루먼 독트린 선언과 마설 플랜 원조, NATO 창설 지도. 이에 맞선 소련의 코민포름, COMECON, 바르샤바 조약 기구(WTO)가 지도 상에서 푸른색과 붉은색으로 대치하는 모션 인포그래픽.</p>
-              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">2차 세계대전이 끝난 후 세계는 미국 중심의 자본주의 진영과 소련 중심의 공산주의 진영으로 팽팽히 갈라졌습니다. 마설 플랜과 NATO, 그리고 COMECON과 바르샤바 조약 기구가 맞서며 인류는 본격적인 냉전의 시대에 들어서게 됩니다.</p>
+            <div class="scene-card" data-dur="70">
+              <div class="scene-card-head"><span class="scene-no">씬 2</span><span class="scene-title">대립: 트루먼 독트린, 마셜 플랜, 베를린 봉쇄와 나토(NATO) 창설</span></div>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">1947년 트루먼 독트린과 마셜 플랜의 서유럽 경제 원조 구도를 보여주는 동적 도표. 이어서 1948년 소련의 베를린 봉쇄와 서방의 대규모 공중 수송 작전, 1949년 북대서양 조약 기구(NATO) 결성으로 이어지는 연쇄적 인과관계 인포그래픽 연출.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">미국은 공산주의 확산을 저지하기 위해 트루먼 독트린을 선언하고 마셜 플랜으로 서유럽을 지원했습니다. 이에 대응하여 소련이 베를린을 봉쇄하고 서방이 나토(NATO)를 창설하면서, 동서 진영 간의 경제적·군사적 대립은 가파르게 격화되었습니다.</p>
             </div>
-            <div class="scene-card" data-dur="50">
-              <div class="scene-card-head"><span class="scene-no">씬 3</span><span class="scene-title">주요 전개: 아시아의 열전과 제3세계의 부상</span></div>
-              <div class="scene-label">🎥 화면</div><p class="scene-visual">한반도의 6.25 전쟁과 베트남 전쟁 아카이브 영상 분할 화면. 이어 1955년 반둥 회의와 1960년 &#x27;아프리카의 해&#x27; 17개국 독립 인포그래픽이 펼쳐지며 비동맹 중립 노선의 깃발들이 일어서는 연출.</p>
-              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">냉전은 유럽을 넘어 아시아의 6.25 전쟁과 베트남 전쟁 같은 뜨거운 국지적 열전으로 확산되었습니다. 하지만 양 대 진영 어디에도 속하지 않고 평화를 선언한 제3세계 비동맹 운동이 등장하면서 세계 질서는 다극화의 길로 접어듭니다.</p>
+            <div class="scene-card" data-dur="70">
+              <div class="scene-card-head"><span class="scene-no">씬 3</span><span class="scene-title">위기: 한반도 6·25 전쟁과 쿠바 미사일 위기, 핵 군비 경쟁</span></div>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">1950년 한반도 6·25 전쟁의 대리전 양상을 나타내는 지도와 사건 연표. 1962년 쿠바 미사일 위기 당시 미·소 해상 봉쇄 대립 구도 및 양국의 핵 미사일 보유량 수치가 급격히 상승하는 시각 다이어그램 연출.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">냉전의 대립은 한반도 6·25 전쟁이라는 비극적인 국지적 열전으로 폭발했습니다. 나아가 1962년 쿠바 미사일 위기와 미·소 간의 무분별한 핵 군비 경쟁은 인류를 직전의 핵전쟁 위협 속으로 몰아넣었습니다.</p>
             </div>
-            <div class="scene-card" data-dur="45">
-              <div class="scene-card-head"><span class="scene-no">씬 4</span><span class="scene-title">갈등 또는 쟁점: 핵위기와 체제 개혁의 바람</span></div>
-              <div class="scene-label">🎥 화면</div><p class="scene-visual">1962년 쿠바 미사일 위기 당시 미·소 해상 봉쇄 그래픽. 이어 덩샤오핑의 흑묘백묘론 개혁개방 및 고르바초프의 글라스노스트·페레스트로이카 선언 장면이 연속 교차 편집됨.</p>
-              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">쿠바 미사일 위기로 인류는 핵전쟁 직전의 절체절명 위기를 겪기도 했습니다. 이후 체제 위기에 직면한 공산권은 개혁과 개방을 선택했고, 긴장 완화의 바람 속에 변화의 물결이 몰아치기 시작했습니다.</p>
+            <div class="scene-card" data-dur="60">
+              <div class="scene-card-head"><span class="scene-no">씬 4</span><span class="scene-title">데탕트: 닉슨 독트린과 미·소 데탕트, 화해와 군축 협상</span></div>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">1969년 닉슨 독트린 발표와 미·중 관계 개선, 미·소 전략무기제한협정(SALT) 체결 과정을 정리한 단계별 흐름도. 무력 대립 그래픽이 화해와 군축 협상 테이블의 이소메트릭 디자인으로 전환되는 연출.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">지속되는 군비 부담과 아시아 개입의 한계 속에서 미국은 닉슨 독트린을 발표하며 안보 자립을 요구했습니다. 이는 미·소 간 긴장 완화인 데탕트 시대를 열었고, 양국은 군축 협상을 통해 화해와 모멘텀을 모색하기 시작했습니다.</p>
             </div>
-            <div class="scene-card" data-dur="45">
-              <div class="scene-card-head"><span class="scene-no">씬 5</span><span class="scene-title">의미와 과제: 냉전의 종식과 현대 지구촌의 도전</span></div>
-              <div class="scene-label">🎥 화면</div><p class="scene-visual">1989년 몰타 회담 및 1991년 12월 소련 해체 아카이브 뉴스 화면. 이어 현대의 신자유주의 양극화, 몽골 사막화 현장과 지구촌 시민들의 비폭력 연대 행진 모습이 대조 연출됨.</p>
-              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">1989년 몰타 회담과 1991년 소련 해체로 장기간의 냉전은 공식 종식되었습니다. 그러나 오늘날 우리는 기후 위기, 빈부격차, 난민 등 새로운 지구촌 문제에 직면해 있습니다.</p>
-            </div>
-            <div class="scene-card" data-dur="30">
-              <div class="scene-card-head"><span class="scene-no">씬 6</span><span class="scene-title">엔딩: 공존과 연대의 미래를 향해</span></div>
-              <div class="scene-label">🎥 화면</div><p class="scene-visual">다양한 인종의 청소년들이 함께 손을 잡고 지구본을 바라보는 3D 일러스트 그래픽. &#x27;이념의 대립을 넘어 공존과 연대의 세계로&#x27;라는 타이틀 텍스트가 떠오르며 화면이 채워짐.</p>
-              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">역사 속 냉전이 우리에게 준 가장 큰 교훈은 바로 &#x27;공존과 연대&#x27;입니다. 국경을 넘어 서로 협력하는 지구촌 시민으로서, 더 나은 미래를 함께 만들어갈 준비가 되셨나요?</p>
+            <div class="scene-card" data-dur="70">
+              <div class="scene-card-head"><span class="scene-no">씬 5</span><span class="scene-title">해체와 오늘: 베를린 장벽 붕괴, 소련 해체와 탈냉전 다극화 시대의 평화 과제</span></div>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">1989년 베를린 장벽 붕괴 및 1991년 12월 소련 해체 과정을 담은 역사적 모션 인포그래픽. 탈냉전 다극화 시대를 맞아 부상한 기후 위기, 빈부격차, 지역 분쟁 문제와 이를 극복하기 위한 지구촌 시민 연대의 3D 다이어그램 및 엔딩 메시지 화면 연출.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">1989년 베를린 장벽의 붕괴와 1991년 소련의 해체로 반세기에 걸친 냉전 체제는 막을 내렸습니다. 탈냉전 다극화 시대를 살아가는 오늘날, 우리는 과거의 대립을 넘어 기후 위기와 지구촌 평화 정착이라는 공동의 과제를 향해 연대해야 합니다.</p>
             </div>
           </aside>
         </div>
@@ -1367,6 +1333,36 @@
         while (i + 1 < starts.length && video.currentTime >= starts[i + 1]) i++;
         setActive(i);
       });
+    })();
+
+    // 지시 20261107_24 후속: 화풍 전환 — 영상 src만 바꾸면 위 layout()이 loadedmetadata에서 가로/세로 배치를 다시 잡는다.
+    (function () {
+      const VIDEO_VARIANTS = [{"file": "냉전과_현대_세계_해설집_동영상_레트로.mp4", "label": "🎞️ 레트로", "default": true}, {"file": "냉전과_현대_세계_해설집_동영상_숏츠.mp4", "label": "📱 세로 숏폼", "default": false}, {"file": "냉전과_현대_세계_해설집_동영상_화이트보드.mp4", "label": "✏️ 화이트보드", "default": false}];
+      const box = document.getElementById('videoStyleSelector');
+      const video = document.getElementById('lessonVideo');
+      if (!box || !video || !Array.isArray(VIDEO_VARIANTS) || VIDEO_VARIANTS.length < 2) return;
+      const label = document.createElement('span');
+      label.className = 'style-label';
+      label.textContent = '🎨 화풍';
+      box.appendChild(label);
+      VIDEO_VARIANTS.forEach((v) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'style-btn' + (v.default ? ' active' : '');
+        b.textContent = v.label;
+        b.addEventListener('click', () => {
+          if (b.classList.contains('active')) return;
+          const playing = !video.paused;
+          video.src = v.file;
+          video.load();
+          if (playing) video.play().catch(() => {});
+          box.querySelectorAll('.style-btn').forEach((x) => x.classList.toggle('active', x === b));
+        });
+        box.appendChild(b);
+      });
+      const def = VIDEO_VARIANTS.find((v) => v.default);
+      if (def && !video.getAttribute('src').endsWith(def.file)) { video.src = def.file; video.load(); }
+      box.hidden = false;
     })();
 
     // 지시 20261106_02: 장면 대본이 없으면 영상만 크게, 오디오 파일이 없으면 안내 카드
