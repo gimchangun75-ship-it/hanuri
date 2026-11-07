@@ -613,6 +613,19 @@
       transform: scale(1.05);
     }
 
+    /* 지시 20261107_24 후속: 화풍 전환 버튼 (빌더가 <접두어>동영상_<화풍>.mp4 를 2개 이상 찾았을 때만 표시) */
+    .video-style-selector { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .video-style-selector[hidden] { display: none; }
+    .video-style-selector .style-label { font-size: 13px; font-weight: 800; color: var(--text-sub, #94A3B8); }
+    .video-style-selector .style-btn {
+      padding: 6px 14px; font-size: 13px; font-weight: 700; border-radius: 999px; cursor: pointer;
+      border: 1px solid var(--border, rgba(148, 163, 184, 0.35)); background: transparent; color: inherit;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .video-style-selector .style-btn:hover { border-color: var(--primary); }
+    .video-style-selector .style-btn.active { background: var(--primary); border-color: var(--primary); color: #FFFFFF; }
+    body.theater-mode .video-style-selector { display: none; }
+
     /* 지시 20261106_02: 영상 듀얼 뷰포트 (좌 영상 · 우 장면별 대본) */
     .video-dual {
       display: flex;
@@ -1050,6 +1063,7 @@
         <button class="btn-theater-toggle" id="btnTheater" onclick="toggleTheaterMode()">
           <span id="theaterIcon">📺</span> <span id="theaterText">전자칠판 전체 채우기</span>
         </button>
+        <div class="video-style-selector" id="videoStyleSelector" hidden></div>
         <div class="video-dual">
           <div class="video-player-wrap">
             <video controls id="lessonVideo" src="핵무기의_모든_것과_평화의_과제_두번째_자막완성본.mp4">
@@ -1324,6 +1338,36 @@
         while (i + 1 < starts.length && video.currentTime >= starts[i + 1]) i++;
         setActive(i);
       });
+    })();
+
+    // 지시 20261107_24 후속: 화풍 전환 — 영상 src만 바꾸면 위 layout()이 loadedmetadata에서 가로/세로 배치를 다시 잡는다.
+    (function () {
+      const VIDEO_VARIANTS = [{"file": "핵무기의_모든_것과_평화의_과제_두번째_자막완성본.mp4", "label": "📝 자막완성본", "default": true}, {"file": "핵무기의_모든_것과_평화의_과제_동영상_레트로.mp4", "label": "🎞️ 레트로", "default": false}, {"file": "핵무기의_모든_것과_평화의_과제_동영상_화이트보드.mp4", "label": "✏️ 화이트보드", "default": false}, {"file": "핵무기의_모든_것과_평화의_과제_동영상_숏츠.mp4", "label": "📱 세로 숏폼", "default": false}];
+      const box = document.getElementById('videoStyleSelector');
+      const video = document.getElementById('lessonVideo');
+      if (!box || !video || !Array.isArray(VIDEO_VARIANTS) || VIDEO_VARIANTS.length < 2) return;
+      const label = document.createElement('span');
+      label.className = 'style-label';
+      label.textContent = '🎨 화풍';
+      box.appendChild(label);
+      VIDEO_VARIANTS.forEach((v) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'style-btn' + (v.default ? ' active' : '');
+        b.textContent = v.label;
+        b.addEventListener('click', () => {
+          if (b.classList.contains('active')) return;
+          const playing = !video.paused;
+          video.src = v.file;
+          video.load();
+          if (playing) video.play().catch(() => {});
+          box.querySelectorAll('.style-btn').forEach((x) => x.classList.toggle('active', x === b));
+        });
+        box.appendChild(b);
+      });
+      const def = VIDEO_VARIANTS.find((v) => v.default);
+      if (def && !video.getAttribute('src').endsWith(def.file)) { video.src = def.file; video.load(); }
+      box.hidden = false;
     })();
 
     // 지시 20261106_02: 장면 대본이 없으면 영상만 크게, 오디오 파일이 없으면 안내 카드

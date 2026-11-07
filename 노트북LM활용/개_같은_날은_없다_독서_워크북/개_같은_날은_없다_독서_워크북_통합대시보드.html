@@ -613,6 +613,19 @@
       transform: scale(1.05);
     }
 
+    /* 지시 20261107_24 후속: 화풍 전환 버튼 (빌더가 <접두어>동영상_<화풍>.mp4 를 2개 이상 찾았을 때만 표시) */
+    .video-style-selector { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .video-style-selector[hidden] { display: none; }
+    .video-style-selector .style-label { font-size: 13px; font-weight: 800; color: var(--text-sub, #94A3B8); }
+    .video-style-selector .style-btn {
+      padding: 6px 14px; font-size: 13px; font-weight: 700; border-radius: 999px; cursor: pointer;
+      border: 1px solid var(--border, rgba(148, 163, 184, 0.35)); background: transparent; color: inherit;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .video-style-selector .style-btn:hover { border-color: var(--primary); }
+    .video-style-selector .style-btn.active { background: var(--primary); border-color: var(--primary); color: #FFFFFF; }
+    body.theater-mode .video-style-selector { display: none; }
+
     /* 지시 20261106_02: 영상 듀얼 뷰포트 (좌 영상 · 우 장면별 대본) */
     .video-dual {
       display: flex;
@@ -1050,6 +1063,7 @@
         <button class="btn-theater-toggle" id="btnTheater" onclick="toggleTheaterMode()">
           <span id="theaterIcon">📺</span> <span id="theaterText">전자칠판 전체 채우기</span>
         </button>
+        <div class="video-style-selector" id="videoStyleSelector" hidden></div>
         <div class="video-dual">
           <div class="video-player-wrap">
             <video controls id="lessonVideo" src="개_같은_날은_없다_독서_워크북_동영상.mp4">
@@ -1062,13 +1076,13 @@
             <p class="storyboard-note">참고 대본 — 영상의 실제 장면·시점과 다를 수 있습니다</p>
             <div class="scene-card" data-dur="30">
               <div class="scene-card-head"><span class="scene-no">씬 1</span><span class="scene-title">오프닝: 무거운 폭력의 그늘</span></div>
-              <div class="scene-label">🎥 화면</div><p class="scene-visual">어두운 방 안, 찌그러진 가스통 옆 텅 빈 개집 앞에 피눈물을 흘리며 앉아 있는 강민이의 모습이 클로즈업됩니다. 화면 중앙에 &#x27;왜 분노는 항상 약자에게 쏠리는가?&#x27;라는 텍스트가 서서히 떠오릅니다.</p>
-              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">가장 안전해야 할 가정에서조차 폭력과 억압의 그늘에 노출된 청소년들의 현실을 생각해 보신 적이 있나요? 소설 『개 같은 날은 없다』는 일상 속에 숨겨진 폭력의 고리와 그로 인한 심리적 상처를 강렬하게 파헤칩니다.</p>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">어두운 방 안, 찌그러진 가스통 옆 텅 빈 개집 앞에 피눈물을 흘리며 앉아 있는 강민이의 모습이 클로즈업됩니다. 화면 중앙에 &#x27;왜 분노는 항상 가장 약한 존재에게 쏠리는가?&#x27;라는 타이포그래피가 서서히 떠오릅니다.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">가장 안전해야 할 가정에서조차 폭력과 억압의 그늘에 노출된 청소년들의 현실을 생각해보신 적이 있나요? 소설 『개 같은 날은 없다』는 우리 일상 속에 숨겨진 폭력의 고리와 그로 인한 심리적 상처를 강렬하게 파헤칩니다.</p>
             </div>
             <div class="scene-card" data-dur="35">
               <div class="scene-card-head"><span class="scene-no">씬 2</span><span class="scene-title">배경과 핵심 개념: 전이된 공격성과 링크 이론</span></div>
-              <div class="scene-label">🎥 화면</div><p class="scene-visual">가스 배달 아빠 ➔ 형 ➔ 강민 ➔ 유기견 찡코로 이어지는 붉은 폭력 전이 화살표 인포그래픽이 펼쳐집니다. 이어 &#x27;전이된 공격성&#x27;과 &#x27;링크 이론(The LINK)&#x27; 모션 그래픽이 나타납니다.</p>
-              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">아빠의 사회적 좌절은 형에게, 형의 억울함은 강민이에게, 그리고 강민이의 분노는 힘없는 유기견 찡코에게로 흘러갔습니다. 이는 강자의 스트레스가 약자에게 쏟아지는 &#x27;전이된 공격성&#x27;이며, 가정폭력과 동물학대가 하나로 묶여 있음을 보여주는 &#x27;링크 이론&#x27;의 전형적인 모습입니다.</p>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">가스 배달 아빠 ➔ 형 ➔ 강민 ➔ 유기견 찡코로 이어지는 붉은 폭력 전이 화살표 인포그래픽이 펼쳐집니다. 이어 &#x27;전이된 공격성&#x27;과 &#x27;링크 이론(The LINK)&#x27; 모션 그래픽이 차례로 나타납니다.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">아빠의 사회적 좌절은 형에게, 형의 억울함은 강민이에게, 그리고 강민이의 분노는 힘없는 유기견 찡코에게로 흘러갔습니다. 이는 강자의 스트레스가 약자에게 쏟아지는 &#x27;전이된 공격성&#x27;이며, 가정폭력과 동물학대가 하나로 연결되어 있음을 보여주는 &#x27;링크 이론&#x27;의 전형적인 모습입니다.</p>
             </div>
             <div class="scene-card" data-dur="35">
               <div class="scene-card-head"><span class="scene-no">씬 3</span><span class="scene-title">주요 전개: 찡코의 상구와 짓밟힌 내면아이</span></div>
@@ -1077,7 +1091,7 @@
             </div>
             <div class="scene-card" data-dur="35">
               <div class="scene-card-head"><span class="scene-no">씬 4</span><span class="scene-title">갈등 및 쟁점: 형제간 폭력 사각지대와 거식증</span></div>
-              <div class="scene-label">🎥 화면</div><p class="scene-visual">음식을 거부하며 창백해진 미나의 모습과 오빠의 폭력을 &#x27;참으라&#x27;며 묵인하는 어머니의 음영 화면이 대비됩니다. 화면에 &#x27;형제간 폭력 사각지대(Sibling Abuse)&#x27; 문구가 강조됩니다.</p>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">음식을 거부하며 창백해진 미나의 모습과 오빠의 폭력을 &#x27;참으라&#x27;며 묵인하는 어머니의 음영 화면이 대비됩니다. 화면에 &#x27;형제간 폭력 사각지대(Sibling Abuse)&#x27; 문구가 붉게 강조됩니다.</p>
               <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">&#x27;아이들 싸움&#x27;이라는 이유로 방치되는 형제·남매 간 폭력은 가정 내 가장 은폐된 사각지대입니다. 미나가 겪는 거식증은 오빠의 폭력과 어머니의 침묵 속에서 자기 몸을 파괴함으로써 부당함에 저항하려 했던 무의식적 절규였습니다.</p>
             </div>
             <div class="scene-card" data-dur="40">
@@ -1086,9 +1100,9 @@
               <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">단순한 처벌 중심의 응보적 접근은 피해자의 마음을 치유하지 못하고 가해자를 더 큰 폭력으로 내몹니다. 당사자들이 둘러앉아 &#x27;무슨 일이 일어났는지&#x27;, &#x27;누가 어떤 고통을 받았는지&#x27;, &#x27;피해 복구에 무엇이 필요한지&#x27;, &#x27;어떤 약속을 할 것인지&#x27; 묻는 4대 서클 질문을 통해 관계를 회복해야 합니다.</p>
             </div>
             <div class="scene-card" data-dur="30">
-              <div class="scene-card-head"><span class="scene-no">씬 6</span><span class="scene-title">엔딩: 관계 속에서 피어나는 치유</span></div>
-              <div class="scene-label">🎥 화면</div><p class="scene-visual">찡코의 집을 깨끗이 정돈하고 따스한 햇살이 비치는 거실에서 인물들이 서로의 손을 잡는 장면. &#x27;사람은 관계 속에서 상처받지만, 관계 속에서만 치유된다&#x27; 텍스트로 마무리됩니다.</p>
-              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">폭력의 연쇄를 끊는 힘은 진솔한 고백과 공감, 그리고 서로를 향한 진심 어린 사과에 있습니다. 오늘 여러분의 교실과 가정에서도 처벌 대신 회복을 향한 첫 번째 질문을 시작해 보는 것은 어떨까요?</p>
+              <div class="scene-card-head"><span class="scene-no">씬 6</span><span class="scene-title">엔딩: 상처의 연대와 진정한 치유</span></div>
+              <div class="scene-label">🎥 화면</div><p class="scene-visual">찡코의 집을 깨끗이 정돈하고 따스한 햇살이 비치는 거실에서 상처를 공유한 강민이와 미나가 서로의 손을 잡는 장면. &#x27;사람은 관계 속에서 상처받지만, 솔직한 고백과 연대의 관계 속에서만 치유된다&#x27; 텍스트로 마무리됩니다.</p>
+              <div class="scene-label">🎙️ 나레이션</div><p class="scene-narration">같은 아픔을 지닌 이들이 상처를 숨기지 않고 서로 연대할 때, 비로소 폭력의 굴레를 끊는 치유의 기적이 시작됩니다. 오늘 여러분의 교실과 가정에서도 단죄 대신 회복과 연대를 향한 첫 대화를 시작해 보는 것은 어떨까요?</p>
             </div>
           </aside>
         </div>
@@ -1324,6 +1338,36 @@
         while (i + 1 < starts.length && video.currentTime >= starts[i + 1]) i++;
         setActive(i);
       });
+    })();
+
+    // 지시 20261107_24 후속: 화풍 전환 — 영상 src만 바꾸면 위 layout()이 loadedmetadata에서 가로/세로 배치를 다시 잡는다.
+    (function () {
+      const VIDEO_VARIANTS = [{"file": "개_같은_날은_없다_독서_워크북_동영상_애니메이션.mp4", "label": "🌸 애니메이션", "default": true}, {"file": "개_같은_날은_없다_독서_워크북_동영상_수채화.mp4", "label": "🎨 수채화", "default": false}, {"file": "개_같은_날은_없다_독서_워크북_동영상_숏츠.mp4", "label": "📱 세로 숏폼", "default": false}];
+      const box = document.getElementById('videoStyleSelector');
+      const video = document.getElementById('lessonVideo');
+      if (!box || !video || !Array.isArray(VIDEO_VARIANTS) || VIDEO_VARIANTS.length < 2) return;
+      const label = document.createElement('span');
+      label.className = 'style-label';
+      label.textContent = '🎨 화풍';
+      box.appendChild(label);
+      VIDEO_VARIANTS.forEach((v) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'style-btn' + (v.default ? ' active' : '');
+        b.textContent = v.label;
+        b.addEventListener('click', () => {
+          if (b.classList.contains('active')) return;
+          const playing = !video.paused;
+          video.src = v.file;
+          video.load();
+          if (playing) video.play().catch(() => {});
+          box.querySelectorAll('.style-btn').forEach((x) => x.classList.toggle('active', x === b));
+        });
+        box.appendChild(b);
+      });
+      const def = VIDEO_VARIANTS.find((v) => v.default);
+      if (def && !video.getAttribute('src').endsWith(def.file)) { video.src = def.file; video.load(); }
+      box.hidden = false;
     })();
 
     // 지시 20261106_02: 장면 대본이 없으면 영상만 크게, 오디오 파일이 없으면 안내 카드
